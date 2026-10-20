@@ -1,0 +1,43 @@
+App\View\RelatedProductView:
+    exclusion_policy: ALL
+    properties:
+        code:
+            expose: true
+            type: string
+            groups: [ 'product.show' ]
+        name:
+            expose: true
+            type: string
+            groups: [ 'product.show' ]
+        slug:
+            expose: true
+            type: string
+            groups: [ 'product.show' ]
+        originalLowerPrice:
+            expose: true
+            type: int
+            groups: [ 'product.show' ]
+        lowerPrice:
+            expose: true
+            type: int
+            groups: [ 'product.show' ]
+        description:
+            expose: true
+            type: string
+            groups: [ 'product.show' ]
+        shortDescription:
+            expose: true
+            type: string
+            groups: [ 'product.show' ]
+        gtin:
+            expose: true
+            type: string
+            groups: [ 'product.show' ]
+        averageRating:
+            expose: true
+            type: string
+            groups: [ 'product.show' ]
+        images:
+            expose: true
+            type: array<App\View\ImageView>
+            groups: [ 'product.show' ]

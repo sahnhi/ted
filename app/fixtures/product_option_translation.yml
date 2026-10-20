@@ -1,0 +1,7 @@
+App\Doctrine\Entity\Sylius\ProductOptionTranslation:
+    mattress_size_transation:
+        translatable: '@mattress_size'
+        name: 'Taille Matelas'
+        locale: 'fr_FR'
+
+        

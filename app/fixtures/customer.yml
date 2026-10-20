@@ -1,0 +1,12 @@
+App\Doctrine\Entity\Sylius\Customer:
+    customer1:
+        email: 'customer1@email.com'
+        email_canonical: 'customer1@email.com'
+        first_name: 'customer1 firstname'
+        last_name: 'customer1 lastname'
+        birthday: '<date_create()>'
+        gender: 'u'
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+        phone_number: '0166666666'
+        locale: 'fr'

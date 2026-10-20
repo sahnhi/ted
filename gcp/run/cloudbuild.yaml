@@ -1,0 +1,18 @@
+steps:
+    # build the php image
+    - name: 'docker:27.0.3'
+      args: ['build', '--target', 'php-main', '-t', '$_IMAGE', '.', '--cache-from', '$_IMAGE_REPO:latest','--build-arg', 'BUILDKIT_INLINE_CACHE=1']
+      env: ['DOCKER_BUILDKIT=1']
+    # build the php-workers image
+    - name: 'docker:27.0.3'
+      id: 'build-last-image'
+      args: ['build', '--target', 'php-workers', '-t', '$_IMAGE_WORKERS', '.', '--cache-from', '$_IMAGE_REPO:latest','--build-arg', 'BUILDKIT_INLINE_CACHE=1']
+      env: ['DOCKER_BUILDKIT=1']
+    # push the php image
+    - name: 'docker:27.0.3'
+      args: ['push', '$_IMAGE']
+      waitFor: ['build-last-image']
+    # push the php-workers image
+    - name: 'docker:27.0.3'
+      args: ['push', '$_IMAGE_WORKERS']
+      waitFor: ['build-last-image']

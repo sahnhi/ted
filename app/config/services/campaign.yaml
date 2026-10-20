@@ -1,0 +1,41 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+    
+    _instanceof:
+        App\Provider\Campaign\CampaignHandlerInterface:
+            tags:
+                - { name: "campaign.handler" }
+
+    App\Provider\Campaign\CampaignProvider:
+        arguments:
+            - !tagged_iterator "campaign.handler"
+
+    App\Provider\Campaign\Handlers\CampaignHandler:
+        tags:
+            - { name: "campaign.handler" }
+    
+    App\Provider\Campaign\Handlers\CampaignPreviewHandler:
+        tags:
+            - { name: "campaign.handler" }
+    
+    App\Provider\Campaign\Handlers\BlocPreviewHandler:
+        tags:
+            - { name: "campaign.handler" }
+    
+    App\Menu\Campaigns\CampaignMenuListener:
+        tags:
+            - {
+                  name: "knp_menu.menu_builder",
+                  method: "createMenu",
+                  alias: "app.admin.campaign_form",
+              }
+
+    App\Menu\Campaigns\BlocMenuListener:
+        tags:
+            - {
+                  name: "knp_menu.menu_builder",
+                  method: "createMenu",
+                  alias: "app.admin.bloc_form",
+              }

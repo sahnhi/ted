@@ -1,0 +1,63 @@
+<script type="text/javascript">
+    const checkAll = $('#check-all');
+    const uncheckAll = $('#uncheck-all');
+
+    $(document).ready(function() {
+        $('.option-value-toggler').each(function () {
+            let select = $(this).closest('tr').find('select');
+            toggleSelectActivation($(this), select);
+
+            $(this).on('change', function () {
+                toggleSelectActivation($(this), select);
+            });
+        });
+
+        checkAll.click(function () {
+            if (!$(this).hasClass('disabled')) {
+                $('.option-value-toggler').each(function() {
+                    $(this).prop('checked', true);
+                    $(this).trigger('change');
+                });
+            }
+        });
+
+        uncheckAll.click(function () {
+            if (!$(this).hasClass('disabled')) {
+                $('.option-value-toggler').each(function() {
+                    $(this).prop('checked', false);
+                    $(this).trigger('change');
+                });
+            }
+        });
+    });
+
+    function optionsTogglerButtons() {
+        let nbSelected = $('.option-value-toggler:checked').length;
+        let nbToggler = $('.option-value-toggler').length;
+
+        if (nbSelected === 0) {
+            uncheckAll.addClass('disabled');
+            checkAll.removeClass('disabled');
+        }
+
+        if (nbSelected === nbToggler) {
+            uncheckAll.removeClass('disabled');
+            checkAll.addClass('disabled');
+        }
+
+        if (nbSelected > 0 && nbSelected < nbToggler) {
+            uncheckAll.removeClass('disabled');
+            checkAll.removeClass('disabled');
+        }
+    }
+
+    function toggleSelectActivation(checkbox, select) {
+        select.prop('disabled', !checkbox.is(':checked'));
+
+        if (!checkbox.is(':checked')) {
+            select.val('').change();
+        }
+
+        optionsTogglerButtons();
+    }
+</script>

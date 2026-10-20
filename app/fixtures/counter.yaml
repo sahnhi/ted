@@ -1,0 +1,6 @@
+App\Doctrine\Entity\Counter:
+    counter:
+        id: 1
+        key: 'test'
+        year: 2024
+        counter: 10

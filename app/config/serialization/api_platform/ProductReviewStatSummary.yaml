@@ -1,0 +1,14 @@
+App\ApiPlatform\Model\ProductReviewStatsSummary:
+    attributes:
+        productCode:
+            groups:
+                - shop:product_review_stat:read
+        averageRating:
+            groups:
+                - shop:product_review_stat:read
+        totalReviews:
+            groups:
+                - shop:product_review_stat:read
+        ratingDistribution:
+            groups:
+                - shop:product_review_stat:read

@@ -1,0 +1,35 @@
+sylius_grid:
+    grids:
+        sylius_admin_promotion_coupon:
+            filters:
+                usageUsed:
+                    type: string
+                    label: sylius.ui.usage
+                    form_options:
+                        type: equal
+                    options:
+                        fields: [ used ]
+                usageLimit:
+                    type: string
+                    label: sylius.ui.usageLimit
+                    form_options:
+                        type: equal
+                    options:
+                        fields: [ usageLimit ]
+                existExpiresDate:
+                    type: exists
+                    label: sylius.ui.exists_expires_date
+                    options:
+                        field: expiresAt
+            actions:
+                bulk:
+                    export:
+                        type: export
+                        label: Export CSV
+                        options:
+                            link:
+                                route: sylius_admin_promotion_coupon_index
+                                parameters:
+                                    promotionId: $promotionId
+                                    criteria: "expr:service('request_stack').getCurrentRequest().get('criteria', [])"
+                                    export: csv

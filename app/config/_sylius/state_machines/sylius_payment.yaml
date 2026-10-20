@@ -1,0 +1,10 @@
+winzou_state_machine:
+    sylius_payment:
+        callbacks:
+            after:
+                sylius_invoicing_plugin_payment_complete_producer:
+                    disabled: true
+                odoo_order_confirm_return:
+                    on: [ "refund" ]
+                    do: [ App\Api\Odoo\StateMachine\Event\OnDeliver, __invoke ]
+                    args: [ "object.getOrder()" ]

@@ -1,0 +1,38 @@
+App\Doctrine\Entity\Sylius\Zone:
+    fr_tva:
+        code: 'France_TVA'
+        name: 'TVA Française'
+        type: 'country'
+        scope: 'tax'
+        
+    france_shipping:
+        code: 'FR'
+        name: 'France'
+        type: 'country'
+        scope: 'shipping'
+        __calls:
+            - addMember: ['@france_member_country']
+        
+    zone_vir:
+        code: '229_VIR'
+        name: 'VIR35'
+        type: 'zone'
+        scope: 'shipping'
+        __calls:
+            - addMember: ['@zone_vir_member_1']
+        
+    zone_dpwr:
+        code: 'ZONE_DPWR'
+        name: 'Zone DPWR'
+        type: 'zone'
+        scope: 'shipping'
+        __calls:
+            - addMember: ['@zone_dpwr_member_1']
+        
+    zone_ups:
+        code: '215_NA'
+        name: '215_NA'
+        type: 'zone'
+        scope: 'shipping'
+        __calls:
+            - addMember: ['@zone_ups_member_1']

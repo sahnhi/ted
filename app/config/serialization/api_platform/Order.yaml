@@ -1,0 +1,26 @@
+App\Doctrine\Entity\Sylius\Order:
+    attributes:
+        NPS:
+            groups:
+                - shop:order:nps_review
+        crossSellProducts:
+            groups:
+                - shop:cart:read
+        coupon:
+            groups:
+                - shop:cart:read
+        giftCards:
+            groups:
+                - shop:cart:read
+        customerEmail:
+            groups:
+                - shop:cart:read
+        promotionCouponCode:
+            groups:
+                - shop:cart:read
+        messages:
+            groups:
+                - shop:cart:read
+        orderReason:
+            groups:
+                - shop:cart:read

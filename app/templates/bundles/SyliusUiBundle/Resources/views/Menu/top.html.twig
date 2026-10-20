@@ -1,0 +1,104 @@
+{% extends 'knp_menu.html.twig' %}
+
+{% import '@SyliusUi/Macro/buttons.html.twig' as buttons %}
+
+{% block root %}
+    {% set id = item.extra('column_id') %}
+    <div class="six wide left aligned column"{% if id %} id="{{ id }}"{% endif %}
+            {% if item.label == 'order-show-menu' %} style="margin: 0 0 1em 1em;"{% endif %}>
+        {{ block('items') }}
+    </div>
+{% endblock %}
+
+{% block items %}
+    <div class="ui buttons">
+        {% for item in item.children %}
+            {{ block('item') }}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block item %}
+    {% if 'edit' == item.attribute('type') %}
+        {{ buttons.edit(item.uri, item.label) }}
+    {% elseif 'show' == item.attribute('type') %}
+        {{ buttons.show(item.uri, item.label) }}
+    {% elseif 'delete' == item.attribute('type') %}
+        {{ buttons.delete(item.uri, item.label|trans, true, item.attribute('resource_id')) }}
+    {% elseif 'transition' == item.attribute('type') %}
+        {{ block('transition') }}
+    {# CUSTOM CODE #}
+    {% elseif 'select' == item.attribute('type') %}
+        {{ block('select') }}
+    {% elseif 'dropdown' == item.attribute('type') %}
+        {{ block('dropdown') }}
+    {# END CUSTOM CODE #}
+    {% else %}
+        {{ block('link') }}
+    {% endif %}
+{% endblock %}
+
+{# BEGIN CUSTOM CODE #}
+{% block dropdown %}
+    {% set color = item.labelAttribute('color') %}
+    {% set parent = item %}
+    {# BEGIN CUSTOM CODE #}
+    <div class="ui buttons">
+        <div class="ui labeled icon floating dropdown link button">
+            {{ block('icon') }}
+            {{ item.label|trans  }}
+            <div class="menu">
+                {% for item in parent.children %}
+                    {{ block('link') }}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{# END CUSTOM CODE #}
+
+{% block link %}
+    {% set color = item.labelAttribute('color') %}
+    {# BEGIN CUSTOM CODE #}
+    {% set class = item.attribute('class') ?? "ui labeled icon button" %}
+    <a href="{{ item.uri }}" class="{{ class }} {% if color %}{{ color }}{% endif %}" {% if item.attribute('confirmation')|default(false) %}data-requires-confirmation{% endif %}>
+    {# END CUSTOM CODE #}
+        {{ block('icon') }}
+        {{ item.label|trans }}
+    </a>
+{% endblock %}
+
+{% block transition %}
+    {% set color = item.labelAttribute('color') %}
+
+    <form action="{{ item.uri }}" method="post" style="float: right;">
+        <input type="hidden" name="_method" value="PUT">
+        <button class="ui {% if color %}{{ color }} {% endif %}labeled icon {% if not item.attribute('confirmation')|default(false) %}loadable{% endif %} button" type="submit" {% if item.attribute('confirmation')|default(false) %}data-requires-confirmation{% endif %}>
+            {{ block('icon') }}
+            {{ item.label|trans }}
+        </button>
+    </form>
+{% endblock %}
+
+{% block icon %}
+    {% set icon = item.labelAttribute('icon') %}
+    {% if icon %}<i class="icon {{ icon }}"></i> {% endif %}
+{% endblock %}
+
+{# CUSTOM CODE #}
+{% block select %}
+    {% set color = item.labelAttribute('color') %}
+    <span class="ui {% if color %}{{ color }} {% endif %} icon button span-return">
+        {{ block('icon') }}
+    </span>
+    <select name="return-select" class="ui {% if color %}{{ color }} {% endif %} icon button cart select-return" style="-moz-appearance: none;-webkit-appearance: none;"
+    onchange="location.href=this.value;">
+        <option selected disabled hidden>{{ item.label|trans }}</option>
+        {% for child in item.children %}
+        <option value="{{ child.uri }}">
+            {{ child.label|trans }}
+        </option>
+        {% endfor %}
+    </select>
+{% endblock %}
+{# END CUSTOM CODE #}

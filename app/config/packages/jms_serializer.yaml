@@ -1,0 +1,20 @@
+jms_serializer:
+    visitors:
+        xml_serialization:
+            format_output: '%kernel.debug%'
+        json_serialization:
+            options:
+                - JSON_PRETTY_PRINT
+                - JSON_UNESCAPED_SLASHES
+                - JSON_PRESERVE_ZERO_FRACTION
+        json_deserialization:
+            options:
+                - JSON_PRETTY_PRINT
+                - JSON_UNESCAPED_SLASHES
+                - JSON_PRESERVE_ZERO_FRACTION
+    metadata:
+        auto_detection: true
+        directories:
+            app_view:
+                namespace_prefix: 'App\View'
+                path: '%kernel.project_dir%/config/serialization'

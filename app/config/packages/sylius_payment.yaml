@@ -1,0 +1,17 @@
+sylius_payment:
+    resources:
+        payment:
+            classes:
+                repository: App\Doctrine\Repository\Sylius\PaymentRepository
+        payment_method:
+            classes:
+                model: App\Doctrine\Entity\Sylius\PaymentMethod
+    gateways:
+        be2bill_direct: be2bill_direct
+        dalenys_3times: dalenys_3times
+        dalenys_webtpe: dalenys_webtpe
+        braintree: braintree
+        leetchi: leetchi
+        paga_mas_tarde: paga_mas_tarde
+        printemps: printemps
+        adyen: adyen

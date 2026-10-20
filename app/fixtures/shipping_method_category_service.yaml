@@ -1,0 +1,28 @@
+App\Doctrine\Entity\ShippingMethodCategoryService:
+    shipping_method_category_eco_service_assembly:
+        code: 'ECO_ASSEMBLY'
+        enabled: true
+        included: false
+        createdAt: '<date_create()>'
+        shippingMethodCategory: '@shipping_method_category_eco'
+        translations: ['@shipping_method_category_eco_service_assembly_translation']
+        productVariant: '@product_assembly_variant'
+        
+    shipping_method_category_eco_service_recuperation:
+        code: 'ECO_RECUPERATION'
+        enabled: true
+        included: true
+        createdAt: '<date_create()>'
+        shippingMethodCategory: '@shipping_method_category_eco'
+        translations: ['@shipping_method_category_eco_service_recuperation_translation']
+        productVariant: '@product_recuperation_variant'
+
+    shipping_method_category_eco_service_assembly_restricted:
+        code: 'ECO_ASSEMBLY_RESTRICTED'
+        enabled: true
+        included: false
+        createdAt: '<date_create()>'
+        shippingMethodCategory: '@shipping_method_category_eco'
+        translations: ['@shipping_method_category_eco_service_assembly_restricted_translation']
+        productVariant: '@product_assembly_variant'
+        restrictedProducts: ['@mattress_product']

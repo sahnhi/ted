@@ -1,0 +1,41 @@
+sylius_grid:
+    grids:
+        app_admin_product_feed_file:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\ProductFeedFile
+            fields:
+                productVariantCode:
+                    type: string
+                    label: app.ui.product_feed_file.variant_grid.variant
+                    path: productVariant.code
+                updatedAt:
+                    type: datetime
+                    label: app.ui.product_feed_file.variant_grid.updated_at
+                    options:
+                        format: "d/m/Y H:i:s"
+                enabled:
+                    type: twig
+                    label: sylius.ui.enabled
+                    options:
+                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
+            filters:
+                productVariant:
+                    type: string
+                    label: app.ui.product_feed_file.filter_search
+                    options:
+                        fields: [productVariant.code]
+            actions:
+                main:
+                    create:
+                        type: create
+                        label: sylius.ui.create
+                    import_file:
+                        type: import_file
+                        label: app.ui.product_feed_file.import_file
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete

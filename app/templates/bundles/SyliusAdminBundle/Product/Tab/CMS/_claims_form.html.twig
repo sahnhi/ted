@@ -1,0 +1,12 @@
+{% from '@SyliusAdmin/Product/Tab/CMS/_macro_form.html.twig' import translationFormForms %}
+{% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
+
+<h4 class="ui dividing header">Claims</h4>
+<div class='ui segment'>
+    {% if form.claims is empty %}
+        {{ translationFormForms(form.claims.vars.prototype) }}
+    {% endif %}
+    {% for _index, translation in form.claims %}
+        {{ translationFormForms(translation) }}
+    {% endfor %}
+</div>

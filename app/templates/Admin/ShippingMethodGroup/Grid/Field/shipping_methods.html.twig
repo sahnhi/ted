@@ -1,0 +1,7 @@
+{# shippingMethod \App\Doctrine\Entity\Sylius\ShippingMethod #}
+
+<ul class="ui mini list">
+    {% for shippingMethod in data %}
+        <li>{{ shippingMethod.name }} ({{ shippingMethod.code }})</li>
+    {% endfor %}
+</ul>

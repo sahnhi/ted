@@ -1,0 +1,12 @@
+{% if data is not null %}
+    {% include '@SyliusUi/Grid/Field/state.html.twig' with {'data' : data.status} %}<br />
+
+    {% if data.deliverDate is not null %}
+        {% if data.dateConfirmed %}<i class="check circle icon green"></i>{% endif %}
+        {{ 'sylius.form.order.out_of_stock.provisional_date'|trans }} : {{ data.deliverDate | format_date }}<br />
+    {% endif %}
+
+    {% if data.createdAt is not null %}
+        <br />{{ 'sylius.ui.date_out_of_stock'|trans }} : {{ data.createdAt | format_date }}
+    {% endif %}
+{% endif %}

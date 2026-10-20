@@ -1,0 +1,8 @@
+\Sylius\Component\Payment\Model\PaymentMethodTranslation: 
+    adyen_cb_payment_method_translation_fr:
+        translatable: '@adyen_cb_payment_method'
+        locale: 'fr_FR'
+        name: 'Adyen'
+        description: 'Adyen Description'
+        instructions: 'Adyen Instructions'
+        

@@ -1,0 +1,223 @@
+App\Doctrine\Entity\Sylius\ProductVariant:
+    mattress_product_variant_140_200:
+        product: '@mattress_product'
+        tax_category: '@tva'
+        shipping_category: '@shipping_category1'
+        code: 'TED140190'
+        position: 7
+        version : 30024
+        on_hold: 2396
+        on_hand: 824
+        tracked: 1
+        width: 40
+        height: 146
+        depth: 40
+        weight: 29 
+        shipping_required: 1
+        eco_tax: 1000
+        enabled: true
+        currentLocale: 'fr_FR'
+        translations: ['@mattress_product_variant_translation_140_200']
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+        option_values: ['@mattress_size_value']
+        
+    mattress_product_variant_160_200:
+        product: '@mattress_product'
+        tax_category: '@tva'
+        shipping_category: '@shipping_category1'
+        code: 'TED160200'
+        position: 3
+        version: 59369
+        on_hold: 4665
+        on_hand: 10000
+        tracked: 1
+        width: 40
+        height: 166
+        depth: 40
+        weight: 35.3
+        shipping_required: 1
+        eco_tax: 1000
+        enabled: true
+        currentLocale: 'fr_FR'
+        translations: ['@mattress_product_variant_translation_160_200']
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+        option_values: ['@mattress_size_value']
+
+    bed_frame_product_variant_1:
+        product: '@bed_frame_product'
+        tax_category: '@tva'
+        shipping_category: '@shipping_category_bulky'
+        code: 'TEDSO70190_TEDPBOIS15'
+        excludeFromPromotions: false
+        position: 3
+        version: 59369
+        on_hold: 4665
+        on_hand: 10000
+        tracked: false
+        width: 40
+        height: 166
+        depth: 40
+        weight: 35.3
+        shipping_required: 1
+        eco_tax: 1000
+        enabled: true
+        currentLocale: 'fr_FR'
+        translations: ['@bed_frame_product_variant_1_translation_fr']
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'  
+
+    couette_product_variant_1:
+        product: '@couette_product'
+        tax_category: '@tva'
+        shipping_category: '@shipping_category_bulky'
+        code: 'couette'
+        position: 3
+        version: 59369
+        on_hold: 4665
+        on_hand: 1677
+        tracked: 1
+        width: 40
+        height: 166
+        depth: 40
+        weight: 35.3
+        shipping_required: 1
+        eco_tax: 1000
+        enabled: true
+        currentLocale: 'fr_FR'
+        translations: []
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'  
+
+    oreiller_product_variant_1:
+        product: '@oreiller_product'
+        tax_category: '@tva'
+        shipping_category: '@shipping_category_bulky'
+        code: 'oreiller'
+        position: 3
+        version: 59369
+        on_hold: 4665
+        on_hand: 1677
+        tracked: 1
+        width: 40
+        height: 166
+        depth: 40
+        weight: 35.3
+        shipping_required: 1
+        eco_tax: 1000
+        enabled: true
+        currentLocale: 'fr_FR'
+        translations: []
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'  
+
+    pack_lit_variant:
+        product: '@pack_lit'
+        tax_category: '@tva'
+        shipping_category: '@shipping_category_bulky'
+        code: 'PACK_LIT_ADULTE'
+        position: 3
+        version: 59369
+        on_hold: 1677
+        on_hand: 4665
+        tracked: 1
+        width: 40
+        height: 166
+        depth: 40
+        weight: 35.3
+        shipping_required: 0
+        eco_tax: 1000
+        enabled: true
+        currentLocale: 'fr_FR'
+        translations: []
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+        bundleAssociations: ['@bundle_association_pack_lit_1', '@bundle_association_pack_lit_2']
+
+    pack_couette_variant:
+        product: '@pack_couette'
+        tax_category: '@tva'
+        shipping_category: '@shipping_category_bulky'
+        code: 'PACK_COUETTE'
+        position: 3
+        version: 59369
+        on_hold: 4665
+        on_hand: 1677
+        tracked: 1
+        width: 40
+        height: 166
+        depth: 40
+        weight: 35.3
+        shipping_required: 0
+        eco_tax: 1000
+        enabled: true
+        currentLocale: 'fr_FR'
+        translations: []
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'  
+        bundleAssociations: ['@bundle_association_pack_couette_1', '@bundle_association_pack_couette_2']
+    
+    product_assembly_variant:
+        product: '@product_assembly'
+        tax_category: '@tva'
+        shipping_category: '@shipping_category_bulky'
+        code: 'assembly_variant'
+        position: 3
+        version: 59369
+        on_hold: 4665
+        on_hand: 1677
+        tracked: 1
+        width: 40
+        height: 166
+        depth: 40
+        weight: 35.3
+        shipping_required: 1
+        eco_tax: 1000
+        enabled: true
+        currentLocale: 'fr_FR'
+        translations: [ ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'  
+    
+    product_recuperation_variant:
+        product: '@product_recuperation'
+        tax_category: '@tva'
+        shipping_category: '@shipping_category1'
+        code: 'recuperation_variant'
+        position: 3
+        version: 59369
+        on_hold: 4665
+        on_hand: 1677
+        tracked: 1
+        width: 40
+        height: 166
+        depth: 40
+        weight: 35.3
+        shipping_required: false
+        eco_tax: 1000
+        enabled: true
+        currentLocale: 'fr_FR'
+        translations: [ ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'  
+    
+    discounted_product_half_discount_variant:
+        product: '@discounted_product'
+        tax_category: '@tva'
+        shipping_category: '@shipping_category1'
+        code: 'discounted_product_half_discount'
+        position: 7
+        version: 30024
+        tracked: false
+        width: 40
+        height: 146
+        depth: 40
+        weight: 29
+        shipping_required: 1
+        eco_tax: 1000
+        enabled: true
+        currentLocale: 'fr_FR'
+        translations: [ '@discounted_product_half_discount_variant_translation_fr' ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'

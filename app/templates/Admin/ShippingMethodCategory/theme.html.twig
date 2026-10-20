@@ -1,0 +1,222 @@
+{% extends '@SyliusAdmin/Form/theme.html.twig' %}
+
+{% block _shipping_method_category_shippingMethods_row -%}
+    {% from '@SyliusResource/Macros/notification.html.twig' import error %}
+    {% import _self as self %}
+    {% set attr = attr|merge({'class': attr.class|default ~ ' controls collection-widget'}) %}
+
+    {% apply spaceless %}
+        <div data-form-type="collection" {{ block('widget_container_attributes') }}
+            {% if prototype is defined and allow_add %}
+                data-prototype='{{ self.shipping_method_collection_item(prototype, allow_delete, button_delete_label, prototype.vars.name)|e }}'
+                data-prototype-name='{{ prototype.vars.name }}'
+            {%- endif -%}
+        >
+            {{ error(form.vars.errors) }}
+
+            {% if prototypes|default is iterable %}
+                {% for key, subPrototype in prototypes %}
+                    <input type="hidden" data-form-prototype="{{ key }}"
+                           value="{{ self.shipping_method_collection_item(subPrototype, allow_delete, button_delete_label, subPrototype.vars.name)|e }}"
+                           data-subprototype-name="{{ subPrototype.vars.name }}"
+                    />
+                {% endfor %}
+            {% endif %}
+
+            <table class="ui table celled">
+                <tbody data-form-collection="list">
+                    {% for child in form %}
+                        {{ self.shipping_method_collection_item(child, allow_delete, button_delete_label, loop.index0) }}
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            {% if prototype is defined and allow_add %}
+                <a href="#" class="ui labeled icon button" data-form-collection="add">
+                    <i class="plus square outline icon"></i>
+                    {{ button_add_label|trans }}
+                </a>
+            {% endif %}
+        </div>
+    {% endapply %}
+{%- endblock _shipping_method_category_shippingMethods_row %}
+
+{% macro shipping_method_collection_item(form, allow_delete, button_delete_label, index) %}
+    {% apply spaceless %}
+        <tr data-form-collection="item" data-form-collection-index="{{ index }}">
+            <td>
+                {{ form_widget(form) }}
+            </td>
+            <td>
+                {% if allow_delete %}
+                    <a href="#" data-form-collection="delete" class="ui red labeled icon button" style="margin-bottom: 1em;">
+                        <i class="trash icon"></i>
+                        {{ button_delete_label|trans }}
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endapply %}
+{% endmacro %}
+
+{% block _shipping_method_category_shippingMethodCategoryServices_row -%}
+    {% from '@SyliusResource/Macros/notification.html.twig' import error %}
+    {% import _self as self %}
+    {% set attr = attr|merge({'class': attr.class|default ~ ' controls collection-widget'}) %}
+
+    {% apply spaceless %}
+        <div data-form-type="collection" {{ block('widget_container_attributes') }}
+            {% if prototype is defined and allow_add %}
+                data-prototype='{{ self.shipping_method_services_collection_item(prototype, allow_delete, button_delete_label, prototype.vars.name)|e }}'
+                data-prototype-name='{{ prototype.vars.name }}'
+            {%- endif -%}
+        >
+            {{ error(form.vars.errors) }}
+
+            {% if prototypes|default is iterable %}
+                {% for key, subPrototype in prototypes %}
+                    <input type="hidden" data-form-prototype="{{ key }}"
+                           value="{{ self.shipping_method_services_collection_item(subPrototype, allow_delete, button_delete_label, subPrototype.vars.name)|e }}"
+                           data-subprototype-name="{{ subPrototype.vars.name }}"
+                    />
+                {% endfor %}
+            {% endif %}
+
+            <table class="ui table celled">
+                <thead>
+                    <tr>
+                        <th class="seven wide">{{ 'sylius.ui.general_info'|trans }}</th>
+                        <th class="eight wide">{{ 'sylius.ui.translations'|trans }}</th>
+                        <th class="one wide">{{ 'sylius.ui.actions'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody data-form-collection="list">
+                    {% for child in form %}
+                        {{ self.shipping_method_services_collection_item(child, allow_delete, button_delete_label, loop.index0) }}
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            {% if prototype is defined and allow_add %}
+                <a href="#" class="ui labeled icon button" data-form-collection="add">
+                    <i class="plus square outline icon"></i>
+                    {{ button_add_label|trans }}
+                </a>
+            {% endif %}
+        </div>
+    {% endapply %}
+{%- endblock _shipping_method_category_shippingMethodCategoryServices_row %}
+
+{% macro shipping_method_services_collection_item(form, allow_delete, button_delete_label, index) %}
+    {% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
+
+    {% apply spaceless %}
+        <tr data-form-collection="item" data-form-collection-index="{{ index }}">
+            <td>
+                {{ form_row(form.enabled) }}
+                {{ form_row(form.code) }}
+                {{ form_row(form.productVariant) }}
+                <div class="ui info message">
+                    {{ 'app.ui.shipping_method_category.linked_variant_help'|trans }}
+                </div>
+                <div class="ui divider"></div>
+                {{ form_row(form.included) }}
+                <div class="ui yellow message">
+                    {{ 'app.ui.shipping_method_category.included_service_help'|trans|raw }}
+                </div>
+                <div class="ui divider"></div>
+                {{ form_row(form.restrictedProducts) }}
+                <div class="ui info message">
+                    {{ 'app.ui.shipping_method_category.restricted_products_help'|trans|raw }}
+                </div>
+            </td>
+            <td>
+                {{ translationForm(form.translations) }}
+            </td>
+            <td>
+                {% if allow_delete %}
+                    <a href="#" data-form-collection="delete" class="ui red labeled icon button" style="margin-bottom: 1em;">
+                        <i class="trash icon"></i>
+                        {{ button_delete_label|trans }}
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endapply %}
+{% endmacro %}
+
+{%- block _shipping_method_category_claims_row -%}
+    {% from '@SyliusResource/Macros/notification.html.twig' import error %}
+    {% import _self as self %}
+    {% set attr = attr|merge({'class': attr.class|default ~ ' controls collection-widget'}) %}
+
+    {% apply spaceless %}
+        <div data-form-type="collection" {{ block('widget_container_attributes') }}
+            {% if prototype is defined and allow_add %}
+                data-prototype='{{ self.shipping_method_claims_collection_item(prototype, allow_delete, button_delete_label, prototype.vars.name)|e }}'
+                data-prototype-name='{{ prototype.vars.name }}'
+            {%- endif -%}
+        >
+            {{ error(form.vars.errors) }}
+
+            {% if prototypes|default is iterable %}
+                {% for key, subPrototype in prototypes %}
+                    <input type="hidden" data-form-prototype="{{ key }}"
+                           value="{{ self.shipping_method_claims_collection_item(subPrototype, allow_delete, button_delete_label, subPrototype.vars.name)|e }}"
+                           data-subprototype-name="{{ subPrototype.vars.name }}"
+                    />
+                {% endfor %}
+            {% endif %}
+
+            <table class="ui table celled">
+                <thead>
+                <tr>
+                    <th class="three wide">{{ 'sylius.ui.general_info'|trans }}</th>
+                    <th class="twelve wide">{{ 'sylius.ui.translations'|trans }}</th>
+                    <th class="one wide">{{ 'sylius.ui.actions'|trans }}</th>
+                </tr>
+                </thead>
+                <tbody data-form-collection="list">
+                {% for child in form %}
+                    {{ self.shipping_method_claims_collection_item(child, allow_delete, button_delete_label, loop.index0) }}
+                {% endfor %}
+                </tbody>
+            </table>
+
+            {% if prototype is defined and allow_add %}
+                <a href="#" class="ui labeled icon button" data-form-collection="add">
+                    <i class="plus square outline icon"></i>
+                    {{ button_add_label|trans }}
+                </a>
+            {% endif %}
+        </div>
+    {% endapply %}
+{%- endblock -%}
+
+{% macro shipping_method_claims_collection_item(form, allow_delete, button_delete_label, index) %}
+    {% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
+    {% from '@SyliusResource/Macros/notification.html.twig' import info %}
+
+    <tr data-form-collection="item" data-form-collection-index="{{ index }}">
+        <td>
+            {{ form_row(form.enabled) }}
+            {{ form_row(form.pushed) }}
+            <div class="ui info message">
+                {{ 'app.ui.shipping_method_category.claims.pushed_help'|trans }}
+            </div>
+        </td>
+        <td>
+            {{ translationForm(form.translations) }}
+        </td>
+        <td>
+            {% if allow_delete %}
+                <a href="#" data-form-collection="delete" class="ui red labeled icon button"
+                   style="margin-bottom: 1em;">
+                    <i class="trash icon"></i>
+                    {{ button_delete_label|trans }}
+                </a>
+            {% endif %}
+        </td>
+    </tr>
+
+{% endmacro %}

@@ -1,0 +1,17 @@
+App\Doctrine\Entity\Sylius\ProductOption:
+    attributes:
+        code:
+            groups:
+                - shop:product:read:extended
+                - shop:product:read:options
+        name:
+            groups:
+                - shop:product:read:extended
+        enabledValues:
+            groups:
+                - shop:product:read:extended
+                - shop:product:read:options
+        siteName:
+            groups:
+                - shop:product:read:extended
+                - shop:product:read:options

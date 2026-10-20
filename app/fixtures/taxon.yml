@@ -1,0 +1,50 @@
+Sylius\Component\Core\Model\Taxon:
+    mattress_taxon:
+        code: 'mattress_taxon'
+        left: 1
+        right: 2
+        level: 0
+        position: 0
+        enabled: true
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+
+    bed_frame_taxon:
+        code: 'lit'
+        left: 1
+        right: 2
+        level: 0
+        position: 0
+        enabled: true
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+    
+    couette_taxon:
+        code: 'couette'
+        left: 1
+        right: 2
+        level: 0
+        position: 0
+        enabled: true
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+    
+    oreiller_taxon:
+        code: 'oreiller'
+        left: 1
+        right: 2
+        level: 0
+        position: 0
+        enabled: true
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+
+    bundle:
+        code: 'bundle'
+        left: 1
+        right: 2
+        level: 0
+        position: 0
+        enabled: true
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'

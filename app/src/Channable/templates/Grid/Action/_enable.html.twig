@@ -1,0 +1,8 @@
+{% import '@SyliusUi/Macro/buttons.html.twig' as buttons %}
+
+{% set path = options.link.url|default(path(options.link.route, options.link.parameters)) %}
+
+<a class="ui labeled icon button green"  href="{{ path }}">
+    <i class="icon lightbulb"></i>
+    {{ 'Activate' }}
+</a>

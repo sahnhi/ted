@@ -1,0 +1,8 @@
+App\Doctrine\Entity\Sylius\ProductOptionTranslation:
+    attributes:
+        code:
+            groups:
+                - shop:product:read:extended
+        site_name:
+            groups:
+                - shop:product:read:extended

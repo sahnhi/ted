@@ -1,0 +1,13 @@
+{% set history = history|split(';') %}
+
+<h4 for="sylius_admin_order_return_history">{{'sylius.ui.order_return.history'|trans}}</h4>
+<p>
+    {% for line in history %}
+        {% set values = line|split(';') %}
+        {% if not loop.last %}
+            {% set data = values[0]|split('||') %}
+            {{ data[0] }} - <b>{{ data[1] }}</b> - {{ 'sylius.ui.order_return.by'|trans }} {{ data[2] }}<br />
+        {% endif %}
+    {% endfor %}
+</p>
+

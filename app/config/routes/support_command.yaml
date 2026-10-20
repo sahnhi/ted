@@ -1,0 +1,5 @@
+import_users_rimdian:
+    path: /rimdian/import/users
+    methods: [ POST ]
+    defaults:
+        _controller: App\Analytic\EntryPoint\ImportUser:importBatchUsers

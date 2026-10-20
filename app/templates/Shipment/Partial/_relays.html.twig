@@ -1,0 +1,135 @@
+{% if relays is defined and relays is not null and relays is not empty %}
+    {% for relay in relays %}
+        <div class="card relay"
+             data-id="{{ relay.identifier is defined ? relay.identifier : relay.id }}"
+             data-company="{{ relay.name }}"
+             data-street="{{ relay.address_1 is defined ? relay.address_1 : relay.address }}"
+             data-postcode="{{ relay.postalCode is defined ? relay.postalCode : relay.zipCode }}"
+             data-city="{{ relay.city }}"
+             data-country-code="{{ relay.countryCode }}"
+             data-provider-code="{{ shippingMethodCode }}"
+             data-provider-balou-id="{{ shippingMethodIdBalou }}">
+            <div class="content">
+                <div class="header">{{ relay.name|capitalize }}</div>
+                <div class="meta">à {{ relay.distance / 1000 }} km</div>
+                <div class="description">{{ relay.address_1 is defined ? relay.address_1|capitalize : relay.address|capitalize }}<br>
+                    {{ relay.postalCode is defined ? relay.postalCode : relay.zipCode }} {{ relay.city|capitalize }}</div>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <span>Il n’y a malheureusement pas de points relais disponibles pour cette addresse.</span>
+{% endif %}
+
+
+<script>
+    function loadRelays(providers, data) {
+        let relaysContainer = $('#relays');
+
+        if ('relayPoint' in providers) {
+            if (providers.relayPoint.includes('CHRONOPOST')) {
+                let url = '/admin/relays';
+
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    data: data,
+                    dataType: "json",
+                    accept: "application/json",
+                    success: function (data) {
+                        relaysContainer.html(data);
+                        relaysContainer.parent().show();
+                        handleOptionButtons();
+                    }
+                });
+            } else {
+                let url = '/shop-api/pick-up/dpd';
+                data.html = true;
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    headers: {
+                        Accept: "text/plain; charset=utf-8",
+                        "Content-Type": "text/plain; charset=utf-8"
+                    },
+                    data: data,
+                    success: function (data) {
+                        relaysContainer.html(data);
+                        relaysContainer.parent().show();
+                        handleOptionButtons();
+                    }
+                });
+            }
+        } else {
+            relaysContainer.html('');
+            relaysContainer.parent().hide();
+            handleOptionButtons();
+        }
+    }
+
+    function handleOptionButtons() {
+        let relays = $('#relays .relay');
+        let relayBtn = $('#relayBtn');
+        let calendarBtn = $('#calendarBtn');
+
+        relayBtn.prop('disabled', relays.length === 0);
+
+        calendarBtn.unbind('click');
+        relayBtn.unbind('click');
+
+        if (!relayBtn.is(':disabled')) {
+            relayBtn.add(calendarBtn).on('click', function (){
+                calendarBtn.toggleClass('active');
+                relayBtn.toggleClass('active');
+                $('#relays-option').toggle();
+                $('#calendar-option').toggle();
+                handleSelectedClass(null);
+            });
+        } else {
+            calendarBtn.addClass('active');
+            relayBtn.removeClass('active');
+            $('#relays-option').hide();
+            $('#calendar-option').show();
+        }
+    }
+
+    function handleSelectedClass(relay = null) {
+        $('#calendar-component #relays .relay').each(function() {
+            $(this).removeClass('success');
+        });
+
+        if (relay !== null) {
+            relay.addClass('success');
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        let relaysContainer = $('#calendar-component #relays');
+        relaysContainer.off('click');
+        relaysContainer.on('click', '.relay', function (event) {
+            event.preventDefault();
+            let relayData = $(this);
+            handleSelectedClass($(this));
+
+            $('select[data-shipment="true"]').first().val(relayData.data('provider-code'));
+            $('input[data-relay-id="true"]').first().val(relayData.data('id'));
+            $('input[data-relay-company="true"]').first().val(relayData.data('company'));
+            $('input[data-relay-street="true"]').first().val(relayData.data('street'));
+            $('input[data-relay-postcode="true"]').first().val(relayData.data('postcode'));
+            $('input[data-relay-city="true"]').first().val(relayData.data('city'));
+            $('input[data-relay-country-code="true"]').first().val(relayData.data('country-code'));
+            $('input[data-shipment-id="true"]').first().val(relayData.data('provider-balou-id'));
+        });
+    });
+</script>
+
+<style>
+    #relays .relay {
+        cursor: pointer;
+    }
+
+    #relays .relay.success {
+        border :1px solid #21ba45;
+        background: rgba(33, 186, 69, 0.3);
+    }
+</style>

@@ -1,0 +1,38 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Services\Mail\MandrillEmail:
+        arguments:
+            - '%env(MANDRILL_API_KEY)%'
+        calls:
+            -   method: setLogger
+                arguments: [ '@logger' ]
+    
+    app.mail.younited:
+        class: App\Services\Mail\YounitedEmail
+        public: true
+
+    app.mail.swiftmailer.partial_payment_alert:
+        class: App\Services\Mail\Mailer\PartialPaymentAlert
+        public: true
+
+    app.mail.return.shipment_confirmation_return:
+        class: App\Services\Mail\ReturnMail\ShipmentConfirmationReturn
+        public: true
+    
+    App\Services\Mail\OrderConfirmationEmail:
+        arguments:
+            $formatMoneyHelper: '@sylius.templating.helper.format_money'
+    
+    App\Services\Mail\Mailer\VariantDisabledEmail:
+        public: true
+
+    App\Services\Mail\ReturnMail\AutonomousReturnEmail:
+        public: true
+        arguments:
+            $tediberFrontUrl: '%tediber_front_url%'
+    
+    App\Services\Mail\OutOfStock\SendEmailToCustomer:
+        public: true

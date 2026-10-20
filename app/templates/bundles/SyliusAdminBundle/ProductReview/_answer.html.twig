@@ -1,0 +1,13 @@
+<h4 class="ui top attached styled header">
+    Questions / Réponses
+</h4>
+<div class="ui attached segment" id="default-address">
+    {% for answer in product_review.answers %}
+        <p><b>Q : {{ answer.question.question }}</b></p>
+        <p><b>A :</b> {{ answer.answer }}</p><br>
+    {% endfor %}
+
+    {% if product_review.answers is empty %}
+        <p><em>Aucune réponse aux questions</em></p>
+    {% endif %}
+</div>

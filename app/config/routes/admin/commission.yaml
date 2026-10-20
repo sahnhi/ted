@@ -1,0 +1,22 @@
+sylius_admin_commission:
+    resource: |
+        alias: sylius.commission
+        section: admin
+        templates: "@SyliusAdmin/Commission"
+        redirect: index
+        grid: sylius_admin_commission
+        vars:
+            all:
+                subheader: sylius.form.commission.subheader
+            index:
+                icon: 'file image outline'
+    type: sylius.resource
+
+sylius_admin_commission_reporting_export:
+    path: /commissions/reporting/export/{channel}/{type}
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.commission:exportAction
+        _sylius:
+            section: admin
+            permission: true

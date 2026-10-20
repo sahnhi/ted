@@ -1,0 +1,28 @@
+{# resource \App\Doctrine\Entity\ExceptionalSchedule #}
+
+<div class="ui placeholder segment">
+    <div class="ui two column stackable center aligned grid">
+        <div class="ui vertical divider">Ou</div>
+        <div class="left aligned row">
+            <div class="column">
+                {% if resource.id is null %}
+                    <div class="ui center aligned basic segment">
+                        {{ form_row(form.shippingMethodGroup) }}
+                        <div class="ui horizontal divider">
+                            Ou
+                        </div>
+                        {{ form_row(form.shippingMethod) }}
+                    </div>
+                {% else %}
+                    {{ form_row(form.shippingMethod) }}
+                {% endif %}
+            </div>
+            <div class="column">
+                {{ form_row(form.serviceRules) }}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ui segment">
+    {{ form_rest(form) }}
+</div>

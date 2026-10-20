@@ -1,0 +1,6 @@
+App\Doctrine\Entity\Ecotax:
+    code_ecotax:
+        code: '04061090100'
+        amount_ht: 458
+        amount_ttc: 550
+    

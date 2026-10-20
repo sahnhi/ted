@@ -1,0 +1,20 @@
+app_admin_partial_shipment_delivery_date_form:
+    path: /{id}/delivery_date
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.shipment:updateAction
+        _sylius:
+            repository:
+                method: findOneByOrderId
+                arguments:
+                    id: $id
+                    orderId: $orderId
+            section: admin
+            permission: true
+            template: "Admin/Order/Partial/_delivery_date_form.html.twig"
+            form: App\Form\Type\ShipmentDeliveryDateType
+            vars:
+                route:
+                    parameters:
+                        orderId: $orderId
+                        id: $id

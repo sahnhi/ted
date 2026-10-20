@@ -1,0 +1,5 @@
+{% import '@SyliusUi/Macro/bulk.html.twig' as bulk %}
+
+{% set url = options.link.url|default(path(options.link.route, options.link.parameters|default({}))) %}
+
+{{ bulk.datetime(url, action.label, null, action.icon, options.class, options.field) }}

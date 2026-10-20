@@ -1,0 +1,101 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    app.action.order_item_logistic:
+        class: App\Services\OrderItem\CreateOrderItemLogistic
+        public: true
+
+    app.bi.promotion.btob:
+        class: App\Services\BI\BtoBPromotion
+        public: true
+
+    app.service.invoice_generator:
+        class: App\Services\InvoiceGenerator\InvoiceGenerator
+        public: true
+
+    app.promotion.influencer.command:
+        class: App\Services\Promotion\InfluencerCommand
+        public: true
+
+    App\Services\GiftCard\GiftCardToCodeDataTransformer:
+        decorates: setono_sylius_gift_card.form.data_transformer.gift_card_to_code
+        public: false
+
+    app.google.logger:
+        class: App\Services\Google\Logger
+        arguments:
+            $googleCredentials: "%env(GOOGLE_SERVICE_ACCOUNT_CREDENTIAL_FILE)%"
+            $logName: "%env(APP_ENV)%"
+
+    App\Services\Review\Rss\RssZipFileGenerator:
+        arguments:
+            $projectDir: "%kernel.project_dir%"
+
+    App\Services\Review\Rss\RssXmlFileGenerator:
+        arguments:
+            $projectDir: "%kernel.project_dir%"
+
+    App\Services\Shipment\ProductHtc:
+        arguments:
+            - "%kernel.project_dir%"
+
+    app.state_resolver.order_shipping:
+        class: App\Component\Core\StateResolver\OrderShippingStateResolver
+        public: true
+
+    app.state_resolver.order:
+        class: App\Component\Core\StateResolver\OrderStateResolver
+        public: true
+
+    app.order_return.type.autonomous:
+        class: App\Services\OrderReturn\ReturnType\AutonomousService
+        public: true
+
+    app.uploader.quality_image:
+        class: App\Services\Uploader\QualityImageUploader
+        arguments:
+            $filesystem: !service {
+                    class: Gaufrette\Filesystem,
+                    arguments:
+                        ["%app.google_storage_quality_image.filesystem%"],
+                    factory: ["@knp_gaufrette.filesystem_map", get],
+                }
+
+    sylius.inventory.order_inventory_operator:
+        class: App\Operator\OrderInventoryOperator
+        public: true
+
+    App\Services\Admin\OrderService:
+        public: true
+
+    App\Services\Admin\ReportingData:
+        public: true
+
+    app.criteria_cleaner:
+        class: App\Services\Filter\CriteriaCleaner
+        public: true
+
+    App\Dashboard\SalesDataProvider:
+        decorates: Sylius\Component\Core\Dashboard\SalesDataProviderInterface
+
+    mailer:
+        public: true
+        alias: mailer.mailer
+
+    App\Shared\Infrastructure\Lock\BlockingLockFactory:
+        arguments:
+            $redisDsn: "%env(LOCK_DSN)%"
+
+    lock.factory: '@App\Shared\Infrastructure\Lock\BlockingLockFactory'
+
+    app.clock:
+        class: Lcobucci\Clock\SystemClock
+        factory: ['Lcobucci\Clock\SystemClock', 'fromSystemTimezone']
+    
+    Lcobucci\Clock\Clock: '@app.clock'
+    
+    App\ApiPlatform\State\Order\OrderEligibleShippingMethodCategoryCollectionProvider:
+        arguments:
+            $zipCodeRepository: '@sylius.repository.zip_code'

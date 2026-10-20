@@ -1,0 +1,22 @@
+{% extends '@SyliusShop/layout.html.twig' %}
+
+{% block content %}
+    <div class="ui hidden divider"></div>
+    <div class="ui grid">
+        <div class="center aligned sixteen wide column">
+            <h1 class="ui icon header">
+                <i class="circular rocket icon"></i>
+                <div class="content" id="sylius-thank-you">
+                    {{ 'sylius.ui.thank_you'|trans }}
+                    {# BEGIN CUSTOM TEMPLATE #}
+                    <div class="sub header">{{ 'sylius.ui.placed_an_order'|trans({'command_number' : orderNumber}) }}</div>
+                    {# END CUSTOM TEMPLATE #}
+                </div>
+            </h1>
+
+            <div id="sylius-payment-method-instructions" class="ui segment">
+                {{ 'app.ui.paybylink_thank_you' | trans }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

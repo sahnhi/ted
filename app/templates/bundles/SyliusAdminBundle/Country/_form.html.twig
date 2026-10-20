@@ -1,0 +1,13 @@
+<div class="ui segment">
+    {{ form_errors(form) }}
+    {{ form_row(form.code) }}
+    {{ form_row(form.enabled) }}
+
+    {# BEGIN custom code #}
+    {{ form_row(form.paidReturn, {'label': 'sylius.ui.country.paidReturn'}) }}
+    {# END custom code #}
+</div>
+<div class="ui segment">
+    <h4 class="ui dividing header">{{ 'sylius.ui.provinces'|trans }}</h4>
+    {{ form_row(form.provinces, {'label': false}) }}
+</div>

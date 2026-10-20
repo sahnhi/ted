@@ -1,0 +1,20 @@
+sylius_grid:
+    grids:
+        sylius_admin_reason_group:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\ReasonGroup
+            fields:
+                name:
+                    type: string
+                    label: sylius.ui.name
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete

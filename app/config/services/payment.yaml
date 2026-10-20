@@ -1,0 +1,12 @@
+services:
+    _defaults:
+        autowire: true
+    
+    App\Resolver\PaymentMethod\ChannelBasedAndPaymentMethodRulesAwarePaymentMethodsResolver:
+        tags:
+            - { 
+                name: sylius.payment_method_resolver,
+                type: !php/const App\Resolver\PaymentMethod\ChannelBasedAndPaymentMethodRulesAwarePaymentMethodsResolver::TYPE,
+                label: 'Channel Based Rules Aware Payment Method Resolver',
+                priority: 999
+            }

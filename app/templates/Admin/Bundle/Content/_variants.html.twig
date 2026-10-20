@@ -1,0 +1,101 @@
+{% if resource.products | length >= 2 %}
+    {{ form_start(form, {'attr': {'id': form.vars.name, 'autocomplete': 'off'}}) }}
+
+    <div class="ui segment">
+        <div class="ui header" id="filter-toggler"><i class="dropdown icon"></i> {{ 'sylius.ui.filters' | trans }}</div>
+        <div class="ui content" >
+            <table class="ui compact very basic single line table" id="filters">
+                <thead>
+                    <tr>
+                        {% for optionConfiguration in resource.options %}
+                            <th><div class="ui label {{ options_colors[optionConfiguration.productOption.code] }}">{{ optionConfiguration.productOption.name }}</div></th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody id="filter-body" style="display:none;">
+                    <tr class="top aligned">
+                        {% for optionConfiguration in resource.options %}
+                            <td>{{ form_row(attribute(form, 'filter_' ~ optionConfiguration.productOption.code), {'attr': {
+                                    'class': 'filter',
+                                    'data-option': optionConfiguration.productOption.code,
+                                }}) }}</td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+
+            <div style="float: right"><button type="button" id="clear-filters" class="ui button">{{ 'sylius.ui.reset' | trans }}</button> </div>
+        </div>
+    </div>
+
+    <div class="ui segment">
+        <div class="ui header">
+            {{ 'app.ui.apply_to_selected' | trans }}
+            <small style="color: red">({{ 'app.ui.bundle_association.labels.will_apply_to_not_empty' | trans }})</small>
+        </div>
+        <div class="content">
+            <div class="ui grid" style="margin-bottom: 20px">
+                <div class="height wide column">{{ form_row(form.apply_selector_product) }}</div>
+                <div class="height wide column" id="variants-applicators">
+                    {% for productConfigurator in resource.products %}
+                        {{ form_row(attribute(form, 'apply_selector_variant_' ~ productConfigurator.product.code)) }}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="ui info message">
+                <p>{{ 'app.ui.bundle_association.labels.carefull_with_pagination' | trans }}</p>
+            </div>
+
+            <div style="float: left"><button type="button" id="select-all" class="ui button blue">{{ 'app.ui.bundle_association.labels.check_all' | trans }}</button> </div>
+            <div style="float: left"><button type="button" id="unselect-all" class="ui button">{{ 'app.ui.bundle_association.labels.uncheck_all' | trans }}</button> </div>
+            <div style="float: right"><button type="button" id="apply-all" class="ui button primary">{{ 'sylius.ui.apply_to_all' | trans }}</button> </div>
+
+        </div>
+    </div>
+
+    <table class="ui celled selectable definition table loading" id="bundle-generation-preview" tabulator-layout="fitDataStretch">
+        <thead>
+            <tr>
+                <th tabulator-formatter="html" tabulator-maxWidth="40px"></th>
+                <th tabulator-formatter="html" tabulator-width="495">{{ 'sylius.ui.description' | trans }}</th>
+                {% for productConfiguration in resource.products %}
+                    <th tabulator-formatter="html">{{ productConfiguration.product.name }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for key, child in form.combinations %}
+                {% set combination = child.vars.data %}
+                {% if combination.willBeGenerated %}
+                    <tr>
+                        <td>
+                            <input type="checkbox" class="combination-selector" data-combination="{{ key }}" />
+                        </td>
+                        <td>
+                            <b>{{ combination.code }}</b> <br />
+                            {% for optionConfiguration in resource.options %}
+                                {% set optionValue = combination.valueForOption(optionConfiguration.productOption) %}
+                                <div data-option="{{ optionValue.option.code }}" data-optionvalue="{{ optionValue.id }}" class="ui label filter-label {{ options_colors[optionValue.option.code] }}">{{ optionValue.value }}</div>
+                            {% endfor %}
+                        </td>
+                        {% for variant in child.variants %}
+                            <td class="unfilled">
+                                {{ form_widget(variant.variant) }} <br />
+                                {{ form_errors(variant.variant) }}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div style="display: none">
+        {{ form_rest(form) }}
+    </div>
+
+    {{ form_end(form) }}
+{% else %}
+    {% include '@App/Admin/Bundle/Content/_error.html.twig' with {'message': 'app.ui.bundle_association.errors.nb_product_problem'} %}
+{% endif %}

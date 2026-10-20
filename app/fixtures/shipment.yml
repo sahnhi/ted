@@ -1,0 +1,12 @@
+App\Doctrine\Entity\Sylius\Shipment:
+    cart_with_mattress_order_item_unit_shipment:
+        method: '@vir_shipping_method'
+        order: '@cart_with_mattress'
+        state: 'cart'
+    
+    cart_addressed_with_mattress_item_unit_shipment:
+        method: '@vir_shipping_method'
+        order: '@cart_addressed_with_mattress'
+        state: 'cart'
+        start_delivery_slot: '<(new DateTime("2024-11-20 10:00:00"))>'
+        end_delivery_slot: '<(new DateTime("2024-11-20 11:00:00"))>'

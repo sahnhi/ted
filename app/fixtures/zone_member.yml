@@ -1,0 +1,12 @@
+Sylius\Component\Addressing\Model\ZoneMember:
+    zone_vir_member_1:
+        code: 'FR'
+    
+    zone_dpwr_member_1:
+        code: 'FR'
+    
+    france_member_country:
+        code: 'FR'
+    
+    zone_ups_member_1:
+        code: 'FR'

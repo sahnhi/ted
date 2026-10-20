@@ -1,0 +1,41 @@
+sylius_grid:
+    grids:
+        sylius_admin_coupon:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: "%sylius.model.promotion_coupon.class%"
+            fields:
+                code:
+                    type: string
+                    label: sylius.ui.code
+                    sortable: ~
+                usageLimit:
+                    type: string
+                    label: sylius.ui.usage_limit
+                    sortable: ~
+                perCustomerUsageLimit:
+                    type: string
+                    label: sylius.ui.per_customer_usage_limit
+                    sortable: ~
+                used:
+                    type: string
+                    label: sylius.ui.used
+                    sortable: ~
+                expiresAt:
+                    type: datetime
+                    label: sylius.ui.expires_at
+                    sortable: ~
+                    options:
+                        format: d-m-Y
+                action:
+                    type: twig
+                    label: sylius.ui.action
+                    path: .
+                    options:
+                        template: "@SyliusAdmin/Grid/Field/coupon_action.html.twig"
+            filters:
+                code:
+                    type: string
+                    label: sylius.ui.code
+

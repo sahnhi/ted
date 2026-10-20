@@ -1,0 +1,26 @@
+sylius_admin_product_review_answer_choices:
+    resource: |
+        alias: sylius.product_review_answer_choices
+        section: admin
+        templates: SyliusAdminBundle:Crud
+        redirect: update
+        grid: sylius_admin_product_review_answer_choices
+        vars:
+            all:
+                subheader: sylius.ui.product_review_answer_choice.information
+                templates:
+                    form: "@App/ProductReviewAnswerChoices/_form.html.twig"
+            index:
+                icon: 'file image outline'
+    type: sylius.resource
+
+sylius_admin_product_review_answer_choices_index:
+    path: /product-review-answer-choices/
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.product_review_answer_choices:indexAction
+        _sylius:
+            section: admin
+            permission: true
+            template: "@SyliusAdmin/Crud/index.html.twig"
+            grid: sylius_admin_product_review_answer_choices

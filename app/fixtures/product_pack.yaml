@@ -1,0 +1,6 @@
+App\Doctrine\Entity\Pack:
+    example_pack:
+        code: 'example-pack'
+        variants: ['@mattress_product_variant_140_200']
+        addons: ['@mattress_product_variant_160_200']
+        translations: ['@example_pack_translation']

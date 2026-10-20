@@ -1,0 +1,5 @@
+parameters:
+    urbantz_api_key: "%env(URBANTZ_API_KEY)%"
+    urbantz_api_key_secret: "%env(URBANTZ_API_KEY_SECRET)%"
+    urbantz_api_url: "%env(URBANTZ_API_URL)%"
+    urbantz_tracking_url: "%env(URBANTZ_TRACKING_URL)%"

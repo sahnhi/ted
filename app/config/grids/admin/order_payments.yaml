@@ -1,0 +1,38 @@
+sylius_grid:
+    grids:
+        sylius_admin_order_payments:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: '%sylius.model.customer.class%'
+                    repository:
+                        method: createCustomerWithMultipleOrdersOnSameDayQueryBuilder
+            sorting:
+                id: desc
+            limits: [10, 25, 50, 100]
+            filters:
+                customer:
+                    type: string
+                    label: sylius.ui.customer
+                    options:
+                        fields: [ email, firstName, lastName ]
+            fields:
+                id:
+                    type: string
+                    label: app.ui.customer_id
+                    sortable: id
+                    path: id
+                customer:
+                    type: twig
+                    label: sylius.ui.customer
+                    path: .
+                    sortable: lastName
+                    options:
+                        template: "@App/Admin/Grid/Field/customer.html.twig"
+                orders:
+                    type: twig
+                    label: sylius.ui.orders
+                    path: orders
+                    sortable: false
+                    options:
+                        template: "@App/Admin/Grid/Field/order_payments.html.twig"

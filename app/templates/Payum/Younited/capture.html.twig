@@ -1,0 +1,33 @@
+{% extends "@App/Payum/layout.html.twig" %}
+
+{% block payum_stylesheets %}
+    {{ parent() }}
+    <link href="/assets/api/css/main.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block payum_body %}
+    <form method="POST" id="form">
+        <div id="dropin-container"></div>
+
+        <div class="col-12 column text-center">
+            <input type="submit" value="{{ 'app.ui.pay-younited'|trans({}, 'messages', app.request.query.get('localeCode')) }}" id="submit_btn" class="btn btn-secondary btn-lg text-uppercase my-2" />
+        </div>
+    </form>
+{% endblock %}
+
+{% block payum_javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var form = document.getElementById('form');
+        var submitButton = document.getElementById('submit_btn');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            submitButton.setAttribute('disabled', true);
+            submitButton.classList.add('loading');
+            submitButton.parentNode.classList.add('loading');
+
+            parent.postMessage('{ "payumStatus": "redirect", "url": "{{ redirectUrl }}" }', '*');
+        });
+    </script>
+{% endblock %}

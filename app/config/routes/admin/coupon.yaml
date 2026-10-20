@@ -1,0 +1,13 @@
+sylius_admin_coupon_index:
+    path: /
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.promotion_coupon:indexAction
+        _sylius:
+            template: "@SyliusAdmin/Crud/index.html.twig"
+            grid: sylius_admin_coupon
+            section: admin
+            permission: true
+            vars:
+                icon: tags
+                subheader: sylius.ui.manage_coupons

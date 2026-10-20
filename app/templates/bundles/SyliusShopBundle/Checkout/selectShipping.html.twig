@@ -1,0 +1,379 @@
+{# order \App\Doctrine\Entity\Sylius\Order #}
+
+{% extends '@SyliusShop/Checkout/layout.html.twig' %}
+
+{% form_theme form '@SyliusShop/Form/theme.html.twig' %}
+
+{% block title %}{{ 'sylius.ui.shipping'|trans }} | {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/assets/datepicker/css/datepicker.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block content %}
+    {{ sylius_template_event(['sylius.shop.checkout.select_shipping.steps', 'sylius.shop.checkout.steps'], _context|merge({'active': 'select_shipping', 'orderTotal': order.total})) }}
+
+    <div class="ui stackable grid">
+        <div class="eleven wide column">
+            <div class="ui padded segment" id="sylius-shipping-methods">
+                {{ sylius_template_event('sylius.shop.checkout.select_shipping.before_form', {'order': order}) }}
+
+                {{ form_start(form, {'action': path('sylius_shop_checkout_select_shipping'), 'attr': {'class': 'ui loadable form', 'novalidate': 'novalidate'}}) }}
+                {{ form_errors(form) }}
+                <input type="hidden" name="_method" value="PUT"/>
+
+                {% include '@SyliusShop/Checkout/SelectShipping/_form.html.twig' %}
+                <div class="ui hidden divider"></div>
+
+                {{ sylius_template_event('sylius.shop.checkout.select_shipping.before_navigation', {'order': order}) }}
+
+                {% include '@SyliusShop/Checkout/SelectShipping/_navigation.html.twig' %}
+
+                {{ form_row(form._token) }}
+                {{ form_end(form, {'render_rest': false}) }}
+            </div>
+        </div>
+        <div class="five wide column">
+            {{ sylius_template_event(['sylius.shop.checkout.select_shipping.sidebar', 'sylius.shop.checkout.sidebar'], _context) }}
+        </div>
+    </div>
+{% endblock %}
+
+{# BEGIN CUSTOM TEMPLATE #}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/datepicker/js/datepicker.js') }}"></script>
+    <script src="{{ asset('assets/datepicker/js/datepicker.fr.js') }}"></script>
+    <script>
+        const currentDate = new Date().toISOString().split('T')[0];
+        $(document).ready(function() {
+            {% if order.shippingMethodCategories is not empty %}
+                initDatepicker(currentDate);
+            {% endif %}
+            /**
+            * Selects a time slot in the calendar
+            */
+            jQuery('#calendar-component #providers').on('click', '.slot:not(.disabled)', function(event) {
+                event.preventDefault();
+                removeSelected('#providers');
+                $(this).addClass('selected');
+
+                var provider = $(this).attr('data-provider');
+                var place = $(this).attr('data-place');
+                var start = $(this).attr('data-start');
+                var end = $(this).attr('data-end');
+                var date = jQuery('#delivery-date').val();
+
+                var dateString = getIsoDate(date)
+
+                var startHour = parseInt(start.split(':')[0])
+                var startMinute = parseInt(start.split(':')[1])
+                var endHour = parseInt(end.split(':')[0])
+                var endMinute = parseInt(end.split(':')[1])
+
+                fillForm(provider, place, dateString, startHour, endHour, startMinute, endMinute);
+
+                jQuery('#sylius_checkout_shipping_takeaway').prop( "checked", false );
+                jQuery('.ui.sylius_checkout_shipping_takeaway').removeClass('checked');
+            });
+
+            jQuery('#sylius_checkout_shipping_takeaway').on('change', function(event) {
+              if ($(this).is(':checked')) {
+                var provider = 'MAGASIN'
+                var place = '1'
+                var date = new Date();
+
+                var dateString = getIsoDate(date);
+
+                var startHour = parseInt(date.toISOString().split('T')[1]);
+                var startMinute = parseInt(date.toISOString().split(':')[1]);
+                var endHour = parseInt(date.toISOString().split('T')[1]);
+                var endMinute = parseInt(date.toISOString().split(':')[1]);
+
+                fillForm(provider, place, dateString, startHour, endHour, startMinute, endMinute);
+              } else {
+                fillForm('', '', '', '', '', '', '')
+              }
+            })
+
+            $('.message .close').on('click', function() {
+              $(this).closest('.message').fadeOut();
+            });
+
+            jQuery('#sylius_checkout_shipping_takeaway').on('change', function(event) {
+              if ($(this).is(':checked')) {
+                var provider = 'MAGASIN'
+                var place = '1'
+                var date = new Date();
+
+                var dateString = getIsoDate(date);
+
+                var startHour = parseInt(date.toISOString().split('T')[1]);
+                var startMinute = parseInt(date.toISOString().split(':')[1]);
+                var endHour = parseInt(date.toISOString().split('T')[1]);
+                var endMinute = parseInt(date.toISOString().split(':')[1]);
+
+                fillForm(provider, place, dateString, startHour, endHour, startMinute, endMinute);
+              } else {
+                fillForm('', '', '', '', '', '', '')
+              }
+            })
+
+            /**
+             * Fills the Symfony form with the given values
+             *
+             * @param  {String} provider
+             * @param  {String} place
+             * @param  {String} dateString
+             * @param  {Number} startHour
+             * @param  {Number} endHour
+             * @param  {Number} startMinute
+             * @param  {Number} endMinute
+             *
+             */
+            function fillForm (provider, place, dateString, startHour, endHour, startMinute, endMinute) {
+              jQuery('select[data-shipment="true"]').first().val(provider);
+              jQuery('input[data-shipment-id="true"]').first().val(place);
+              jQuery('div[data-start-slot="true"] input[type="date"]').first().val(dateString);
+              jQuery('div[data-start-slot="true"] select[id*="hour"]').first().val(startHour);
+              jQuery('div[data-start-slot="true"] select[id*="minute"]').val(startMinute);
+              jQuery('div[data-end-slot="true"] input[type="date"]').first().val(dateString);
+              jQuery('div[data-end-slot="true"] select[id*="hour"]').first().val(endHour);
+              jQuery('div[data-end-slot="true"] select[id*="minute"]').first().val(endMinute);
+            }
+
+            let selectedShippingMethodCategoryCode = null;
+            const selectedShippingMethodCategory = document.querySelector('input[name="sylius_checkout_select_shipping[shippingMethodCategory][code]"]:checked');
+            if (selectedShippingMethodCategory) {
+                selectedShippingMethodCategoryCode = selectedShippingMethodCategory.value;
+            }
+
+            document.querySelectorAll('input[name="sylius_checkout_select_shipping[shippingMethodCategory][code]"]').forEach((radioInput) => {
+                radioInput.addEventListener('change', (event) => {
+                    selectedShippingMethodCategoryCode = event.target.value;
+                    resetCalendar();
+                });
+            })
+
+            document.getElementById('refreshCalendarBtn').addEventListener('click', () => {
+                const serviceCodes = [];
+                const name = 'sylius_checkout_select_shipping[shippingMethodCategory][services_'+ selectedShippingMethodCategoryCode +'][]';
+
+                document.querySelectorAll('[name="'+ name +'"]:checked').forEach((input) => {
+                    serviceCodes.push(input.value);
+                });
+
+                fetch('/api/v2/shop/orders/{{ order.tokenValue }}/shipping-method-category', {
+                    method: 'PATCH',
+                    headers: {
+                        "Content-type": "application/merge-patch+json"
+                    },
+                    body: JSON.stringify({
+                        shippingMethodCategoryCode: selectedShippingMethodCategoryCode,
+                        serviceCodes
+                    })
+                })
+                    .then((response) => {
+                        if (response.status === 200) {
+                            window.location.reload();
+                        } else {
+                            alert('Une erreur est survenue')
+                        }
+                    });
+            });
+
+            /**
+             * Sends a request to the backend
+             * Inits the calendar plugin
+             * Fills the date with relevant data
+             *
+             *
+             * @param requestDate
+             */
+            function initDatepicker(requestDate) {
+                resetCalendar();
+
+                jQuery("#calendar-component").fadeIn('normal', function () {
+                    jQuery('#calendar-loading').fadeIn();
+                    $.ajax({
+                        url: '/shop-api/' + '{{ getChannel().code }}' + '/fr/erp/calendar',
+                        type: 'POST',
+                        data: {
+                            date: requestDate,
+                            limit: 40,
+                            tokenValue: '{{ order.tokenValue }}',
+                            countryCode: '{{ order.shippingAddress.countryCode }}',
+                            postalCode: '{{ order.shippingAddress.postcode }}'
+                        }
+                    })
+                        .done(function (results) {
+                            if (results && !('error' in results)) {
+                                //Datepicker plugin initialization
+                                $('#delivery-date').datepicker({
+                                    minDate: new Date(requestDate),
+                                    disableNavWhenOutOfRange: false,
+                                    inline: true,
+                                    autoClose: false,
+                                    toggleSelected: false,
+                                    onSelect: function (formattedDate, date, inst) {
+                                        var selectedDate = getIsoDate(date)
+                                        jQuery('#delivery-date').val(date);
+                                        if ((selectedDate in results)) {
+                                            var vals = Object.keys(results[selectedDate]['times']).map(function (key) {
+                                                return results[selectedDate]['times'][key];
+                                            });
+                                            buildSlots(vals);
+                                        }
+                                    },
+                                    onRenderCell: function (date, cellType) {
+                                        if (cellType == 'day') {
+                                            var dayClass = 'slots';
+                                            var currentDate = getIsoDate(date);
+                                            var isDisabled = true;
+                                            if ((currentDate in results)) {
+                                                isDisabled = false;
+                                                var slots = results[currentDate]['times'];
+                                                var length = (Array.isArray(slots)) ? slots.length : Object.keys(slots).length
+                                                var first = (Array.isArray(slots)) ? slots[0] : slots[Object.keys(slots)[0]]
+                                                dayClass += (length && first.dailyDelivery) ? ' long' : ' short';
+                                            }
+                                            if (date > new Date()) dayClass += ' future';
+                                            return {
+                                                classes: dayClass,
+                                                disabled: isDisabled
+                                            }
+                                        }
+                                    },
+                                    onChangeMonth: function (month, year) {
+                                        var newDate = new Date()
+                                        newDate.setFullYear(year, month, 1)
+                                        initDatepicker(getIsoDate(newDate))
+                                    }
+                                });
+                                jQuery('#calendar-loading').fadeOut();
+
+                                var myDatepicker = $('#delivery-date').datepicker().data('datepicker');
+                                myDatepicker.selectDate(new Date(requestDate));
+                            } else {
+                                jQuery('#calendar-loading').fadeOut();
+                                jQuery('#providers').fadeOut();
+                                jQuery('#calendar-component #error .empty-error').toggleClass('d-hide');
+                                jQuery('#calendar-component #error').toggleClass('d-hide');
+                            }
+                        }).fail(function (data) {
+                        console.log(data);
+
+                        let messages = {
+                            'product_disabled': '{{ 'sylius.ui.calendar_errors.product_disabled' | trans }}',
+                            'no_zone': '{{ 'sylius.ui.calendar_errors.no_zone' | trans }}',
+                            'no_providers': '{{ 'sylius.ui.calendar_errors.no_providers' | trans }}'
+                        };
+
+                        jQuery('#calendar-loading').fadeOut();
+                        jQuery('#providers').fadeOut();
+                        jQuery('#calendar-component #error .text-error').html(messages[data.responseJSON.message]);
+                        jQuery('#calendar-component #error').toggleClass('d-hide');
+                    });
+                });
+            }
+
+            /**
+             * Returns the iso formated date
+             * without timezone considerations
+             *
+             * @param  Date date
+             *
+             * @return String
+             */
+            function getIsoDate(date) {
+              if (date instanceof Date) {
+                var month = date.getMonth();
+                if(month < 9) {
+                    month = '0' + (month + 1);
+                } else {
+                    month++;
+                }
+                var day = date.getDate();
+                if(day < 10) {
+                  day = '0' + day;
+                }
+                return date.getFullYear() + '-' + month.toString() + '-' + day.toString();
+              }
+            }
+
+            /**
+             * Resets the calendar component
+             */
+            function resetCalendar () {
+              var myDatepicker = $('#delivery-date').datepicker().data('datepicker');
+              myDatepicker.destroy();
+              jQuery('#providers').fadeIn();
+              jQuery('#calendar-component #error').fadeOut();
+              jQuery('#calendar-component .text-error').html('');
+              jQuery('#calendar-component .text-error').html('');
+              jQuery('#calendar-component #days').html('');
+              jQuery('#calendar-component #providers').html('');
+            }
+
+            /**
+             * Builds DOM structure for the calendar providers
+             *
+             * @param  {object} Provider to build
+             */
+            function buildSlots (slots) {
+              jQuery('#providers').html('');
+              var row = '<div class="sixteen wide column d-flex flex-column slots my-5">';
+              if (slots.length) {
+                for (var i = 0; i < slots.length; i++) {
+                  row += buildSlot(slots[i]);
+                }
+                if(slots.length === 1) {
+                  row += '<span class="text-error">'+jQuery('#providers').attr('data-only-slot')+'</span>';
+                }
+              } else {
+                row += buildEmpty();
+              }
+              row += '</div>';
+              jQuery('#providers').append(row);
+            }
+
+            /**
+             * Builds DOM structure for the calendar provider slots
+             *
+             * @param  {object} Slot to build
+             */
+            function buildSlot (slot) {
+              var startTime = parseInt(slot.start_time.substring(0, 2));
+              var endTime = parseInt(slot.end_time.substring(0, 2));
+              var slotClass = '';
+              if(startTime < 13) slotClass = 'morning';
+              if(endTime > 13) slotClass = 'afternoon';
+              var html = '<div class="sixteen wide column '+ slotClass +'"><div class="slot text-center d-flex flex-row" data-start="' + slot.start_time + '" data-end="' + slot.end_time + '" data-provider="' + slot.providerName + '" data-place="' + slot.place + '"><span>' + slot.start_time + '</span><span> - </span><span>' + slot.end_time + '</span></div></div>';
+              return html;
+            }
+
+            /**
+             * Builds DOM structure for the calendar provider empty slots
+             *
+             */
+            function buildEmpty () {
+              var html = '<br>Il n’y a malheureusement pas de créneaux disponibles pour cette journéee. <br><br> Pourquoi ne pas tenter votre chance avec le jour suivant ?';
+              return html;
+            }
+
+            /**
+             * Utility function to remove 'selected' class
+             *
+             * @param  {string} CSS selector of the parent container
+             */
+            function removeSelected(target) {
+              var selected = document.querySelectorAll(target+" *");
+              for(var k= 0; k < selected.length ; k++){
+                selected[k].classList.remove('selected');
+              }
+            }
+        });
+    </script>
+{% endblock %}
+{# END CUSTOM TEMPLATE #}

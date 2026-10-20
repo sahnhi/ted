@@ -1,0 +1,8 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+    
+    App\Operator\GiftCard\OrderGiftCardOperator:
+        arguments:
+            $giftCardOrderEmailManager: '@setono_sylius_gift_card.email_manager.gift_card_order'

@@ -1,0 +1,38 @@
+sylius_grid:
+    grids:
+        sylius_admin_zip_code:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\ZipCode
+            filters:
+                code:
+                    type: string
+                    label: sylius.ui.code
+                country:
+                    type: entity
+                    label: sylius.ui.country
+                    options:
+                        fields: [ country ]
+                    form_options:
+                        class: "%sylius.model.country.class%"
+                        choice_label: name
+                        choice_value: code
+            fields:
+                code:
+                    type: string
+                    label: sylius.ui.code
+                    sortable: translation.code
+                country:
+                    type: string
+                    label: sylius.ui.country
+                    sortable: translation.country
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete

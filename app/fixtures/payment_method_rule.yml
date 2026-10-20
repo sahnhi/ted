@@ -1,0 +1,5 @@
+App\Doctrine\Entity\PaymentMethodRule: 
+    adyen_cb_payment_method_rule_inferior_amount:
+        paymentMethod: '@adyen_cb_payment_method'
+        type: '<'
+        amount: 60000 # 600 EUR

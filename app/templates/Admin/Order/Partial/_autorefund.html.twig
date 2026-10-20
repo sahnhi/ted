@@ -1,0 +1,29 @@
+{% set constantPaymentStateCompleted = constant('Sylius\\Component\\Payment\\Model\\PaymentInterface::STATE_COMPLETED') %}
+{% if order.lastPayment(constantPaymentStateCompleted) %}
+    {# Adyen payment details #}
+    {% if order.lastPayment(constantPaymentStateCompleted).details.extraData is defined %}
+        {% set extraData = order.lastPayment(constantPaymentStateCompleted).details.extraData|json_decode(true) %}
+        {% if extraData.refundToken is defined %}
+            {% set refundToken = extraData.refundToken %}
+        {% endif %}
+    {% endif %}
+
+    {# Dalenys payment details #}
+    {% if order.lastPayment(constantPaymentStateCompleted).details.EXTRADATA is defined %}
+        {% set extraData = order.lastPayment(constantPaymentStateCompleted).details.EXTRADATA|json_decode(true) %}
+        {% if extraData.refund_token is defined %}
+            {% set refundToken = extraData.refund_token %}
+        {% endif %}
+
+        {# Dalenys TRANSACTIONID missing #}
+        {% set dalenysTransactionId1 = order.lastPayment(constantPaymentStateCompleted).details.SCHEDULEDATA.0.TRANSACTIONID %}
+    {% endif %}
+{% endif %}
+
+{% if dalenysTransactionId1 is defined and dalenysTransactionId1 is empty %}
+    <div class="ui red message">{{ 'app.ui.refund_will_not_be_executed_automatically'|trans }}</div>
+{% endif %}
+
+{% if refundToken is not defined %}
+    <div class="ui red message">{{ 'app.ui.refund_will_not_be_executed_automatically'|trans }}</div>
+{% endif %}

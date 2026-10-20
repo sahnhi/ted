@@ -1,0 +1,8 @@
+App\Doctrine\Entity\ProductCMSClaims:
+    attributes:
+        id:
+            groups:
+                - shop:product:read
+        translations:
+            groups:
+                - shop:product:read

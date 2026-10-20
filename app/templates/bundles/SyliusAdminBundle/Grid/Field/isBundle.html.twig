@@ -1,0 +1,7 @@
+{% set bundle = 'sylius.ui.no'|trans %}
+{% for item in data.items %}
+    {% if item.variant.isBundle %}
+        {% set bundle = 'sylius.ui.yes'|trans %}
+    {% endif %}
+{% endfor %}
+{{ bundle }}

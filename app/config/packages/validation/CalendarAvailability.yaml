@@ -1,0 +1,18 @@
+App\Request\CalendarAvailabilityRequest:
+    properties:
+        date:
+            -   NotNull: ~
+            -   Date: ~
+        countryCode:
+            -   NotNull: ~
+            -   Country: ~
+        postalCode:
+            -   NotNull: ~
+            -   NotBlank: ~
+        limit:
+            -   NotNull: ~
+            -   GreaterThan:
+                    value: 0
+        products:
+            -   NotNull: ~
+            -   App\Validator\Constraints\CalendarAvailabilityProducts: ~

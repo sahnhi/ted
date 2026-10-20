@@ -1,0 +1,9 @@
+services:
+    App\Calculator\Shipping\AmountThresholdCalculator:
+        tags:
+            - { 
+                name: sylius.shipping_calculator,
+                calculator: !php/const App\Calculator\Shipping\AmountThresholdCalculator::TYPE,
+                form_type: App\Form\Type\Calculator\Shipping\ChannelBasedAmountThresholdConfigurationType,
+                label: "app.form.shipping_calculator.amount_threshold.label"
+            }

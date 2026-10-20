@@ -1,0 +1,39 @@
+##
+## ----- Terraform -----
+##
+
+UID = $(shell id -u)
+GID = $(shell id -g)
+
+%:
+	@:
+
+.PHONY: tf-init
+tf-init: ## Init TF backend + state. Usage: make tf-init <choose an environment>
+	@echo "Init..."
+	@docker compose --profile deploy run -u ${UID}:${GID} terraform init -backend-config="backend-vars/$(filter-out $@,$(MAKECMDGOALS)).tfvars"
+	@echo "Done !"
+
+.PHONY: tf-fmt
+tf-fmt: ## format code style tf
+	@echo "Format..."
+	@docker compose --profile deploy run -u ${UID}:${GID} terraform fmt
+	@echo "Done !"
+
+.PHONY: tf-validate
+tf-validate: ## validation tf
+	@echo "Validation..."
+	@docker compose --profile deploy run -u ${UID}:${GID} terraform validate
+	@echo "Done !"
+
+.PHONY: tf-plan # to remove bis ? on pourrait attendre le planfile
+tf-plan: tf-validate ## TF Plan. Usage: make tf-plan <choose an environment>
+	@echo "Plan..."
+	@docker compose --profile deploy run -u ${UID}:${GID} terraform plan -var-file="tfvars/$(filter-out $@,$(MAKECMDGOALS)).tfvars"
+	@echo "Done !"
+
+.PHONY: tf-apply
+tf-apply: tf-validate ## TF Apply. Usage: make tf-plan <choose an environment>
+	@echo "Apply..."
+	@docker compose --profile deploy run -u ${UID}:${GID} terraform apply -var-file="tfvars/$(filter-out $@,$(MAKECMDGOALS)).tfvars"
+	@echo "Done !"

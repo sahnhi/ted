@@ -1,0 +1,11 @@
+App\Doctrine\Entity\OrderReason:
+    attributes:
+        productName:
+            groups:
+                - shop:cart:read
+        variant:
+            groups:
+                - shop:cart:read
+        customerComment:
+            groups:
+                - shop:cart:read

@@ -1,0 +1,91 @@
+tediber:
+    ftp:
+        Spidy:
+            host: '%env(FTP_SPIDY_HOST)%'
+            port: 22
+            user: '%env(FTP_SPIDY_USER)%'
+            password: '%env(FTP_SPIDY_PASSWORD)%'
+            has_private_key: false
+            directory: '%env(FTP_SPIDY_DIRECTORY)%'
+            tracking_path: '%env(FTP_SPIDY_TRACKING_PATH)%'
+            delivered_path: '%env(FTP_SPIDY_DELIVERED_PATH)%'
+        Vir:
+            host: '%env(FTP_VIR_HOST)%'
+            port: 22
+            user: '%env(FTP_VIR_USER)%'
+            password: '%env(FTP_VIR_PASSWORD)%'
+            has_private_key: false
+            directory: '%env(FTP_VIR_DIRECTORY)%'
+            tracking_path: '%env(FTP_VIR_TRACKING_PATH)%'
+            delivered_path: '%env(FTP_VIR_DELIVERED_PATH)%'
+
+    email:
+        support:
+            from: 'support@tediber.com'
+            from_name: 'TEDIBER Sylius'
+            principals:
+                - 'support@tediber.com'
+        dev:
+            principals:
+                - 'dev@tediber.com'
+        sav:
+            principals:
+                - 'sav@tediber.com'
+        review_export:
+            principals:
+                - 'exportavis@tediber.com'
+        thanks_export:
+            principals:
+                - 'exportremerciements@tediber.com'
+        automatic_slot_closing:
+            principals:
+                - 'fermeturecreneauxauto@tediber.com'
+        product_change:
+            principals:
+                - 'modifproduit@tediber.com'
+        influencer_order:
+            principals:
+                - 'influenceur@tediber.com'
+        transmission_problem:
+            principals:
+                - 'pbtransmission@tediber.com'
+        international_return:
+            principals:
+                - 'retourinter@tediber.com'
+                - 'claire@quai77.com'
+                - 'jerome@quai77.com'
+                - 'deborah@quai77.com'
+                - 'ludovic@quai77.com'
+        order_integration_error:
+            principals:
+                - 'sainte-croix.store@tediber.com'
+                - 'toulouse.store@tediber.com'
+                - 'lille.store@tediber.com'
+                - 'lyon.store@tediber.com'
+            ccs:
+                - 'saheme@tediber.com'
+        blocked_order:
+            principals: ~
+        update_order_delivery_date:
+            principals:
+                - 'modifcreneaulivraison@tediber.com'
+        variant_disabled_email:
+            principals:
+                - 'appro@tediber.com'
+                - 'julie@tediber.com'
+        spidy_edi:
+            principals: ~
+        printemps_payment_capture:
+            principals:
+                - 'julie.chimier@tediber.com'
+            ccs:
+                - 'julien@tediber.com'
+                - 'lucile@tediber.com'
+        partially_paid:
+            principals: ~
+        sender_return:
+            principals:
+                - 'ludovic@quai77.com'
+                - 'livraison@quai77.com'
+            ccs:
+                - 'sav@tediber.com'

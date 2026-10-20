@@ -1,0 +1,10 @@
+.data/
+doc/
+app/vendor/
+app/node_modules/
+app/var/
+.git/
+.gitignore
+compose.yml
+compose.mac.yml
+gcp/run/

@@ -1,0 +1,10 @@
+App\Doctrine\Entity\Sylius\ShippingMethod:
+    attributes:
+        shippingMethodCategory:
+            groups:
+                - shop:cart:select_shipping_method
+                - shop:shipping_method:read
+        transportTime:
+            groups:
+                - shop:cart:select_shipping_method
+                - shop:shipping_method:read

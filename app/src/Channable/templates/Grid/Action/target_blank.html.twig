@@ -1,0 +1,8 @@
+{% import '@SyliusUi/Macro/buttons.html.twig' as buttons %}
+
+{% set path = options.link.url|default(path(options.link.route, options.link.parameters)) %}
+
+<a class="ui labeled icon button blue"  href="{{ path }}">
+    <i class="icon download"></i>
+    {{ 'Download' }}
+</a>

@@ -1,0 +1,6 @@
+webpack_encore:
+    output_path: '%kernel.project_dir%/public/build/default'
+    builds:
+        admin: '%kernel.project_dir%/public/build/admin'
+    script_attributes:
+        defer: true

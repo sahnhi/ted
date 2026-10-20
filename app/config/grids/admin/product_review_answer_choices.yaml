@@ -1,0 +1,23 @@
+sylius_grid:
+    grids:
+        sylius_admin_product_review_answer_choices:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\ProductReviewAnswerChoices
+                    repository:
+                        method: createListQueryBuilder
+            fields:
+                code:
+                    type: string
+                    label: sylius.ui.question
+                    sortable: ~
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete

@@ -1,0 +1,42 @@
+##### STAGE DOCKER #####
+
+variables:
+    DOCKER_BUILDKIT: 1
+
+1:php:
+    stage: docker
+    image: docker:27.0.3
+    services:
+        - docker:27.0.3-dind
+    before_script:
+        # The following line is a workaround regarding issue `Cannot connect to the Docker daemon at tcp://docker:2375. 
+        # Is the docker daemon running?.` cf. https://gitlab.com/gitlab-org/gitlab-runner/-/issues/27215
+        - until docker info; do sleep 1; done
+        - echo $CI_JOB_TOKEN | docker login --username gitlab-ci-token --password-stdin $CI_REGISTRY;
+    script:
+        - cp app/fixtures/gcp/client_credentials.json app/config/
+        - docker pull $CI_REGISTRY_IMAGE/php:latest || true
+        - docker build --target php-dev -f ./Dockerfile --cache-from $CI_REGISTRY_IMAGE/php:latest --tag $CI_REGISTRY_IMAGE/php:latest --build-arg BUILDKIT_INLINE_CACHE=1 .
+        - docker push $CI_REGISTRY_IMAGE/php:latest
+    only:
+        changes:
+            - Dockerfile
+            - docker/php/*
+            - docker/nginx/*
+
+2:build:
+    stage: docker
+    image: docker:27.0.3
+    services:
+        - docker:27.0.3-dind
+    before_script:
+        # The following line is a workaround cf. step 1:php
+        - until docker info; do sleep 1; done
+        - echo $CI_JOB_TOKEN | docker login --username gitlab-ci-token --password-stdin $CI_REGISTRY;
+    script:
+        - docker pull $CI_REGISTRY_IMAGE/build:latest || true
+        - docker build -f ./docker/Dockerfile --cache-from $CI_REGISTRY_IMAGE/build:latest --tag $CI_REGISTRY_IMAGE/build:latest --build-arg BUILDKIT_INLINE_CACHE=1 .
+        - docker push $CI_REGISTRY_IMAGE/build:latest
+    only:
+        changes:
+            - docker/Dockerfile

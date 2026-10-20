@@ -1,0 +1,48 @@
+sylius:
+    address:
+        phone_number:
+            not_blank: Veuillez renseigner un numéro de téléphone
+
+app:
+    bundle_generation:
+        option_value_empty: Vous devez choisir une valeur d'option
+    order_update_customer:
+        updated_email:
+            not_blank: Le champ est obligatoire
+            email: L'adresse e-mail est invalide
+    shipment_delivery_date:
+        start_delivery_slot:
+            not_blank: La date et l'heure sont obligatoire
+            date_time: Le format date/heure n'est pas valide
+        end_delivery_slot:
+            not_blank: La date et l'heure sont obligatoire
+            date_time: Le format date/heure n'est pas valide
+
+    adyen:
+        environment:
+            not_blank: "L'environnement est requis"
+        merchantAccount:
+            not_blank: "Le Merchant Account est requis"
+        apiKey:
+            not_blank: "L'API Key est requis"
+        clientKey:
+            not_blank: "Le Client Key est requis"
+        methodPayment:
+            not_blank: "La méthode de paiement est requis"
+        hmacNotification:
+            not_blank: "La clé HMAC notification est requis"
+    product_association:
+        max_count_error: 'Cette association de produits ne pas pas avoir plus de {{limit}} produits.'
+            
+
+    review:
+        cart_token:
+            not_blank: Le champ "cartToken" est requis
+
+    order:
+        creation:
+            order_has_no_items: Vous devez ajouter au moins un produit a la commande.
+            
+    coupon:
+        not_found: Le code promo n'est pas valide. Vérifiez votre saisie.
+        already_applied: Certains produits de votre panier sont exclus de cette offre.

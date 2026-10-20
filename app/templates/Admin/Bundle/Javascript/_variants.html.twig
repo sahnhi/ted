@@ -1,0 +1,130 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#filter-toggler').click(function(){
+            $('#filter-body').toggle();
+            $(this).toggleClass('active');
+        });
+
+        createFilters();
+        createApplicator();
+    });
+
+    function createApplicator() {
+        $('#select-all').click(function() {
+            table.setPageSize(true);
+            $('.combination-selector').prop('checked', true);
+        });
+
+        $('#unselect-all').click(function() {
+            $('.combination-selector').prop('checked', false);
+            table.setPageSize(15);
+        });
+
+        $('#bundle_configuration_apply_selector_product').on('change', function(){
+            handleApplicatorsSelects($(this).val());
+        });
+
+        $('#apply-all').click(function() {
+            apply();
+        });
+
+        handleApplicatorsSelects('');
+    }
+
+    function handleApplicatorsSelects(value) {
+        $('#variants-applicators').find('select').each(function(){
+            $(this).val('');
+            $(this).trigger('change');
+        });
+
+        if ('' === value) {
+            $('#variants-applicators').find('select').each(function() {
+                $(this).parent('.field').hide();
+            });
+        } else {
+            $('#variants-applicators').find('select').each(function() {
+                if ($(this).data('product') === parseInt(value)) {
+                    $(this).parent('.field').show();
+                } else {
+                    $(this).parent('.field').hide();
+                }
+            });
+        }
+    }
+
+    function apply() {
+        let productSelector = $('#bundle_configuration_apply_selector_product');
+        let variantSelector = $('#variants-applicators .field:visible select');
+        let productValue = productSelector.val();
+
+        if (variantSelector.length > 0 && productValue !== '') {
+            let value = variantSelector.val();
+
+            $('#bundle-generation-preview').find('.variant-selector').each(function() {
+                let row = $(this).parents('.tabulator-row');
+                let checkbox = row.find('.combination-selector');
+
+                if (checkbox.is(':checked') && $(this).data('product') === parseInt(productValue)) {
+                    $(this).val(value);
+                    $(this).trigger('change');
+                }
+            });
+
+            productSelector.val('');
+            productSelector.trigger('change');
+            handleApplicatorsSelects('');
+        }
+    }
+
+    function filterByData(data, parameters) {
+        let html = '<div>' + data.description + '</div>';
+        let label = $(html).find('.label[data-option="'+ parameters.option +'"][data-optionvalue="'+ parameters.optionvalue +'"]');
+
+        return label.length > 0;
+    }
+
+    function createFilters() {
+        $('.filter').each(function() {
+            let option = $(this).data('option');
+
+            $(this).find('input').each(function () {
+                $(this).on('change', function(){
+                    updateFilters();
+                });
+            });
+        });
+
+        $('#clear-filters').click(function(){
+            table.clearFilter();
+
+            $('.filter').each(function() {
+                $(this).find('input').each(function () {
+                    if ($(this).is(':checked') && !$(this).is(':disabled')) {
+                        $(this).prop('checked', false);
+                    }
+                });
+            });
+        });
+    }
+
+    function updateFilters() {
+        let filters = [];
+
+        $('.filter').each(function() {
+            let option = $(this).data('option');
+            let optionFilters = [];
+
+            $(this).find('input').each(function () {
+                if ($(this).is(':checked') && !$(this).is(':disabled')) {
+                    let filter = {'field': filterByData, 'type': {'optionvalue': $(this).val(), 'option': option}}
+                    optionFilters.push(filter);
+                }
+            });
+
+            filters.push(optionFilters);
+        });
+
+        table.clearFilter();
+        table.setFilter(filters);
+    }
+</script>

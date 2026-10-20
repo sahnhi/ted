@@ -1,0 +1,54 @@
+App\Doctrine\Entity\Sylius\ProductVariant:
+    attributes:
+        code:
+            groups:
+                - shop:product_variant:read
+                - shop:product:read
+                - shop:cart:read
+        bundleAssociations:
+            groups:
+                - shop:order:read
+                - shop:product_variant:read
+                - shop:product:read
+                - shop:cart:read
+        shippingCategoryClaims:
+            groups:
+                - shop:order:read
+                - shop:product_variant:read
+                - shop:product:read
+                - shop:cart:read
+        packs:
+            groups:
+                - shop:product_variant:read
+                - shop:cart:read
+        product:
+            groups:
+                - shop:product_variant:read
+                - shop:product:read
+                - shop:cart:read
+                - pack:read
+        productDefaultName:
+            groups:
+                - shop:product_variant:read
+                - shop:cart:read
+        totalEcotaxes:
+            groups:
+                - shop:cart:read
+                - shop:product_variant:read 
+        fullOptionValue:
+            groups:
+                - shop:cart:read
+        enabledOptionValues:
+            groups:
+                - shop:product:read:options
+                - pack:read
+                - shop:cart:read
+        satellitePagesMinified:
+            groups:
+                - shop:product_variant:read
+        enabled:
+            groups:
+                - shop:product_variant:read
+                - shop:product:read
+                - shop:product:read:options
+                - pack:read

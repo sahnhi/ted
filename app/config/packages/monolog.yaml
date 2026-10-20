@@ -1,0 +1,9 @@
+monolog:
+    channels: [ "odoo", "routing", "rimdian", "googleshopping" ]
+    handlers:
+        main:
+            type: stream
+            path: "php://stdout"
+            formatter: monolog.formatter.json
+            level: info
+            channels: [ "!event", "!console" ]

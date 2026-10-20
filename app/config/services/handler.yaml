@@ -1,0 +1,118 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Handler\PickupCartHandler:
+        tags:
+            - { name: 'tactician.handler', command: App\Business\Command\PickupCart }
+
+    App\Handler\PutVariantBasedConfigurableItemToCartHandler:
+        tags:
+            - { name: 'tactician.handler', command: App\Business\Command\PutVariantBasedConfigurableItemToCart }
+
+    App\Handler\RemoveItemFromCartHandler:
+        tags:
+            - { name: 'tactician.handler', command: App\Business\Command\RemoveItemFromCart }
+
+    App\Handler\ChangeItemQuantityHandler:
+        tags:
+            - { name: 'tactician.handler', command: App\Business\Command\ChangeItemQuantity }
+
+    App\Handler\DropCartHandler:
+        tags:
+            - { name: 'tactician.handler', command: App\Business\Command\DropCart }
+
+    App\Handler\RemoveCouponHandler:
+        tags:
+            - { name: 'tactician.handler', command: App\Business\Command\RemoveCoupon }
+
+    App\Handler\AddressOrderHandler:
+        arguments:
+            $addressFactory: '@sylius.custom_factory.address'
+        tags:
+            - { name: 'tactician.handler', command: App\Business\Command\AddressOrder }
+
+    App\Handler\ChoosePaymentHandler:
+        tags:
+            - { name: 'tactician.handler', command: App\Business\Command\ChoosePayment }
+
+    App\Handler\CompleteOrderHandler:
+        tags:
+            - { name: 'tactician.handler', command: App\Business\Command\CompleteOrder }
+
+    App\Handler\ChooseShippingHandler:
+        tags:
+            - { name: 'tactician.handler', command: App\Business\Command\ChooseShipping }
+                
+    App\Handler\SaveOrderItemReasonHandler:
+        tags:
+            - { name: 'tactician.handler', command: App\Business\Command\SaveOrderItemReason }
+
+    App\Handler\Front\QuotationHandler:
+        tags:
+            - { name: 'tactician.handler', command: App\Business\Command\Quotation }
+
+    App\Handler\GiftCardAddressOrderHandler:
+        tags:
+            - { name: 'tactician.handler', command: App\Business\Command\GiftCardAddressOrder }
+                
+    App\Handler\AddCouponHandler:
+        arguments:
+            $giftCardApplicator: '@setono_sylius_gift_card.applicator.gift_card'
+        tags:
+            - { name: 'tactician.handler', command: App\Business\Command\AddCoupon }
+
+    App\MessageHandler\ProductReview\AddProductReviewHandler:
+        decorates: Sylius\Bundle\ApiBundle\CommandHandler\AddProductReviewHandler
+        arguments:
+            $decoratedHandler: '@App\MessageHandler\ProductReview\AddProductReviewHandler.inner'
+        tags:
+            - { name: 'messenger.message_handler', bus: 'sylius.command_bus' }
+            - { name: 'messenger.message_handler', bus: 'sylius_default.bus' }
+
+    App\MessageHandler\Familiarity\AddFamiliaritiesMessageHandler:
+        tags:
+            - { name: 'messenger.message_handler', bus: 'sylius.command_bus' }
+            - { name: 'messenger.message_handler', bus: 'sylius_default.bus' }
+
+    App\MessageHandler\Shipping\SelectShippingMethodCategoryHandler:
+        tags:
+            - { name: 'messenger.message_handler', bus: 'sylius.command_bus' }
+            - { name: 'messenger.message_handler', bus: 'sylius_default.bus' }
+
+    App\MessageHandler\Order\OrderOptInHandler:
+        tags:
+            - { name: 'messenger.message_handler', bus: 'sylius.command_bus' }
+            - { name: 'messenger.message_handler', bus: 'sylius_default.bus' }
+
+    App\MessageHandler\Order\ApplyCouponToCartHandler:
+        decorates: 'Sylius\Bundle\ApiBundle\CommandHandler\Cart\ApplyCouponToCartHandler'
+        arguments:
+            $decoratedApplyCouponToCartHandler: '@App\MessageHandler\Order\ApplyCouponToCartHandler.inner'
+
+    App\MessageHandler\Order\SelectCalendarSlotForAutonomousReturnHandler:
+        tags:
+            - { name: 'messenger.message_handler', bus: 'sylius.command_bus' }
+            - { name: 'messenger.message_handler', bus: 'sylius_default.bus' }
+                
+    App\MessageHandler\Order\InsertItemsReasonForAutonomousReturnHandler:
+        tags:
+            - { name: 'messenger.message_handler', bus: 'sylius.command_bus' }
+            - { name: 'messenger.message_handler', bus: 'sylius_default.bus' }
+    
+    App\MessageHandler\Order\AddItemToCartHandler:
+        decorates: 'Sylius\Bundle\ApiBundle\CommandHandler\Cart\AddItemToCartHandler'
+        arguments:
+            $decoratedAddItemToCartHandler: '@App\MessageHandler\Order\AddItemToCartHandler.inner'
+        tags: [ 'messenger.message_handler' ]
+    
+    App\MessageHandler\Order\PickupAndAddItemToCartHandler:
+        arguments:
+            $pickupCartHandler: '@Sylius\Bundle\ApiBundle\CommandHandler\PickupCartHandler'
+            $addItemToCartHandler: '@App\MessageHandler\Order\AddItemToCartHandler'
+        tags: [ 'messenger.message_handler' ]
+
+    App\MessageHandler\DripHandler:
+        tags:
+            - { name: 'messenger.message_handler', bus: 'sylius_default.bus' }

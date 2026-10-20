@@ -1,0 +1,52 @@
+sylius_grid:
+    grids:
+        sylius_admin_reason:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: "%sylius.model.reason.class%"
+            sorting:
+                enable: desc
+            fields:
+                type:
+                    type: twig
+                    label: sylius.ui.type
+                    options:
+                        template: '@SyliusAdmin/Grid/Field/type.html.twig'
+                groupName:
+                    type: twig
+                    label: sylius.ui.reason_group_name
+                    options:
+                        template: '@SyliusAdmin/Grid/Field/reason.html.twig'
+                name:
+                    type: string
+                    label: sylius.ui.name
+                channel:
+                    type: twig
+                    label: sylius.ui.channel
+                    options:
+                        template: '@SyliusAdmin/Grid/Field/channel.html.twig'
+                productRule:
+                    type: twig
+                    label: sylius.ui.mandatory_variant
+                    options:
+                        template: "@SyliusAdmin/Grid/Field/product-rule.html.twig"
+                enable:
+                    type: twig
+                    label: sylius.ui.enabled
+                    sortable: ~
+                    options:
+                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete
+            filters:
+                enable:
+                    type: boolean
+                    label: sylius.ui.enabled

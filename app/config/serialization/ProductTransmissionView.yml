@@ -1,0 +1,19 @@
+App\View\ProductTransmissionView:
+    exclusion_policy: ALL
+    properties:
+        variants:
+            expose: true
+            type: array<App\View\ProductVariantTransmissionView>
+            groups: [ 'spidy','pickup' ]
+    virtual_properties:
+        getWeight:
+            name: 'weight'
+            serialized_name: 'weight'
+            type: float
+            groups: [ 'eDeliv' ]
+        getVolume:
+            name: 'volume'
+            serialized_name: 'volume'
+            type: float
+            groups: [ 'eDeliv' ]
+

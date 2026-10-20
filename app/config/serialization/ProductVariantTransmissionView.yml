@@ -1,0 +1,13 @@
+App\View\ProductVariantTransmissionView:
+    exclusion_policy: ALL
+    properties:
+        code:
+            expose: true
+            serialized_name: 'Code Produit'
+            type: string
+            groups: [ 'spidy','pickup' ]
+        name:
+            expose: true
+            serialized_name: 'Commentaire ligne produit'
+            type: string
+            groups: [ 'spidy' ]

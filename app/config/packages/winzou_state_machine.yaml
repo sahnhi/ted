@@ -1,0 +1,2 @@
+imports:
+    - { resource: '../_sylius/state_machines/**' }

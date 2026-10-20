@@ -1,0 +1,79 @@
+{% extends '@SyliusInvoicingPlugin/Invoice/Download/swissPdf.html.twig' %}
+
+{% block totals %}
+    {% import "@SyliusShop/Common/Macro/money.html.twig" as money %}
+
+    {% set invoiceHtTotal = 0 %}
+    {% set invoiceTtcTotal = 0 %}
+
+    {% for invoiceProduct in productList.invoiceProducts %}
+        {% set invoiceHtTotal = invoiceHtTotal + invoiceProduct.totalHtPrice %}
+    {% endfor %}
+
+    {% for invoiceProduct in productList.invoiceProducts %}
+        {% set invoiceTtcTotal = invoiceTtcTotal + invoiceProduct.totalPrice %}
+    {% endfor %}
+
+    <tfoot>
+    {% if order.getOrderPromotionTotal > 0 %}
+        <tr>
+            <td colspan="5"></td>
+            <td class="text-bold text-right" colspan="3">Promotion : </td>
+            <td class="text-bold text-right">{{ order.getOrderPromotionTotal|sylius_format_money(invoice.currencyCode, invoice.localeCode) }}</td>
+        </tr>
+    {% endif %}
+    <tr>
+        <td colspan="5"></td>
+        <td class="text-italic text-right" colspan="3">
+            <strong>Sous-total HT :</strong>
+        </td>
+        <td class="text-italic text-right">
+            {{ invoiceHtTotal|sylius_format_money(invoice.currencyCode, invoice.localeCode) }}
+        </td>
+    </tr>
+    <tr>
+        <<td colspan="5"></td>
+        <td class="text-bold text-right" colspan="3">Montant TTC : </td>
+        <td class="text-bold text-right">{{ invoiceTtcTotal|sylius_format_money(invoice.currencyCode, invoice.localeCode) }}</td>
+    </tr>
+    <tr>
+        <td colspan="5"></td>
+        <td class="text-italic text-right" colspan="3">
+            <strong>TVA ({{ taxRate }}%)</strong>
+        </td>
+        <td class="text-italic text-right">
+            {{ (invoiceTtcTotal - invoiceHtTotal) |sylius_format_money(invoice.currencyCode, invoice.localeCode) }}
+        </td>
+    </tr>
+    {% if giftCardTotal < 0 %}
+        <tr>
+            <td colspan="5"></td>
+            <td class="text-italic text-right" colspan="3">
+                <strong>Montant total Carte cadeau :</strong>
+            </td>
+            <td class="text-italic text-right">
+                {{ giftCardTotal|sylius_format_money(invoice.currencyCode, invoice.localeCode) }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5"></td>
+            <td class="text-italic text-right" colspan="3">
+                <strong>Montant total TTC payé :</strong>
+            </td>
+            <td class="text-italic text-right">
+                {{ invoice.total|sylius_format_money(invoice.currencyCode, invoice.localeCode) }}
+            </td>
+        </tr>
+    {% endif %}
+    <tr>
+        <td colspan="5"></td>
+        <td class="text-italic text-right" colspan="3">Frais de port (inclus dans le prix de vente) : </td>
+        <td class="text-italic text-right">{{ money.convertAndFormat(totalWeight * pricePerKg * 100) }}</td>
+    </tr>
+    <tr>
+        <td colspan="5"></td>
+        <td class="text-italic text-right" colspan="3">Dont Eco-participation : </td>
+        <td class="text-italic text-right">{{ money.convertAndFormat(ecoTaxTotal) }}</td>
+    </tr>
+    </tfoot>
+{% endblock %}

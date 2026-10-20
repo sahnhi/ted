@@ -1,0 +1,45 @@
+<div class="ui hidden divider"></div>
+
+<a href="#!" class="ui primary large button display-loyalty-check-modal">{{ 'app.ui.loyalty.i_have_a_sponsor_code'|trans }}</a>
+
+<div id="loyalty-check-modal" class="ui mini modal">
+    <i class="close icon"></i>
+    <div class="header">
+        <h4 class="ui header">
+            {{ 'app.ui.loyalty.loyalty_tediber'|trans }}
+        </h4>
+    </div>
+    <div class="content">
+        <p>{{ 'app.ui.loyalty.verify_eligibility'|trans }}</p>
+
+        <div class="ui form">
+            <div class="required field">
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email, {'attr': {'form': main_form}}) }}
+            </div>
+
+            <div class="required field">
+                {{ form_label(form.coupon) }}
+                {{ form_widget(form.coupon, {'attr': {'form': main_form}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="actions">
+        <button type="submit" class="ui teal icon labeled button" form="{{ main_form }}"><i class="ticket icon"></i> {{ 'app.ui.loyalty.verify_code'|trans }}</button>
+    </div>
+</div>
+{% include '@SyliusUi/_javascripts.html.twig' with {'path': 'assets/admin/js/app.js'} %}
+
+<script>
+    $('.display-loyalty-check-modal').on('click', function (e) {
+        e.preventDefault();
+    });
+
+    $('#loyalty-check-modal')
+        .modal('attach events', '.display-loyalty-check-modal', 'show',
+            {
+                'centered': false,
+            }
+        )
+    ;
+</script>

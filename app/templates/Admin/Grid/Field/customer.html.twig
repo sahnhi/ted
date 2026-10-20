@@ -1,0 +1,15 @@
+<strong>{{ data.firstName }} {{ data.lastName }}</strong>
+
+{% set criteria = {
+    'criteria': {
+        'customer': {
+            'type': 'equal',
+            'value': data.email
+        }
+    }
+} %}
+
+<p>
+    <a href="{{ path('sylius_admin_order_index', criteria) }}" target="_blank">{{ data.email }}</a>
+</p>
+

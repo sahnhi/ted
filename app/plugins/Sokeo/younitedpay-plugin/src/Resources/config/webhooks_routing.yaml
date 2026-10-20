@@ -1,0 +1,15 @@
+sylius_younitedpay_plugin_webhook_granted:
+    path: /younitedpay-webhook/granted/{paymentId}
+    methods: [POST]
+    defaults:
+        _controller: Sokeo\SyliusYounitedpayPlugin\Controller\Webhooks\GrantedAction
+sylius_younitedpay_plugin_webhook_cancelled:
+    path: /younitedpay-webhook/cancelled/{paymentId}
+    methods: [POST]
+    defaults:
+        _controller: Sokeo\SyliusYounitedpayPlugin\Controller\Webhooks\CancelledAction
+sylius_younitedpay_plugin_webhook_withdrawn:
+    path: /younitedpay-webhook/withdrawn/{paymentId}
+    methods: [POST]
+    defaults:
+        _controller: Sokeo\SyliusYounitedpayPlugin\Controller\Webhooks\WithdrawnAction

@@ -1,0 +1,28 @@
+parameters:
+    locale: 'fr_FR'
+    data_fixtures_path: '%kernel.project_dir%/fixtures'
+    sylius_odoo_api_key: 'foo-bar'
+
+services:
+    # Default configuration for services in *this* file
+    _defaults:
+        # Automatically injects dependencies in your services
+        autowire: true
+        
+        bind:
+            $dataFixturesPath: '%data_fixtures_path%'
+    
+    App\Tests\Functional\Helper\:
+        resource: '../tests/Functional/Helper'
+
+    App\Tests\Functional\Helper\FixtureLoader:
+        public: true
+
+    App\Tests\Functional\Helper\InitTestCommand:
+        tags:
+            - { name: console.command, command: init:test }
+    
+    app.clock:
+        class: Lcobucci\Clock\FrozenClock
+        factory: [ 'App\DependencyInjection\Factory\ClockFactory', 'createFrozenClock' ]
+        arguments: [ '2024-11-25T14:30:37+00:00' ]

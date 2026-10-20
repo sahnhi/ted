@@ -1,0 +1,6 @@
+sylius_gift_card_plugin_confirmation_email_resend:
+    path: /gift-cards/{id}/resend-confirmation-email/{recipient}
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Admin\Action\ResendGiftCardConfirmationEmailAction
+

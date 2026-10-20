@@ -1,0 +1,16 @@
+sylius_grid:
+    grids:
+        sylius_admin_customer:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\Sylius\Customer
+            filters:
+                customer_group:
+                    type: admin_customer_group
+                    label: sylius.ui.customer.group
+                    options:
+                        fields: [ group.name ]
+    templates:
+        filter:
+            admin_customer_group: '@SyliusAdmin/Grid/Filter/admin_customer_group.html.twig'

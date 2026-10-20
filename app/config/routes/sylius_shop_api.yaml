@@ -1,0 +1,98 @@
+shop_api_cart:
+    resource: ./shop-api/cart.yaml
+
+shop_api_order:
+    resource: ./shop-api/order.yaml
+    prefix: /order
+
+shop_api_sponsor:
+    resource: ./shop-api/sponsor.yaml
+    prefix: /sponsor
+
+shop_api_review:
+    resource: ./shop-api/review.yaml
+    prefix: /reviews
+
+shop_api_pack:
+    resource: ./shop-api/pack.yaml
+    prefix: /packs
+
+shop_api_product:
+    resource: ./shop-api/product.yaml
+
+shop_api_taxon:
+    resource: ./shop-api/taxon.yaml
+
+shop_api_payment:
+    resource: ./shop-api/payment.yaml
+    prefix: payment
+
+shop_api_erp:
+    resource: ./shop-api/erp.yaml
+    prefix: erp
+
+shop_api_autonomous_return:
+    resource: ./shop-api/autonomous_return.yaml
+    prefix: autonomous-return
+
+shop_api_address_country_list:
+    path: /address/countries
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Api\Address\CountryAction
+
+shop_api_familiarity_list:
+    path: /familiarities
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Api\Familiarity\ListAction
+
+shop_api_familiarity_add:
+    path: /familiarity/add/{token}
+    methods: [ POST ]
+    defaults:
+        _controller: App\Controller\Api\Familiarity\AddAction
+
+shop_api_shipping_urbantz:
+    path: /shipping/urbantz
+    methods: [ POST ]
+    defaults:
+        _controller: App\Controller\Api\Shipping\UrbantzAction
+
+shop_api_product_review_google_rss:
+    path: /products-review/google/rss
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Api\Product\Review\ReviewRssAction
+
+shop_api_younited_taeg:
+    path: /younited/taeg/{amount}
+    methods: [ GET ]
+    controller: App\Controller\Api\Payment\YounitedTAEGAction
+    defaults:
+        amount: 1000
+
+shop_api_dalenys_payments_unzip:
+    path: /dalenys/payments/unzip
+    methods: [ POST ]
+    defaults:
+        _controller: App\Controller\Api\Payment\DalenysUnzipPaymentsAction
+
+shop_api_promotion_lingot_drip:
+    path: /lingot/add
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Api\Drip\LingotAction
+
+shop_api_get_invoice:
+    path: /orders/{orderNumber}/invoice
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Invoice\InvoiceController:download
+
+## @todo: move out of here when CORS is fixed
+maintenance:
+    path: /maintenance
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\MaintenanceController

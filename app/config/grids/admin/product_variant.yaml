@@ -1,0 +1,58 @@
+sylius_grid:
+    grids:
+        sylius_admin_product_variant:
+            fields:
+                enabled:
+                    type: twig
+                    label: sylius.ui.enabled
+                    options:
+                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
+            actions:
+                main:
+                    generate:
+                        type: generate_variants
+                        options:
+                            product: expr:service('sylius.repository.product').find($productId)
+                            condition: isNotEmptyAndDoesNotContainBundle
+                    create:
+                        type: create
+                        options:
+                            resource: expr:service('sylius.repository.product').find($productId)
+                            condition: isNotEmptyAndDoesNotContainBundle
+                            link:
+                                parameters:
+                                    productId: $productId
+                    bundles:
+                        type: generate_bundles
+                        options:
+                            product: expr:service('sylius.repository.product').find($productId)
+                            condition: isEmptyOrContainsBundle
+                item:
+                    enabled:
+                        position: 1
+                        type: default
+                        label: sylius.ui.enable
+                        icon: 'toggle on'
+                        options:
+                            link:
+                                route: sylius_admin_product_variant_enabled
+                                invisible: resource.enabled
+                                parameters:
+                                    id: resource.id
+                                    productId: $productId
+                    disabled:
+                        position: 1
+                        type: default
+                        label: sylius.ui.disable
+                        icon: 'toggle off'
+                        options:
+                            link:
+                                route: sylius_admin_product_variant_enabled
+                                visible: resource.enabled
+                                parameters:
+                                    id: resource.id
+                                    productId: $productId
+        
+    templates:
+        action:
+            generate_bundles: "@SyliusAdmin/Product/Grid/Action/generateBundles.html.twig"

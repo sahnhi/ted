@@ -1,0 +1,52 @@
+{% extends layout ?: "@PayumCore/layout.html.twig" %}
+
+{% block payum_stylesheets %}
+    {{ parent() }}
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    {% include '@SyliusUi/_stylesheets.html.twig' with {'path': 'assets/shop/css/style.css'} %}
+    {# BEGIN CUSTOM TEMPLATE #}
+    {% include '@SyliusUi/_stylesheets.html.twig' with {'path': 'assets/shop/css/shop.override.css'} %}
+    {# END CUSTOM TEMPLATE #}
+
+    {{ sonata_block_render_event('sylius.shop.layout.stylesheets') }}
+{% endblock %}
+
+{% block payum_body %}
+<div class="ui stackable grid padded">
+  <div class="sixteen wide column">
+    <div class="ui segment" id="sylius-barcode">
+      <form class="ui loadable form" method="post">
+        <div class="one field">
+          <h3 class="ui dividing header">{{ gatewayName }}</h3>
+            <div class="field">
+                {{ 'app.ui.label.orderNumber'|trans }} : #{{ orderNumber }}
+            </div>
+
+            {% if gatewayCode == 'cofidis_ntimes' %}
+                <div class="required field">
+                    <label class="required" for="barcode">{{ 'app.ui.label.cofidisAccountId'|trans }}</label>
+                    <input type="text" name="barcode" value="" required="required" placeholder="{{ 'app.ui.placeholder.cofidisAccountId'|trans }}" />
+                </div>
+            {% else %}
+                <div class="required field">
+                    <label class="required" for="barcode">{{ 'app.ui.label.barcode'|trans }}</label>
+                    <input type="text" name="barcode" value="" required="required" placeholder="{{ 'app.ui.placeholder.barcode'|trans }}" />
+                </div>
+            {% endif %}
+
+          <div class="ui one column grid">
+            <div class="right aligned column">
+                <a href="{{ cancelUrl }}" id="cancel" class="ui large icon labeled button"><i class="ban icon"></i> {{ 'app.ui.cancel'|trans }}</a>
+              <button type="submit" id="next-step" class="ui large primary icon labeled button"><i class="arrow right icon"></i> {{ 'app.ui.confirm'|trans }}</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

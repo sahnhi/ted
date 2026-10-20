@@ -1,0 +1,99 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\ApiPlatform\Swagger\SwaggerDecorator:
+        decorates: "api_platform.swagger.normalizer.api_gateway"
+        arguments: ['@App\ApiPlatform\Swagger\SwaggerDecorator.inner']
+        autoconfigure: false
+
+    App\ApiPlatform\OpenApi\OpenApiFactory:
+        decorates: "api_platform.openapi.factory"
+        arguments: ['@App\ApiPlatform\OpenApi\OpenApiFactory.inner']
+        autoconfigure: false
+
+    App\ApiPlatform\State\TaxonCollectionDataProvider:
+        decorates: "sylius.api.collection_data_provider.taxon"
+        arguments:
+            $decoratedCollectionDataProvider: '@App\ApiPlatform\State\TaxonCollectionDataProvider.inner'
+
+    Sylius\Bundle\ApiBundle\Map\CommandItemIriArgumentToIdentifierMap:
+        arguments:
+            $map:
+                App\Model\ProductReview\AddProductReview: "product"
+                Sylius\Bundle\ApiBundle\Command\Checkout\ChoosePaymentMethod: "paymentMethod"
+                Sylius\Bundle\ApiBundle\Command\Account\ChangePaymentMethod: "paymentMethod"
+                Sylius\Bundle\ApiBundle\Command\RequestResetPasswordToken: "locale"
+                Sylius\Bundle\ApiBundle\Command\ResendVerificationEmail: "locale"
+                Sylius\Bundle\ApiBundle\Command\Checkout\ChooseShippingMethod: "shippingMethod"
+                App\Message\Order\AddItemToCart: "productVariant"
+                App\Message\Order\PickupAndAddItemToCart: "productVariant"
+
+    App\ApiPlatform\Serializer\Product\ProductVariantNormalizer:
+        decorates: 'Sylius\Bundle\ApiBundle\Serializer\ProductVariantNormalizer'
+        arguments:
+            $decoratedProductVariantNormalizer: '@App\ApiPlatform\Serializer\Product\ProductVariantNormalizer.inner'
+            $productVariantPricesCalculator: '@sylius.calculator.product_variant_price'
+
+    App\ApiPlatform\Doctrine\OrderMethodsItemExtensionDecorator:
+        tags:
+            - { name: "api_platform.doctrine.orm.query_extension.item" }
+        # Autoconfiguration must be disabled to set a custom priority
+        autoconfigure: false
+        decorates: "sylius.api.doctrine.query_item_extension.delete_order"
+        arguments:
+            $userContext: "@sylius.api.context.user"
+
+    App\ApiPlatform\State\Order\ProductVariantEligibleShippingMethodCategoryCollectionProvider:
+        arguments:
+            $addressFactory: "@sylius.factory.address"
+
+    App\ApiPlatform\State\Product\ProductItemDataProvider:
+        decorates: "sylius.api.collection_data_provider.product"
+        arguments:
+            $decoratedProductItemDataProvider: '@App\ApiPlatform\State\Product\ProductItemDataProvider.inner'
+
+    App\ApiPlatform\Serializer\SerializerContextBuilder:
+        decorates: "api_platform.serializer.context_builder"
+        arguments:
+            $decoratedSerializerContextBuilder: '@App\ApiPlatform\Serializer\SerializerContextBuilder.inner'
+
+    App\ApiPlatform\Extension\ProductCMSSizingGuideExtension:
+        tags:
+            - { name: "api_platform.doctrine.orm.query_extension.collection" }
+            - { name: "api_platform.doctrine.orm.query_extension.item" }
+
+    App\ApiPlatform\Extension\ProductReview\LocaleAwareQueryCollectionExtension:
+        tags:
+            - { name: "api_platform.doctrine.orm.query_extension.collection" }   
+
+    App\ApiPlatform\Extension\ProductReview\EmptyCommentAndTitleQueryCollectionExtension:
+        tags:
+            - { name: "api_platform.doctrine.orm.query_extension.collection" }   
+
+    App\ApiPlatform\Serializer\Order\OrderDeliveryDateNormalizer:
+        arguments:
+            $dateTimeNormalizer: '@serializer.normalizer.datetime'
+
+    App\ApiPlatform\Serializer\Order\OrderItemAvailabilityDateNormalizer:
+        arguments:
+            $dateTimeNormalizer: '@serializer.normalizer.datetime'
+    
+    # We need to re-declare this service to use the CompositeMethodsResolver behind the 'sylius.payment_methods_resolve' service
+    # and not 'sylius.payment_methods_resolver.channel_based'
+    sylius.api.collection_data_provider.payment_method:
+        class: Sylius\Bundle\ApiBundle\DataProvider\CartPaymentMethodsSubresourceDataProvider
+        arguments:
+            $orderRepository: '@sylius.repository.order'
+            $paymentRepository: '@sylius.repository.payment'
+            $paymentMethodsResolver: '@sylius.payment_methods_resolver'
+        tags:
+            -  { name: api_platform.subresource_data_provider, priority: 10 }
+
+    App\Controller\Api\Order\ChooseShippingAction:
+        arguments:
+            $normalizer: '@App\ApiPlatform\Serializer\Order\OrderDeliveryDateNormalizer'
+            $contextBuilder: '@api_platform.serializer.context_builder'
+        tags:
+            - { name: controller.service_arguments }

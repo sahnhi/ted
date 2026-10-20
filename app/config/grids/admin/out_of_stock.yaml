@@ -1,0 +1,283 @@
+sylius_grid:
+    grids:
+        sylius_admin_out_of_stock:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\Sylius\Order
+                    repository:
+                        method: createOutOfStockListQueryBuilder
+                        arguments:
+                            - 'expr:service("app.criteria_cleaner").clean()'
+            fields:
+                channel:
+                    type: twig
+                    label: sylius.ui.channel
+                    path: channel
+                    options:
+                        template: 'SyliusAdminBundle:Order/Grid/Field:channel.html.twig'
+                number:
+                    type: twig
+                    label: sylius.ui.number
+                    path: .
+                    options:
+                        template: 'SyliusAdminBundle:Order/Grid/Field:number.html.twig'
+                date:
+                    type: datetime
+                    label: sylius.ui.date
+                    path: checkoutCompletedAt
+                    sortable: checkoutCompletedAt
+                    options:
+                        format: d-m-Y H:i:s
+                customer:
+                    type: twig
+                    label: sylius.ui.customer
+                    path: customer
+                    options:
+                        template: 'SyliusAdminBundle:Order/Grid/Field:customer.html.twig'
+                status:
+                    type: twig
+                    label: sylius.ui.state
+                    path: orderOutOfStock
+                    options:
+                        template: "@SyliusAdmin/Grid/Field/outOfStockState.html.twig"
+                        vars:
+                            labels: "@SyliusAdmin/OrderOutOfStock/Label/ShippingState"
+                customerState:
+                    type: twig
+                    label: sylius.ui.customer_state
+                    path: orderOutOfStock
+                    options:
+                        template: "@SyliusAdmin/Grid/Field/customerState.html.twig"
+                        vars:
+                            labels: "@SyliusAdmin/OrderOutOfStock/Label/CustomerState"
+                shippingState:
+                    type: twig
+                    label: sylius.ui.shipping_state
+                    path: .
+                    options:
+                        template: "@SyliusAdmin/Grid/Field/shippingState.html.twig"
+                        vars:
+                            labels: "@SyliusAdmin/Order/Label/ShippingState"
+                stockPriority:
+                    type: twig
+                    sortable: stockPriority
+                    path: .
+                    label: sylius.ui.stock_priority
+                    options:
+                        template: "@SyliusAdmin/Grid/Field/stockPriority.html.twig"
+                isBundle:
+                    type: twig
+                    path: .
+                    label: sylius.ui.isBundle
+                    options:
+                        template: "@SyliusAdmin/Grid/Field/isBundle.html.twig"
+                items:
+                    type: twig
+                    label: sylius.ui.items
+                    path: items
+                    options:
+                        template: "@SyliusAdmin/Grid/Field/order_items.html.twig"
+            actions:
+                item:
+                    reorder:
+                        type: default
+                        label: sylius_admin_order_creation.ui.reorder
+                        icon: 'cart plus'
+                        options:
+                            link:
+                                route: sylius_admin_order_creation_bis
+                                parameters:
+                                    id: resource.id
+                            class: orange
+                    update_outOfStock:
+                        type: out_of_stock_update
+                        label: sylius.ui.update
+                        icon: 'edit'
+                        options:
+                            link:
+                                route: sylius_admin_order_outofstock_update
+                                parameters:
+                subitem:
+                    vip:
+                        type: links
+                        label: sylius_admin_order_creation.ui.others
+                        options:
+                            links:
+                                to_vip:
+                                    label: sylius_admin_order_creation.ui.to_vip
+                                    route: sylius_switch_to_vip
+                                    parameters:
+                                        id: resource.id
+                                        create: 1
+                                not_vip:
+                                    label: sylius_admin_order_creation.ui.not_vip
+                                    route: sylius_switch_to_vip
+                                    parameters:
+                                        id: resource.id
+                                        create: 0
+
+                bulk:
+                    states:
+                        type: select
+                        label: sylius.form.order.out_of_stock.bulk.state
+                        icon: 'history'
+                        options:
+                            class: 'red'
+                            field: state
+                            link:
+                                route: sylius_admin_order_out_of_stock
+                            choices:
+                                none: 'sylius.form.order.out_of_stock.bulk.state_none'
+                                out_of_stock: 'sylius.form.order.out_of_stock.bulk.state_out_of_stock'
+                                to_send: 'sylius.form.order.out_of_stock.bulk.state_to_send'
+                                partially_planned: 'sylius.form.order.out_of_stock.bulk.state_partially_planned'
+                    customerState:
+                        type: select
+                        label: sylius.ui.customer_state
+                        icon: 'user'
+                        options:
+                            class: 'blue'
+                            field: customerState
+                            link:
+                                route: sylius_admin_order_outofstock_bulk_edit
+                                parameters:
+                                    field: customerState
+                            choices:
+                                none: 'sylius.form.order.out_of_stock.bulk.state_none'
+                                called_no: 'sylius.ui.called_no'
+                                called: 'sylius.ui.called'
+                                need_call: 'sylius.ui.need_call'
+                                calledback: 'sylius.ui.calledback'
+                    deliverDate:
+                        type: datetime
+                        label: sylius.ui.shipping_date
+                        icon: 'calendar'
+                        options:
+                            class: 'teal'
+                            field: deliverDate
+                            link:
+                                route: sylius_admin_order_outofstock_bulk_edit
+                                parameters:
+                                    field: deliverDate
+
+                    export:
+                        type: export
+                        label: Export CSV
+                        options:
+                            link:
+                                route: sylius_admin_order_outofstock_export
+                                parameters:
+                                    criteria: "expr:service('request_stack').getCurrentRequest().get('criteria', [])"
+                                    export: csv
+            filters:
+                number:
+                    type: string
+                    label: sylius.ui.number
+                channel:
+                    type: entity
+                    label: sylius.ui.channel
+                    form_options:
+                        class: "%sylius.model.channel.class%"
+                state_out_of_stock:
+                    type: select
+                    label: sylius.ui.order_outofstocks_state
+                    options:
+                        field: orderOutOfStock.status
+                    form_options:
+                        choices:
+                            sylius.ui.partially_planned: partially_planned
+                            sylius.ui.out_of_stock: out_of_stock
+                            sylius.ui.to_send: to_send
+                customer_state:
+                    type: select
+                    label: sylius.form.order.out_of_stock.customer_state
+                    options:
+                        field: orderOutOfStock.customerState
+                    form_options:
+                        choices:
+                            sylius.ui.called_no: called_no
+                            sylius.ui.called: called
+                            sylius.ui.need_call: need_call
+                            sylius.ui.calledback: calledback
+                date:
+                    type: date
+                    label: sylius.ui.date
+                    options:
+                        field: checkoutCompletedAt
+                        inclusive_to: true
+                createdAt:
+                    type: date
+                    label: sylius.ui.date_out_of_stock
+                    options:
+                        field: orderOutOfStock.createdAt
+                total:
+                    type: money
+                    label: sylius.ui.total
+                    options:
+                        currency_field: currencyCode
+                shipping_state:
+                    type: admin_order_state
+                    form_options:
+                        state:
+                            sylius.ui.ready: ready
+                            sylius.ui.cancelled: cancelled
+                            sylius.ui.shipped: shipped
+                delivery_date:
+                    type: date
+                    label: sylius.ui.delivery_date
+                    options:
+                        field: shipment.startDeliverySlot
+                        inclusive_to: true
+                shipping_date:
+                    type: date
+                    label: sylius.ui.shipping_date
+                    options:
+                        field: shipment.shippingDate
+                        inclusive_to: true
+                shipping_method:
+                    type: entity
+                    label: sylius.ui.shipping_method
+                    options:
+                        fields: [ method.id ]
+                    form_options:
+                        class: "%sylius.model.shipping_method.class%"
+                isBundle:
+                    type: is_bundle
+                    label: sylius.ui.isBundle
+                contains_variant:
+                    type: multiple_entity
+                    label: sylius.ui.contains_variant
+                    options:
+                        fields: [ variant.id ]
+                    form_options:
+                        needLocale: true
+                        method: "getForFilter"
+                        class: "%sylius.model.product_variant.class%"
+                        multiple: true
+                        choice_label: nameAndCode
+                        attr:
+                            class: "select2"
+                not_contains_variant:
+                    type: multiple_entity
+                    label: sylius.ui.not_contains_variant
+                    options:
+                        fields: [ variant.id ]
+                    form_options:
+                        needLocale: true
+                        method: "getForFilter"
+                        class: "%sylius.model.product_variant.class%"
+                        multiple: true
+                        choice_label: nameAndCode
+                        attr:
+                            class: "select2"
+    templates:
+        filter:
+            multiple_entity: "@SyliusUi/Grid/Filter/entity.html.twig"
+            is_bundle: "@SyliusAdmin/Grid/Filter/is_bundle.html.twig"
+        bulk_action:
+            outOfStock: '@SyliusAdmin/Grid/Bulk/outOfStock.html.twig'
+            select: '@SyliusAdmin/Grid/Bulk/select.html.twig'
+            datetime: '@SyliusAdmin/Grid/Bulk/datetime.html.twig'
+        action:
+            out_of_stock_update: "@SyliusUi/Grid/Action/out_of_stock_update.html.twig"

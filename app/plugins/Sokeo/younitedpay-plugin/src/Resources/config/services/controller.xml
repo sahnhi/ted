@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="Sokeo\SyliusYounitedpayPlugin\Controller\Webhooks\GrantedAction">
+            <argument type="service" id="sylius.manager.payment" />
+            <argument type="service" id="sylius.repository.payment" />
+            <argument type="service" id="logger" />
+            <argument type="service" id="sm.factory" />
+            <argument type="service" id="tactician.commandbus" />
+            <argument type="service" id="app.erp.forward" />
+            <tag name="controller.service_arguments" factory="younitedpay" alias="controller.service_arguments.granted" />
+        </service>
+        <service id="Sokeo\SyliusYounitedpayPlugin\Controller\Webhooks\CancelledAction">
+            <argument type="service" id="sylius.manager.payment" />
+            <argument type="service" id="sylius.repository.payment" />
+            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="logger" />
+            <tag name="controller.service_arguments" factory="younitedpay" alias="controller.service_arguments.cancelled" />
+        </service>
+        <service id="Sokeo\SyliusYounitedpayPlugin\Controller\Webhooks\WithdrawnAction">
+            <argument type="service" id="sylius.manager.payment" />
+            <argument type="service" id="sylius.repository.payment" />
+            <argument type="service" id="logger" />
+            <tag name="controller.service_arguments" factory="younitedpay" alias="controller.service_arguments.withdrawn" />
+        </service>
+    </services>
+</container>

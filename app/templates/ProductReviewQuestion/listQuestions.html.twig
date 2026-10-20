@@ -1,0 +1,27 @@
+{% extends '@SyliusAdmin/layout.html.twig' %}
+
+{% import 'SyliusUiBundle:Macro:headers.html.twig' as headers %}
+
+{% set header = 'sylius.ui.generate_coupons' %}
+
+{% block title %}{{ header|trans }} {{ parent() }}{% endblock %}
+
+{% block content %}
+    {{ sonata_block_render_event('sylius.admin.promotion_coupon.generate.before_header', {'resource': questions}) }}
+
+    {{ sonata_block_render_event('sylius.admin.promotion_coupon.generate.after_header', {'resource': questions}) }}
+
+    <div class="ui segment">
+        <div class="ui basic segment">
+            {% for question in questions %}
+                <p>{{ question.question }}</p>
+            {% else %}
+                <strong>No questions found for this product</strong>
+            {% endfor %}
+        </div>
+
+        {{ sonata_block_render_event('sylius.admin.promotion_coupon.generate.form', {'resource': questions}) }}
+    </div>
+    {{ sonata_block_render_event('sylius.admin.promotion_coupon.generate.after_content', {'resource': questions}) }}
+{% endblock %}
+

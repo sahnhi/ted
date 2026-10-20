@@ -1,0 +1,8 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        tags: [ 'controller.service_arguments' ]
+        
+    App\Analytic\EntryPoint\ImportUser:
+        class: App\Analytic\EntryPoint\ImportUser

@@ -1,0 +1,13 @@
+App\Doctrine\Entity\Campaigns\CampaignTranslations:
+  constraints:
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+        fields: [ url ]
+        message: app.form.campaign.url.unique
+  properties:
+    url:
+      - NotBlank: ~
+    title:
+      - NotBlank: ~
+    mainImageUrl:
+      - NotBlank: ~
+      - Url: ~

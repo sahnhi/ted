@@ -1,0 +1,5 @@
+App\Calendar\ViewModels\DeliveryTimes:
+    attributes:
+        deliveryTimes:
+            groups:
+                - shop:order:calendar:autonomous-return

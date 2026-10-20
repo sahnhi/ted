@@ -1,0 +1,87 @@
+App\View\ProductView:
+    exclusion_policy: ALL
+    properties:
+        code:
+            expose: true
+            type: string
+            groups: [ 'product.list', 'product.show', 'taxon.list' ]
+        gtin:
+            expose: true
+            type: string
+            groups: [ 'product.show' ]
+        name:
+            expose: true
+            type: string
+            groups: [ 'product.list', 'product.show', 'product_review_question.list', 'taxon.list' ]
+        slug:
+            expose: true
+            type: string
+            groups: [ 'product.list', 'product.show', 'product_review_question.list', 'taxon.list' ]
+        averageRating:
+            expose: true
+            type: float
+            groups: [ 'product.list', 'product_review_question.list', 'taxon.list' ]
+        numberOfRating:
+            expose: true
+            type: int
+            groups: [ 'product.list', 'product_review_question.list', 'taxon.list' ]
+        options:
+            expose: true
+            type: array<App\View\ProductOptionView>
+            groups: [ 'product.show', 'taxon.list' ]
+        variants:
+            expose: true
+            type: array<App\View\ProductVariantView>
+            groups: [ 'product.show', 'taxon.list' ]
+        ids:
+            expose: true
+            type: array<App\View\ProductIdView>
+            groups: [ 'google.rss' ]
+            xml_list:
+                entry_name: 'product_ids'
+                inline: true
+        url:
+            expose: true
+            type: string
+            groups: [ 'google.rss' ]
+            serialized_name: 'product_url'
+            xml_element:
+                cdata: false
+        minBound:
+            expose: true
+            type: int
+            groups: [ 'product.list' , 'taxon.list' ]
+        maxBound:
+            expose: true
+            type: int
+            groups: [ 'product.list' , 'taxon.list' ]
+        warranty:
+            expose: true
+            type: int
+            groups: [ 'product.show' ]
+        originalLowerPrice:
+            expose: true
+            type: int
+            groups: [ 'product.show' ]
+        lowerPrice:
+            expose: true
+            type: int
+            groups: [ 'product.show' ]
+        joinStoryLink:
+            expose: true
+            type: string
+            groups: [ 'product.list', 'product.show' ]
+        relatedProducts:
+            expose: true
+            type: array<App\View\RelatedProductView>
+            groups: [ 'product.show' ]
+        bundleType:
+            expose: true
+            type: string
+            groups: [ 'product.list', 'product.show' ]
+    virtual_properties:
+        reviewTaxon:
+            exp: object.getReviewTaxon()
+            serialized_name: 'code'
+            type: string
+            groups: [ 'product_review_question.list' ]

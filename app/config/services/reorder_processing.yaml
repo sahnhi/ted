@@ -1,0 +1,75 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    ### COMMON ###
+
+    Sylius\AdminOrderCreationPlugin\ReorderProcessing\ReorderDataProcessor:
+        tags:
+            - { name: 'app.reorder_processor', priority: 50, orderTypes: 'bis_return', pre: true }
+
+    App\ReorderProcessing\NumberProcessor:
+        tags:
+            - { name: 'app.reorder_processor', priority: 40, orderTypes: 'bis_return' }
+
+    App\ReorderProcessing\ReorderItemsProcessor:
+        tags:
+            - { name: 'app.reorder_processor', priority: 25, orderTypes: 'bis_return', pre: true }
+
+    App\ReorderProcessing\BundleProcessor:
+        tags:
+            - { name: 'app.reorder_processor', priority: 20, orderTypes: 'bis_return', pre: true }
+
+    ### BIS ###
+
+    App\ReorderProcessing\BisPaymentProcessor:
+        tags:
+            - { name: 'app.reorder_processor', priority: 15, orderTypes: 'bis', pre: true }
+
+    App\ReorderProcessing\CleanShipmentsProcessor:
+        tags:
+            - { name: 'app.reorder_processor', priority: 10, orderTypes: 'bis_return', pre: true }
+
+    App\ReorderProcessing\BisOutOfStockAndCancelProcessor:
+        tags:
+            - { name: 'app.reorder_processor', priority: 10, orderTypes: 'bis' }
+
+    App\ReorderProcessing\CheckReasonProcessor:
+        tags:
+            - { name: 'app.reorder_processor', priority: 0, orderTypes: 'bis' }
+
+    App\ReorderProcessing\BisOdooStateProcessor:
+        tags:
+            - { name: 'app.reorder_processor', priority: -10, orderTypes: 'bis' }
+
+    ### RETURN ###
+    
+    App\ReorderProcessing\ReturnOrderReasonItemsProcessor:
+        tags:
+            - { name: 'app.reorder_processor', priority: 10, orderTypes: 'return' }
+    
+    App\ReorderProcessing\ShippingAdjustmentCleanerProcessor:
+        tags:
+            - { name: 'app.reorder_processor', priority: 50, orderTypes: 'return' , pre: true}
+
+    ### SPECIFIC ###
+
+    App\ReorderProcessing\ReturnRemoveShipmentsProcessor:
+        tags:
+            - { name: 'app.reorder_processor', priority: 15, orderTypes: 'sender_refund_warehouse' }
+
+    App\ReorderProcessing\ReturnStateMachineProcessor:
+        tags:
+            - { name: 'app.reorder_processor', priority: 10, orderTypes: 'sender_refund_warehouse_autonomous' }
+
+    ### BIS-EXCHANGE ###
+
+    App\ReorderProcessing\BisExchangeParentProcessor:
+        tags:
+            - { name: 'app.reorder_processor', priority: 50, orderTypes: 'bis-exchange', pre: true }
+
+    App\ReorderProcessing\BisExchangeFormProcessor:
+        tags:
+            - { name: 'app.reorder_processor', priority: 50, orderTypes: 'bis-exchange', pre: true }
+

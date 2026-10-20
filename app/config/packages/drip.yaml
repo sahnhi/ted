@@ -1,0 +1,3 @@
+parameters:
+    drip_api_key: '%env(DRIP_API_KEY)%'
+    drip_account_id: '%env(DRIP_ACCOUNT_ID)%'

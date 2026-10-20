@@ -1,0 +1,15 @@
+App\Message\Order\PickupAndAddItemToCart:
+    attributes:
+        localeCode:
+            groups:
+                - shop:order:create
+        productVariantCode:
+            serialized_name: 'productVariant'
+            groups:
+                - shop:cart:add_item
+        quantity:
+            groups:
+                - shop:cart:add_item
+        addons:
+            groups:
+                - shop:cart:add_item

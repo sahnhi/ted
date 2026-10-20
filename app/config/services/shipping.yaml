@@ -1,0 +1,70 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Middleware\Logistic\PickUpPoint\Dpd:
+        tags:
+            - app.middleware.pick_up_points
+
+    App\Validator\Logistic\PickUpPoints\SearchableAddressValidator: ~
+
+    App\Provider\Logistic\PickUpPointProvider:
+        arguments:
+            - !tagged_iterator app.middleware.pick_up_points
+            - '@App\Validator\Logistic\PickUpPoints\SearchableAddressValidator'
+    
+    App\Checker\CategoryRequirementEligibilityChecker:
+        decorates: 'sylius.category_requirement_shipping_method_eligibility_checker'
+    
+    App\Matcher\Addressing\ZoneMatcher:
+        decorates: 'sylius.zone_matcher'
+    
+    App\Checker\Shipping\Rule\ContainsOnlyTaxonRuleChecker:
+        tags:
+            - { 
+                name: sylius.shipping_method_rule_checker,
+                type: !php/const App\Checker\Shipping\Rule\ContainsOnlyTaxonRuleChecker::TYPE,
+                label: app.form.shipping_method_rule.contains_only_taxon,
+                form_type: App\Form\Type\Rule\Shipping\TaxonCodeConfigurationType
+            }
+
+    App\Checker\Shipping\Rule\ContainsAtLeastTaxonRuleChecker:
+        tags:
+            - {
+                name: sylius.shipping_method_rule_checker,
+                type: !php/const App\Checker\Shipping\Rule\ContainsAtLeastTaxonRuleChecker::TYPE,
+                label: app.form.shipping_method_rule.contains_at_least_taxon,
+                form_type: App\Form\Type\Rule\Shipping\TaxonCodeConfigurationType
+            }
+        
+    App\Checker\Shipping\Rule\DoesNotContainsTaxonRuleChecker:
+        arguments:
+            $containsAtLeastTaxonRuleChecker: '@App\Checker\Shipping\Rule\ContainsAtLeastTaxonRuleChecker'
+        tags:
+            - {
+                name: sylius.shipping_method_rule_checker,
+                type: !php/const App\Checker\Shipping\Rule\DoesNotContainsTaxonRuleChecker::TYPE,
+                label: app.form.shipping_method_rule.does_not_contains_taxon,
+                form_type: App\Form\Type\Rule\Shipping\TaxonCodeConfigurationType
+            }
+
+    App\Checker\Shipping\Rule\LowerOrEqualThanTheMaximumAllowedMaxArticlesRuleChecker:
+        tags:
+            - {
+                name: sylius.shipping_method_rule_checker,
+                type: !php/const App\Checker\Shipping\Rule\LowerOrEqualThanTheMaximumAllowedMaxArticlesRuleChecker::TYPE,
+                label: app.form.shipping_method_rule.lower_or_equal_than_method_max_articles,
+                form_type: App\Form\Type\Rule\Shipping\EmptyConfigurationType
+            }    
+                
+    App\Checker\Shipping\Rule\GreaterThanTheMaximumAllowedMaxArticlesRuleChecker:
+        arguments:
+            $lowerOrEqualThanTheMaximumAllowedMaxArticlesRuleChecker: '@App\Checker\Shipping\Rule\LowerOrEqualThanTheMaximumAllowedMaxArticlesRuleChecker'
+        tags:
+            - {
+                name: sylius.shipping_method_rule_checker,
+                type: !php/const App\Checker\Shipping\Rule\GreaterThanTheMaximumAllowedMaxArticlesRuleChecker::TYPE,
+                label: app.form.shipping_method_rule.greater_than_method_max_articles,
+                form_type: App\Form\Type\Rule\Shipping\EmptyConfigurationType
+            }

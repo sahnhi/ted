@@ -1,0 +1,32 @@
+App\View\ProductIdView:
+    properties:
+        gtins:
+            expose: true
+            type: array
+            groups: [ 'google.rss' ]
+            xml_list:
+                entry_name: 'gtin'
+        mpns:
+            expose: true
+            type: array
+            groups: [ 'google.rss' ]
+            xml_list:
+                entry_name: 'mpn'
+            xml_element:
+                cdata: false
+        brands:
+            expose: true
+            type: array
+            groups: [ 'google.rss' ]
+            xml_list:
+                entry_name: 'brand'
+            xml_element:
+                cdata: false
+        skus:
+            expose: true
+            type: array
+            groups: [ 'google.rss' ]
+            xml_list:
+                entry_name: 'sku'
+            xml_element:
+                cdata: false

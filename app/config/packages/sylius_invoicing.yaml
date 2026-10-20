@@ -1,0 +1,9 @@
+imports:
+    - { resource: "@SyliusInvoicingPlugin/Resources/config/config.yml" }
+
+sylius_invoicing:
+    resources:
+        invoice:
+            classes:
+                model: App\Doctrine\Entity\Sylius\Invoice
+                repository: App\Doctrine\Repository\InvoicePluginRepository

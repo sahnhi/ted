@@ -1,0 +1,4 @@
+{% import '@SyliusUi/Macro/buttons.html.twig' as buttons %}
+
+{{ buttons.edit(path('sylius_admin_promotion_coupon_update', {'promotionId': data.promotion.id, 'id': data.id})) }}
+{{ buttons.delete(path('sylius_admin_promotion_coupon_delete', {'promotionId': data.promotion.id, 'id': data.id}), null, true, data.id) }}

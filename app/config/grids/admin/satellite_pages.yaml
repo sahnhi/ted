@@ -1,0 +1,30 @@
+sylius_grid:
+    grids:
+        app_admin_satellite_page:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\SatellitePages\SatellitePage
+            fields:
+                code:
+                    type: string
+                    label: sylius.ui.code
+                    path: productVariant.code
+                satelliteUrl:
+                    type: string
+                    label: sylius.ui.position
+                    sortable: true
+                enabled:
+                    type: twig
+                    label: sylius.ui.enabled
+                    options:
+                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete

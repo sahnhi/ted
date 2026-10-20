@@ -1,0 +1,70 @@
+{% if form.options is defined and form.options | length > 0 %}
+    {{ form_start(form, {'attr': {'id': form.vars.name, 'autocomplete': 'off'}}) }}
+
+    <div class="ui warning message">
+        {{ 'app.ui.bundle_association.labels.options_tips' | trans }}
+    </div>
+
+    <table class="ui compact celled definition table">
+        <thead>
+        <tr>
+            <th></th>
+            <th colspan="2">{{ 'app.ui.bundle_association.labels.force_value' | trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for child in form.options %}
+                <tr>
+                    <td><div class="ui {{ options_colors[child.vars.data.productOption.code] }} horizontal label">{{ child.vars.data.productOption.name }}</div></td>
+                    <td class="collapsing">
+                        <div class="ui fitted slider checkbox">
+                            {{ form_widget(child.forcedValue, {'attr': {'class': 'option-value-toggler'}}) }}
+                        </div>
+                    </td>
+                    <td>{{ form_row(child.productOptionValue, {'disabled': true}) }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot class="full-width">
+        <tr>
+            <th></th>
+            <th colspan="4">
+                <div class="ui small button" id="check-all">
+                    {{ 'app.ui.bundle_association.labels.check_all' | trans }}
+                </div>
+                <div class="ui small disabled button" id="uncheck-all">
+                    {{ 'app.ui.bundle_association.labels.uncheck_all' | trans }}
+                </div>
+            </th>
+        </tr>
+        </tfoot>
+    </table>
+
+    <div class="ui title">
+        {{ form_label(form.nbProducts) }}
+        <small>{{ 'app.ui.bundle_association.labels.including_products' | trans }}</small>
+    </div>
+
+    <div class="ui fluid input">
+        {{ form_widget(form.nbProducts) }}
+    </div>
+    {{ form_errors(form.nbProducts) }}
+
+    <div class="ui title" style="margin-top: 15px;">
+        {{ form_label(form.shippingCategory) }}*
+    </div>
+
+    <div class="ui fluid input">
+        {{ form_widget(form.shippingCategory, {'attr': {'class': 'select2'}}) }}
+    </div>
+    {{ form_errors(form.shippingCategory) }}
+
+    <div style="display: none">
+        {{ form_rest(form) }}
+    </div>
+
+    {{ form_row(form._token) }}
+    {{ form_end(form) }}
+{% else %}
+    {% include '@App/Admin/Bundle/Content/_error.html.twig' with {'message': 'app.ui.bundle_association.errors.their_is_no_options'} %}
+{% endif %}

@@ -1,0 +1,10 @@
+sylius_grid:
+    grids:
+        sylius_admin_admin_user:
+            fields:
+                roles:
+                    type: twig
+                    label: sylius.ui.roles
+                    sortable: ~
+                    options:
+                        template: "@SyliusAdmin/Grid/Field/role.html.twig"

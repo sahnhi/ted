@@ -1,0 +1,42 @@
+App\Doctrine\Entity\Sylius\Address:
+    attributes:
+        phoneNumber:
+            groups:
+                - admin:address:read
+                - shop:address:read
+                - shop:address:update
+                - shop:cart:address
+                - shop:cart:read
+                - shop:order:read
+        details:
+            groups:
+                - admin:address:read
+                - shop:address:read
+                - shop:address:update
+                - shop:cart:address
+                - shop:cart:read
+                - shop:order:read
+        fullName:
+            groups:
+                - admin:address:read
+                - shop:address:read
+                - shop:address:update
+                - shop:cart:address
+                - shop:cart:read
+                - shop:order:read
+        tva:
+            groups:
+                - admin:address:read
+                - shop:address:read
+                - shop:address:update
+                - shop:cart:address
+                - shop:cart:read
+                - shop:order:read
+        company:
+            groups:
+                - admin:address:read
+                - shop:address:read
+                - shop:address:update
+                - shop:cart:address
+                - shop:cart:read
+                - shop:order:read

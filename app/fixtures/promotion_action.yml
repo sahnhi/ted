@@ -1,0 +1,83 @@
+Sylius\Component\Promotion\Model\PromotionAction:
+    promotion_action_bundle_10:
+        type: 'unit_percentage_discount'
+        promotion: '@pack_promotion_pack_lit'
+        configuration:
+            default:
+                percentage: 0.1
+                filters:
+                    price_range_filter:
+                        min:
+                        max:
+                    taxons_filter:
+                        taxons: ['bundle']
+                    products_filter: 
+                        products: ['bundle-lit-adult']
+                        
+    promotion_action_bundle_20:
+        type: 'unit_percentage_discount'
+        promotion: '@pack_promotion_pack_couette'
+        configuration:
+            default:
+                percentage: 0.2
+                filters:
+                    price_range_filter:
+                        min:
+                        max:
+                    taxons_filter:
+                        taxons: ['bundle']
+                    products_filter: 
+                        products: ['bundle-couette-oreillers']
+                        
+    promotion_action_15:
+        type: 'unit_percentage_discount_with_exclusion'
+        promotion: '@promotion_15'
+        configuration:
+            percentage: 0.15
+            filters:
+                price_range_filter:
+                    min:
+                    max:
+                taxons_filter:
+                    taxons: [ ]
+                products_filter:
+                    products: []
+                        
+    promotion_action_75:
+        type: 'order_percentage_discount'
+        promotion: '@promotion_75'
+        configuration:
+            percentage: 0.75
+            
+    blackfriday_coupon_action:
+        type: 'apply_highest_priority_promotion'
+        promotion: '@blackfriday_coupon'
+        configuration:
+            promotions:
+                - BLACKFRIDAY_15
+                - BLACKFRIDAY_10
+                - BLACKFRIDAY_5
+
+    blackfriday_5_percent_order_discount_action:
+        type: 'order_percentage_discount'
+        promotion: '@blackfriday_5_percent'
+        configuration:
+            percentage: 0.05 # 5%
+
+    blackfriday_10_percent_order_discount_action:
+        type: 'order_percentage_discount'
+        promotion: '@blackfriday_10_percent'
+        configuration:
+            percentage: 0.10 # 10%
+
+    blackfriday_15_percent_order_discount_action:
+        type: 'order_percentage_discount'
+        promotion: '@blackfriday_15_percent'
+        configuration:
+            percentage: 0.15 # 15%
+
+    couette_coupon_action:
+        type: 'gift_product_variant'
+        promotion: '@couette_coupon'
+        configuration:
+            variants: [ 'TED140190' ]

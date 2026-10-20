@@ -1,0 +1,6 @@
+{% import '@SyliusUi/Macro/bulk.html.twig' as bulk %}
+
+{% set choices = options.choices %}
+{% set url = options.link.url|default(path(options.link.route, options.link.parameters|default({}))) %}
+
+{{ bulk.select(url, choices, action.label, null, action.icon, options.class, options.field) }}

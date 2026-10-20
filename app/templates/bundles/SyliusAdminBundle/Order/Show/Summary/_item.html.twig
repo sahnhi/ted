@@ -1,0 +1,132 @@
+{% import "@SyliusAdmin/Common/Macro/money.html.twig" as money %}
+
+{% set orderPromotionAdjustment = constant('Sylius\\Component\\Core\\Model\\AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT') %}
+{% set unitPromotionAdjustment = constant('Sylius\\Component\\Core\\Model\\AdjustmentInterface::ORDER_UNIT_PROMOTION_ADJUSTMENT') %}
+{% set shippingAdjustment = constant('Sylius\\Component\\Core\\Model\\AdjustmentInterface::SHIPPING_ADJUSTMENT') %}
+{% set taxAdjustment = constant('Sylius\\Component\\Core\\Model\\AdjustmentInterface::TAX_ADJUSTMENT') %}
+{% set orderItemDiscountAdjustment = constant('Sylius\\AdminOrderCreationPlugin\\Form\\Type\\AdjustmentType::ORDER_ITEM_DISCOUNT_ADJUSTMENT') %}
+
+{% set variant = item.variant %}
+{% set product = variant.product %}
+
+{% set aggregatedUnitPromotionAdjustments = item.getAdjustmentsTotalRecursively(unitPromotionAdjustment) + item.getAdjustmentsTotalRecursively(orderPromotionAdjustment) %}
+{% set unitDiscount = item.units.first.adjustmentsTotal(unitPromotionAdjustment) + item.getAdjustmentsTotalRecursively(orderItemDiscountAdjustment) / item.quantity %}
+{% set discountedUnitPrice = item.fullDiscountedUnitPrice + item.getAdjustmentsTotalRecursively(orderItemDiscountAdjustment) / item.quantity %}
+{% set subtotal = item.quantity * (item.unitPrice + item.units.first.adjustmentsTotal(unitPromotionAdjustment) + item.units.first.adjustmentsTotal(orderPromotionAdjustment)) + item.getAdjustmentsTotalRecursively(orderItemDiscountAdjustment) %}
+
+{% set taxIncluded = sylius_admin_order_unit_tax_included(item) %}
+{% set taxExcluded = sylius_admin_order_unit_tax_excluded(item) %}
+
+<tr>
+    <td class="single line">
+        {% include '@SyliusAdmin/Product/_info.html.twig' %}
+        {# BEGIN CUSTOM CODE #}
+        {% if (item.orderItemLogistics | length > 0) or (item.orderItemProductCombo | length > 0) %}
+            <button data-id="{{ item.id }}" type="button" class="ui icon labeled tiny fluid button logistic-toggler">
+                <i class="shipping icon"></i>
+                <span class="logistic-label-hide">{{ 'sylius.ui.show_logistic'|trans }}</span>
+                <span class="logistic-label-show" style="display: none">{{ 'sylius.ui.hide_logistic'|trans }}</span>
+            </button>
+        {% endif %}
+        {# END CUSTOM CODE #}
+    </td>
+    <td class="right aligned unit-price">
+        {{ money.format(item.unitPrice, order.currencyCode) }}
+    </td>
+    <td class="right aligned unit-discount">
+        {{ money.format(item.units.first.adjustmentsTotal(unitPromotionAdjustment), order.currencyCode) }}
+    </td>
+    <td class="right aligned unit-order-discount">
+        <span
+            style="font-style: italic;">~ {{ money.format(item.units.first.adjustmentsTotal(orderPromotionAdjustment), order.currencyCode) }}</span>
+    </td>
+    <td class="right aligned discounted-unit-price">
+        {{ money.format(discountedUnitPrice, order.currencyCode) }}
+    </td>
+    <td class="right aligned quantity">
+        {{ item.quantity }}
+    </td>
+    <td class="right aligned subtotal">
+        {{ money.format(subtotal, order.currencyCode) }}
+    </td>
+    <td class="right aligned tax">
+        <div class="tax-excluded">{{ money.format(taxExcluded, order.currencyCode) }}</div>
+        <div class="tax-disabled">
+            <div class="tax-included"> {{ money.format(taxIncluded, order.currencyCode) }}
+            </div>
+            <small>({{ 'sylius.ui.included_in_price'|trans }})</small>
+        </div>
+    </td>
+    <td class="right aligned total">
+        {{ money.format(item.total, order.currencyCode) }}
+    </td>
+</tr>
+{# BEGIN CUSTOM CODE #}
+{% if item.orderItemLogistics | length > 0 %}
+    <tr class="logistic-row" style="display: none" data-id="{{ item.id }}">
+        <td colspan="8">
+            <table>
+                <thead>
+                <tr>
+                    <th width="50px"></th>
+                    <th>{{ 'sylius.ui.item_logistic'|trans }}</th>
+                    <th>{{ 'sylius.ui.quantity'|trans }}</th>
+                    {% if item.variant.isBundle %}
+                        <th>{{ 'sylius.ui.unit_price'|trans }}</th>
+                        <th>{{ 'sylius.ui.unit_discount'|trans }}</th>
+                    {% endif %}
+                    <th>{{ 'sylius.ui.batch_number'|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for code, data in item.getOrderItemLogisticsDisplayable %}
+                    <tr>
+                        <td></td>
+                        <td>{{ code }}</td>
+                        <td>{{ data.quantity }}</td>
+                        {% if item.variant.isBundle %}
+                            <td>{{ money.format(data.unitPrice, order.currencyCode) }}</td>
+                            <td>{{ money.format(data.unitDiscount, order.currencyCode) }}</td>
+                        {% endif %}
+                        <td>{{ data.batch }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </td>
+    </tr>
+{% elseif item.orderItemProductCombo | length > 0 %}
+    <tr class="logistic-row" style="display: none" data-id="{{ item.id }}">
+        <td colspan="8">
+            <table>
+                <thead>
+                <tr>
+                    <th width="50px"></th>
+                    <th>{{ 'sylius.ui.item_logistic'|trans }}</th>
+                    <th>{{ 'sylius.ui.quantity'|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for productItemCombo in item.orderItemProductCombo %}
+                    {% set productCombo = productItemCombo.productCombo %}
+                    {% set quantity = productCombo.quantity * item.quantity >= 1 ? productCombo.quantity * item.quantity : 0 %}
+
+                    {% if quantity == 0 %}
+                        {% set productVariant = productCombo.productVariant %}
+                        {% set quantity = item.quantity %}
+                    {% else %}
+                        {% set productVariant = productCombo.productVariantLogistic ?? productCombo.productVariant %}
+                    {% endif %}
+
+                    <tr>
+                        <td></td>
+                        <td>{{ productVariant.code }}</td>
+                        <td>{{ quantity }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </td>
+    </tr>
+{% endif %}
+{# END CUSTOM CODE #}

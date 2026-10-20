@@ -1,0 +1,4 @@
+suites:
+    main:
+        namespace: Sokeo\SyliusYounitedpayPlugin
+        psr4_prefix: Sokeo\SyliusYounitedpayPlugin

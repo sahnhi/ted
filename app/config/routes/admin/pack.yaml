@@ -1,0 +1,15 @@
+sylius_admin_pack:
+    resource: |
+        alias: sylius.pack
+        section: admin
+        templates: SyliusAdminBundle:Crud
+        redirect: update
+        grid: sylius_admin_pack
+        vars:
+            all:
+                subheader: sylius.ui.pack.information
+                templates:
+                    form: "@App/Pack/_form.html.twig"
+            index:
+                icon: 'file image outline'
+    type: sylius.resource

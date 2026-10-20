@@ -1,0 +1,27 @@
+App\Doctrine\Entity\ShippingMethodCategory:
+    shipping_method_category_eco:
+        code: 'ECONOMIQUE'
+        enabled: true
+        createdAt: '<date_create()>'
+        translations: ['@shipping_method_category_eco_translation']
+        __calls:
+            - addShippingMethodCategoryService: ['@shipping_method_category_eco_service_assembly']
+            - addShippingMethodCategoryService: ['@shipping_method_category_eco_service_recuperation']
+            - addShippingMethod: ['@vir_shipping_method']
+            - addShippingMethod: ['@dpwr_shipping_method']
+            - addClaim: ['@shipping_method_category_eco_claim_not_pushed']
+            - addClaim: ['@shipping_method_category_eco_claim_pushed']
+    
+    shipping_method_category_comfort:
+        code: 'COMFORT'
+        enabled: true
+        createdAt: '<date_create()>'
+        translations: ['@shipping_method_category_comfort_translation']
+        __calls:
+            - addShippingMethod: ['@ups_shipping_paid_method']
+        
+    shipping_method_category_premium:
+        code: 'PREMIUM'
+        enabled: true
+        createdAt: '<date_create()>'
+        translations: ['@shipping_method_category_premium_translation']

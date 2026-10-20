@@ -1,0 +1,11 @@
+shop_api_order_autonomous_return:
+    path: /calendar
+    methods: [ POST ]
+    defaults:
+        _controller: App\Controller\Api\Order\AutonomousReturnController::getCalendarSlots
+
+shop_api_order_autonomous_return_select:
+    path: /calendar/select
+    methods: [ POST ]
+    defaults:
+        _controller: App\Controller\Api\Order\AutonomousReturnController::selectCalendarSlot

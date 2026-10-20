@@ -1,0 +1,58 @@
+App\View\ItemTransmissionView:
+    exclusion_policy: ALL
+    properties:
+        quantity:
+            expose: true
+            type: int
+            groups: [ 'eDeliv','vir' ]
+        total:
+            expose: true
+            type: float
+            serialized_name: 'Prix unitaire valorisation'
+            groups: [ 'spidy' ]
+        product:
+            expose: true
+            groups: [ 'spidy','eDeliv','vir' ]
+            serialized_name: 'dimensions'
+        itemCode:
+            expose: true
+            type: string
+            groups: [ 'spidy' ]
+        productCode:
+            expose: true
+            type: string
+            groups: [ 'spidy', 'vir' ]
+    virtual_properties:
+        getQteAExpedier:
+            name: 'Qté à expedier'
+            serialized_name: 'Qté à expedier'
+            type: int
+            groups: [ 'spidy' ]
+        getName:
+            name: 'name'
+            serialized_name: 'name'
+            type: string
+            groups: [ 'eDeliv','vir' ]
+        getDescription:
+            name: 'description'
+            serialized_name: 'description'
+            type: string
+            groups: [ 'eDeliv','vir' ]
+        getProduit:
+            name: 'Commentaire ligne produit'
+            serialized_name: 'Commentaire ligne produit'
+            type: string
+            groups: [ 'olvo' ]
+        getVolumes:
+            name: 'volumes'
+            serialized_name: 'volumes'
+            type: float
+            groups: [ 'vir' ]
+        getWeights:
+            name: 'weights'
+            serialized_name: 'weights'
+            type: float
+            groups: [ 'vir' ]
+
+
+

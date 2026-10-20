@@ -1,0 +1,40 @@
+sylius_grid:
+    grids:
+        sylius_admin_product_option_value_locale_default_list:
+            extends: sylius_admin_product
+            driver:
+                options:
+                    repository:
+                        method: listProductsWithOptions
+                        arguments: [ "%locale%" ]
+            fields:
+                name:
+                    type: string
+                    label: sylius.ui.name
+                    sortable: translation.name
+                mainTaxon:
+                    type: twig
+                    enabled: false
+                code:
+                    type: string
+                    enabled: false
+                enabled:
+                    type: boolean
+                    enabled: false
+            actions:
+                main:
+                    create:
+                        type: links
+                        enabled: false
+                item:
+                    update:
+                        type: update
+                        label: sylius.ui.product_edit_options_values_locales
+                        enabled: true
+                    delete:
+                        type: delete
+                        enabled: false
+                subitem:
+                    variants:
+                        type: links
+                        enabled: false

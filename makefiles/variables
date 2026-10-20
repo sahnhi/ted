@@ -1,0 +1,29 @@
+COMPOSER_BINARY ?= composer
+
+ENV ?= dev
+MAC ?= 0
+
+DOCKER_CMD = docker
+
+ifeq ($(MAC),1)
+	DOCKER_COMPOSE_CMD = docker compose --project-directory $(PWD) -f $(PWD)/compose.yml -f $(PWD)/compose.mac.yml
+else
+	DOCKER_COMPOSE_CMD = docker compose --project-directory $(PWD) -f $(PWD)/compose.yml
+endif
+
+NPM_CMD = $(DOCKER_COMPOSE_CMD) exec nodejs npm
+PHP_CMD = $(DOCKER_COMPOSE_CMD) exec php-nginx
+
+COMPOSER_CMD = $(PHP_CMD) $(COMPOSER_BINARY)
+CONSOLE_CMD = $(PHP_CMD) bin/console
+
+COMPOSER_CMD_INSTALL = $(COMPOSER_CMD) install
+COMPOSER_CMD_UPDATE = $(COMPOSER_CMD) update
+COMPOSER_CMD_REQUIRE = $(COMPOSER_CMD) require
+COMPOSER_CMD_REMOVE = $(COMPOSER_CMD) remove
+COMPOSER_OPTIONS =
+
+PHPCS_CMD = $(PHP_CMD) vendor/bin/ecs
+
+PHPSTAN_CMD = $(PHP_CMD) vendor/bin/phpstan
+RECTOR_CMD = $(PHP_CMD) vendor/bin/rector

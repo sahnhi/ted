@@ -1,0 +1,26 @@
+winzou_state_machine:
+    sylius_order_checkout:
+        callbacks:
+            before:
+                sokeo_sylius_younitedpay_plugin_store_maturity:
+                    on: ["select_payment"]
+                    do: ["@sokeo_sylius_younitedpay_plugin.state_machine.store_maturity_processor", "setDetails"]
+                    args: ["object"]
+                # sokeo_sylius_younitedpay_plugin_get_maturities:
+                #     on: ["address"]
+                #     do: ["@sokeo_sylius_younitedpay_plugin.state_machine.get_maturities_processor", "getMaturities"]
+                #     args: ["object"]
+    sylius_order_shipping:
+        callbacks:
+            before:
+                sokeo_sylius_younitedpay_plugin_shipped:
+                    on: [ "deliver" ]
+                    do: [ "@sokeo_sylius_younitedpay_plugin.state_machine.activate_contract_processor", "activate" ]
+                    args: [ "object" ]
+#    sylius_order:
+#        callbacks:
+#            before:
+#                sokeo_sylius_younitedpay_plugin_canceled:
+#                    on: ["cancel"]
+#                    do: ["@sokeo_sylius_younitedpay_plugin.state_machine.cancel_contract_processor", "cancel"]
+#                    args: ["object"]

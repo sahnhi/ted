@@ -1,0 +1,63 @@
+App\View\ProductVariantView:
+    exclusion_policy: ALL
+    properties:
+        code:
+            expose: true
+            type: string
+            groups: [ 'product.show', 'product_variant.list', 'pack.show','pack.list', 'taxon.list' ]
+        name:
+            expose: true
+            type: string
+            groups: [ 'product.show', 'product_variant.list', 'pack.show','pack.list', 'taxon.list' ]
+        price:
+            expose: true
+            type: float
+            groups: [ 'product.show', 'product_variant.list', 'pack.show','pack.list', 'taxon.list' ]
+        originalPrice:
+            expose: true
+            type: int
+            groups: [ 'product.show', 'product_variant.list', 'pack.show','pack.list', 'taxon.list' ]
+        ecotax:
+            expose: true
+            type: int
+            groups: [ 'product.show', 'product_variant.list', 'pack.show','pack.list', 'taxon.list' ]
+        optionValues:
+            expose: true
+            type: array
+            groups: [ 'product.show', 'product_variant.list', 'pack.show','pack.list', 'taxon.list' ]
+        optionCodes:
+            expose: true
+            type: array
+            groups: [ 'product.show', 'product_variant.list', 'pack.show','pack.list', 'taxon.list' ]
+        optionTranslated:
+            expose: true
+            type: array
+            groups: [ 'product.show', 'product_variant.list', 'pack.show','pack.list', 'taxon.list' ]
+        packs:
+            expose: true
+            type: array
+            groups: [ 'product.show', 'product_variant.list', 'pack.show','pack.list', 'taxon.list' ]
+        product:
+            expose: true
+            type: string
+            groups: [ 'pack.show','pack.list', 'taxon.list' ]
+        slug:
+            expose: true
+            type: string
+            groups: [ 'pack.show','pack.list', 'taxon.list' ]
+        enabled:
+            expose: true
+            type: boolean
+            groups: [ 'pack.show', 'pack.list', 'taxon.list', 'product_variant.list' ]
+        bundles:
+            expose: true
+            type: array
+            groups: [ 'product.show', 'product_variant.list' ]
+        gifted:
+            expose: true
+            type: array
+            groups: [ 'product.show' ]
+        joinStoryLink:
+            expose: true
+            type: string
+            groups: [ 'product.show', 'product_variant.list' ]

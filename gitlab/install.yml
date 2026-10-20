@@ -1,0 +1,74 @@
+##### STAGE INSTALL #####
+.global_cache_push : &global_cache_push
+    cache:
+        key: ${CI_COMMIT_REF_SLUG}
+        paths:
+            - app/vendor/
+            - app/node_modules
+            - app/public/assets
+            - app/public/build
+            - app/public/bundles
+        policy: pull-push
+
+.vendor_template: &vendor_template
+    stage: install
+    image:
+        name: $CI_REGISTRY_IMAGE/php:latest
+        pull_policy: always
+    artifacts:
+        paths:
+            - app/vendor
+    cache:
+        key: composercache
+        paths:
+            - app/.composercache
+    before_script:
+        - cd app
+        - composer config cache-files-dir .composercache
+    interruptible: true
+    <<: *global_cache_push
+
+vendor-dev:
+    <<: *vendor_template
+    script:
+        - $(which composer) install -n -o --dev --prefer-dist --no-progress --no-scripts --no-suggest
+
+vendor-prod:
+    <<: *vendor_template
+    script:
+        - $(which composer) install -n -o --prefer-dist --no-progress --no-scripts --no-suggest
+
+assets:
+    stage: install
+    image:
+        name: $CI_REGISTRY_IMAGE/build:latest
+        pull_policy: always
+    artifacts:
+        paths:
+            - app/node_modules
+            - app/public/assets
+            - app/public/build
+    needs:
+        - vendor-prod
+    script:
+        - cd app
+        - yarn install
+        - yarn build
+        - yarn encore prod
+    when: on_success
+
+symfony-assets:
+    stage: install
+    image:
+        name: $CI_REGISTRY_IMAGE/php:latest
+        pull_policy: always
+    artifacts:
+        paths:
+            - app/public/bundles
+    needs:
+        - vendor-prod
+    script:
+        - export GOOGLE_SERVICE_ACCOUNT_CREDENTIAL_FILE=/app/config/client_credentials.json
+        - cd app
+        - bin/console assets:install public
+    when: on_success

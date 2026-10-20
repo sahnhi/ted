@@ -1,0 +1,17 @@
+App\Doctrine\Entity\ShippingMethodCategoryService:
+    attributes:
+        code:
+            groups:
+                - shop:shipping-method-category:read
+        enabled:
+            groups:
+                - shop:shipping-method-category:read
+        included:
+            groups:
+                - shop:shipping-method-category:read
+        productVariant:
+            groups:
+                - shop:shipping-method-category:read
+        translations:
+            groups:
+                - shop:shipping-method-category:read

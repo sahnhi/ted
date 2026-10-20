@@ -1,0 +1,23 @@
+App\Request\PutVariantBasedConfigurableItemToCartRequest:
+    properties:
+        token:
+            -   NotNull:
+                    message: sylius.shop_api.token.not_null
+        quantity:
+            -   Type:
+                    type: integer
+                    message: sylius.shop_api.quantity.type_integer
+            -   GreaterThan:
+                    value: 0
+                    message: sylius.shop_api.quantity.greater_than_0
+            -   NotNull:
+                    message: sylius.shop_api.quantity.not_null
+        productCode:
+            -   NotNull:
+                    message: sylius.shop_api.product.not_null
+            -   App\Validator\Constraints\ProductExists: ~
+            #- App\Validator\Constraints\ConfigurableProduct: ~
+        variantCode:
+            -   NotNull:
+                    message: sylius.shop_api.product.not_null
+            #- App\Validator\Constraints\ProductVariantExists: ~

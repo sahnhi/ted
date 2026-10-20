@@ -1,0 +1,100 @@
+include:
+    - local: '/gitlab/templates.yml'
+    
+##### STAGE TERRAFORM #####
+.tf_template:
+    image: hashicorp/terraform:1.3.6
+    stage: terraform
+    before_script:
+        - apk update && apk add gettext
+        - !reference [.load_environment_variables]
+        - envsubst < terraform/modules/cloud-run-job/main.template.tf > terraform/modules/cloud-run-job/main.tf
+        - rm terraform/modules/cloud-run-job/main.template.tf
+        - terraform --version
+        - cd terraform/scheduled-jobs
+        - echo $CREDENTIALS > gcloud-service-key.json
+        - export GOOGLE_APPLICATION_CREDENTIALS=gcloud-service-key.json
+        - terraform init -backend-config="backend-vars/$CI_ENVIRONMENT_NAME.tfvars"
+
+.tf-plan:
+    extends: .tf_template
+    needs:
+        - build-images
+    script:
+        - terraform validate
+        - terraform plan -var-file="tfvars/$CI_ENVIRONMENT_NAME.tfvars" -out tfplanfile-$CI_ENVIRONMENT_NAME
+    artifacts:
+        paths: [ terraform/scheduled-jobs/tfplanfile-$CI_ENVIRONMENT_NAME ]
+        expire_in: 30d
+
+.tf-apply:
+    extends: .tf_template
+    script:
+        - terraform apply -auto-approve tfplanfile-$CI_ENVIRONMENT_NAME
+    when: manual
+
+tf-plan-staging:
+    extends: .tf-plan
+    environment: staging
+    only:
+        refs:
+            - staging
+            - hotfix
+
+tf-apply-staging:
+    extends: .tf-apply
+    environment: staging
+    only:
+        refs:
+            - staging
+            - hotfix
+    needs:
+        - tf-plan-staging
+
+tf-plan-product:
+    extends: .tf-plan
+    environment: product
+    only:
+        refs:
+            - product
+
+tf-apply-product:
+    extends: .tf-apply
+    environment: product
+    only:
+        refs:
+            - product
+    needs:
+        - tf-plan-product
+
+tf-plan-demo:
+    extends: .tf-plan
+    environment: demo
+    only:
+        refs:
+            - demo
+
+tf-apply-demo:
+    extends: .tf-apply
+    environment: demo
+    only:
+        refs:
+            - demo
+    needs:
+        - tf-plan-demo
+        
+tf-plan-prod:
+    extends: .tf-plan
+    environment: prod
+    only:
+        refs:
+            - tags
+
+tf-apply-prod:
+    extends: .tf-apply
+    environment: prod
+    only:
+        refs:
+            - tags
+    needs:
+        - tf-plan-prod

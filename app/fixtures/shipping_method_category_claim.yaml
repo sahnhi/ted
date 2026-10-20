@@ -1,0 +1,11 @@
+App\Doctrine\Entity\ShippingMethodCategoryClaim:
+    shipping_method_category_eco_claim_not_pushed:
+        enabled: true
+        pushed: false
+        createdAt: '<date_create()>'
+        translations: ['@shipping_method_category_eco_claim_not_pushed_translation']
+    shipping_method_category_eco_claim_pushed:
+        enabled: true
+        pushed: true
+        createdAt: '<date_create()>'
+        translations: ['@shipping_method_category_eco_claim_pushed_translation']

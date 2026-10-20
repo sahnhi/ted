@@ -1,0 +1,93 @@
+sylius_admin_product_variant_enabled:
+    path: /products/{productId}/variants/{id}/enabled
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.product_variant:enabledAction
+        _sylius:
+            section: admin
+            permission: true
+
+sylius_admin_product_and_variant_search:
+    path: /products/variants/search
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Admin\Action\SearchProductAndVariantAction
+
+sylius_admin_product_variant_update_alert:
+    path: /products/{productId}/variants/{variantId}/alert
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Admin\Action\ProductAlertAction
+        _sylius:
+            section: admin
+            permission: true
+
+sylius_admin_product_update_alert:
+    path: /products/{productId}/alert
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Admin\Action\ProductAlertAction
+        _sylius:
+            section: admin
+            permission: true
+
+sylius_admin_product_variant_update:
+    path: /products/{productId}/variants/{id}/edit
+    methods: [ GET, PUT ]
+    defaults:
+        _controller: sylius.controller.product_variant:updateAction
+        _sylius:
+            section: admin
+            template: "@SyliusAdmin/Crud/update.html.twig"
+            redirect:
+                route: sylius_admin_product_variant_update_alert
+                parameters: { productId: $productId, variantId: $id }
+            permission: true
+            repository:
+                method: findOneByIdAndProductId
+                arguments:
+                    id: $id
+                    productId: $productId
+            vars:
+                route:
+                    parameters:
+                        id: $id
+                        productId: $productId
+                templates:
+                    form: "@SyliusAdmin/ProductVariant/_form.html.twig"
+                    breadcrumb: "@SyliusAdmin/ProductVariant/Update/_breadcrumb.html.twig"
+                    toolbar: "@SyliusAdmin/ProductVariant/Update/_toolbar.html.twig"
+
+sylius_admin_product_update:
+    path: /products/{id}/edit
+    methods: [ GET, PUT, PATCH ]
+    defaults:
+        _controller: sylius.controller.product:updateAction
+        _sylius:
+            section: admin
+            permission: true
+            redirect:
+                route: sylius_admin_product_update_alert
+                parameters: { productId: $id }
+            template: "@SyliusAdmin/Crud/update.html.twig"
+            vars:
+                subheader: sylius.ui.manage_your_product_catalog
+                icon: cube
+                templates:
+                    form: "@SyliusAdmin/Product/_form.html.twig"
+                    toolbar: "@SyliusAdmin/Product/Update/_toolbar.html.twig"
+
+app_admin_order_creation_ajax_product_variants_by_phrase:
+    path: /product-variant-search-by-phrase
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.product_variant:indexAction
+        _format: json
+        _sylius:
+            permission: true
+            serialization_groups: [ Autocomplete ]
+            repository:
+                method: findByPhrase
+                arguments:
+                    phrase: $phrase
+                    locale: expr:service('sylius.context.locale').getLocaleCode()

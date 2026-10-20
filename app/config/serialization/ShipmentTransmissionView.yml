@@ -1,0 +1,26 @@
+App\View\ShipmentTransmissionView:
+    properties:
+        method:
+            expose: true
+            groups: [ 'spidy','pickup' ]
+    virtual_properties:
+        getDebutCreneau:
+            name: "start"
+            serialized_name: "start"
+            groups: [ 'olvo' ]
+        getFinCreneau:
+            name: "end"
+            serialized_name: "end"
+            groups: [ 'olvo' ]
+        getCommentary:
+            name: "Commentaire 1 (transport)"
+            serialized_name: "Commentaire 1 (transport)"
+            groups: [ 'spidy','vir' ]
+        getShippingDate:
+            name: 'Date prep AAMMJJ'
+            serialized_name: 'Date prep AAMMJJ'
+            groups: [ 'spidy' ]
+        getRelayId:
+            name: 'Zone complémentaire spécifique transporteur'
+            serialized_name: 'Zone complémentaire spécifique transporteur'
+            groups: [ 'spidy' ]

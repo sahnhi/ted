@@ -1,0 +1,57 @@
+{# zone \App\Doctrine\Entity\Sylius\Zone #}
+
+{% extends '@SyliusAdmin/layout.html.twig' %}
+
+{% import '@SyliusUi/Macro/buttons.html.twig' as buttons %}
+{% form_theme form '@SyliusAdmin/Form/theme.html.twig' %}
+
+{% block title %}{{ 'app.ui.zone.test_shipping'|trans }} {{ parent() }}{% endblock %}
+
+{% block content %}
+    <h1 class="title">{{ 'app.ui.zone.test_shipping'|trans }}</h1>
+
+    <div class="ui hidden divider"></div>
+
+    <div class="ui grid">
+        <div class="eight wide column">
+            <h3 class="ui top attached header">
+                {{ 'sylius.ui.address'|trans }}
+            </h3>
+            <div class="ui attached segment form">
+                {{ form_start(form, {'attr': {'id': form.vars.name}}) }}
+                    {% include '@SyliusShop/Common/Form/_address.html.twig' with {'form': form} %}
+                {{ form_end(form) }}
+            </div>
+        </div>
+        <div class="eight wide column">
+            <h3 class="ui top attached header">
+                {{ 'sylius.ui.zones'|trans }}
+            </h3>
+            <div class="ui attached segment">
+                {% if zones is not null %}
+                    <div class="ui relaxed divided list">
+                        {% for zone in zones %}
+                            <div class="item">
+                                <div class="content">
+                                    <a class="header" target="_blank"
+                                       href="{{ path('sylius_admin_zone_update', {'id': zone.id}) }}">{{ zone.name }}</a>
+                                    <div class="description">{{ zone.code }}</div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="ui hidden divider"></div>
+    <div class="ui buttons">
+        <button class="ui labeled icon primary button" type="submit" form="{{ form.vars.name }}"><i
+                class="plus icon"></i>{{- 'Tester' -}}</button>
+        {% set path = path('sylius_admin_zone_index') %}
+        {% include '@SyliusUi/Form/Buttons/_cancel.html.twig' with {'path': path } %}
+    </div>
+{% endblock %}

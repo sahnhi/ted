@@ -1,0 +1,39 @@
+sylius_grid:
+    grids:
+        app_admin_shipping_method_group:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\ShippingMethodGroup
+            sorting:
+                code: asc
+            fields:
+                code:
+                    type: string
+                    label: sylius.ui.code
+                    sortable: true
+                maxPerDay:
+                    type: string
+                    label: app.ui.max_per_day
+                    sortable: true
+                maxPerSlot:
+                    type: string
+                    label: app.ui.max_per_slot
+                    sortable: true
+                shippingMethods:
+                    type: twig
+                    label: sylius.ui.shipping_methods
+                    options:
+                        template: 'Admin/ShippingMethodGroup/Grid/Field/shipping_methods.html.twig'
+            filters:
+                code:
+                    type: string
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete

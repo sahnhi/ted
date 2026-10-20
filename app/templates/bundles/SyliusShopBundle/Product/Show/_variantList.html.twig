@@ -1,0 +1,15 @@
+{# BEGIN CUSTOM TEMPLATE #}
+{% import "@SyliusShop/Common/Macro/money.html.twig" as money %}
+
+{% for option_form in form.cartItem.variant %}
+    {% if option_form.parent.vars.value in constant('App\\Model\\ProductReferenceInterface::REPOSSESS_REFS') %}
+      {{ form_row(option_form, {
+        'label': product.variants[option_form.vars.name].translations[app.request.locale].name ~ ' ' ~ money.calculatePrice(product.variants[option_form.vars.name]),
+        'attr': { 'data-option': option_form.vars.name }
+        })
+      }}
+    {% else %}
+      {{ form_row(option_form, { 'attr': { 'data-option': option_form.vars.name }}) }}
+    {% endif %}
+{% endfor %}
+{# END CUSTOM TEMPLATE #}

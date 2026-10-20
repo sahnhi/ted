@@ -1,0 +1,9 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Legacy\Dalenys\DalenysFileHandler:
+        public: true
+        arguments:
+            $projectDir: '%kernel.project_dir%'

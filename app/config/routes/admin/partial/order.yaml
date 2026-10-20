@@ -1,0 +1,27 @@
+app_admin_partial_order_autorefund:
+    path: /{number}/autorefund
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.order:showAction
+        _sylius:
+            repository:
+                method: findInitialOrder
+                arguments:
+                    number: $number
+            section: admin
+            permission: true
+            template: $template
+            vars:
+                route:
+                    parameters:
+                        number: $number
+
+app_admin_partial_history_associated_orders:
+    path: /{id}/history-associated-orders
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.order:historyAction
+        _sylius:
+            section: admin
+            permission: true
+            template: "Admin/Order/Partial/_history_associated_orders.html.twig"

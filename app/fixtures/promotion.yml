@@ -1,0 +1,135 @@
+App\Doctrine\Entity\Sylius\Promotion:
+    promotion_1:
+        code: 'promotion_1'
+        name: 'promotion 1'
+        description: 'promotion1 test'
+        priority: 1000
+        exclusive: true
+        usage_limit: 2
+        used: 1
+        coupon_based: true
+        exceptional: false
+        channels: ['@web_channel']
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+        
+    promotion_invalid:
+        code: 'promotion_invalid'
+        name: 'promotion invalid'
+        description: 'promotion1 test'
+        priority: 1000
+        exclusive: true
+        usage_limit: 1
+        used: 1
+        coupon_based: true
+        exceptional: false
+        channels: [ '@web_channel' ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+
+    pack_promotion_pack_lit:
+        code: 'pack lit promotion'
+        name: 'pack lit promotion'
+        description: 'pack lit promotion 10%'
+        priority: 0
+        exclusive: false
+        coupon_based: false
+        exceptional: false
+        channels: [ '@web_channel' ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+
+    pack_promotion_pack_couette:
+        code: 'pack couette promotion'
+        name: 'pack couette promotion'
+        description: 'pack couette promotion 20%'
+        priority: 0
+        exclusive: false
+        coupon_based: false
+        exceptional: false
+        channels: [ '@web_channel' ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+
+    promotion_15:
+        code: '15off'
+        name: '15off'
+        description: '15%'
+        priority: 0
+        exclusive: true
+        coupon_based: true
+        exceptional: false
+        channels: [ '@web_channel' ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+
+    promotion_75:
+        code: '75off'
+        name: '75off'
+        description: '75%'
+        priority: 0
+        exclusive: true
+        coupon_based: true
+        exceptional: false
+        channels: [ '@web_channel' ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+
+    blackfriday_coupon:
+        code: 'BLACKFRIDAY_COUPON'
+        name: 'Promotion black friday pour génération du coupon'
+        exclusive: false
+        coupon_based: true
+        automaticallyApplied: true
+        exceptional: false
+        priority: 0
+        channels: [ '@web_channel' ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+
+    blackfriday_5_percent:
+        code: 'BLACKFRIDAY_5'
+        name: 'Blackfriday 5%'
+        exclusive: false
+        automaticallyApplied: false
+        coupon_based: false
+        exceptional: false
+        priority: 5000
+        channels: [ '@web_channel' ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+
+    blackfriday_10_percent:
+        code: 'BLACKFRIDAY_10'
+        name: 'Blackfriday 10%'
+        exclusive: false
+        automaticallyApplied: false
+        coupon_based: false
+        exceptional: false
+        priority: 6000
+        channels: [ '@web_channel' ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+
+    blackfriday_15_percent:
+        code: 'BLACKFRIDAY_15'
+        name: 'Blackfriday 15%'
+        exclusive: false
+        automaticallyApplied: false
+        coupon_based: false
+        exceptional: false
+        priority: 7000
+        channels: [ '@web_channel' ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+    
+    couette_coupon:
+        code: 'BFCOUETE_PROMO'
+        name: 'Une couette offerte'
+        exclusive: true
+        coupon_based: true
+        exceptional: false
+        priority: 8000
+        channels: [ '@web_channel' ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'

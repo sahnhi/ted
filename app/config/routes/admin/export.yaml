@@ -1,0 +1,11 @@
+export_index:
+    path: exports/
+    controller: App\Controller\BI\ExportController:indexAction
+    defaults:
+        _sylius:
+            template: "@SyliusAdmin/Crud/index.html.twig"
+            grid: sylius_admin_product_review_question_list_product
+
+export_product_review:
+    path: exports/product-reviews
+    controller: App\Controller\BI\ExportController:exportProductReviewAction

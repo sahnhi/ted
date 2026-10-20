@@ -1,0 +1,23 @@
+{# CUSTOM CODE #}
+{% if data is defined %}
+    {% set channel = data.channel is defined ? data.channel : data %}
+    <div class="channel" style="position: relative; align-items: center">
+        <span class="ui medium empty circular label channel__item" style="background-color: {{ channel.color|default('#000') }};"></span>
+
+        <span class="channel__item" style="margin-left : 20px;">
+            {% if null != data.orderOutOfStock and data.orderOutOfStock.status in [
+                    constant("App\\Doctrine\\Entity\\OrderOutOfStockInterface::STATE_OUT_OF_STOCK"),
+                    constant("App\\Doctrine\\Entity\\OrderOutOfStockInterface::STATE_PARTIALLY_PLANNED"),
+                    constant("App\\Doctrine\\Entity\\OrderOutOfStockInterface::STATE_TO_SEND")
+                ]
+            %}
+                <i class="icon calendar times outline red"></i>
+            {% endif %}
+            {{ channel.name|default(channel.code) }}
+            {% if data.channel.code in ['default', 'boutique', 'carrefour'] and data.orderStore is defined and data.orderStore is not null and data.orderStore.store is not null %}
+                <br />({{ data.orderStore.store.name }})
+            {% endif %}
+        </span>
+    </div>
+{% endif %}
+{# END CUSTOM CODE #}

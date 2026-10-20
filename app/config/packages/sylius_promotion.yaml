@@ -1,0 +1,15 @@
+sylius_promotion:
+    resources:
+        promotion:
+            classes:
+                model: App\Doctrine\Entity\Sylius\Promotion
+                controller: App\Controller\Admin\PromotionController
+                repository: App\Doctrine\Repository\Sylius\PromotionRepository
+        promotion_coupon:
+            classes:
+                model: App\Doctrine\Entity\Sylius\PromotionCoupon
+                repository: App\Doctrine\Repository\Sylius\PromotionCouponRepository
+                controller: App\Controller\Admin\PromotionCouponController
+        promotion_rule:
+            classes:
+                repository: App\Doctrine\Repository\PromotionRuleRepository

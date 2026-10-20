@@ -1,0 +1,31 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Form\Type\Bundle\BundleGenerationFlow:
+        public: true
+
+    App\Services\Bundle\BundleOptionsGenerator:
+        tags:
+            - { name: kernel.event_listener, event: app.bundle_generator.initialize_configurator_created_options, method: generateOptions }
+    
+    App\Services\Bundle\BundleCombinationGenerator:
+        tags:
+            - { name: kernel.event_listener, event: app.bundle_generator.initialize_configurator_created_preview, method: generateOptions }
+            - { name: kernel.event_listener, event: app.bundle_generator.initialize_next_step_triggered_preview, method: generateOptions }
+
+    App\Services\Bundle\BundleCodeGenerator:
+        tags:
+            - { name: kernel.event_listener, event: app.bundle_generator.post_save_data_naming, method: generateCodes }
+                
+    App\Services\Bundle\BundleProductsGenerator:
+        tags:
+            - { name: kernel.event_listener, event: app.bundle_generator.initialize_configurator_created_products, method: generateProducts }
+            - { name: kernel.event_listener, event: app.bundle_generator.initialize_next_step_triggered_products, method: generateProducts }
+            - { name: kernel.event_listener, event: app.bundle_generator.initialize_configurator_created_variants, method: generateVariants }
+            - { name: kernel.event_listener, event: app.bundle_generator.initialize_next_step_triggered_variants, method: generateVariants }
+
+    App\Services\Bundle\BundleFinalGenerator:
+        tags:
+            - { name: kernel.event_listener, event: app.bundle_generator.post_end, method: generate }

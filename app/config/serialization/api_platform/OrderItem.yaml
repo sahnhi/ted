@@ -1,0 +1,17 @@
+App\Doctrine\Entity\Sylius\OrderItem:
+    attributes:
+        adjustments:
+            groups:
+                - shop:cart:read
+        adjustmentsRecursively:
+            groups:
+                - shop:cart:read
+        adjustmentsTotal:
+            groups:
+                - shop:cart:read
+        adjustmentsTotalRecursively:
+            groups:
+                - shop:cart:read
+        variant:
+            groups:
+                - shop:cart:read

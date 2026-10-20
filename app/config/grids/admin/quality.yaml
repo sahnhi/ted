@@ -1,0 +1,151 @@
+sylius_grid:
+    grids:
+        app_admin_quality:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\Quality
+                    repository:
+                        method: findNewFirst
+            fields:
+                country:
+                    type: twig
+                    path: .
+                    label: sylius.ui.country
+                    options:
+                        template: "@SyliusAdmin/Country/Grid/Field/name.html.twig"
+                number:
+                    type: twig
+                    label: sylius.ui.number
+                    path: .
+                    options:
+                        template: "Admin/Quality/Grid/Field/number.html.twig"
+                createdAt:
+                    type: datetime
+                    label: sylius.ui.date
+                    sortable: true
+                customer:
+                    type: twig
+                    label: sylius.ui.customer
+                    path: orderItemLogistic.orderItem.order.customer
+                    options:
+                        template: SyliusAdminBundle:Order/Grid/Field:customer.html.twig
+                reason:
+                    type: twig
+                    label: sylius.ui.trouble.label
+                    path: reason
+                    options:
+                        template: "@SyliusAdmin/Grid/Field/reason.html.twig"
+                shippingState:
+                    type: twig
+                    label: sylius.ui.shipping_state
+                    path: orderItemLogistic.orderItem.order
+                    options:
+                        template: "@SyliusAdmin/Grid/Field/shippingState.html.twig"
+                        vars:
+                            labels: "@SyliusAdmin/Order/Label/ShippingState"
+                product:
+                    type: string
+                    label: sylius.ui.product
+                    path: orderItemLogistic.orderItem.variantName
+                status:
+                    type: twig
+                    label: sylius.ui.state
+                    options:
+                        template: "@SyliusUi/Grid/Field/state.html.twig"
+                        vars:
+                            labels: "Admin/Quality/Label/Status"
+            filters:
+                order_number:
+                    type: string
+                    label: app.ui.label.orderNumber
+                    options:
+                        fields: [ orderItemLogistic.orderItem.order.number ]
+                    form_options:
+                        first_type: contains
+                customer:
+                    type: string
+                    label: sylius.ui.customer
+                    options:
+                        fields: [
+                            orderItemLogistic.orderItem.order.customer.email,
+                            orderItemLogistic.orderItem.order.customer.firstName,
+                            orderItemLogistic.orderItem.order.customer.lastName
+                        ]
+                created_at:
+                    type: date
+                    label: sylius.ui.date
+                    options:
+                        field: createdAt
+                contains_user:
+                    type: entity
+                    label: sylius.ui.user
+                    options:
+                        fields: [ createdBy ]
+                    form_options:
+                        class: "Sylius\\Component\\Core\\Model\\AdminUser"
+                        attr:
+                            class: "select2"
+                contains_product:
+                    type: product_autocomplete
+                    label: sylius.ui.contains_product
+                    options:
+                        fields: [ orderItemLogistic.orderItem.variant.product.id ]
+                    form_options:
+                        choice_value: id
+                contains_variant:
+                    type: product_variant_autocomplete_custom
+                    label: sylius.ui.contains_variant
+                    options:
+                        fields: [ orderItemLogistic.orderItem.variant.id ]
+                    form_options:
+                        choice_value: id
+                batch_number:
+                    type: string
+                    label: sylius.ui.batch_number
+                    options:
+                        fields: [ orderItemLogistic.batchNumber ]
+                shipping_date:
+                    type: date
+                    label: sylius.ui.delivery_date
+                    options:
+                        field: orderItemLogistic.orderItem.order.shipments.startDeliverySlot
+                        inclusive_to: true
+                shipping_method:
+                    type: entity
+                    label: sylius.ui.shipping_method
+                    options:
+                        fields: [ orderItemLogistic.orderItem.order.shipments.method.id ]
+                    form_options:
+                        class: "%sylius.model.shipping_method.class%"
+                status:
+                    type: select
+                    label: sylius.ui.state
+                    form_options:
+                        choices:
+                            app.ui.quality.statuses.new: new
+                            app.ui.quality.statuses.in_progress: in_progress
+                            app.ui.quality.statuses.accepted: accepted
+                            app.ui.quality.statuses.refused: refused
+                reason:
+                    type: entity
+                    label: sylius.ui.reasons
+                    options:
+                        fields: [ reason ]
+                    form_options:
+                        class: "%sylius.model.reason.class%"
+                        group_by: groupName.name
+            actions:
+                item:
+                    update:
+                        type: update
+                bulk:
+                    export:
+                        type: export
+                        label: Export CSV
+                        options:
+                            link:
+                                route: app_export_quality_csv
+                                parameters:
+                                    criteria: "expr:service('request_stack').getCurrentRequest().get('criteria', [])"
+                                    export: csv

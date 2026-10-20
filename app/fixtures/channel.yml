@@ -1,0 +1,32 @@
+Sylius\Component\Core\Model\Channel:
+    web_channel:
+        default_locale: '@fr_locale'
+        base_currency: '@eur_currency'
+        default_tax_zone: '@fr_tva'
+        code: 'default'
+        name: 'Web'
+        color: '#000000'
+        enabled: true
+        hostname: 'localhost'
+        locales: ['@fr_locale','@es_locale']
+        tax_calculation_strategy: 'order_items_based'
+        skipping_shipping_step_allowed: false
+        account_verification_required: true
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+
+    boutique_channel:
+        default_locale: '@fr_locale'
+        base_currency: '@eur_currency'
+        default_tax_zone: '@fr_tva'
+        code: 'boutique'
+        name: 'Boutique'
+        color: '#000000'
+        enabled: true
+        hostname: 'localhost'
+        locales: ['@fr_locale']
+        tax_calculation_strategy: 'order_items_based'
+        skipping_shipping_step_allowed: false
+        account_verification_required: true
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'

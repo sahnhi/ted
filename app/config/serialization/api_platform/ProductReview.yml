@@ -1,0 +1,11 @@
+App\Doctrine\Entity\Sylius\ProductReview:
+    attributes:
+        answers:
+            groups:
+                - admin:product_review:read
+        questions:
+            groups: 
+                - admin:product_review:read
+        author:
+            groups:
+                - admin:product_review:read

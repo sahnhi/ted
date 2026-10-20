@@ -1,0 +1,10 @@
+{% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
+
+{{ form_errors(form) }}
+{{ translationForm(form.translations) }}
+<div class='field' style='margin-top: 10px'>
+    {{ form_row(form.imageUrl) }}
+</div>
+<div class='field'>
+    {{ form_row(form.priority) }}
+</div>

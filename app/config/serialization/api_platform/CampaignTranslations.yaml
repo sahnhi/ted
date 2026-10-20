@@ -1,0 +1,26 @@
+App\Doctrine\Entity\Campaigns\CampaignTranslations:
+    attributes:
+        title:
+            groups: [ 'shop:campaign:read' ]
+        description:
+            groups: [ 'shop:campaign:read' ]
+        url:
+            groups: [ 'shop:campaign:read' ]
+        metatitle: 
+            groups: [ 'shop:campaign:read' ]
+        metadescription: 
+            groups: [ 'shop:campaign:read' ]
+        metakeywords:
+            groups: [ 'shop:campaign:read' ]
+        indexable:
+            groups: [ 'shop:campaign:read' ]
+        followable:
+            groups: [ 'shop:campaign:read' ]
+        mainImageUrl:
+            groups: [ 'shop:campaign:read' ]
+        mobileImageUrl:
+            groups: [ 'shop:campaign:read' ]
+        seoBlockTitle:
+            groups: [ 'shop:campaign:read' ]
+        seoBlockDescription:
+            groups: [ 'shop:campaign:read' ]

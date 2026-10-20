@@ -1,0 +1,33 @@
+{% extends '@SyliusAdmin/Crud/index.html.twig' %}
+
+{% block content %}
+    <div class="ui two column stackable grid">
+        <div class="four wide column">
+            <div class="segment ui">
+                <h5>Boutique</h5>
+                <a href="{{ path('sylius_admin_commission_reporting_export', {channel:'boutique', type:'shop'}) }}">Export reporting magasin</a><br>
+                <a href="{{ path('sylius_admin_commission_reporting_export', {channel:'boutique', type:'seller'}) }}">Export reporting vendeurs</a><br>
+                <a href="{{ path('sylius_admin_commission_reporting_export', {channel:'boutique', type:'data'}) }}">Export data</a><br>
+                <a href="{{ path('sylius_admin_commission_reporting_export', {channel:'boutique', type:'simple'}) }}">Export simplifié</a>
+                <h5>Carrefour</h5>
+                <a href="{{ path('sylius_admin_commission_reporting_export', {channel:'carrefour', type:'shop'}) }}">Export reporting magasin</a><br>
+                <a href="{{ path('sylius_admin_commission_reporting_export', {channel:'carrefour', type:'seller'}) }}">Export reporting vendeurs</a><br>
+                <a href="{{ path('sylius_admin_commission_reporting_export', {channel:'carrefour', type:'data'}) }}">Export data</a><br>
+                <a href="{{ path('sylius_admin_commission_reporting_export', {channel:'carrefour', type:'simple'}) }}">Export simplifié</a>
+                <h5>Printemps</h5>
+                <a href="{{ path('sylius_admin_commission_reporting_export', {channel:'printemps', type:'shop'}) }}">Export reporting magasin</a><br>
+                <a href="{{ path('sylius_admin_commission_reporting_export', {channel:'printemps', type:'seller'}) }}">Export reporting vendeurs</a><br>
+                <a href="{{ path('sylius_admin_commission_reporting_export', {channel:'printemps', type:'data'}) }}">Export data</a><br>
+                <a href="{{ path('sylius_admin_commission_reporting_export', {channel:'printemps', type:'simple' }) }}">Export simplifié</a>
+                <h5>SAV</h5>
+                <a href="{{ path('sylius_admin_commission_reporting_export', {channel:'sav', type:'shop'}) }}">Export reporting magasin</a><br>
+                <a href="{{ path('sylius_admin_commission_reporting_export', {channel:'sav', type:'seller'}) }}">Export reporting vendeurs</a><br>
+                <a href="{{ path('sylius_admin_commission_reporting_export', {channel:'sav', type:'data'}) }}">Export data</a><br>
+                <a href="{{ path('sylius_admin_commission_reporting_export', {channel:'sav', type:'simple'}) }}">Export simplifié</a>
+            </div>
+        </div>
+        <div class="twelve wide column">
+            {{ parent() }}
+        </div>
+    </div>
+{% endblock %}

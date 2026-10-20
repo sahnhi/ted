@@ -1,0 +1,90 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+    
+    _instanceof:
+        App\Processor\OrderMessage\Processors\Interfaces\OrderMessageProcessorItemInterface:
+            tags:
+                - { name: 'app.order_message_processor' }
+    
+    App\Processor\OrderMessage\OrderMessageProcessor:
+        arguments:
+            - !tagged_iterator "app.order_message_processor"
+        tags:
+            - { name: sylius.order_processor, priority: 50 }
+    
+    App\Processor\OrderMessage\Processors\StorageBedFrameTooLargeProcessor:
+        arguments:
+            - '%order_message%'
+        tags:
+            - { name: 'app.order_message_processor' }
+    
+    App\Processor\OrderMessage\Processors\BundleAvailableProcessor:
+        arguments:
+            - '%order_message%'
+        tags:
+            - { name: 'app.order_message_processor' }
+    
+    App\Processor\OrderMessage\Processors\PackOnCartProcessor:
+        arguments:
+            - '%order_message%'
+        tags:
+            - { name: 'app.order_message_processor' }
+    
+    App\Processor\OrderMessage\Processors\BedHeadAndWoodBedFrameProcessor:
+        arguments:
+            - '%order_message%'
+        tags:
+            - { name: 'app.order_message_processor' }
+    
+    App\Processor\OrderMessage\Processors\WoodBedHeadAndOtherBedFrameProcessor:
+        arguments:
+            - '%order_message%'
+        tags:
+            - { name: 'app.order_message_processor' }
+    
+    App\Processor\OrderMessage\Processors\BedFrameTooLargeProcessor:
+        arguments:
+            - '%order_message%'
+        tags:
+            - { name: 'app.order_message_processor' }
+    
+    App\Processor\OrderMessage\Processors\BundleBedFrameTooLargeProcessor:
+        arguments:
+            - '%order_message%'
+        tags:
+            - { name: 'app.order_message_processor' }
+    
+    App\Processor\OrderMessage\Processors\BundleComboBedMonoblocProcessor:
+        arguments:
+            - '%order_message%'
+        tags:
+            - { name: 'app.order_message_processor' }
+    
+    App\Processor\OrderMessage\Processors\VoluminousProductOnCartProcessor:
+        arguments:
+            - '%order_message%'
+        tags:
+            - { name: 'app.order_message_processor' }
+    
+    App\Processor\OrderMessage\Processors\BundleComboBedStorageProcessor:
+        arguments:
+            - '%order_message%'
+        tags:
+            - { name: 'app.order_message_processor' }
+    
+    App\Processor\OrderMessage\Processors\NonMatchingBlanketSheetSizesOrderMessageProcessor:
+        arguments:
+            # Since every product has a different option for the size, we need some way to identify the correct option
+            $blanketsProductCodeAndSizeOptionCodes:
+                blanket-light-t1: 'blanket-light-t1-size'
+                blanket: 'blanket-size'
+                blanket-universel: 'blanket-universel-size'
+            $blanketsSheetsProductCodeAndSizeOptionCodes:
+                bed-linen-quilt-cover-percale: 'bed-linen-quilt-cover-percale-size'
+                bed-linen-quilt-cover: 'bed-linen-quilt-cover-size'
+                bed-linen-quilt-cover-linen: 'bed-linen-quilt-cover-linen-size'
+                bed-linen-quilt-cover-gauze: 'bed-linen-quilt-cover-gauze-size'
+        tags:
+            - { name: 'app.order_message_processor' }

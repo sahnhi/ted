@@ -1,0 +1,77 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+imports:
+    # Core
+    - { resource: "parameter.yaml" }
+
+    - { resource: "services/default.yaml" }
+    - { resource: "controller.yaml" }
+    - { resource: "grids/grids.yaml" }
+    - { resource: "validation.yaml" }
+    - { resource: "services/specifications.yaml" }
+
+    # Services - Core
+    - { resource: "services/repository.yaml" }
+    - { resource: "services/cron.yaml" }
+    - { resource: "services/filesystem.yaml" }
+    - { resource: "services/factory.yaml" }
+    - { resource: "services/validator.yaml" }
+    - { resource: "services/aliases.yaml" }
+
+    # Services - Sylius
+    - { resource: "services/services.yaml" }
+    - { resource: "services/provider.yaml" }
+    - { resource: "services/transmission.yaml" }
+    - { resource: "services/calendar.yaml" }
+    - { resource: "services/payum.yaml" }
+    - { resource: "services/payum_factory.yaml" }
+    - { resource: "services/operator.yaml" }
+    - { resource: "services/erp.yaml" }
+    - { resource: "services/setono.yaml" }
+    - { resource: "services/reorder_processing.yaml" }
+    - { resource: "services/admin_order_creation_plugin.yaml" }
+    - { resource: "services/bridge.yaml" }
+    - { resource: "services/edeliv.yaml" }
+    - { resource: "services/generator.yaml" }
+    - { resource: "services/grid.yaml" }
+    - { resource: "services/handler.yaml" }
+    - { resource: "services/invoicing_plugin.yaml" }
+    - { resource: "services/listener.yaml" }
+    - { resource: "services/mailer.yaml" }
+    - { resource: "services/modifier.yaml" }
+    - { resource: "services/payment_report.yaml" }
+    - { resource: "services/promotion.yaml" }
+    - { resource: "services/processor.yaml" }
+    - { resource: "services/shipping.yaml" }
+    - { resource: "services/export.yaml" }
+
+    # Services - Apis
+    - { resource: "services/drip.yaml" }
+    - { resource: "services/dalenys.yaml" }
+    - { resource: "services/captainmetrics.yaml" }
+    - { resource: "services/rimdian.yaml" }
+    - { resource: "services/trust_pilot.yaml" }
+    - { resource: "services/verified_reviews.yaml" }
+    - { resource: "services/shipup.yaml" }
+    - { resource: "services/chronopost.yaml" }
+    - { resource: "services/pick_up_points.yaml" }
+
+    # Services - Display
+    - { resource: "services/view_factory.yaml" }
+    - { resource: "services/form.yaml" }
+    - { resource: "services/twig.yaml" }
+    - { resource: "services/bundles.yaml" }
+
+    # Specific integrations
+    - { resource: "../src/Api/Odoo/Resources/config/odoo.yaml" }
+    - { resource: "services/api_platform.yaml" }
+    - { resource: "services/filters.yaml" }
+
+    - { resource: "services/resolver.yaml" }
+    - { resource: "services/product_feed_file.yaml" }
+    - { resource: "../src/Channable/config/services.yaml" }
+    - { resource: "services/campaign.yaml" }
+    - { resource: "services/calculator.yaml" }
+    - { resource: "services/payment.yaml" }
+    - { resource: "services/order_message.yaml" }

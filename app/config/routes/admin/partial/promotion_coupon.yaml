@@ -1,0 +1,8 @@
+app_admin_partial_promotion_coupon_parrain:
+    path: /parrain
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.customer:parrainAction
+        _sylius:
+            template: $template
+            permission: true

@@ -1,0 +1,6 @@
+App\Doctrine\Entity\ProductCMSTags:
+    attributes:
+        translations:
+            groups:
+                - shop:product:read
+                - shop:product:menu-read

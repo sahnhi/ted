@@ -1,0 +1,5 @@
+App\Doctrine\Entity\ProductReviewQuestionTranslation:
+    product_review_question_1_translation:
+        translatable: '@product_review_question_1'
+        locale: 'fr_FR'
+        name: 'Étiez-vous concerné(e) par un ou plusieurs de ces problèmes avant ?'

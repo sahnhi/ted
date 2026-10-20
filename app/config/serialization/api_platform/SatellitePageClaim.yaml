@@ -1,0 +1,14 @@
+App\Doctrine\Entity\SatellitePages\Claim:
+  attributes:
+    id:
+      groups:
+        - shop:satellite-page-claim:read
+    translations:
+      groups:
+        - shop:satellite-page-claim:read
+
+App\Doctrine\Entity\SatellitePages\ClaimTranslation:
+  attributes:
+    claim:
+      groups:
+        - shop:satellite-page-claim:read

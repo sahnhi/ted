@@ -1,0 +1,47 @@
+##
+## ----- Database -----
+##
+
+.PHONY: db-validate
+db-validate: ## Checks and validate db mapping
+	@$(PHP_CMD) bin/console doctrine:schema:validate
+
+.PHONY: db-update
+db-update: ## Sync database with schema (If possible: Better use migrations)
+	@$(PHP_CMD) bin/console doctrine:schema:update --force
+
+.PHONY: db-create
+db-create: ## Create database
+	@$(PHP_CMD) bin/console doctrine:database:create --if-not-exists
+
+.PHONY: db-drop
+db-drop: ## Drop database
+	@$(PHP_CMD) bin/console doctrine:database:drop --force --if-exists
+
+##
+## ----- Migrations -----
+##
+
+.PHONY: db-generate
+db-generate: ## Creates an empty migration file
+	@$(PHP_CMD) bin/console doctrine:migrations:generate
+
+.PHONY: db-status
+db-status: ## Check your current database version
+	@$(PHP_CMD) bin/console doctrine:migrations:status
+
+.PHONY: db-diff
+db-diff: ## Check your current schema and generate a migration file to match mapping modifications
+	@$(PHP_CMD) bin/console doctrine:migrations:diff --namespace=DoctrineMigrations
+
+.PHONY: db-migrate
+db-migrate: ## Execute all migrations
+	@$(PHP_CMD) bin/console doctrine:migrations:migrate
+
+.PHONY: db-up
+db-up: ## Executes one migration by version. Eg : make db-up VERSION="DoctrineMigrations\Version20221012155226"
+	@$(PHP_CMD) bin/console doctrine:migrations:execute --up "$(VERSION)"
+
+.PHONY: db-down
+db-down: ## Rollbacks one migration by version. Eg : make db-down VERSION="DoctrineMigrations\Version20221012155226"
+	@$(PHP_CMD) bin/console doctrine:migrations:execute --down "$(VERSION)"

@@ -1,0 +1,24 @@
+App\Doctrine\Entity\Sylius\OrderItem:
+    fulfilled_order_item:
+        order: '@fulfilled_order'
+        variant: '@mattress_product_variant_140_200'
+        unitPrice: '@mattress_product_variant_140_200_pricing_web->price'
+        version: 1
+
+    order_with_mattress_order_item:
+        order: '@order_with_mattress'
+        variant: '@mattress_product_variant_140_200'
+        unitPrice: '@mattress_product_variant_140_200_pricing_web->price'
+        version: 1
+
+    cart_with_mattress_order_item:
+        order: '@cart_with_mattress'
+        variant: '@mattress_product_variant_140_200'
+        unitPrice: '@mattress_product_variant_140_200_pricing_web->price'
+        version: 1
+
+    cart_addressed_with_mattress_order_item:
+        order: '@cart_addressed_with_mattress'
+        variant: '@mattress_product_variant_140_200'
+        unitPrice: '@mattress_product_variant_140_200_pricing_web->price'
+        version: 1

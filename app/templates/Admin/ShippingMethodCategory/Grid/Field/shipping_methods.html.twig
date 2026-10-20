@@ -1,0 +1,17 @@
+{# shippingMethod \App\Doctrine\Entity\Sylius\ShippingMethod #}
+
+<ul class="ui mini list">
+    {% for shippingMethod in data %}
+        {% set label = shippingMethod.name ~ '(' ~ shippingMethod.code ~ ')' %}
+
+        <li>
+            <a
+                target="_blank"
+                title="{{ label }}"
+                href="{{ path('sylius_admin_shipping_method_update', { id: shippingMethod.id }) }}"
+            >
+                {{ label }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>

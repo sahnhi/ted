@@ -1,0 +1,40 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: false
+
+    App\Processor\NonEUTaxAdjustmentProcessor:
+        arguments:
+            $strategyRegistry: '@sylius.registry.tax_calculation_strategy'
+            $nonEUZone: '%non_eu_zone_code%'
+            $frenchVATCode: "%french_vat_code%"
+        tags:
+            - { name: sylius.order_processor }
+    
+    App\Processor\PackPromotionProcessor:
+        arguments:
+            $preQualifiedPromotionsProvider: '@sylius.active_promotions_provider'
+            $promotionEligibilityChecker: '@sylius.promotion_eligibility_checker'
+        tags:
+            - { name: 'sylius.order_processor', priority: 15 }
+    
+    sylius.order_processing.order_prices_recalculator:
+        class: App\Processor\OrderPricesRecalculator
+        arguments:
+            $productVariantPriceCalculator: '@sylius.calculator.product_variant_price'
+            $preQualifiedPromotionsProvider: '@sylius.active_promotions_provider'
+            $promotionEligibilityChecker: '@sylius.promotion_eligibility_checker'
+        tags:
+            - { name: 'sylius.order_processor', priority: 40 }
+    
+    App\Processor\OrderPricesRecalculator: '@sylius.order_processing.order_prices_recalculator'
+
+    App\Processor\EligibleShippingMethodCategoryServicesProcessor:
+        tags:
+            - { name: sylius.order_processor, priority: 65 }
+
+    App\Processor\OrderTokenValueOrderProcessor:
+        arguments:
+            $uniqueIdBasedOrderTokenAssigner: '@sylius.unique_id_based_order_token_assigner'
+        tags:
+            - { name: sylius.order_processor }

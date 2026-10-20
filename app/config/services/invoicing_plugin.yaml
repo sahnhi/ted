@@ -1,0 +1,82 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Sylius\InvoicingPlugin\Generator\InvoicePdfFileGenerator:
+        class: App\Generator\InvoicePdfFileGenerator
+
+    App\Generator\InvoicePdfFileGenerator:
+        arguments:
+            $pdfGenerator: '@knp_snappy.pdf'
+
+    App\Generator\Renderer\InvoiceRendererInterface:
+        class: App\Generator\Renderer\InvoiceRendererComponent
+        public: true
+        arguments:
+            $invoiceRenderers: !tagged app.invoice_render_template
+    
+    App\Generator\Renderer\SwissInvoiceRenderer:
+        arguments:
+            $template: '@@SyliusInvoicingPlugin/Invoice/Download/swissPdf.html.twig'
+            $invoiceLogoPath: '%kernel.project_dir%/src/Resources/private/img/logo-invoice.png'
+            $fileLocator: '@file_locator'
+        tags:
+            - { name: app.invoice_render_template }
+    
+    App\Generator\Renderer\SwissInvoiceRendererForBisOrder:
+        arguments:
+            $template: '@@SyliusInvoicingPlugin/Invoice/Download/swissBisPdf.html.twig'
+            $invoiceLogoPath: '%kernel.project_dir%/src/Resources/private/img/logo-invoice.png'
+            $fileLocator: '@file_locator'
+        tags:
+            - { name: app.invoice_render_template }
+    
+    App\Generator\Renderer\DefaultInvoiceRenderer:
+        arguments:
+            $template: '@@SyliusInvoicingPlugin/Invoice/Download/pdf.html.twig'
+            $invoiceLogoPath: '%kernel.project_dir%/src/Resources/private/img/logo-invoice.png'
+            $fileLocator: '@file_locator'
+        tags:
+            - { name: app.invoice_render_template }
+            - '@App\Generator\Renderer\InvoiceRendererInterface'
+
+    Sylius\InvoicingPlugin\Cli\GenerateInvoicesCommand:
+        class: App\Command\GenerateInvoicesCommand
+        tags:
+            - { name: console.command, command: sylius-invoicing:generate-invoices }
+            
+    sylius_invoicing_plugin.event_listener.order_placed:
+        class: App\EventListener\NoInvoiceOnOrderPlacedListener
+
+    App\EventProducer\InvoicingPlugin\OrderPlacedProducer:
+        decorates: sylius_invoicing_plugin.event_producer.order_placed
+        arguments:
+            $eventBus : '@sylius.event_bus'
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
+            - { name: doctrine.event_listener, event: postUpdate }
+
+    Sylius\InvoicingPlugin\Creator\MassInvoicesCreator:
+        class: App\Creator\MassInvoicesCreator
+
+    Sylius\InvoicingPlugin\Creator\MassInvoicesCreatorInterface: '@App\Creator\MassInvoicesCreator'
+
+    Sylius\InvoicingPlugin\Creator\InvoiceCreatorInterface: '@sylius_invoicing_plugin.creator.invoice'
+
+    App\Creator\InvoiceCreator:
+        decorates: sylius_invoicing_plugin.creator.invoice
+        arguments:
+            $invoicePluginRepository: '@sylius_invoicing_plugin.repository.invoice'
+    
+    sylius_invoicing_plugin.generator.invoice:
+        class: App\Generator\InvoiceGenerator
+        arguments:
+            $uuidInvoiceIdentifierGenerator: '@sylius_invoicing_plugin.generator.invoice_identifier'
+
+    App\Generator\InvoiceGenerator: '@sylius_invoicing_plugin.generator.invoice'
+
+    App\Generator\SequentialInvoiceNumberGenerator:
+        arguments:
+            $sequenceRepository: '@sylius_invoicing_plugin.repository.invoice_sequence'
+            $sequenceFactory: '@sylius_invoicing_plugin.factory.invoice_sequence'

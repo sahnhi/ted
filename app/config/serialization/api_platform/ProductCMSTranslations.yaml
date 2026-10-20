@@ -1,0 +1,27 @@
+App\Doctrine\Entity\ProductCMSTranslation:
+    attributes:
+        subTitle:
+            groups:
+                - shop:product:read
+        subInfo:
+            groups:
+                - shop:product:read
+                - shop:product:menu-read
+        subInfoBis:
+            groups:
+                - shop:product:read
+        productDetailsTitle:
+            groups:
+                - shop:product:read
+        productDetailsSubTitle:
+            groups:
+                - shop:product:read
+        productDetailsSubClaim:
+            groups:
+                - shop:product:read
+        productDetailsSubTitleBis:
+            groups:
+                - shop:product:read
+        productDetailsSubClaimBis:
+            groups:
+                - shop:product:read

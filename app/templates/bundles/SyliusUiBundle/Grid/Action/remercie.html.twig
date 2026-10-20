@@ -1,0 +1,10 @@
+{% import '@SyliusUi/Macro/buttons.html.twig' as buttons %}
+
+{% set path = options.link.url|default(path(options.link.route, options.link.parameters|default({}))) %}
+
+{% set visible = options.link.visible is defined ? options.link.visible : true %}
+{% set invisible = options.link.invisible is defined ? options.link.invisible : false %}
+
+{% if visible == 'accepted' and invisible == false %}
+    {{ buttons.default(path, action.label, null, action.icon, 'green') }}
+{% endif %}

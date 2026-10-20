@@ -1,0 +1,30 @@
+app_admin_bundle_index:
+    path: /bundles
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.product_variant:indexAction
+        _sylius:
+            section: admin
+            permission: true
+            template: "@SyliusAdmin/Crud/index.html.twig"
+            grid: app_admin_bundle
+            vars:
+                header: sylius.menu.admin.bundles
+
+app_admin_bundle_generation_form:
+    path: /bundles/{productId}/generate/{id}
+    methods: [GET, POST]
+    defaults:
+        id: null
+        _controller: app.controller.bundle_generator:generateBundlesAction
+        _sylius:
+            section: admin
+            permission: true
+            vars:
+                header: app.ui.bundle_association.labels.generate
+                templates:
+                    breadcrumb: '@App/Admin/Bundle/Common/_breadcrumb.html.twig'
+            factory:
+                method: createNewForProduct
+                arguments: 
+                    - 'expr:service("sylius.repository.product").find($productId)'

@@ -1,0 +1,130 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+    
+    App\Promotion\Action\GiftProductDiscountPromotionActionCommand:
+        arguments:
+            $priceRangeFilter: '@sylius.promotion_filter.price_range'
+            $taxonFilter: '@sylius.promotion_filter.taxon'
+            $productFilter: '@sylius.promotion_filter.product'
+        tags:
+            - { name: sylius.promotion_action, type: gift_product_discount, label: 'Gift Product', form_type: App\Form\Type\Promotion\Action\GiftProductDiscountConfigurationType }
+
+    App\Promotion\Action\LingotDiscountPromotionActionCommand:
+        arguments:
+            $priceRangeFilter: '@sylius.promotion_filter.price_range'
+            $taxonFilter: '@sylius.promotion_filter.taxon'
+            $productFilter: '@sylius.promotion_filter.product'
+        tags:
+            - { name: sylius.promotion_action, type: lingot_discount, label: 'Lingot', form_type: App\Form\Type\Promotion\Action\LingotDiscountConfigurationType }
+
+    App\Promotion\Checker\VariantRuleChecker:
+        tags:
+            - { name: sylius.promotion_rule_checker, type: variant, form_type: App\Form\Type\Rule\VariantConfigurationType, label: Variant }
+
+    App\Promotion\Checker\Rule\SponsoringRuleChecker:
+        tags:
+            - { name: sylius.promotion_rule_checker, type: sponsoring, label: app.form.promotion_rule.sponsoring, form_type: App\Form\Type\Rule\SponsoringConfigurationType }
+
+    sylius.promotion_rule_checker.nth_order:
+        class: App\Promotion\Checker\Rule\NthOrderRuleChecker
+        tags:
+            - { name: sylius.promotion_rule_checker, type: nth_order, label: sylius.form.promotion_rule.nth_order, form_type: Sylius\Bundle\CoreBundle\Form\Type\Promotion\Rule\NthOrderConfigurationType }
+
+    App\Promotion\Checker\LingotRuleChecker:
+        tags:
+            - { name: sylius.promotion_rule_checker, type: lingot, form_type: App\Form\Type\Promotion\Configuration\LingotConfigurationType, label: Lingot }
+
+    App\Promotion\Checker\Rule\RefuseTaxonRuleChecker:
+        tags:
+            - { name: sylius.promotion_rule_checker, type: refuse_taxon, label: app.ui.refuse_taxon, form_type: App\Form\Type\Promotion\Configuration\RefuseTaxonConfigurationType }
+
+    app.decrement_promotions_usages_on_select_payment:
+        class: App\Services\Promotion\DecrementPromotionsUsagesOnSelectPayment
+        public: true
+
+    App\Checker\PromotionCouponEligibilityChecker:
+        arguments:
+            $promotionEligibilityChecker: '@sylius.promotion_eligibility_checker'
+            $couponEligibilityChecker: '@sylius.promotion_coupon_eligibility_checker'
+
+    App\Promotion\Action\PercentageDiscountPromotionActionCommand:
+        decorates: sylius.promotion_action.percentage_discount
+
+    App\Promotion\Applicator\UnitsPromotionAdjustmentsApplicator:
+        decorates: sylius.promotion.units_promotion_adjustments_applicator
+        arguments:
+            $taxonFilter: '@App\Promotion\Filter\TaxonExcludeFilter'
+            $productFilter: '@App\Promotion\Filter\ProductExcludeFilter'
+
+    App\Promotion\Action\FixedDiscountPromotionActionCommand:
+        decorates: sylius.promotion_action.fixed_discount
+        
+    app.promotion.units_promotion_percentage_with_exclude_filter:
+        class: App\Promotion\Action\UnitPercentageDiscountPromotionExclusionActionCommand
+        arguments:
+            $taxonFilter: '@App\Promotion\Filter\TaxonExcludeFilter'
+            $productFilter: '@App\Promotion\Filter\ProductExcludeFilter'
+        tags:
+            - { name: sylius.promotion_action, type: unit_percentage_discount_with_exclusion, label: app.form.promotion.action.percentage_filter, form_type: App\Form\Type\Promotion\Action\UnitPercentageDiscountExclusionConfigurationType }
+    
+    App\Promotion\Rule\ContainsVariantsRule:
+       tags: 
+           - { 
+               name: setono_sylius_catalog_promotion.rule,
+               type: !php/const App\Promotion\Rule\ContainsVariantsRule::TYPE,
+               label: app.ui.catalog_promotion.form.promotion_rule.contains_variant,
+               form_type: App\Form\Type\Rule\ContainsVariantConfigurationType
+           }
+    
+    App\Promotion\Action\GiftProductVariantPromotionActionCommand:
+        tags:
+            - {
+                  name: sylius.promotion_action,
+                  type: !php/const App\Promotion\Action\GiftProductVariantPromotionActionCommand::TYPE,
+                  label: app.form.promotion.action.gift_product_variant,
+                  form_type: App\Form\Type\Promotion\Action\GiftProductVariantConfigurationType
+            }
+    
+    App\Promotion\Checker\Rule\OrderHasCouponRuleChecker:
+        tags:
+            - {
+                name: sylius.promotion_rule_checker,
+                type: !php/const App\Promotion\Checker\Rule\OrderHasCouponRuleChecker::TYPE,
+                label: app.form.promotion_rule.order_has_coupon,
+                form_type: App\Form\Type\Rule\OrderHasCouponConfigurationType
+            }
+                
+    App\Promotion\Checker\Eligibility\PromotionCouponIsAdvantageousEligibilityChecker:
+        tags:
+            - { name: sylius.promotion_coupon_eligibility_checker }
+
+    App\Promotion\Action\ApplyHighestPriorityPromotionPromotionActionCommand:
+        arguments:
+            $promotionEligibilityChecker: '@sylius.promotion_eligibility_checker'
+        tags:
+            - {
+                name: sylius.promotion_action,
+                type: !php/const App\Promotion\Action\ApplyHighestPriorityPromotionPromotionActionCommand::TYPE,
+                label: app.form.promotion_action.apply_highest_priority_promotion,
+                form_type: App\Form\Type\Promotion\Action\ApplyHighestPriorityConfigurationType
+            }
+
+    App\Promotion\Checker\Rule\ShipmentHaveTheShippingMethodCategoryRuleChecker:
+        tags:
+            - {
+                name: sylius.promotion_rule_checker,
+                type: !php/const App\Promotion\Checker\Rule\ShipmentHaveTheShippingMethodCategoryRuleChecker::TYPE,
+                label: app.form.promotion_rule.shipment_has_the_shipping_method_category,
+                form_type: App\Form\Type\Rule\ShipmentHasTheShippingMethodCategoryConfigurationType
+            }
+    
+    App\Promotion\Action\ShippingFixedDiscountPromotionActionCommand:
+        tags:
+            - {
+                name: sylius.promotion_action,
+                type: !php/const App\Promotion\Action\ShippingFixedDiscountPromotionActionCommand::TYPE,
+                label: app.form.promotion_action.shipping_fixed_discount,
+                form_type: App\Form\Type\Promotion\Action\ShippingFixedDiscountConfigurationType
+            }

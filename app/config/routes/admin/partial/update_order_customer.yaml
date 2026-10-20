@@ -1,0 +1,18 @@
+app_admin_partial_update_order_customer:
+    path: /{id}/update_order_customer
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.order:updateAction
+        _sylius:
+            repository:
+                method: find
+                arguments:
+                    id: $id
+            section: admin
+            permission: true
+            template: '@SyliusAdmin/Order/Update/Partial/_updateOrderCustomer.html.twig'
+            form: App\Form\Type\Order\OrderUpdateCustomerType
+            vars:
+                route:
+                    parameters:
+                        id: $id

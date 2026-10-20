@@ -1,0 +1,82 @@
+{# Get Younited plugin's configured minimum amount and Younited's offers for current order #}
+{% set configMinAmount = configMinAmount() %}
+{% set configMaxAmount = configMaxAmount() %}
+{% set filteredOffers = getMaturities(order) %}
+
+{# conditional apply display:none  #}
+{% if method.code == 'younitedpay' and (configMaxAmount != 0) and (order.total <= configMinAmount or order.total >= configMaxAmount) %}
+    <div class="item" {{ sylius_test_html_attribute('payment-item') }} style='display:none'>
+  {% elseif method.code == 'younitedpay' and order.total >= configMinAmount %}
+    <div class="item younited" {{ sylius_test_html_attribute('payment-item') }}>
+  {% else %}
+    <div class="item" {{ sylius_test_html_attribute('payment-item') }}>
+{% endif %}
+
+    <div class="field">
+        <div class="ui radio checkbox" {{ sylius_test_html_attribute('payment-method-checkbox') }}>
+            {{ form_widget(form, sylius_test_form_attribute('payment-method-select')) }}
+        </div>
+    </div>
+    <div class="content">
+        <a class="header">{{ form_label(form, null, {'label_attr': {'data-test-payment-method-label': ''}}) }}</a>
+        {% if method.description is not null %}
+            <div class="description">
+                <p>{{ method.description }}</p>
+            </div>
+        {% endif %}
+
+        {% if method.code == 'younitedpay' and order.total >= configMinAmount %}
+          <div class="offer_maturities" style='display:none'>
+              {% for offer in filteredOffers %}
+
+                {# <input class="ui radio checkbox {{ loop.index }} hidden" id="{{offer.maturityInMonths}}" name="younited_maturities" type="radio" value={{offer.maturityInMonths}}> #}
+                <input class="ui radio checkbox {{ loop.index }} hidden" id="{{offer.maturityInMonths}}" name="maturity" type="radio" value={{offer.maturityInMonths}}>
+                <label for="{{offer.maturityInMonths}}"><strong>Payez en {{offer.maturityInMonths}}x</strong></label>
+                </br>
+
+                <div class="younited_maturity_details" id="{{offer.maturityInMonths}}"  style='display:none'>
+                    {# <a class="younited_maturity_header">{{ form_label(form, null, {'label_attr': {'data-test-payment-method-label': ''}}) }}</a> #}
+                    <small>
+                      Montant du financement : <strong>{{(offer.requestedAmount)/100}}€</strong></br>
+                      Coût total du financement : <strong>{{((offer.interestsTotalAmount)/100)|round(2, 'common')}}€</strong></br>
+                      Montant total dû : <strong>{{((offer.requestedAmount + offer.interestsTotalAmount)/100)|round(2, 'common')}}€</strong></br>
+                      Mensualités : <strong>{{((offer.monthlyInstallmentAmount)/100)|round(2, 'common')}}€/mois pendant {{offer.maturityInMonths}} mois</strong></br>
+                      Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager.</br>
+                      </br>
+                    </small>
+                </div>
+
+              {% endfor %}
+          </div>
+        {% endif %}
+
+        {% if method.gatewayConfig.factoryName == 'sylius.pay_pal' %}
+            {{ render(controller('Sylius\\PayPalPlugin\\Controller\\PayPalButtonsController:renderPaymentPageButtonsAction', {'orderId': order.id})) }}
+        {% endif %}
+    </div>
+</div>
+
+{% block javascript %}
+    <script type="text/javascript" defer>
+        window.onload = function() {
+          /*Show/hide younited maturities when Younited Pay is selected*/
+          $("input[type='radio'][name^='sylius_checkout_select_payment'").change(function() {
+            if ($(this).is(':checked') && $(this).val()==='younitedpay') {
+              console.log('show');
+              $(".offer_maturities").show()
+            } else {
+              console.log('hide');
+              $(".offer_maturities").hide()
+            }
+          })
+          /* Show/hide maturity details when selected*/
+          $("input[type='radio'][name='maturity']").change(function() {
+            id=$(this).attr('id')
+            if ($(this).is(':checked')) {
+              $(`.younited_maturity_details[id=${id}]`).show()
+              $(`.younited_maturity_details`).not(`[id=${id}]`).hide()
+            }
+          })
+        }
+    </script>
+{% endblock %}

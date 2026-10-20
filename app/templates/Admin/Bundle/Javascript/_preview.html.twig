@@ -1,0 +1,155 @@
+<script type="text/javascript">
+    const ROW_EXISTS = 1;
+    const ROW_DOESNT_EXISTS = 0;
+    const ROW_DELETED = 2;
+    const NB_ROWS = $('#bundle-generation-preview tbody tr').length;
+    let table = null;
+
+    $(document).ready(function(){
+
+        if ($('#bundle-generation-preview').length) {
+            table = new Tabulator('#bundle-generation-preview', {
+                autoResize:false,
+                resizableColumnFit: true,
+                pagination: true,
+                paginationSize: 15,
+                paginationSizeSelector: [15, 30, 45, 60, true],
+                paginationCounter: "rows",
+                paginationAddRow: "table",
+                layout: "fitColumns",
+                locale: 'fr-fr',
+                columns: [
+                    {title: 'state', visible: false, formatter: 'html'},
+                ],
+                langs: {
+                    "fr-fr": { //French language definition
+                        "columns": {
+                            "name": "Nom",
+                            "progress": "Progression",
+                            "gender": "Genre",
+                            "rating": "Évaluation",
+                            "col": "Couleur",
+                            "dob": "Date de Naissance",
+                        },
+                        "pagination": {
+                            "page_size": "Afficher : ",
+                            "first": "Premier",
+                            "first_title": "Première Page",
+                            "last": "Dernier",
+                            "last_title": "Dernière Page",
+                            "prev": "<",
+                            "prev_title": "Page Précédente",
+                            "next": ">",
+                            "next_title": "Page Suivante",
+                            "all": "Toute",
+                            "counter": {
+                                "showing": "",
+                                "of": "de",
+                                "rows": "résultats",
+                            },
+                        },
+                    },
+                },
+            });
+
+            table.on('renderComplete', function () {
+                $('.option-combination-toggler').each(function () {
+                    $(this).on('change', function () {
+                        handleCheckerChanged($(this));
+                    });
+                });
+
+                $('.combination-state').each(function () {
+                    handleState($(this));
+                });
+
+                if ($('#bundle-generation-preview .tabulator-select2').length) {
+                    $('.tabulator-select2').each(function () {
+                        if (!$(this).data('select2')) {
+                            $(this).select2({
+                                width: "100%",
+                            });
+                        }
+                    })
+                }
+            });
+
+            table.on("cellClick", function (e, cell) {
+                let checkbox = $(cell.getElement()).find('input[type="checkbox"].option-combination-toggler');
+
+                if (checkbox.length) {
+                    e.preventDefault();
+                    checkbox.trigger('click');
+                    checkbox.val(+checkbox.is(':checked'));
+                }
+            });
+
+            let buttonSubmit = $('#next-step');
+
+            buttonSubmit.on('click', function (e) {
+                e.preventDefault();
+
+                if ($('#bundle-generation-preview').length) {
+                    if ($('#clear-filters').length) {
+                        $('#clear-filters').trigger('click');
+                    }
+
+                    table.setPageSize(true);
+
+                    buttonSubmit.unbind('click');
+                    buttonSubmit.trigger('click');
+                }
+            });
+        }
+
+        $('#preview-select-all').click(function() {
+            toggleCheckAll(true);
+        });
+
+        $('#preview-unselect-all').click(function() {
+            toggleCheckAll(false);
+        });
+    });
+
+    function handleCheckerChanged(checker) {
+        let row = checker.closest('.tabulator-row');
+        let stater = row.find('.combination-state');
+
+        if (!checker.is(':checked')) {
+            stater.val(ROW_DELETED);
+        } else {
+            stater.val(ROW_DOESNT_EXISTS);
+        }
+
+        handleState(stater);
+    }
+
+    function handleState(stater) {
+        let row = stater.closest('.tabulator-row');
+
+        if (parseInt(stater.val()) === ROW_EXISTS) {
+            row.addClass('warning');
+            row.removeClass('negative');
+        }
+
+        if (parseInt(stater.val()) === ROW_DOESNT_EXISTS) {
+            row.removeClass('warning');
+            row.removeClass('negative');
+        }
+
+        if (parseInt(stater.val()) === ROW_DELETED) {
+            row.removeClass('warning');
+            row.addClass('negative');
+        }
+    }
+
+    function toggleCheckAll(enable) {
+        table.setPageSize(true);
+        $('.option-combination-toggler').each(function() {
+            if (!$(this).is(':disabled')) {
+                $(this).prop('checked', enable);
+            }
+        });
+        table.setPageSize(15);
+    }
+</script>

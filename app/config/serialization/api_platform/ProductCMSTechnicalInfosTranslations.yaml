@@ -1,0 +1,5 @@
+App\Doctrine\Entity\ProductCMSTechnicalInfosTranslations:
+    attributes:
+        title:
+            groups:
+                - shop:product:read

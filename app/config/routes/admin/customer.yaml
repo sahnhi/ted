@@ -1,0 +1,28 @@
+sylius_admin_customer_subscribed_to_newsletter:
+    path: /customers/subscribed-to-newsletter/{id}
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.customer:subscribedToNewsletter
+        _sylius:
+            section: admin
+            permission: true
+
+sylius_admin_customer_order_export:
+    path: /customers/{id}/orders/{export}
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.order:indexAction
+        _sylius:
+            section: admin
+            permission: true
+            template: "@SyliusAdmin/Crud/index.html.twig"
+            grid: sylius_admin_customer_order
+            vars:
+                route:
+                    parameters:
+                        $customerId: $id
+                templates:
+                    breadcrumb: "@SyliusAdmin/Customer/Order/Index/_breadcrumb.html.twig"
+                    header_title: "@SyliusAdmin/Customer/Order/Index/_headerTitle.html.twig"
+                subheader: sylius.ui.process_your_orders
+                icon: cart

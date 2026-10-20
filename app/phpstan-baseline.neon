@@ -1,0 +1,2257 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 2
+			path: src/Api/ChronoPost/CommandHandler/ShipupWebhookCommandHandler.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between null and App\\\\Doctrine\\\\Entity\\\\Sylius\\\\ProductVariant will always evaluate to false\\.$#"
+			count: 1
+			path: src/Api/ChronoPost/OrderWeightCalculator/OrderWeightCalculator.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Api/Odoo/Controller/Product.php
+
+		-
+			message: "#^Negated boolean expression is always true\\.$#"
+			count: 1
+			path: src/Api/Odoo/Controller/Product.php
+
+		-
+			message: "#^Strict comparison using \\!\\=\\= between null and null will always evaluate to false\\.$#"
+			count: 1
+			path: src/Api/Odoo/Controller/Product.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: src/Api/Odoo/Controller/ProductVariant.php
+
+		-
+			message: "#^Property App\\\\Api\\\\Odoo\\\\DTO\\\\Invoice\\:\\:\\$invoice is never written, only read\\.$#"
+			count: 1
+			path: src/Api/Odoo/DTO/Invoice.php
+
+		-
+			message: "#^Property App\\\\Api\\\\Odoo\\\\DTO\\\\Invoice\\:\\:\\$invoiceRef is never written, only read\\.$#"
+			count: 1
+			path: src/Api/Odoo/DTO/Invoice.php
+
+		-
+			message: "#^Property App\\\\Api\\\\Odoo\\\\DTO\\\\Invoice\\:\\:\\$orderRef is never written, only read\\.$#"
+			count: 1
+			path: src/Api/Odoo/DTO/Invoice.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: src/Api/Odoo/Model/AbstractOrder.php
+
+		-
+			message: "#^Property App\\\\Api\\\\Odoo\\\\Model\\\\AbstractOrder\\:\\:\\$confirmationDate \\(DateTime\\) does not accept DateTimeInterface\\|null\\.$#"
+			count: 1
+			path: src/Api/Odoo/Model/AbstractOrder.php
+
+		-
+			message: "#^Property App\\\\Api\\\\Odoo\\\\Model\\\\AbstractOrder\\:\\:\\$deliveryDate \\(App\\\\Api\\\\Odoo\\\\Model\\\\DeliveryDate\\) does not accept App\\\\Api\\\\Odoo\\\\Model\\\\DeliveryDateInterface\\|null\\.$#"
+			count: 1
+			path: src/Api/Odoo/Model/AbstractOrder.php
+
+		-
+			message: "#^Property App\\\\Api\\\\Odoo\\\\Model\\\\AbstractOrder\\:\\:\\$invoicingAddress \\(App\\\\Api\\\\Odoo\\\\Model\\\\BillingAddress\\) does not accept App\\\\Api\\\\Odoo\\\\Model\\\\AddressInterface\\|null\\.$#"
+			count: 1
+			path: src/Api/Odoo/Model/AbstractOrder.php
+
+		-
+			message: "#^Property App\\\\Api\\\\Odoo\\\\Model\\\\AbstractOrder\\:\\:\\$paymentId is never read, only written\\.$#"
+			count: 1
+			path: src/Api/Odoo/Model/AbstractOrder.php
+
+		-
+			message: "#^Property App\\\\Api\\\\Odoo\\\\Model\\\\AbstractOrder\\:\\:\\$shippingAddress \\(App\\\\Api\\\\Odoo\\\\Model\\\\ShippingAddress\\) does not accept App\\\\Api\\\\Odoo\\\\Model\\\\AddressInterface\\|null\\.$#"
+			count: 1
+			path: src/Api/Odoo/Model/AbstractOrder.php
+
+		-
+			message: "#^Property App\\\\Api\\\\Odoo\\\\Model\\\\AbstractOrder\\:\\:\\$shippingDate \\(DateTime\\) does not accept DateTimeInterface\\|null\\.$#"
+			count: 2
+			path: src/Api/Odoo/Model/AbstractOrder.php
+
+		-
+			message: "#^Property App\\\\Api\\\\Odoo\\\\Model\\\\AbstractOrder\\:\\:\\$taxRateCode is never read, only written\\.$#"
+			count: 1
+			path: src/Api/Odoo/Model/AbstractOrder.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderItemInterface\\:\\:getOrderItemLogistics\\(\\)\\.$#"
+			count: 2
+			path: src/Api/Odoo/Model/Item.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderItemInterface\\:\\:getOrderItemProductCombo\\(\\)\\.$#"
+			count: 1
+			path: src/Api/Odoo/Model/Item.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderItemInterface\\:\\:getOrderReason\\(\\)\\.$#"
+			count: 1
+			path: src/Api/Odoo/Model/Item.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Order\\\\Model\\\\OrderInterface\\:\\:getChannel\\(\\)\\.$#"
+			count: 1
+			path: src/Api/Odoo/Model/Item.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface\\:\\:getHighestPayment\\(\\)\\.$#"
+			count: 1
+			path: src/Api/Odoo/Model/Order.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface\\:\\:getOrderStore\\(\\)\\.$#"
+			count: 3
+			path: src/Api/Odoo/Model/Order.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface\\:\\:hasGiftCards\\(\\)\\.$#"
+			count: 1
+			path: src/Api/Odoo/Model/Order.php
+
+		-
+			message: "#^Property App\\\\Api\\\\Odoo\\\\Model\\\\OrderReturn\\:\\:\\$paymentId is never read, only written\\.$#"
+			count: 1
+			path: src/Api/Odoo/Model/OrderReturn.php
+
+		-
+			message: "#^Property App\\\\Api\\\\Odoo\\\\Model\\\\OrderReturn\\:\\:\\$taxRateCode is never read, only written\\.$#"
+			count: 1
+			path: src/Api/Odoo/Model/OrderReturn.php
+
+		-
+			message: "#^Call to an undefined method DateTimeInterface\\:\\:sub\\(\\)\\.$#"
+			count: 1
+			path: src/Api/Odoo/Model/OrderShipment.php
+
+		-
+			message: "#^Property App\\\\Api\\\\Odoo\\\\Model\\\\OrderShipment\\:\\:\\$dateDone \\(DateTime\\) does not accept DateTimeInterface\\|null\\.$#"
+			count: 1
+			path: src/Api/Odoo/Model/OrderShipment.php
+
+		-
+			message: "#^Property App\\\\Api\\\\Odoo\\\\Model\\\\OrderShipment\\:\\:\\$paymentId is never read, only written\\.$#"
+			count: 1
+			path: src/Api/Odoo/Model/OrderShipment.php
+
+		-
+			message: "#^Property App\\\\Api\\\\Odoo\\\\Model\\\\OrderShipment\\:\\:\\$taxRateCode is never read, only written\\.$#"
+			count: 1
+			path: src/Api/Odoo/Model/OrderShipment.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface\\:\\:getBis\\(\\)\\.$#"
+			count: 2
+			path: src/Api/Odoo/Model/OrderStock.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface\\:\\:getOrderStore\\(\\)\\.$#"
+			count: 3
+			path: src/Api/Odoo/Model/OrderStock.php
+
+		-
+			message: "#^Property App\\\\Api\\\\Odoo\\\\Model\\\\OrderStock\\:\\:\\$paymentId is never read, only written\\.$#"
+			count: 1
+			path: src/Api/Odoo/Model/OrderStock.php
+
+		-
+			message: "#^Property App\\\\Api\\\\Odoo\\\\Model\\\\OrderStock\\:\\:\\$taxRateCode is never read, only written\\.$#"
+			count: 1
+			path: src/Api/Odoo/Model/OrderStock.php
+
+		-
+			message: "#^Property App\\\\Api\\\\Odoo\\\\Model\\\\Refund\\:\\:\\$amount \\(string\\) does not accept int\\|null\\.$#"
+			count: 1
+			path: src/Api/Odoo/Model/Refund.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Addressing\\\\Model\\\\AddressInterface\\:\\:getDetails\\(\\)\\.$#"
+			count: 1
+			path: src/Api/Odoo/Model/ShippingAddress.php
+
+		-
+			message: "#^Call to an undefined method DateTimeInterface\\:\\:add\\(\\)\\.$#"
+			count: 1
+			path: src/Api/TrustPilot.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Repository\\\\CustomerRepositoryInterface\\:\\:findByEmailPart\\(\\)\\.$#"
+			count: 1
+			path: src/Api/TrustPilot.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Invitation\\:\\:\\$consumerEmail is never read, only written\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Invitation.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Invitation\\:\\:\\$consumerName is never read, only written\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Invitation.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Invitation\\:\\:\\$locale is never read, only written\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Invitation.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Invitation\\:\\:\\$locationId is never read, only written\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Invitation.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Invitation\\:\\:\\$referenceNumber is never read, only written\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Invitation.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Invitation\\:\\:\\$replyTo is never read, only written\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Invitation.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Invitation\\:\\:\\$senderEmail is never read, only written\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Invitation.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Invitation\\:\\:\\$senderName is never read, only written\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Invitation.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Invitation\\:\\:\\$serviceReviewInvitation is never read, only written\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Invitation.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Invitation\\\\ServiceReviewInvitation\\:\\:\\$preferredSendTime is never read, only written\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Invitation/ServiceReviewInvitation.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Invitation\\\\ServiceReviewInvitation\\:\\:\\$redirectUri is never read, only written\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Invitation/ServiceReviewInvitation.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Invitation\\\\ServiceReviewInvitation\\:\\:\\$tags is never read, only written\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Invitation/ServiceReviewInvitation.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Invitation\\\\ServiceReviewInvitation\\:\\:\\$templateId is never read, only written\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Invitation/ServiceReviewInvitation.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\:\\:\\$links is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\:\\:\\$reviews is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Link\\:\\:\\$href is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Link.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Link\\:\\:\\$method is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Link.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Link\\:\\:\\$rel is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Link.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$businessUnit is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$businessUnitHistory is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$companyReply is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$consumer is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$countsTowardsLocationTrustScore is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$countsTowardsTrustScore is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$createdAt is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$experiencedAt is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$findReviewer is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$id is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$invitation is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$isVerified is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$language is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$links is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$location is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$numberOfLikes is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$referenceId is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$referralEmail is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$reportData is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$reviewVerificationLevel is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$source is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$stars is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$status is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$tags is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$text is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$title is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\:\\:\\$updatedAt is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\BusinessUnit\\:\\:\\$displayName is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/BusinessUnit.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\BusinessUnit\\:\\:\\$id is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/BusinessUnit.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\BusinessUnit\\:\\:\\$identifyingName is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/BusinessUnit.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\BusinessUnit\\:\\:\\$links is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/BusinessUnit.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\BusinessUnitHistory\\:\\:\\$businessUnitId is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/BusinessUnitHistory.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\BusinessUnitHistory\\:\\:\\$changeDate is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/BusinessUnitHistory.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\BusinessUnitHistory\\:\\:\\$displayName is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/BusinessUnitHistory.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\BusinessUnitHistory\\:\\:\\$identifyingName is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/BusinessUnitHistory.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\CompanyReply\\:\\:\\$authorBusinessUserId is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/CompanyReply.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\CompanyReply\\:\\:\\$createdAt is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/CompanyReply.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\CompanyReply\\:\\:\\$text is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/CompanyReply.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\CompanyReply\\:\\:\\$updatedAt is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/CompanyReply.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\Consumer\\:\\:\\$displayLocation is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/Consumer.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\Consumer\\:\\:\\$displayName is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/Consumer.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\Consumer\\:\\:\\$id is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/Consumer.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\Consumer\\:\\:\\$links is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/Consumer.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\Consumer\\:\\:\\$numberOfReviews is never written, only read\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/Consumer.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\FindReviewer\\:\\:\\$isEligible is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/FindReviewer.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\FindReviewer\\:\\:\\$requests is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/FindReviewer.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\FindReviewer\\\\Request\\:\\:\\$businessUserMessage is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/FindReviewer/Request.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\FindReviewer\\\\Request\\:\\:\\$consumerResponse is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/FindReviewer/Request.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\FindReviewer\\\\Request\\:\\:\\$created is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/FindReviewer/Request.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\FindReviewer\\\\Request\\:\\:\\$id is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/FindReviewer/Request.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\FindReviewer\\\\Request\\:\\:\\$status is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/FindReviewer/Request.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\FindReviewer\\\\Request\\\\ConsumerResponse\\:\\:\\$address is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/FindReviewer/Request/ConsumerResponse.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\FindReviewer\\\\Request\\\\ConsumerResponse\\:\\:\\$email is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/FindReviewer/Request/ConsumerResponse.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\FindReviewer\\\\Request\\\\ConsumerResponse\\:\\:\\$message is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/FindReviewer/Request/ConsumerResponse.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\FindReviewer\\\\Request\\\\ConsumerResponse\\:\\:\\$name is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/FindReviewer/Request/ConsumerResponse.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\FindReviewer\\\\Request\\\\ConsumerResponse\\:\\:\\$phoneNumber is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/FindReviewer/Request/ConsumerResponse.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\FindReviewer\\\\Request\\\\ConsumerResponse\\:\\:\\$referenceId is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/FindReviewer/Request/ConsumerResponse.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\FindReviewer\\\\Request\\\\ConsumerResponse\\:\\:\\$submittedAt is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/FindReviewer/Request/ConsumerResponse.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\Invitation\\:\\:\\$businessUnitId is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/Invitation.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\Location\\:\\:\\$externalId is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/Location.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\Location\\:\\:\\$id is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/Location.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\Location\\:\\:\\$name is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/Location.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\Location\\:\\:\\$urlFormattedName is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/Location.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\ReportData\\:\\:\\$createdAt is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/ReportData.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\ReportData\\:\\:\\$publicComment is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/ReportData.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\ReportData\\:\\:\\$reasons is never read, only written\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/ReportData.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\ReportData\\:\\:\\$source is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/ReportData.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\Tag\\:\\:\\$group is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/Tag.php
+
+		-
+			message: "#^Property App\\\\Api\\\\TrustPilot\\\\DTO\\\\Review\\\\Review\\\\Tag\\:\\:\\$value is unused\\.$#"
+			count: 1
+			path: src/Api/TrustPilot/DTO/Review/Review/Tag.php
+
+		-
+			message: "#^Property App\\\\Api\\\\VerifiedReviews\\\\Invitation\\:\\:\\$idWebsite is never read, only written\\.$#"
+			count: 1
+			path: src/Api/VerifiedReviews/Invitation.php
+
+		-
+			message: "#^Property App\\\\Api\\\\VerifiedReviews\\\\Invitation\\\\Message\\:\\:\\$sign is never read, only written\\.$#"
+			count: 1
+			path: src/Api/VerifiedReviews/Invitation/Message.php
+
+		-
+			message: "#^Property App\\\\Bridge\\\\AdyenBridge\\:\\:\\$options \\(Payum\\\\Core\\\\Bridge\\\\Spl\\\\ArrayObject\\) does not accept default value of type array\\<string, null\\>\\.$#"
+			count: 1
+			path: src/Bridge/AdyenBridge.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findAllNonAnonymousPaidInitialOrders\\(\\)\\.$#"
+			count: 1
+			path: src/Command/CaptainMetrics/ImportOrdersCommand.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:getQuotations\\(\\)\\.$#"
+			count: 1
+			path: src/Command/CaptainMetrics/ImportQuotationsCommand.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Doctrine\\\\Repository\\\\Sylius\\\\OrderRepositoryInterface\\:\\:getOrdersForLokad\\(\\)\\.$#"
+			count: 1
+			path: src/Command/Cron/Transmission/UpdateInventoryCommand.php
+
+		-
+			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
+			count: 2
+			path: src/Command/Cron/Transmission/UpdateInventoryCommand.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Services\\\\Drip\\\\DripApiInterface\\:\\:sendBatchNPS\\(\\)\\.$#"
+			count: 1
+			path: src/Command/Drip/ImportNpsCommand.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Services\\\\Drip\\\\DripApiInterface\\:\\:sendBatchProductReviews\\(\\)\\.$#"
+			count: 1
+			path: src/Command/Drip/ImportProductReviewsCommand.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findByChannelWithPrices\\(\\)\\.$#"
+			count: 1
+			path: src/Command/Drip/ProductImportCommand.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findOneByCode\\(\\)\\.$#"
+			count: 1
+			path: src/Command/Drip/ProductImportCommand.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findAllWithAddress\\(\\)\\.$#"
+			count: 1
+			path: src/Command/Drip/SyncCustomersCommand.php
+
+		-
+			message: "#^Result of method App\\\\Services\\\\Drip\\\\DripApiInterface\\:\\:sendBatchCustomers\\(\\) \\(void\\) is used\\.$#"
+			count: 1
+			path: src/Command/Drip/SyncCustomersCommand.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findAllWithItemsAndCustomer\\(\\)\\.$#"
+			count: 1
+			path: src/Command/Drip/SyncOrdersCommand.php
+
+		-
+			message: "#^Result of method App\\\\Services\\\\Drip\\\\DripApiInterface\\:\\:sendBatchOrders\\(\\) \\(void\\) is used\\.$#"
+			count: 1
+			path: src/Command/Drip/SyncOrdersCommand.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Repository\\\\OrderRepositoryInterface\\:\\:findAllByCurrentYear\\(\\)\\.$#"
+			count: 1
+			path: src/Command/GenerateInvoicesCommand.php
+
+		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: src/Component/Order/Processor/CompositeReorderProcessor.php
+
+		-
+			message: "#^Ternary operator condition is always false\\.$#"
+			count: 1
+			path: src/Component/Order/Processor/CompositeReorderProcessor.php
+
+		-
+			message: "#^Method Sylius\\\\Component\\\\Shipping\\\\Model\\\\ShipmentInterface\\:\\:getMethod\\(\\) invoked with 1 parameter, 0 required\\.$#"
+			count: 1
+			path: src/Controller/Admin/Action/BisCreationWithExchangeAction.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Model\\\\Payum\\\\Payment\\:\\:getMethod\\(\\)\\.$#"
+			count: 2
+			path: src/Controller/Admin/Action/DeliverAction.php
+
+		-
+			message: "#^Variable \\$order in PHPDoc tag @var does not match assigned variable \\$shipment\\.$#"
+			count: 1
+			path: src/Controller/Admin/Action/DeliverAction.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Doctrine\\\\Repository\\\\Sylius\\\\OrderRepositoryInterface\\:\\:findOneById\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/Action/GenerateOrderItemLogisticAction.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findOneByTokenValue\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/Action/ResendConfirmationEmailAction.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findNumberByCodeOrName\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/Action/SearchProductAndVariantAction.php
+
+		-
+			message: "#^Offset 'search' does not exist on non\\-falsy\\-string\\.$#"
+			count: 1
+			path: src/Controller/Admin/Action/SearchProductAndVariantAction.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Controller/Admin/BundleGeneratorController.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between false and App\\\\Doctrine\\\\Entity\\\\Sylius\\\\Product will always evaluate to false\\.$#"
+			count: 1
+			path: src/Controller/Admin/BundleGeneratorController.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Repository\\\\CustomerRepositoryInterface\\:\\:findOneByPromotionCoupon\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/CustomerController.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Model\\\\ResourceInterface\\:\\:getEnabled\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/FamiliarityController.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Model\\\\ResourceInterface\\:\\:setEnabled\\(\\)\\.$#"
+			count: 2
+			path: src/Controller/Admin/FamiliarityController.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Order\\\\Model\\\\OrderInterface\\:\\:getGiftCards\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/OrderController.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Order\\\\Model\\\\OrderInterface\\:\\:getPayments\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/OrderController.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Order\\\\Repository\\\\OrderRepositoryInterface\\:\\:findAssociatedOrders\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/OrderController.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Order\\\\Repository\\\\OrderRepositoryInterface\\:\\:findCartForSummary\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/OrderController.php
+
+		-
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\HttpFoundation\\\\Session\\\\SessionInterface\\:\\:getFlashBag\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/OrderController.php
+
+		-
+			message: "#^Expression in empty\\(\\) is not falsy\\.$#"
+			count: 1
+			path: src/Controller/Admin/OrderController.php
+
+		-
+			message: "#^Method Symfony\\\\Contracts\\\\EventDispatcher\\\\EventDispatcherInterface\\:\\:dispatch\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: src/Controller/Admin/OrderController.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Model\\\\ResourceInterface\\:\\:setOrder\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/OrderReturnController.php
+
+		-
+			message: "#^Call to an undefined method Doctrine\\\\Persistence\\\\ObjectManager\\:\\:getUnitOfWork\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/OrderStoreController.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Provider\\\\ReturnProduct\\\\ReturnProductProviderInterface\\:\\:provideUpdatedOrNew\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/ProductReturnGenerationAction.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Model\\\\ResourceInterface\\:\\:getRemercie\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/ProductReviewController.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Model\\\\ResourceInterface\\:\\:setRemercie\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/ProductReviewController.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Model\\\\ResourceInterface\\:\\:setRemercieDate\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/ProductReviewController.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Model\\\\ResourceInterface\\:\\:disable\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/ProductVariantController.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Model\\\\ResourceInterface\\:\\:enable\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/ProductVariantController.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Model\\\\ResourceInterface\\:\\:getCode\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/ProductVariantController.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Model\\\\ResourceInterface\\:\\:isEnabled\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/ProductVariantController.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Factory\\\\FactoryInterface\\:\\:updateFromExisting\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/PromotionController.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Model\\\\ResourceInterface\\:\\:addDefaultPromotionRule\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/PromotionController.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Model\\\\ResourceInterface\\:\\:setShippingMethod\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Admin/ServiceRulesController.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findByOrderToken\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Api/Cart/AddCouponAction.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Repository\\\\OrderRepositoryInterface\\:\\:getOneByTokenValueHydrated\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Api/Cart/Sponsor/SponsorAction.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Controller/Api/Cart/Sponsor/SponsorAction.php
+
+		-
+			message: "#^Argument of an invalid type bool\\|float\\|int\\|string supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: src/Controller/Api/Familiarity/AddAction.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:getOneByTokenValueHydrated\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Api/Order/ModifyAction.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findOneByEmail\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Api/Order/Review/NpsAction.php
+
+		-
+			message: "#^Method Doctrine\\\\Persistence\\\\ObjectRepository\\<object\\>\\:\\:findOneBy\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: src/Controller/Api/Order/Review/NpsAction.php
+
+		-
+			message: "#^Offset 'email' does not exist on bool\\|float\\|int\\|string\\.$#"
+			count: 1
+			path: src/Controller/Api/Order/Review/NpsAction.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findAllByCode\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Api/Product/Review/Answer/AnswerV2Action.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findOneByEmail\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Api/Product/Review/Answer/AnswerV2Action.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findOneById\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Api/Product/Review/Answer/AnswerV2Action.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:getCompletedOrderByCartToken\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Api/Product/Review/Answer/AnswerV2Action.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:getOrderByCustomerEmailOrProducts\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Api/Product/Review/Answer/AnswerV2Action.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Review\\\\Model\\\\ReviewableInterface\\:\\:getCode\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Api/Product/Review/Answer/AnswerV2Action.php
+
+		-
+			message: "#^Offset 'birthday' does not exist on bool\\|float\\|int\\|string\\.$#"
+			count: 1
+			path: src/Controller/Api/Product/Review/Answer/AnswerV2Action.php
+
+		-
+			message: "#^Offset 'email' does not exist on bool\\|float\\|int\\|string\\.$#"
+			count: 2
+			path: src/Controller/Api/Product/Review/Answer/AnswerV2Action.php
+
+		-
+			message: "#^Offset 'firstName' does not exist on bool\\|float\\|int\\|string\\.$#"
+			count: 1
+			path: src/Controller/Api/Product/Review/Answer/AnswerV2Action.php
+
+		-
+			message: "#^Offset string\\|null does not exist on bool\\|float\\|int\\|string\\.$#"
+			count: 1
+			path: src/Controller/Api/Product/Review/Answer/AnswerV2Action.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Repository\\\\OrderRepositoryInterface\\:\\:findOneLikeNumber\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Api/Shipping/UrbantzAction.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Doctrine\\\\Entity\\\\Sylius\\\\CustomerInterface\\:\\:setSponsorCoupon\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Api/Sponsor/AddAction.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Repository\\\\OrderRepositoryInterface\\:\\:getOrderByCustomerEmail\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Api/Sponsor/AddAction.php
+
+		-
+			message: "#^Variable \\$customer in PHPDoc tag @var does not exist\\.$#"
+			count: 1
+			path: src/Controller/Api/Sponsor/AddAction.php
+
+		-
+			message: "#^Variable \\$promotionSponsor in PHPDoc tag @var does not exist\\.$#"
+			count: 1
+			path: src/Controller/Api/Sponsor/AddAction.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:countNbFilleul\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Api/Sponsor/GiftAddAction.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findOneByEmail\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Api/Sponsor/GiftAddAction.php
+
+		-
+			message: "#^Variable \\$customer in PHPDoc tag @var does not exist\\.$#"
+			count: 1
+			path: src/Controller/Api/Sponsor/GiftAddAction.php
+
+		-
+			message: "#^Call to static method Webmozart\\\\Assert\\\\Assert\\:\\:isArray\\(\\) with string and 'Slugs must be an…' will always evaluate to false\\.$#"
+			count: 1
+			path: src/Controller/Api/Taxon/ListAction.php
+
+		-
+			message: "#^Offset 'NotificationRequest…' on string in isset\\(\\) does not exist\\.$#"
+			count: 1
+			path: src/Controller/Payment/Adyen/NotifyController.php
+
+		-
+			message: "#^Property App\\\\Controller\\\\Payment\\\\Adyen\\\\NotifyController\\:\\:\\$paymentRepository is never read, only written\\.$#"
+			count: 1
+			path: src/Controller/Payment/Adyen/NotifyController.php
+
+		-
+			message: "#^Property App\\\\Controller\\\\Payment\\\\Adyen\\\\NotifyController\\:\\:\\$payum is never read, only written\\.$#"
+			count: 1
+			path: src/Controller/Payment/Adyen/NotifyController.php
+
+		-
+			message: "#^Result of \\|\\| is always true\\.$#"
+			count: 1
+			path: src/Controller/Payment/Adyen/NotifyController.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: src/Controller/Payment/Adyen/NotifyController.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findByOrderNumberAndCompletedState\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Payment/DalenysCallbackAction.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Repository\\\\PaymentRepositoryInterface\\:\\:findByLikeRequestIdAndAmountInDetails\\(\\)\\.$#"
+			count: 1
+			path: src/Controller/Payment/WebTPECallbackAction.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: src/Controller/Payum/CapturePaymentAction.php
+
+		-
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeDefinition\\:\\:children\\(\\)\\.$#"
+			count: 2
+			path: src/DependencyInjection/TediberConfiguration.php
+
+		-
+			message: "#^Class App\\\\Doctrine\\\\Entity\\\\Sylius\\\\Invoice extends @final class Sylius\\\\InvoicingPlugin\\\\Entity\\\\Invoice\\.$#"
+			count: 1
+			path: src/Doctrine/Entity/Sylius/Invoice.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\ShipmentInterface\\:\\:getEndDeliverySlot\\(\\)\\.$#"
+			count: 1
+			path: src/Doctrine/Entity/Sylius/Order.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\ShipmentInterface\\:\\:getEnddeliverySlot\\(\\)\\.$#"
+			count: 1
+			path: src/Doctrine/Entity/Sylius/Order.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Order\\\\Model\\\\OrderItemInterface\\:\\:setItemTotal\\(\\)\\.$#"
+			count: 1
+			path: src/Doctrine/Entity/Sylius/Order.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 2
+			path: src/Doctrine/Entity/Sylius/Order.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\ProductVariantInterface\\:\\:getEcotax\\(\\)\\.$#"
+			count: 1
+			path: src/Doctrine/Entity/Sylius/OrderItem.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Order\\\\Model\\\\OrderInterface\\:\\:getOrderReasonByVariant\\(\\)\\.$#"
+			count: 1
+			path: src/Doctrine/Entity/Sylius/OrderItem.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: src/Doctrine/Entity/Sylius/OrderItem.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Shipping\\\\Model\\\\ShippingMethodTranslationInterface\\:\\:getDeliveryConditions\\(\\)\\.$#"
+			count: 1
+			path: src/Doctrine/Entity/Sylius/ShippingMethod.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Shipping\\\\Model\\\\ShippingMethodTranslationInterface\\:\\:setDeliveryConditions\\(\\)\\.$#"
+			count: 1
+			path: src/Doctrine/Entity/Sylius/ShippingMethod.php
+
+		-
+			message: "#^Call to method DateTime\\:\\:format\\(\\) on a separate line has no effect\\.$#"
+			count: 1
+			path: src/Doctrine/Repository/Sylius/OrderRepository.php
+
+		-
+			message: "#^PHPDoc tag @return with type App\\\\Doctrine\\\\Entity\\\\Sylius\\\\Order\\|null is incompatible with native type array\\.$#"
+			count: 1
+			path: src/Doctrine/Repository/Sylius/OrderRepository.php
+
+		-
+			message: "#^PHPDoc tag @return with type Sylius\\\\Component\\\\Order\\\\Model\\\\OrderInterface\\|null is not subtype of native type Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface\\|null\\.$#"
+			count: 1
+			path: src/Doctrine/Repository/Sylius/OrderRepository.php
+
+		-
+			message: "#^PHPDoc tag @return with type array is incompatible with native type Doctrine\\\\ORM\\\\Internal\\\\Hydration\\\\IterableResult\\.$#"
+			count: 1
+			path: src/Doctrine/Repository/Sylius/ProductReviewRepositoryInterface.php
+
+		-
+			message: "#^PHPDoc tag @return with type array\\<Sylius\\\\Component\\\\Review\\\\Model\\\\ReviewInterface\\>\\|Doctrine\\\\ORM\\\\QueryBuilder is not subtype of native type Doctrine\\\\ORM\\\\QueryBuilder\\.$#"
+			count: 1
+			path: src/Doctrine/Repository/Sylius/ProductReviewRepositoryInterface.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findOneByEmail\\(\\)\\.$#"
+			count: 1
+			path: src/EventListener/Shop/LoyaltyApplyCouponListener.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/EventListener/Shop/LoyaltyApplyCouponListener.php
+
+		-
+			message: "#^Variable \\$promotionCoupon in PHPDoc tag @var does not exist\\.$#"
+			count: 1
+			path: src/EventListener/Shop/LoyaltyApplyCouponListener.php
+
+		-
+			message: "#^Method Sylius\\\\AdminOrderCreationPlugin\\\\ReorderProcessing\\\\ReorderProcessor\\:\\:process\\(\\) invoked with 4 parameters, 2 required\\.$#"
+			count: 2
+			path: src/Factory/OrderFactory.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Provider\\\\ReturnProduct\\\\ReturnProductVariantProviderInterface\\:\\:provideCombosFromVariant\\(\\)\\.$#"
+			count: 1
+			path: src/Factory/ReturnProduct/ReturnProductFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Product\\\\Model\\\\ProductInterface\\:\\:addChannel\\(\\)\\.$#"
+			count: 1
+			path: src/Factory/ReturnProduct/ReturnProductFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Product\\\\Model\\\\ProductInterface\\:\\:setMainTaxon\\(\\)\\.$#"
+			count: 1
+			path: src/Factory/ReturnProduct/ReturnProductFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Product\\\\Model\\\\ProductInterface\\:\\:setWeighting\\(\\)\\.$#"
+			count: 1
+			path: src/Factory/ReturnProduct/ReturnProductFactory.php
+
+		-
+			message: "#^Method App\\\\Factory\\\\ReturnProduct\\\\ReturnProductFactory\\:\\:createNewFromExisting\\(\\) should return App\\\\Doctrine\\\\Entity\\\\Sylius\\\\ProductInterface but returns Sylius\\\\Component\\\\Product\\\\Model\\\\ProductInterface\\.$#"
+			count: 1
+			path: src/Factory/ReturnProduct/ReturnProductFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findOneByCode\\(\\)\\.$#"
+			count: 2
+			path: src/Factory/ReturnProduct/ReturnProductVariantFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\AddressInterface\\:\\:getDetails\\(\\)\\.$#"
+			count: 2
+			path: src/Factory/View/AddressViewFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\AddressInterface\\:\\:getTva\\(\\)\\.$#"
+			count: 1
+			path: src/Factory/View/AddressViewFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface\\:\\:getLingotPromotionMessage\\(\\)\\.$#"
+			count: 1
+			path: src/Factory/View/CartViewFactory.php
+
+		-
+			message: "#^PHPDoc tag @return with type App\\\\View\\\\GoogleRssView is incompatible with native type array\\.$#"
+			count: 1
+			path: src/Factory/View/GoogleRssViewFactoryInterface.php
+
+		-
+			message: "#^Property App\\\\View\\\\OrderReasonTransmissionView\\:\\:\\$quantity \\(string\\) does not accept int\\|null\\.$#"
+			count: 1
+			path: src/Factory/View/OrderReasonTransmissionViewFactory.php
+
+		-
+			message: "#^Method App\\\\Factory\\\\View\\\\OrderTransmissionViewFactory\\:\\:handleAssemblyQuantities\\(\\) never returns null so it can be removed from the return type\\.$#"
+			count: 1
+			path: src/Factory/View/OrderTransmissionViewFactory.php
+
+		-
+			message: "#^Property App\\\\View\\\\OrderTransmissionView\\:\\:\\$checkoutCompletedAt \\(DateTime\\) does not accept DateTimeInterface\\|null\\.$#"
+			count: 1
+			path: src/Factory/View/OrderTransmissionViewFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Product\\\\Model\\\\ProductOptionValueTranslationInterface\\:\\:getDescription\\(\\)\\.$#"
+			count: 1
+			path: src/Factory/View/ProductOptionViewFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Product\\\\Model\\\\ProductOptionValueTranslationInterface\\:\\:getHelp\\(\\)\\.$#"
+			count: 1
+			path: src/Factory/View/ProductOptionViewFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Product\\\\Model\\\\ProductOptionValueTranslationInterface\\:\\:getOptgroup\\(\\)\\.$#"
+			count: 1
+			path: src/Factory/View/ProductOptionViewFactory.php
+
+		-
+			message: "#^Expression in empty\\(\\) is not falsy\\.$#"
+			count: 1
+			path: src/Factory/View/ProductOptionViewFactory.php
+
+		-
+			message: "#^Property App\\\\View\\\\ProductOptionView\\:\\:\\$values \\(Doctrine\\\\Common\\\\Collections\\\\Collection&iterable\\<App\\\\Doctrine\\\\Entity\\\\Sylius\\\\ProductOptionValueInterface\\>\\) on left side of \\?\\?\\= is not nullable\\.$#"
+			count: 1
+			path: src/Factory/View/ProductOptionViewFactory.php
+
+		-
+			message: "#^Access to an undefined property App\\\\View\\\\ProductReviewView\\:\\:\\$review_timestamp\\.$#"
+			count: 1
+			path: src/Factory/View/ProductReviewViewFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Review\\\\Model\\\\ReviewerInterface\\:\\:getBirthday\\(\\)\\.$#"
+			count: 1
+			path: src/Factory/View/ProductReviewViewFactory.php
+
+		-
+			message: "#^Cannot assign new offset to string\\.$#"
+			count: 1
+			path: src/Factory/View/ProductReviewViewFactory.php
+
+		-
+			message: "#^Property App\\\\View\\\\ProductReviewView\\:\\:\\$date \\(DateTime\\) does not accept string\\.$#"
+			count: 1
+			path: src/Factory/View/ProductReviewViewFactory.php
+
+		-
+			message: "#^Property App\\\\View\\\\ProductReviewView\\:\\:\\$orderDate \\(DateTime\\) does not accept string\\.$#"
+			count: 1
+			path: src/Factory/View/ProductReviewViewFactory.php
+
+		-
+			message: "#^Property App\\\\View\\\\ReviewUrlView\\:\\:\\$reviewUrl \\(int\\) does not accept string\\.$#"
+			count: 1
+			path: src/Factory/View/ProductReviewViewFactory.php
+
+		-
+			message: "#^string does not accept App\\\\View\\\\ReviewUrlView\\.$#"
+			count: 1
+			path: src/Factory/View/ProductReviewViewFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Product\\\\Model\\\\ProductInterface\\:\\:getJoinStoryLink\\(\\)\\.$#"
+			count: 1
+			path: src/Factory/View/ProductVariantViewFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\ShipmentInterface\\:\\:getEndDeliverySlot\\(\\)\\.$#"
+			count: 2
+			path: src/Factory/View/ShipmentViewFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\ShipmentInterface\\:\\:getIdShippingMethodBalou\\(\\)\\.$#"
+			count: 2
+			path: src/Factory/View/ShipmentViewFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\ShipmentInterface\\:\\:getRelayId\\(\\)\\.$#"
+			count: 1
+			path: src/Factory/View/ShipmentViewFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\ShipmentInterface\\:\\:getStartDeliverySlot\\(\\)\\.$#"
+			count: 2
+			path: src/Factory/View/ShipmentViewFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\ShipmentInterface\\:\\:setShippingDate\\(\\)\\.$#"
+			count: 1
+			path: src/Factory/View/ShipmentViewFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findOneByIdShippingMethodBalou\\(\\)\\.$#"
+			count: 1
+			path: src/Factory/View/ShipmentViewFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Shipping\\\\Model\\\\ShippingMethodInterface\\:\\:getIdShippingMethodBalou\\(\\)\\.$#"
+			count: 1
+			path: src/Factory/View/ShipmentViewFactory.php
+
+		-
+			message: "#^Property App\\\\View\\\\ShipmentTransmissionView\\:\\:\\$shippingMethod \\(App\\\\Doctrine\\\\Entity\\\\Sylius\\\\ShippingMethodInterface\\) does not accept Sylius\\\\Component\\\\Shipping\\\\Model\\\\ShippingMethodInterface\\|null\\.$#"
+			count: 1
+			path: src/Factory/View/ShipmentViewFactory.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Doctrine\\\\Entity\\\\Sylius\\\\ShippingMethodInterface\\:\\:getIdShippingMethodBalou\\(\\)\\.$#"
+			count: 1
+			path: src/Factory/View/ShippingMethodViewFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\ShipmentInterface\\:\\:getIdShippingMethodBalou\\(\\)\\.$#"
+			count: 2
+			path: src/Factory/View/ShippingMethodViewFactory.php
+
+		-
+			message: "#^Property App\\\\View\\\\ShippingMethodTransmissionView\\:\\:\\$shippingTimeDate \\(string\\) does not accept float\\|null\\.$#"
+			count: 1
+			path: src/Factory/View/ShippingMethodViewFactory.php
+
+		-
+			message: "#^Variable \\$variant in PHPDoc tag @var does not match assigned variable \\$minBound\\.$#"
+			count: 1
+			path: src/Factory/View/TaxonViewFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface\\:\\:getEcotaxTotal\\(\\)\\.$#"
+			count: 1
+			path: src/Factory/View/TotalViewFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface\\:\\:getGiftCards\\(\\)\\.$#"
+			count: 1
+			path: src/Factory/View/TotalViewFactory.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: src/Factory/View/TotalViewFactory.php
+
+		-
+			message: "#^Property App\\\\View\\\\TotalsView\\:\\:\\$taxesRate \\(int\\) does not accept float\\.$#"
+			count: 1
+			path: src/Factory/View/TotalViewFactory.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findOneByEmail\\(\\)\\.$#"
+			count: 1
+			path: src/Form/Type/Order/OrderUpdateCustomerType.php
+
+		-
+			message: "#^Variable \\$customer in PHPDoc tag @var does not exist\\.$#"
+			count: 1
+			path: src/Form/Type/Order/OrderUpdateCustomerType.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: src/Form/Type/Payment/RefundType.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Product\\\\Model\\\\ProductOptionInterface\\:\\:getDefaultOptionValueByLocale\\(\\)\\.$#"
+			count: 1
+			path: src/Form/Type/ProductOptionValueLocaleDefaultLocaleType.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findOneByNumber\\(\\)\\.$#"
+			count: 1
+			path: src/Generator/InvoicePdfFileGenerator.php
+
+		-
+			message: "#^Property App\\\\Generator\\\\SequentialInvoiceNumberGenerator\\:\\:\\$sequenceFactory is never read, only written\\.$#"
+			count: 1
+			path: src/Generator/SequentialInvoiceNumberGenerator.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: src/Generator/SequentialInvoiceNumberGenerator.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Grid\\\\Data\\\\DataSourceInterface\\:\\:getQueryBuilder\\(\\)\\.$#"
+			count: 1
+			path: src/Grid/Filter/MultipleEntityFilter.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Repository\\\\OrderRepositoryInterface\\:\\:getOneByTokenValueHydrated\\(\\)\\.$#"
+			count: 1
+			path: src/Handler/ChangeItemQuantityHandler.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Order\\\\Repository\\\\OrderItemRepositoryInterface\\:\\:getOneByIdHydrated\\(\\)\\.$#"
+			count: 1
+			path: src/Handler/ChangeItemQuantityHandler.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface\\:\\:getLastPaymentByStateOrReturnLast\\(\\)\\.$#"
+			count: 2
+			path: src/Handler/ChoosePaymentHandler.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface\\:\\:addFrontData\\(\\)\\.$#"
+			count: 1
+			path: src/Handler/CompleteOrderHandler.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface\\:\\:addFrontData\\(\\)\\.$#"
+			count: 1
+			path: src/Handler/PickupCartHandler.php
+
+		-
+			message: "#^Method App\\\\Handler\\\\PickupCartHandler\\:\\:handle\\(\\) should return App\\\\Doctrine\\\\Entity\\\\Sylius\\\\Order but returns Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface\\.$#"
+			count: 1
+			path: src/Handler/PickupCartHandler.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Repository\\\\OrderRepositoryInterface\\:\\:getOneByTokenValueHydrated\\(\\)\\.$#"
+			count: 1
+			path: src/Handler/RemoveCouponHandler.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Repository\\\\OrderRepositoryInterface\\:\\:getOneByTokenValueHydrated\\(\\)\\.$#"
+			count: 1
+			path: src/Handler/RemoveItemFromCartHandler.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Order\\\\Repository\\\\OrderItemRepositoryInterface\\:\\:getOneByIdHydrated\\(\\)\\.$#"
+			count: 1
+			path: src/Handler/RemoveItemFromCartHandler.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findOneByCode\\(\\)\\.$#"
+			count: 1
+			path: src/Legacy/Dalenys/DalenysFileHandler.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findStorePaymentsOfDay\\(\\)\\.$#"
+			count: 1
+			path: src/Legacy/Dalenys/DalenysFileHandler.php
+
+		-
+			message: "#^Property App\\\\Legacy\\\\Younited\\\\YounitedApi\\:\\:\\$apiURL is never read, only written\\.$#"
+			count: 1
+			path: src/Legacy/Younited/YounitedApi.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Legacy\\\\Younited\\\\YounitedApiInterface\\:\\:getClientId\\(\\)\\.$#"
+			count: 1
+			path: src/Legacy/Younited/YounitedPayment.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Legacy\\\\Younited\\\\YounitedApiInterface\\:\\:getClientSecret\\(\\)\\.$#"
+			count: 1
+			path: src/Legacy/Younited/YounitedPayment.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Legacy\\\\Younited\\\\YounitedApiInterface\\:\\:getGrantType\\(\\)\\.$#"
+			count: 1
+			path: src/Legacy/Younited/YounitedPayment.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Legacy\\\\Younited\\\\YounitedApiInterface\\:\\:getLoginUrl\\(\\)\\.$#"
+			count: 1
+			path: src/Legacy/Younited/YounitedPayment.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Legacy\\\\Younited\\\\YounitedApiInterface\\:\\:getResource\\(\\)\\.$#"
+			count: 1
+			path: src/Legacy/Younited/YounitedPayment.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Legacy\\\\Younited\\\\YounitedApiInterface\\:\\:setAuthorization\\(\\)\\.$#"
+			count: 4
+			path: src/Legacy/Younited/YounitedPayment.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Legacy\\\\Younited\\\\YounitedApiInterface\\:\\:setCredentials\\(\\)\\.$#"
+			count: 1
+			path: src/Legacy/Younited/YounitedPayment.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Legacy\\\\Younited\\\\YounitedApiInterface\\:\\:setResponse\\(\\)\\.$#"
+			count: 4
+			path: src/Legacy/Younited/YounitedPayment.php
+
+		-
+			message: "#^Method App\\\\Legacy\\\\Younited\\\\YounitedApiInterface\\:\\:executeRequest\\(\\) invoked with 1 parameter, 0 required\\.$#"
+			count: 4
+			path: src/Legacy/Younited/YounitedPayment.php
+
+		-
+			message: "#^Method App\\\\Legacy\\\\Younited\\\\YounitedPayment\\:\\:basketItems\\(\\) never returns null so it can be removed from the return type\\.$#"
+			count: 1
+			path: src/Legacy/Younited/YounitedPayment.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Payment\\\\Model\\\\PaymentMethodInterface\\:\\:getGatewayConfig\\(\\)\\.$#"
+			count: 1
+			path: src/Legacy/Younited/YounitedPaymentProcessor.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findOneLikeNumber\\(\\)\\.$#"
+			count: 1
+			path: src/Legacy/Younited/YounitedPaymentProcessor.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface\\:\\:getOrderItemLogistics\\(\\)\\.$#"
+			count: 1
+			path: src/Menu/AdminOrderShowMenuListener.php
+
+		-
+			message: "#^Property App\\\\Message\\\\DTO\\\\AddressDTO\\:\\:\\$customer \\(Sylius\\\\Component\\\\Core\\\\Model\\\\CustomerInterface\\|null\\) does not accept App\\\\Message\\\\DTO\\\\CustomerDTO\\.$#"
+			count: 1
+			path: src/Message/DTO/AddressDTO.php
+
+		-
+			message: "#^Property App\\\\Message\\\\DTO\\\\CustomerDTO\\:\\:\\$familiarities \\(App\\\\Doctrine\\\\Entity\\\\Familiarity\\) does not accept Doctrine\\\\Common\\\\Collections\\\\Collection\\|null\\.$#"
+			count: 1
+			path: src/Message/DTO/CustomerDTO.php
+
+		-
+			message: "#^Property App\\\\Message\\\\DTO\\\\CustomerDTO\\:\\:\\$promotionCoupons \\(App\\\\Doctrine\\\\Entity\\\\Sylius\\\\PromotionCoupon\\) does not accept Doctrine\\\\Common\\\\Collections\\\\Collection\\|null\\.$#"
+			count: 1
+			path: src/Message/DTO/CustomerDTO.php
+
+		-
+			message: "#^Property App\\\\Message\\\\DTO\\\\CustomerDTO\\:\\:\\$user \\(Sylius\\\\Component\\\\Core\\\\Model\\\\ShopUserInterface\\) does not accept Sylius\\\\Component\\\\User\\\\Model\\\\UserInterface\\|null\\.$#"
+			count: 1
+			path: src/Message/DTO/CustomerDTO.php
+
+		-
+			message: "#^Property App\\\\Message\\\\DTO\\\\GiftCardDTO\\:\\:\\$orderItemUnit \\(Setono\\\\SyliusGiftCardPlugin\\\\Model\\\\OrderItemUnitInterface\\|null\\) does not accept App\\\\Message\\\\DTO\\\\OrderItemUnitDTO\\.$#"
+			count: 1
+			path: src/Message/DTO/GiftCardDTO.php
+
+		-
+			message: "#^Method App\\\\Message\\\\DTO\\\\OrderDTO\\:\\:getBillingAddress\\(\\) should return App\\\\Message\\\\DTO\\\\AddressDTO\\|null but returns Sylius\\\\Component\\\\Core\\\\Model\\\\AddressInterface\\.$#"
+			count: 1
+			path: src/Message/DTO/OrderDTO.php
+
+		-
+			message: "#^Method App\\\\Message\\\\DTO\\\\OrderDTO\\:\\:getShippingAddress\\(\\) should return App\\\\Message\\\\DTO\\\\AddressDTO\\|null but returns Sylius\\\\Component\\\\Core\\\\Model\\\\AddressInterface\\.$#"
+			count: 1
+			path: src/Message/DTO/OrderDTO.php
+
+		-
+			message: "#^Property App\\\\Message\\\\DTO\\\\OrderDTO\\:\\:\\$billingAddress \\(Sylius\\\\Component\\\\Core\\\\Model\\\\AddressInterface\\) does not accept App\\\\Message\\\\DTO\\\\AddressDTO\\.$#"
+			count: 1
+			path: src/Message/DTO/OrderDTO.php
+
+		-
+			message: "#^Property App\\\\Message\\\\DTO\\\\OrderDTO\\:\\:\\$customer \\(Sylius\\\\Component\\\\Core\\\\Model\\\\CustomerInterface\\) does not accept App\\\\Message\\\\DTO\\\\CustomerDTO\\.$#"
+			count: 1
+			path: src/Message/DTO/OrderDTO.php
+
+		-
+			message: "#^Property App\\\\Message\\\\DTO\\\\OrderDTO\\:\\:\\$orderReason \\(array\\<App\\\\Doctrine\\\\Entity\\\\OrderReason\\>\\|null\\) does not accept Doctrine\\\\Common\\\\Collections\\\\Collection\\|null\\.$#"
+			count: 1
+			path: src/Message/DTO/OrderDTO.php
+
+		-
+			message: "#^Property App\\\\Message\\\\DTO\\\\OrderDTO\\:\\:\\$shippingAddress \\(Sylius\\\\Component\\\\Core\\\\Model\\\\AddressInterface\\) does not accept App\\\\Message\\\\DTO\\\\AddressDTO\\.$#"
+			count: 1
+			path: src/Message/DTO/OrderDTO.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\ProductVariantInterface\\:\\:getBundleAssociations\\(\\)\\.$#"
+			count: 1
+			path: src/Message/DTO/OrderItemDTO.php
+
+		-
+			message: "#^Property App\\\\Message\\\\DTO\\\\OrderItemDTO\\:\\:\\$adjustments \\(Doctrine\\\\Common\\\\Collections\\\\Collection&iterable\\<Sylius\\\\Component\\\\Core\\\\Model\\\\AdjustmentInterface\\>\\) does not accept Doctrine\\\\Common\\\\Collections\\\\Collection\\<\\(int\\|string\\), Sylius\\\\Component\\\\Order\\\\Model\\\\AdjustmentInterface\\>\\.$#"
+			count: 1
+			path: src/Message/DTO/OrderItemDTO.php
+
+		-
+			message: "#^Property App\\\\Message\\\\DTO\\\\OrderItemDTO\\:\\:\\$units \\(Doctrine\\\\Common\\\\Collections\\\\Collection&iterable\\<Sylius\\\\Component\\\\Order\\\\Model\\\\OrderItemUnitInterface\\>\\) does not accept null\\.$#"
+			count: 1
+			path: src/Message/DTO/OrderItemDTO.php
+
+		-
+			message: "#^Property App\\\\Message\\\\DTO\\\\OrderItemUnitDTO\\:\\:\\$orderItem \\(Sylius\\\\Component\\\\Order\\\\Model\\\\OrderItemInterface\\) does not accept App\\\\Message\\\\DTO\\\\OrderItemDTO\\.$#"
+			count: 1
+			path: src/Message/DTO/OrderItemUnitDTO.php
+
+		-
+			message: "#^Property App\\\\Message\\\\DTO\\\\OrderItemUnitDTO\\:\\:\\$shipment \\(Sylius\\\\Component\\\\Core\\\\Model\\\\ShipmentInterface\\|null\\) does not accept App\\\\Message\\\\DTO\\\\ShipmentDTO\\.$#"
+			count: 1
+			path: src/Message/DTO/OrderItemUnitDTO.php
+
+		-
+			message: "#^Method App\\\\Message\\\\DTO\\\\PaymentDTO\\:\\:getMethod\\(\\) should return App\\\\Message\\\\DTO\\\\PaymentMethodDTO\\|null but returns Sylius\\\\Component\\\\Payment\\\\Model\\\\PaymentMethodInterface\\.$#"
+			count: 1
+			path: src/Message/DTO/PaymentDTO.php
+
+		-
+			message: "#^Property App\\\\Message\\\\DTO\\\\PaymentDTO\\:\\:\\$method \\(Sylius\\\\Component\\\\Payment\\\\Model\\\\PaymentMethodInterface\\) does not accept App\\\\Message\\\\DTO\\\\PaymentMethodDTO\\.$#"
+			count: 1
+			path: src/Message/DTO/PaymentDTO.php
+
+		-
+			message: "#^Property App\\\\Message\\\\DTO\\\\PaymentMethodDTO\\:\\:\\$rules \\(Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\) does not accept Doctrine\\\\Common\\\\Collections\\\\Collection&iterable\\<App\\\\Doctrine\\\\Entity\\\\PaymentMethodRuleInterface\\>\\.$#"
+			count: 1
+			path: src/Message/DTO/PaymentMethodDTO.php
+
+		-
+			message: "#^Property App\\\\Message\\\\DTO\\\\PromotionDTO\\:\\:\\$channels \\(Doctrine\\\\Common\\\\Collections\\\\Collection&iterable\\<Sylius\\\\Component\\\\Core\\\\Model\\\\ChannelInterface\\>\\) does not accept Doctrine\\\\Common\\\\Collections\\\\Collection\\<\\(int\\|string\\), Sylius\\\\Component\\\\Channel\\\\Model\\\\ChannelInterface\\>\\.$#"
+			count: 1
+			path: src/Message/DTO/PromotionDTO.php
+
+		-
+			message: "#^Property App\\\\Message\\\\DTO\\\\ShipmentDTO\\:\\:\\$units \\(Doctrine\\\\Common\\\\Collections\\\\Collection&iterable\\<Sylius\\\\Component\\\\Shipping\\\\Model\\\\ShipmentUnitInterface\\>\\) does not accept null\\.$#"
+			count: 1
+			path: src/Message/DTO/ShipmentDTO.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Shipping\\\\Model\\\\ShippingMethodInterface\\:\\:getDeliveryConditions\\(\\)\\.$#"
+			count: 1
+			path: src/Message/DTO/ShippingMethodDTO.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Shipping\\\\Model\\\\ShippingMethodInterface\\:\\:getFloor\\(\\)\\.$#"
+			count: 1
+			path: src/Message/DTO/ShippingMethodDTO.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Shipping\\\\Model\\\\ShippingMethodInterface\\:\\:getHasTracking\\(\\)\\.$#"
+			count: 1
+			path: src/Message/DTO/ShippingMethodDTO.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Shipping\\\\Model\\\\ShippingMethodInterface\\:\\:isBikeDelivery\\(\\)\\.$#"
+			count: 1
+			path: src/Message/DTO/ShippingMethodDTO.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Shipping\\\\Model\\\\ShippingMethodInterface\\:\\:isTuned\\(\\)\\.$#"
+			count: 1
+			path: src/Message/DTO/ShippingMethodDTO.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findOneByRefundReferenceIdIsNull\\(\\)\\.$#"
+			count: 1
+			path: src/MessageHandler/DalenysNotifyHandler.php
+
+		-
+			message: "#^PHPDoc tag @return with type App\\\\Model\\\\Address is incompatible with native type App\\\\Model\\\\GiftCardAddress\\.$#"
+			count: 2
+			path: src/Model/GiftCardAddress.php
+
+		-
+			message: "#^Method App\\\\Operator\\\\OrderInventoryOperator\\:\\:giveBack\\(\\) is unused\\.$#"
+			count: 1
+			path: src/Operator/OrderInventoryOperator.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Bridge\\\\AdyenBridgeInterface\\:\\:serviceCheckout\\(\\)\\.$#"
+			count: 4
+			path: src/Payum/Adyen/Action/CaptureAction.php
+
+		-
+			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: src/Payum/Adyen/Action/CaptureAction.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 5
+			path: src/Payum/Adyen/Action/CaptureAction.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 2
+			path: src/Payum/Adyen/Action/ConvertPaymentAction.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Bridge\\\\AdyenBridgeInterface\\:\\:serviceModification\\(\\)\\.$#"
+			count: 1
+			path: src/Payum/Adyen/Action/RefundAction.php
+
+		-
+			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: src/Payum/Dalenys/Action/ConvertPaymentAction.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 3
+			path: src/Payum/Dalenys/Action/ConvertPaymentAction.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Payment\\\\Model\\\\Payment\\:\\:getOrder\\(\\)\\.$#"
+			count: 3
+			path: src/Payum/Printemps/Action/CaptureAction.php
+
+		-
+			message: "#^Cannot access property \\$REDIRECTURL on array\\.$#"
+			count: 1
+			path: src/Payum/WebTPE/Action/CaptureAction.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 2
+			path: src/Payum/WebTPE/Action/ConvertPaymentAction.php
+
+		-
+			message: "#^Left side of && is always true\\.$#"
+			count: 1
+			path: src/Payum/Younited/Action/ActivateAction.php
+
+		-
+			message: "#^PHPDoc tag @var has invalid value \\(\\$payment PaymentInterface\\)\\: Unexpected token \"\\$payment\", expected type at offset 9$#"
+			count: 1
+			path: src/Payum/Younited/Action/ActivateAction.php
+
+		-
+			message: "#^Left side of && is always true\\.$#"
+			count: 1
+			path: src/Payum/Younited/Action/CaptureAction.php
+
+		-
+			message: "#^Property App\\\\Payum\\\\Younited\\\\Action\\\\StatusAction\\:\\:\\$requestStack is never read, only written\\.$#"
+			count: 1
+			path: src/Payum/Younited/Action/StatusAction.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface\\:\\:setItemsTotal\\(\\)\\.$#"
+			count: 1
+			path: src/Processor/NonEUTaxAdjustmentProcessor.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface\\:\\:getPromotionableItems\\(\\)\\.$#"
+			count: 1
+			path: src/Promotion/Action/FixedDiscountPromotionActionCommand.php
+
+		-
+			message: "#^Method Sylius\\\\Component\\\\Order\\\\Model\\\\AdjustableInterface\\:\\:addAdjustment\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: src/Promotion/Action/GiftProductDiscountPromotionActionCommand.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface\\:\\:getPromotionableItems\\(\\)\\.$#"
+			count: 1
+			path: src/Promotion/Action/PercentageDiscountPromotionActionCommand.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Repository\\\\OrderRepositoryInterface\\:\\:countPaidByCustomer\\(\\)\\.$#"
+			count: 1
+			path: src/Promotion/Checker/Rule/NthOrderRuleChecker.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Repository\\\\CustomerRepositoryInterface\\:\\:countNbFilleul\\(\\)\\.$#"
+			count: 1
+			path: src/Promotion/Checker/Rule/SponsoringRuleChecker.php
+
+		-
+			message: "#^Property App\\\\Promotion\\\\Checker\\\\Rule\\\\SponsoringRuleChecker\\:\\:\\$orderRepository is never read, only written\\.$#"
+			count: 1
+			path: src/Promotion/Checker/Rule/SponsoringRuleChecker.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between null and App\\\\Doctrine\\\\Entity\\\\Sylius\\\\CustomerInterface will always evaluate to false\\.$#"
+			count: 1
+			path: src/Promotion/Checker/Rule/SponsoringRuleChecker.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findByVariantCode\\(\\)\\.$#"
+			count: 2
+			path: src/Provider/ReturnProduct/ReturnProductComboProvider.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findOneByCode\\(\\)\\.$#"
+			count: 1
+			path: src/Provider/ReturnProduct/ReturnProductProvider.php
+
+		-
+			message: "#^PHPDoc tag @var has invalid value \\(\\$key\\)\\: Unexpected token \"\\$key\", expected type at offset 44$#"
+			count: 1
+			path: src/Provider/ReturnProduct/ReturnProductVariantProvider.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between null and App\\\\Doctrine\\\\Entity\\\\Sylius\\\\ProductVariantInterface will always evaluate to false\\.$#"
+			count: 1
+			path: src/Provider/ReturnProduct/ReturnProductVariantProvider.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface\\:\\:getOrderReason\\(\\)\\.$#"
+			count: 1
+			path: src/ReorderProcessing/CheckReasonProcessor.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface\\:\\:getOrderReason\\(\\)\\.$#"
+			count: 1
+			path: src/ReorderProcessing/ReturnOrderReasonItemsProcessor.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\Order\\:\\:getParentNumber\\(\\)\\.$#"
+			count: 4
+			path: src/Services/Admin/OrderService.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findInitialOrder\\(\\)\\.$#"
+			count: 3
+			path: src/Services/Admin/OrderService.php
+
+		-
+			message: "#^Cannot call method getAmount\\(\\) on null\\.$#"
+			count: 1
+			path: src/Services/Admin/OrderService.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Doctrine\\\\Repository\\\\StoreRepository\\:\\:findByChannel\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Admin/ReportingData.php
+
+		-
+			message: "#^Call to an undefined method DateTimeInterface\\:\\:add\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Admin/ReportingData.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findOneByCode\\(\\)\\.$#"
+			count: 1
+			path: src/Services/BI/BtoBPromotion.php
+
+		-
+			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
+			count: 1
+			path: src/Services/BI/BtoBPromotion.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Product\\\\Model\\\\ProductVariantInterface\\:\\:getShippingCategory\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Bundle/BundleFinalGenerator.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Product\\\\Model\\\\ProductVariantInterface\\:\\:setShippingCategory\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Bundle/BundleFinalGenerator.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Product\\\\Model\\\\ProductVariantInterface\\:\\:setShippingRequired\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Bundle/BundleFinalGenerator.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Product\\\\Model\\\\ProductVariantInterface\\:\\:setTaxCategory\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Bundle/BundleFinalGenerator.php
+
+		-
+			message: "#^Property App\\\\Services\\\\Calendar\\\\CalendarApi\\:\\:\\$calendarDeliverySlot is never read, only written\\.$#"
+			count: 1
+			path: src/Services/Calendar/CalendarApi.php
+
+		-
+			message: "#^Binary operation \"\\*\" between string and 60 results in an error\\.$#"
+			count: 1
+			path: src/Services/Calendar/Maker/DeliverySlotMaker.php
+
+		-
+			message: "#^Property App\\\\Services\\\\Calendar\\\\Maker\\\\DeliverySlotMaker\\:\\:\\$date is unused\\.$#"
+			count: 1
+			path: src/Services/Calendar/Maker/DeliverySlotMaker.php
+
+		-
+			message: "#^Property App\\\\Services\\\\Calendar\\\\Maker\\\\DeliverySlotMaker\\:\\:\\$shippingMethodRepository is unused\\.$#"
+			count: 1
+			path: src/Services/Calendar/Maker/DeliverySlotMaker.php
+
+		-
+			message: "#^Property App\\\\Services\\\\Calendar\\\\Maker\\\\DeliverySlotMaker\\:\\:\\$times is unused\\.$#"
+			count: 1
+			path: src/Services/Calendar/Maker/DeliverySlotMaker.php
+
+		-
+			message: "#^Property App\\\\Services\\\\Calendar\\\\Maker\\\\TimeMaker\\:\\:\\$endTime \\(Symfony\\\\Component\\\\Validator\\\\Constraints\\\\Time\\) does not accept string\\.$#"
+			count: 1
+			path: src/Services/Calendar/Maker/TimeMaker.php
+
+		-
+			message: "#^Property App\\\\Services\\\\Calendar\\\\Maker\\\\TimeMaker\\:\\:\\$place is unused\\.$#"
+			count: 1
+			path: src/Services/Calendar/Maker/TimeMaker.php
+
+		-
+			message: "#^Property App\\\\Services\\\\Calendar\\\\Maker\\\\TimeMaker\\:\\:\\$providerName is unused\\.$#"
+			count: 1
+			path: src/Services/Calendar/Maker/TimeMaker.php
+
+		-
+			message: "#^Property App\\\\Services\\\\Calendar\\\\Maker\\\\TimeMaker\\:\\:\\$startTime \\(Symfony\\\\Component\\\\Validator\\\\Constraints\\\\Time\\) does not accept string\\.$#"
+			count: 1
+			path: src/Services/Calendar/Maker/TimeMaker.php
+
+		-
+			message: "#^Call to an undefined method GuzzleHttp\\\\ClientInterface\\:\\:post\\(\\)\\.$#"
+			count: 1
+			path: src/Services/CaptainMetrics/CaptainMetricsApi.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findAssociatedOrders\\(\\)\\.$#"
+			count: 1
+			path: src/Services/CaptainMetrics/CaptainMetricsApi.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findInitialOrder\\(\\)\\.$#"
+			count: 1
+			path: src/Services/CaptainMetrics/CaptainMetricsApi.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:getLastUpdatedDate\\(\\)\\.$#"
+			count: 1
+			path: src/Services/CaptainMetrics/CaptainMetricsApi.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$order with type App\\\\Doctrine\\\\Entity\\\\Sylius\\\\Order\\|null is not subtype of native type App\\\\Doctrine\\\\Entity\\\\Sylius\\\\Order\\.$#"
+			count: 1
+			path: src/Services/CaptainMetrics/CaptainMetricsApi.php
+
+		-
+			message: "#^Method App\\\\Services\\\\Cron\\\\Transmission\\\\PackingProcessor\\:\\:saveBatchNumbers\\(\\) never returns null so it can be removed from the return type\\.$#"
+			count: 1
+			path: src/Services/Cron/Transmission/PackingProcessor.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between null and App\\\\Doctrine\\\\Entity\\\\Transmission will always evaluate to false\\.$#"
+			count: 1
+			path: src/Services/Cron/Transmission/PackingProcessor.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between null and Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface will always evaluate to false\\.$#"
+			count: 1
+			path: src/Services/Cron/Transmission/PackingProcessor.php
+
+		-
+			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\:\\:getOneByWarehouseAndDate\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Date/WarehouseDateHelper.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between null and App\\\\Doctrine\\\\Entity\\\\ExceptionalSchedule will always evaluate to false\\.$#"
+			count: 1
+			path: src/Services/Date/WarehouseDateHelper.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface\\:\\:getNPS\\(\\)\\.$#"
+			count: 2
+			path: src/Services/Drip/DripAPI.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface\\:\\:getOrderStore\\(\\)\\.$#"
+			count: 5
+			path: src/Services/Drip/DripAPI.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderItemInterface\\:\\:getDiscountAmount\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Drip/DripAPI.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between null and Sylius\\\\Component\\\\Core\\\\Model\\\\OrderInterface will always evaluate to false\\.$#"
+			count: 1
+			path: src/Services/Drip/DripAPI.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Product\\\\Model\\\\ProductInterface\\:\\:isGiftCard\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Erp/ForwardToErp.php
+
+		-
+			message: "#^Call to an undefined method Doctrine\\\\Persistence\\\\ObjectManager\\:\\:getConnection\\(\\)\\.$#"
+			count: 1
+			path: src/Services/FastmagImport.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 1
+			path: src/Services/FastmagImport.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findOneByCode\\(\\)\\.$#"
+			count: 3
+			path: src/Services/Loyalty/LoyaltyService.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findOneByCodeAndPromotionCode\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Loyalty/LoyaltyService.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findOneByEmail\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Loyalty/LoyaltyService.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findOneByPromotionCoupon\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Loyalty/LoyaltyService.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:getOrderByCustomerEmail\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Loyalty/LoyaltyService.php
+
+		-
+			message: "#^Cannot call method getGiftCard\\(\\) on Sylius\\\\Component\\\\Order\\\\Model\\\\OrderItemUnitInterface\\|false\\.$#"
+			count: 3
+			path: src/Services/Mail/GiftCard/GiftCardEmail.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Doctrine\\\\Entity\\\\Sylius\\\\OrderItem\\:\\:getVariantCode\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Mail/OrderConfirmationEmail.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Services/Mail/OrderConfirmationEmail.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Services/Mail/ReturnMail/ProductReturnEmail.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Services/Mail/TrackingEmail.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: src/Services/Mail/YounitedEmail.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between null and Sylius\\\\Component\\\\Core\\\\Model\\\\PaymentInterface will always evaluate to false\\.$#"
+			count: 1
+			path: src/Services/Mail/YounitedEmail.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Doctrine\\\\Repository\\\\ProductComboRepository\\:\\:findByProductVariant\\(\\)\\.$#"
+			count: 1
+			path: src/Services/OrderItem/OrderItemService.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderItemInterface\\:\\:addOrderItemLogistic\\(\\)\\.$#"
+			count: 1
+			path: src/Services/OrderItem/OrderItemService.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Services\\\\Colissimo\\\\ColissimoApiInterface\\:\\:setErpClient\\(\\)\\.$#"
+			count: 1
+			path: src/Services/OrderReturn/ReturnMailService.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\ShipmentInterface\\:\\:getStartDeliverySlot\\(\\)\\.$#"
+			count: 4
+			path: src/Services/OutOfStock/WeightingCalculation.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Shipping\\\\Model\\\\ShippingMethodInterface\\:\\:getTransportTime\\(\\)\\.$#"
+			count: 1
+			path: src/Services/OutOfStock/WeightingCalculation.php
+
+		-
+			message: "#^Left side of && is always true\\.$#"
+			count: 1
+			path: src/Services/OutOfStock/WeightingCalculation.php
+
+		-
+			message: "#^Cannot call method getStartDeliverySlot\\(\\) on Sylius\\\\Component\\\\Core\\\\Model\\\\ShipmentInterface\\|false\\.$#"
+			count: 2
+			path: src/Services/Promotion/InfluencerCommand.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Order\\\\Model\\\\OrderItemInterface\\:\\:getVariant\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Quality/Export/QualityCsvGeneratorGenerator.php
+
+		-
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\HttpFoundation\\\\Session\\\\SessionInterface\\:\\:getFlashBag\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Quality/Export/QualityCsvGeneratorGenerator.php
+
+		-
+			message: "#^Binary operation \"\\+\" between int and App\\\\View\\\\GoogleRssView results in an error\\.$#"
+			count: 1
+			path: src/Services/Review/Rss/RssXmlFileGenerator.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\OrderItemInterface\\:\\:getOrderItemLogistics\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Shipment/LogisticItems.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findByProductVariant\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Shipment/LogisticItems.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findOneByCode\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Shipment/LogisticItems.php
+
+		-
+			message: "#^Variable \\$groupSponsorRecommendee in PHPDoc tag @var does not exist\\.$#"
+			count: 1
+			path: src/Services/Sponsor/SyncFilleulToParrainDrip.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between null and App\\\\Doctrine\\\\Entity\\\\Sylius\\\\Order will always evaluate to false\\.$#"
+			count: 1
+			path: src/Services/Token/Checker/Autonomous.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\ShipmentInterface\\:\\:setProofOfDelivery\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Transmission/Entrepot/Spidy/Deliver.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Core\\\\Model\\\\ShipmentInterface\\:\\:setTrackingNumber\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Transmission/Entrepot/Spidy/Deliver.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between null and App\\\\Doctrine\\\\Entity\\\\Sylius\\\\Order will always evaluate to false\\.$#"
+			count: 1
+			path: src/Services/Transmission/Entrepot/Spidy/Deliver.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:getZoneMemberByCode\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Transmission/Entrepot/SpidyService.php
+
+		-
+			message: "#^Result of \\|\\| is always true\\.$#"
+			count: 2
+			path: src/Services/Transmission/Mail/MailService.php
+
+		-
+			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\<App\\\\Doctrine\\\\Entity\\\\Sylius\\\\Order\\>\\:\\:findOneByNumber\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Transmission/PrepareTransmission.php
+
+		-
+			message: "#^Call to an undefined method GuzzleHttp\\\\ClientInterface\\:\\:post\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Transmission/PrepareTransmission.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:getOrderForTrackingEmailByToken\\(\\)\\.$#"
+			count: 1
+			path: src/Services/Transmission/Tracking/AssignTrackingUrl.php
+
+		-
+			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
+			count: 1
+			path: src/Services/Transmission/Tracking/AssignTrackingUrl.php
+
+		-
+			message: "#^Expression in empty\\(\\) is not falsy\\.$#"
+			count: 1
+			path: src/Services/Transmission/Tracking/AssignTrackingUrl.php
+
+		-
+			message: "#^Method App\\\\Services\\\\Vir\\\\VirApi\\:\\:getToken\\(\\) should return string but returns false\\.$#"
+			count: 1
+			path: src/Services/Vir/VirApi.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: src/Utils/PhoneNumber.php
+
+		-
+			message: "#^Access to an undefined property Symfony\\\\Component\\\\Validator\\\\Constraint\\:\\:\\$message\\.$#"
+			count: 1
+			path: src/Validator/ConfigurableProductValidator.php
+
+		-
+			message: "#^Access to an undefined property Symfony\\\\Component\\\\Validator\\\\Constraint\\:\\:\\$message\\.$#"
+			count: 1
+			path: src/Validator/CustomerEmailValidator.php
+
+		-
+			message: "#^Access to an undefined property Symfony\\\\Component\\\\Validator\\\\Constraint\\:\\:\\$message\\.$#"
+			count: 1
+			path: src/Validator/ProductExistsValidator.php
+
+		-
+			message: "#^Access to an undefined property Symfony\\\\Component\\\\Validator\\\\Constraint\\:\\:\\$message\\.$#"
+			count: 1
+			path: src/Validator/ProductVariantExistsValidator.php
+
+		-
+			message: "#^Property App\\\\View\\\\ProductReviewQuestionView\\:\\:\\$answers \\(App\\\\Doctrine\\\\Entity\\\\ProductReviewAnswerChoices\\) does not accept default value of type array\\.$#"
+			count: 1
+			path: src/View/ProductReviewQuestionView.php
+
+		-
+			message: "#^Property App\\\\View\\\\ReviewUrlView\\:\\:\\$type \\(int\\) does not accept default value of type string\\.$#"
+			count: 1
+			path: src/View/ReviewUrlView.php
+
+		-
+			message: "#^Binary operation \"\\*\" between 24 and string results in an error\\.$#"
+			count: 2
+			path: src/View/ShipmentTransmissionView.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Doctrine\\\\Entity\\\\Sylius\\\\ShippingMethodInterface\\:\\:getExceptionalSchedule\\(\\)\\.$#"
+			count: 1
+			path: src/View/ShipmentTransmissionView.php
+
+		-
+			message: "#^Variable \\$familiarity in PHPDoc tag @var does not match assigned variable \\$familiarities\\.$#"
+			count: 1
+			path: src/ViewRepository/FamiliarityViewRepository.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findAllByVariant\\(\\)\\.$#"
+			count: 1
+			path: src/ViewRepository/PackViewRepository.php
+
+		-
+			message: "#^Call to an undefined method Sylius\\\\Component\\\\Resource\\\\Repository\\\\RepositoryInterface\\:\\:findOneBySlug\\(\\)\\.$#"
+			count: 1
+			path: src/ViewRepository/PackViewRepository.php
+
+		-
+			message: "#^Property App\\\\ViewRepository\\\\AbstractViewRepository\\:\\:\\$channelRepository \\(Sylius\\\\Bundle\\\\ChannelBundle\\\\Doctrine\\\\ORM\\\\ChannelRepository\\) does not accept Sylius\\\\Component\\\\Channel\\\\Repository\\\\ChannelRepositoryInterface\\.$#"
+			count: 1
+			path: src/ViewRepository/ProductReviewViewRepository.php
+
+		-
+			message: "#^Property App\\\\ViewRepository\\\\AbstractViewRepository\\:\\:\\$channelRepository \\(Sylius\\\\Bundle\\\\ChannelBundle\\\\Doctrine\\\\ORM\\\\ChannelRepository\\) does not accept Sylius\\\\Component\\\\Channel\\\\Repository\\\\ChannelRepositoryInterface\\.$#"
+			count: 1
+			path: src/ViewRepository/TaxonViewRepository.php
+

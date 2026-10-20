@@ -1,0 +1,8 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\PaymentReport\Downloader\PaymentReportDownloader:
+        arguments:
+            $basicAuth: '%env(ADYEN_PAYMENT_ACCOUNTING_REPORT_DOWNLOAD_BASIC_AUTHENTICATION)%'

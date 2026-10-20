@@ -1,0 +1,161 @@
+{% extends "@App/Payum/layout.html.twig" %}
+
+{% block payum_stylesheets %}
+    {{ parent() }}
+    <link href="/assets/api/css/main.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block payum_body %}
+
+    {% block braintree_payment_form %}
+        <form method="POST" action="{{ formAction }}" id="form">
+            <div id="dropin-container"></div>
+            <input type="hidden" name="payment_method_nonce" id="payment_method_nonce" value="" />
+            <input type="hidden" name="payment_method_kount" id="payment_method_kount" value="" />
+
+            <div class="col-12 column text-center">
+                <input type="submit" value="{{ 'app.ui.pay-braintree'|trans({}, 'messages', app.request.query.get('localeCode')) }}" id="submit_btn" class="btn btn-secondary btn-lg text-uppercase my-2" disabled />
+            </div>
+        </form>
+    {% endblock %}
+
+    {% block braintree_load_js %}
+        <script src="https://js.braintreegateway.com/web/dropin/1.22.1/js/dropin.min.js"></script>
+    {% endblock %}
+
+    {% block braintree_init_js %}
+        <script type="text/javascript">
+
+            var form = document.getElementById('form');
+            var submitButton = document.getElementById('submit_btn');
+            var hiddenNonceInput = document.getElementById('payment_method_nonce');
+            var hiddenKountInput = document.getElementById('payment_method_kount');
+
+            braintree.dropin.create({
+              authorization: '{{clientToken|raw}}',
+              container: '#dropin-container',
+              card: {
+                overrides: {
+                    styles: {
+                        input: {
+                            'font-size': '16px',
+                            'height': '36px',
+                            'line-height': '24px',
+                            'padding': '5px 8px',
+                            'font-family': '"Gill Sans Std Light", -apple-system, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Droid Sans, Helvetica Neue, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
+                            'color': '#202447'
+                        },
+                        '.valid': {
+                            'color': '#8bdda8'
+                        },
+                        '.invalid': {
+                            'color': '#fa755a'
+                        }
+                    }
+                },
+                cardholderName: { required: true }
+              },
+              threeDSecure: true,
+              paypal: {
+                flow: 'checkout',
+                amount: {{ amount|e('js') }},
+                currency: 'EUR'
+              },
+              locale: '{{ app.request.query.get("localeCode") }}'
+            }, function (err, dropinInstance) {
+                form.addEventListener('submit', function (event) {
+                    event.preventDefault();
+                    submitButton.setAttribute('disabled', true);
+                    submitButton.classList.add('loading')
+                    submitButton.parentNode.classList.add('loading')
+
+                    dropinInstance.requestPaymentMethod({
+                        threeDSecure: {
+                            amount: {{ amount|e('js') }},
+                            email: '{{ details['customer']['email'] }}',
+                            billingAddress: {
+                                //givenName: '{{ details['billing']['firstName'] }}',
+                                //surname: '{{ details['billing']['lastName'] }}',
+                                phoneNumber: '{{ details['customer']['phone'] }}',
+                                streetAddress: '{{ details['billing']['streetAddress']|e|slice(0, 41)|replace({"\n": "", "\\": ""})}}',
+                                locality: '{{ details['billing']['locality']|e|slice(0, 245)|replace({"\\": ""}) }}',
+                                postalCode: '{{ details['billing']['postalCode']|slice(0, 9) }}',
+                                countryCodeAlpha2: '{{ details['billing']['countryCodeAlpha2'] }}'
+                            },
+                            additionalInformation: {
+                                //shippingGivenName: '{{ details['shipping']['firstName'] }}',
+                                //shippingSurname: '{{ details['shipping']['lastName'] }}',
+                                shippingPhone: '{{ details['customer']['phone'] }}',
+                                shippingAddress: {
+                                  streetAddress: '{{ details['shipping']['streetAddress']|e|slice(0, 41)|replace({"\n": "", "\\": ""})}}',
+                                  locality: '{{ details['shipping']['locality']|e|slice(0, 245)|replace({"\\": ""}) }}',
+                                  postalCode: '{{ details['shipping']['postalCode']|slice(0, 9) }}',
+                                  countryCodeAlpha2: '{{ details['shipping']['countryCodeAlpha2'] }}'
+                                }
+                            }
+                        }
+                    }, function (err, payload) {
+                        if (err) {
+                            submitButton.removeAttribute('disabled');
+                            submitButton.classList.remove('loading');
+                            submitButton.parentNode.classList.remove('loading');
+                            dropinInstance.clearSelectedPaymentMethod();
+                            console.error(err);
+
+                            try {
+                                Sentry.captureException(err);
+                            }catch (e) {
+                                console.log(e);
+                            }
+
+                            return;
+                        }
+
+                        if (payload.liabilityShifted || payload.type !== 'CreditCard') {
+                            submitButton.setAttribute('disabled', true);
+                            submitButton.classList.add('loading')
+                            submitButton.parentNode.classList.add('loading')
+                            hiddenNonceInput.value = payload.nonce;
+                            hiddenKountInput.value = payload.deviceData;
+                            form.submit();
+                        } else {
+                            // Decide if you will force the user to enter a different
+                            // payment method if liablity was not shifted
+                            dropinInstance.clearSelectedPaymentMethod();
+                            submitButton.removeAttribute('disabled');
+                            submitButton.classList.remove('loading')
+                            submitButton.parentNode.classList.remove('loading')
+
+                            try {
+                                Sentry.captureMessage('Liability was not shifted. Clearing payment method');
+                            }catch (e) {
+                                console.log(e);
+                            }
+
+                        }
+                    });
+                });
+
+                if (dropinInstance.isPaymentMethodRequestable()) {
+                    // This will be true if you generated the client token
+                    // with a customer ID and there is a saved payment method
+                    // available to tokenize with that customer.
+                    submitButton.removeAttribute('disabled');
+                    submitButton.classList.remove('loading')
+                    submitButton.parentNode.classList.remove('loading')
+                }
+
+                dropinInstance.on('paymentMethodRequestable', function (event) {
+                    submitButton.removeAttribute('disabled');
+                    submitButton.classList.remove('loading')
+                    submitButton.parentNode.classList.remove('loading')
+                });
+
+                dropinInstance.on('noPaymentMethodRequestable', function () {
+                    submitButton.setAttribute('disabled', true);
+                });
+            });
+        </script>
+    {% endblock %}
+
+{% endblock %}

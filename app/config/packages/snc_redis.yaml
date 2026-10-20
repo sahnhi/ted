@@ -1,0 +1,10 @@
+snc_redis:
+    clients:
+        default:
+            type: "predis"
+            alias: "tediber-redis"
+            dsn: "%env(REDIS_ENDPOINT)%:%env(REDIS_PORT)%"
+    session:
+        client: "tediber-redis"
+        prefix: "session_%env(APP_ENV)%_"
+        ttl: "3600"

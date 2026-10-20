@@ -1,0 +1,7 @@
+App\Doctrine\Entity\Sylius\ProductOption:
+    mattress_size:
+        code: 'mattress-size'
+        position: 197
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+        

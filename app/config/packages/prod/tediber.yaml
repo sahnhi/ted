@@ -1,0 +1,15 @@
+tediber:
+    email:
+        blocked_order:
+            principals:
+                - 'blocagecommande@tediber.com'
+        spidy_edi:
+            principals:
+                - 'lucile@tediber.com'
+                - 'tangi@tediber.com'
+                - 'margaux@tediber.com'
+                - 'emma@tediber.com'
+        partially_paid:
+            principals:
+                - 'dev@tediber.com'
+                - 'sav@tediber.com'

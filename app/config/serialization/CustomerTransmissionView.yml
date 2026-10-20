@@ -1,0 +1,7 @@
+App\View\CustomerTransmissionView:
+    exclusion_policy: ALL
+    properties:
+        email:
+            expose: true
+            type: string
+            groups: [ 'eDeliv','vir' ]

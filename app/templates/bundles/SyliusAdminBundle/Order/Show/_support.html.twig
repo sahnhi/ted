@@ -1,0 +1,13 @@
+<h4 class="ui top attached styled header">
+    {{ 'app.ui.support'|trans }}
+</h4>
+<div class="ui attached segment" id="support" {% if supportTickets is not empty %}style="overflow-y: scroll; height: 300px;"{% endif %}>
+    {% if supportTickets is not empty %}
+        {% for supportTicket in supportTickets.tickets %}
+            {{ supportTicket.id }}. <a href="https://tedibersupport.zendesk.com/agent/tickets/{{ supportTicket.id }}">{{ supportTicket.subject }}</a> {{ supportTicket.created_at|date }}<br>
+        {% endfor %}
+    {% else %}
+        Pas de ticket
+    {% endif %}
+</div>
+

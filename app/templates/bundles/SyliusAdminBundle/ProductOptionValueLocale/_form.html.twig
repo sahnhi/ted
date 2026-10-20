@@ -1,0 +1,42 @@
+{% for key_option, option in form.children.optionsLocalesDefault.vars.prototype.children.option.vars.choices %}
+    <table class="ui stackable celled table">
+        <thead>
+        <tr>
+            <th colspan="2">
+                {{ option.label }}
+                <input type="hidden" id="{{ form.vars.id }}_{{ form.children.optionsLocalesDefault.vars.id }}_{{ key_option }}_option" name="{{ form.vars.name }}[{{ form.children.optionsLocalesDefault.vars.name }}][{{ key_option }}][option]" value="{{ option.data.id }}">
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for key_locale, locale in form.children.optionsLocalesDefault.vars.prototype.children.locale.vars.prototype.children.locale.vars.choices %}
+                <tr class="item">
+                    <td>
+                        {{ locale.label }}
+                        <input type="hidden" id="{{ form.vars.id }}_{{ form.children.optionsLocalesDefault.vars.id }}_{{ key_option }}_locale_{{ key_locale }}_locale" name="{{ form.vars.name }}[{{ form.children.optionsLocalesDefault.vars.name }}][{{ key_option }}][locale][{{ key_locale }}][locale]" value="{{ locale.value }}">
+                    </td>
+                    <td>
+                        <select id="{{ form.vars.id }}_{{ form.children.optionsLocalesDefault.vars.id }}_{{ key_option }}_locale_{{ key_locale }}_optionValue" name="{{ form.vars.name }}[{{ form.children.optionsLocalesDefault.vars.name }}][{{ key_option }}][locale][{{ key_locale }}][optionValue]" class=" ui dropdown">
+                            {% for key_option, optionValue in form.children.optionsLocalesDefault.vars.prototype.children.locale.vars.prototype.children.optionValue.vars.choices %}
+                                {% if optionValue.data.option.id == option.data.id %}
+                                    <option value="{{ optionValue.data.id }}"
+                                            {% if optionValue.attr['disabled'] is defined %}
+                                                disabled
+                                            {% endif %}
+                                            {% for productOptionValueLocaleDefault in productOptionValueLocaleDefaultValue %}
+                                                {% if productOptionValueLocaleDefault.option.id == option.data.id and productOptionValueLocaleDefault.locale.id == locale.data.id and productOptionValueLocaleDefault.optionValue.id == optionValue.data.id %}
+                                                    selected="selected"
+                                                {% endif %}
+                                            {% endfor %}
+                                    >
+                                        {{ optionValue.data.code }}
+                                    </option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endfor %}

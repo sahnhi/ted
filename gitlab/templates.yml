@@ -1,0 +1,9 @@
+##### TEMPLATES #####
+.load_gcloud_configuration: &load_gcloud_configuration
+  - echo $CREDENTIALS > gcloud-service-key.json
+  - gcloud auth activate-service-account --key-file gcloud-service-key.json
+
+.load_environment_variables: &load_environment_variables
+  - envsubst < app/.env | grep -v '^#' | grep . | sed 's/^/export /' > gcp/run/.env.source
+  - envsubst < app/.env.$CI_ENVIRONMENT_NAME | grep -v '^#' | grep . | sed 's/^/export /' > gcp/run/.env.$CI_ENVIRONMENT_NAME.source
+  - source gcp/run/.env.source && source gcp/run/.env.$CI_ENVIRONMENT_NAME.source

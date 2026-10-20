@@ -1,0 +1,18 @@
+sylius_admin_partial_invoice:
+    resource: "partial/invoice.yaml"
+    prefix: /invoice
+
+app_admin_partial_order:
+    resource: "partial/order.yaml"
+    prefix: /order
+
+app_admin_partial_promotion_coupon:
+    resource: "partial/promotion_coupon.yaml"
+    prefix: /promotion_coupon
+
+app_admin_partial_shipment:
+    resource: "partial/shipment.yaml"
+
+app_admin_partial_update_order_customer:
+    resource: "partial/update_order_customer.yaml"
+    prefix: /orders

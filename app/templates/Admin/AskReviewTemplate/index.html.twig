@@ -1,0 +1,7 @@
+{% extends '@SyliusAdmin/Crud/index.html.twig' %}
+
+{% block content %}
+    {{ sylius_template_event([event_prefix, 'sylius.admin.index'], _context) }}
+
+    {{ render (path("app_admin_admin_parameter_update_days_delay_review", {id: configuration.vars.admin_parameter.getId()})) }}
+{% endblock %}

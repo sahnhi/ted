@@ -1,0 +1,29 @@
+{% extends layout ?: "@PayumCore/layout.html.twig" %}
+
+{% block payum_stylesheets %}
+    {{ parent() }}
+    <link href="/assets/api/css/main.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block payum_body %}
+    {{ parent() }}
+    <form action="https://pmt.pagantis.com/v1/installments" method="post" class="text-center">
+        <input name="ok_url" type="hidden" value="{{ okUrl }}" />
+        <input name="nok_url" type="hidden" value="{{ nokUrl }}" />
+        <input name="cancelled_url" type="hidden" value="{{ cancelledUrl }}">
+        <input name="callback_url" type="hidden" value="{{ callbackUrl }}">
+        <input name="account_id" type="hidden" value="{{ publicKey }}" />
+        <input name="order_id" type="hidden" value="{{ orderId }}" />
+        <input name="amount" type="hidden" value="{{ amount }}" />
+        <input name="currency" type="hidden" value="{{ currency }}" />
+        <input name="signature" type="hidden" value="{{ signature }}" />
+
+        <!-- Datos para autorellenar el formulario, OBLIGATORIO -->
+        <input name="full_name" type="hidden" value="{{ fullName }}">
+        <input name="email" type="hidden" value="{{ email }}">
+        <input name="address[street]" type="hidden" value="{{ street }}">
+        <input name="address[city]" type="hidden" value="{{ city }}">
+        <input name="address[zipcode]" type="hidden" value="{{ zipcode }}">
+        <input type="submit" value="{{ 'app.ui.pay-pmt'|trans({}, 'messages', app.request.query.get('localeCode')) }}" class="btn btn-secondary btn-lg text-uppercase" />
+    </form>
+{% endblock %}

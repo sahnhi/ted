@@ -1,0 +1,15 @@
+<div class="ui segment">
+    <div class="ui header">
+        {{ 'app.ui.bundle_association.labels.options_reminder' | trans }} :
+    </div>
+    <div class="ui content">
+        {% for optionConfiguration in resource.options %}
+            <div class="ui label {{ options_colors[optionConfiguration.productOption.code] }}">
+                {{ optionConfiguration.productOption.name }}
+                {% if optionConfiguration.forcedValue and optionConfiguration.productOptionValue is not null %}
+                    &nbsp;:&nbsp; {{ optionConfiguration.productOptionValue.value }}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>

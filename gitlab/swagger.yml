@@ -1,0 +1,20 @@
+##### STAGE SWAGGER #####
+export-swagger:
+    image:
+        name: $CI_REGISTRY_IMAGE/php:latest
+        pull_policy: always
+    stage: swagger
+    needs:
+        - vendor-prod
+    artifacts:
+        paths:
+            - app/swagger_docs.json
+    script:
+        - export GOOGLE_SERVICE_ACCOUNT_CREDENTIAL_FILE=/app/config/client_credentials.json
+        - cd app
+        - bin/console api:openapi:export --output=swagger_docs.json
+    when: on_success
+    interruptible: true
+    only:
+        refs:
+            - tags

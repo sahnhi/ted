@@ -1,0 +1,8 @@
+App\Doctrine\Entity\Campaigns\Bloc\CampaignBlocDisplay:
+    attributes:
+        bloc: 
+            groups: [ 'shop:campaign:read' ]
+        position:
+            groups: [ 'shop:campaign:read' ]
+        seoBlock:
+            groups: [ 'shop:campaign:read' ]

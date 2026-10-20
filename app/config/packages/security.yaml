@@ -1,0 +1,180 @@
+parameters:
+    sylius.security.admin_regex: '^/admin'
+    sylius.security.api_regex: '^/api'
+    sylius.security.shop_api_regex: '^/shop-api'
+    sylius.security.shop_regex: '^/(?!admin|api/.*|api$|media/.*)[^/]++'
+    sylius.security.shop_front_regex: '^/fr_FR'
+    sylius.security.webhook_shipup_regex: '^/webhook/shipup'
+    
+    sylius.security.new_api_route: "/api/v2"
+    sylius.security.new_api_user_account_route: "%sylius.security.new_api_shop_route%/account"
+    sylius.security.new_api_user_account_regex: "^%sylius.security.new_api_user_account_route%"
+    sylius.security.new_api_doc_route: "%sylius.security.new_api_shop_route%/docs"
+    sylius.security.new_api_doc_regex: "^%sylius.security.new_api_doc_route%"
+
+security:
+    encoders:
+        Sylius\Component\User\Model\UserInterface: sha512
+        argon2i: sha512
+        sha512: sha512
+
+    providers:
+        sylius_admin_user_provider:
+            id: sylius.admin_user_provider.email_or_name_based
+        sylius_shop_user_provider:
+            id: sylius.shop_user_provider.email_or_name_based
+        
+        sylius_api_admin_user_provider:
+            id: sylius.admin_user_provider.email_or_name_based
+        sylius_api_shop_user_provider:
+            id: sylius.shop_user_provider.email_or_name_based
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        
+        new_api_admin_user:
+            pattern: "%sylius.security.new_api_admin_regex%/.*"
+            provider: sylius_api_admin_user_provider
+            stateless: true
+            anonymous: true
+            json_login:
+                check_path: "%sylius.security.new_api_admin_route%/authentication-token"
+                username_path: email
+                password_path: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+
+        new_api_shop_user:
+            pattern: "%sylius.security.new_api_shop_regex%/.*"
+            provider: sylius_api_shop_user_provider
+            stateless: true
+            anonymous: true
+            json_login:
+                check_path: "%sylius.security.new_api_shop_route%/authentication-token"
+                username_path: email
+                password_path: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+        
+        admin:
+            pattern: '%sylius.security.admin_regex%'
+            provider: sylius_admin_user_provider
+            context: admin
+            form_login:
+                login_path: sylius_admin_login
+                check_path: sylius_admin_login_check
+                failure_path: sylius_admin_login
+                default_target_path: sylius_admin_dashboard
+                use_forward: false
+                use_referer: true
+                csrf_token_generator: security.csrf.token_manager
+                csrf_parameter: _csrf_admin_security_token
+                csrf_token_id: admin_authenticate
+            remember_me:
+                secret: '%secret%'
+                path: /admin
+                name: APP_ADMIN_REMEMBER_ME
+                lifetime: 31536000
+                remember_me_parameter: _remember_me
+            logout:
+                path: sylius_admin_logout
+                target: sylius_admin_login
+            anonymous: true
+            switch_user: true
+
+        oauth_token:
+            pattern: '%sylius.security.api_regex%/oauth/v2/token'
+            security: false
+
+        api:
+            pattern: '%sylius.security.api_regex%/.*'
+            provider: sylius_admin_user_provider
+            stateless: true
+            fos_oauth: true
+            anonymous: true
+        
+        webhook_shipup:
+            pattern: '%sylius.security.webhook_shipup_regex%'
+            provider: sylius_admin_user_provider
+            stateless: true
+            http_basic: true
+            anonymous: false
+
+        shop:
+            pattern: '%sylius.security.shop_regex%'
+            provider: sylius_shop_user_provider
+            context: shop
+            form_login:
+                success_handler: sylius.authentication.success_handler
+                failure_handler: sylius.authentication.failure_handler
+                login_path: sylius_shop_login
+                check_path: sylius_shop_login_check
+                failure_path: sylius_shop_login
+                default_target_path: sylius_shop_homepage
+                use_forward: false
+                use_referer: true
+                csrf_token_generator: security.csrf.token_manager
+                csrf_parameter: _csrf_shop_security_token
+                csrf_token_id: shop_authenticate
+            remember_me:
+                secret: '%secret%'
+                name: APP_SHOP_REMEMBER_ME
+                lifetime: 31536000
+                remember_me_parameter: _remember_me
+            logout:
+                path: sylius_shop_logout
+                target: sylius_shop_login
+                invalidate_session: false
+                success_handler: sylius.handler.shop_user_logout
+            anonymous: true
+            switch_user: { role: ROLE_ALLOWED_TO_SWITCH }
+
+    access_control:
+        - { path: "%sylius.security.new_api_admin_regex%/.*", role: ROLE_API_ACCESS }
+        - { path: "%sylius.security.new_api_admin_route%/authentication-token", role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "%sylius.security.new_api_user_account_regex%/.*", role: ROLE_USER }
+        - { path: "%sylius.security.new_api_shop_route%/authentication-token", role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "%sylius.security.new_api_shop_regex%/.*", role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "%sylius.security.new_api_doc_regex%/.*", role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "%sylius.security.new_api_route%/.*", role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        - { path: '%sylius.security.admin_regex%/_partial', requires_channel: '%env(SECURE_SCHEME)%', role: IS_AUTHENTICATED_ANONYMOUSLY, ips: [ 127.0.0.1, ::1 ] }
+        - { path: '%sylius.security.admin_regex%/_partial', requires_channel: '%env(SECURE_SCHEME)%', role: ROLE_NO_ACCESS }
+        - { path: '%sylius.security.shop_regex%/_partial', requires_channel: '%env(SECURE_SCHEME)%', role: IS_AUTHENTICATED_ANONYMOUSLY, ips: [ 127.0.0.1, ::1 ] }
+        - { path: '%sylius.security.shop_regex%/_partial', requires_channel: '%env(SECURE_SCHEME)%', role: ROLE_NO_ACCESS }
+
+        - { path: '%sylius.security.admin_regex%/login', requires_channel: '%env(SECURE_SCHEME)%', role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '%sylius.security.api_regex%/login', requires_channel: '%env(SECURE_SCHEME)%', role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '%sylius.security.shop_regex%/login', requires_channel: '%env(SECURE_SCHEME)%', role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        - { path: '%sylius.security.shop_regex%/register', requires_channel: '%env(SECURE_SCHEME)%', role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '%sylius.security.shop_regex%/verify', requires_channel: '%env(SECURE_SCHEME)%', role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        - { path: '%sylius.security.admin_regex%/(zones|currencies|exchange-rates)', requires_channel: '%env(SECURE_SCHEME)%', role: [ ROLE_ADMINISTRATION_ACCESS, ROLE_ADMIN ] }
+        - { path: '%sylius.security.admin_regex%/(channels|countries|locales|shipping-methods|shipping-categories|tax-categories|tax-rates|taxons|products|inventory|product-attributes|product-options|product-association-types|packs|familiarities|product_review_questions)', requires_channel: '%env(SECURE_SCHEME)%', role: ROLE_ADMIN }
+        - { path: '%sylius.security.admin_regex%/(product-reviews|promotions|customers|customer-groups)', requires_channel: '%env(SECURE_SCHEME)%', role: ROLE_MANAGER }
+
+        - { path: '%sylius.security.admin_regex%/users/', requires_channel: '%env(SECURE_SCHEME)%', role: [ ROLE_ADMINISTRATION_ACCESS, ROLE_ADMIN ] }
+        - { path: '%sylius.security.admin_regex%', requires_channel: '%env(SECURE_SCHEME)%', role: [ ROLE_ADMINISTRATION_ACCESS, ROLE_ADMIN, ROLE_MANAGER, ROLE_VIEWER, ROLE_ACCOUNT ] }
+        - { path: '%sylius.security.api_regex%/.*', requires_channel: '%env(SECURE_SCHEME)%', role: ROLE_API_ACCESS }
+        - { path: '%sylius.security.shop_regex%/account', requires_channel: '%env(SECURE_SCHEME)%', role: ROLE_USER }
+        - { path: '%sylius.security.shop_front_regex%', requires_channel: '%env(SECURE_SCHEME)%' }
+
+        # TODO : Config REMOTE_ADDR Proxy (NGINX/FPM)
+        #- { path: '%sylius.security.shop_api_regex%/[a-zA-Z]+/[a-zA-Z]{2}_[a-zA-Z]{2}/order/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/tracking', requires_channel: '%env(SECURE_SCHEME)%', roles: IS_AUTHENTICATED_ANONYMOUSLY, ips: [127.0.0.1, ::1, 54.38.71.0, 81.250.132.45, 77.195.187.195] }
+        #- { path: '%sylius.security.shop_api_regex%/[a-zA-Z]+/[a-zA-Z]{2}_[a-zA-Z]{2}/order/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/tracking', requires_channel: '%env(SECURE_SCHEME)%', roles: ROLE_NO_ACCESS }
+
+    role_hierarchy:
+        ROLE_ADMINISTRATION_ACCESS: [ ROLE_ALLOWED_TO_SWITCH, ROLE_ADMIN, ROLE_MANAGER, ROLE_VIEWER, ROLE_ACCOUNT ]
+        ROLE_ADMIN: [ ROLE_MANAGER, ROLE_VIEWER, ROLE_API, ROLE_ACCOUNT]
+        ROLE_MANAGER: [ ROLE_VIEWER ]
+        ROLE_VIEWER: [ ROLE_VIEWER ]
+        ROLE_ACCOUNT: [ ROLE_ACCOUNT ]

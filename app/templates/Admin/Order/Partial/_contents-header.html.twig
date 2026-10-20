@@ -1,0 +1,12 @@
+{% set disabledInputs = disabledInputs is defined and disabledInputs == true %}
+
+<div class="ui stackable two column grid">
+    <div class="ten wide column">
+        {% include '@SyliusAdmin/Order/Show/_header.html.twig' %}
+    </div>
+
+    {% if disabledInputs == false %}
+        {% set menu = knp_menu_get('sylius.admin.order.show', [], {'order': order}) %}
+        {{ knp_menu_render(menu, {'template': '@SyliusUi/Resources/views/Menu/top.html.twig'}) }}
+    {% endif %}
+</div>

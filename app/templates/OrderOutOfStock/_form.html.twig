@@ -1,0 +1,11 @@
+{% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
+
+{{ form_errors(form) }}
+{{ form_row(form.customerState) }}
+{{ form_row(form.status) }}
+{{ form_row(form.deliverDate) }}
+{{ form_row(form.dateConfirmed) }}
+
+{% if resource.history is not null %}
+    {% include '@App/OrderOutOfStock/history.html.twig' with {'history':resource.history} %}
+{% endif %}

@@ -1,0 +1,17 @@
+{% from '@SyliusAdmin/Product/Tab/CMSTechnicalInfos/_macro_form.html.twig' import translationFormForms %}
+{% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
+{% import '@SyliusUi/Macro/flags.html.twig' as flags %}
+
+<div class="ui tab" data-tab='technical-infos'>
+    <div class='ui segments'>
+        <h4 class="ui dividing header">Informations Techniques</h4>
+        <div class='ui segment'>
+            {% for _i, title in form.productCMSTechnicalInfos %}
+                {{ translationForm(title.translations)}}
+                <div class="ui styled fluid accordion">
+                    {{ translationFormForms(title.productCMSTechnicalDetails) }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

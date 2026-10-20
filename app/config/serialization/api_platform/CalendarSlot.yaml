@@ -1,0 +1,11 @@
+App\Calendar\ViewModels\CalendarSlot:
+    attributes:
+        times:
+            groups:
+                - shop:order:calendar:autonomous-return
+        dailyFlag:
+            groups:
+                - shop:order:calendar:autonomous-return
+        dailyDelivery:
+            groups:
+                - shop:order:calendar:autonomous-return

@@ -1,0 +1,15 @@
+{% extends '@SyliusAdmin/Crud/update.html.twig' %}
+
+{% block content %}
+    {% form_theme form with ['Form/Type/qualityImage.html.twig'] %}
+
+    {{ sylius_template_event([event_prefix, 'sylius.admin.update'], _context) }}
+
+    {% include 'Admin/Quality/Partial/_order.html.twig' with {'order': configuration.vars.order, 'resource': configuration.vars.order} %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% include 'Admin/Quality/Partial/_javascript.html.twig' %}
+{% endblock %}

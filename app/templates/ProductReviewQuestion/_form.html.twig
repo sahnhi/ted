@@ -1,0 +1,10 @@
+{% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
+
+{{ form_errors(form) }}
+{{ form_row(form.question) }}
+{{ form_row(form.product) }}
+{{ form_row(form.questionType) }}
+{{ form_row(form.position) }}
+{{ form_row(form.enabled) }}
+{{ translationForm(form.translations) }}
+{{ form_row(form.productReviewAnswerChoices) }}

@@ -1,0 +1,6 @@
+<div class="ui right floated buttons">
+    {% set menu = knp_menu_get('sylius.admin.product.update', [], {'product': product}) %}
+    {# BEGIN CUSTOM CODE #}
+        {{ knp_menu_render(menu, {'template': '@SyliusUi/Resources/views/Menu/top.html.twig'}) }}
+    {# END CUSTOM CODE #}
+</div>

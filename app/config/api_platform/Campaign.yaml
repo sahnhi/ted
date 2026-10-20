@@ -1,0 +1,19 @@
+App\Doctrine\Entity\Campaigns\CampaignTranslations:
+  attributes:
+    route_prefix: /shop
+  properties: 
+    id:
+      identifier: false
+    url: 
+      identifier: true
+  itemOperations: 
+    get:
+      method: GET 
+      path: /campaigns/{url}
+      normalization_context: 
+        groups: 
+          - shop:campaign:read
+          - shop:product:read
+          - admin:product_option:read
+          - admin:product_option_value:read
+          - shop:product_variant:read

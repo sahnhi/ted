@@ -1,0 +1,177 @@
+services:
+    app.listener.admin.menu_builder:
+        class: App\Channable\Menu\ChannableMenuListener
+        tags:
+            - {
+                  name: kernel.event_listener,
+                  event: sylius.menu.admin.main,
+                  method: addChannableMenuItems,
+                  priority: -256,
+              }
+
+doctrine:
+    orm:
+        mappings:
+            Channable:
+                is_bundle: false
+                type: annotation
+                dir: "%kernel.project_dir%/src/Channable/Entity"
+                prefix: 'App\Channable\Entity'
+                alias: App
+
+sylius_resource:
+    resources:
+        app.channable_file_log:
+            driver: doctrine/orm
+            classes:
+                model: App\Channable\Entity\ChannableFileLog
+                repository: App\Channable\Repository\ChannableFileLogRepository
+        app.channable_file_row:
+            driver: doctrine/orm
+            classes:
+                model: App\Channable\Entity\ChannableFileRow
+
+sylius_grid:
+    templates:
+        action:
+            export: "@ChannableTemplates/Grid/Action/target_blank.html.twig"
+            enable: "@ChannableTemplates/Grid/Action/_enable.html.twig"
+    grids:
+        app.channable_file_log:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Channable\Entity\ChannableFileLog
+            sorting:
+                createdAt: desc
+            fields:
+                createdAt:
+                    type: datetime
+                    label: sylius.ui.created_at
+                    sortable: ~
+                    options:
+                        format: "d-m-Y H:i:s"
+                fileName:
+                    type: string
+                    label: app.ui.channable_file.filename
+                transmissionCounter:
+                    type: string
+                    label: app.ui.channable_file.counter
+                lastTransmission:
+                    type: datetime
+                    label: app.ui.channable_file.last_transmission
+                    options:
+                        format: "d-m-Y H:i:s"
+                state:
+                    type: string
+                    label: sylius.ui.status
+            actions:
+                main:
+                    create:
+                        type: create
+                        label: app.ui.channable_file.generate_new_file
+                        options:
+                            link:
+                                route: app_admin_channable_generate
+                item:
+                    show:
+                        type: show
+                        label: app.ui.channable_file.variants
+                        options:
+                            link:
+                                route: app_admin_channable_file_row_index
+                                parameters:
+                                    id: resource.id
+                    export:
+                        type: export
+                        label: app.ui.export
+                        options:
+                            link:
+                                route: app_admin_channable_export
+                                parameters:
+                                    id: resource.id
+                    enable:
+                        type: enable
+                        options:
+                            link:
+                                route: app_admin_channable_enable
+                                parameters:
+                                    id: resource.id
+        app.channable_file_row:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Channable\Entity\ChannableFileRow
+            filters:
+                googleProductId:
+                    type: string
+                    label: app.ui.product_google_id
+                    enabled: true
+                channabledFileLog:
+                    type: string
+                    label: app.ui.channable_file.filename
+                    default_value: ~
+            fields:
+                googleProductId:
+                    type: string
+                    label: app.ui.product_google_id
+                title:
+                    type: string
+                    label: app.ui.product_google_id
+            actions:
+                item:
+                    show:
+                        type: show
+                        label: sylius.ui.view
+                        options:
+                            link:
+                                route: app_admin_channable_file_row_show
+                                parameters:
+                                    id: resource.id
+                    delete:
+                        type: delete
+                        label: sylius.ui.delete
+                        options:
+                            link:
+                                route: app_admin_channable_file_row_delete
+                                parameters:
+                                    id: resource.id
+
+twig:
+    paths:
+        "%kernel.project_dir%/src/Channable/Resources/views": Channable
+        "%kernel.project_dir%/src/Channable/templates": ChannableTemplates
+
+sylius_ui:
+    events:
+        sylius.admin.channable.row:
+            blocks:
+                before_header_legacy:
+                    template: "@SyliusUi/Block/_legacySonataEvent.html.twig"
+                    priority: 35
+                    context:
+                        event: app.admin.channable.row.before_header
+                header:
+                    template: "@ChannableTemplates/Row/_headerWidget.html.twig"
+                    priority: 30
+                after_header_legacy:
+                    template: "@SyliusUi/Block/_legacySonataEvent.html.twig"
+                    priority: 35
+                    context:
+                        event: app.admin.channable.row.after_header
+                breadcrumb:
+                    template: "@ChannableTemplates/Row/_breadcrumb.html.twig"
+                    priority: 20
+                after_breadcrumb_legacy:
+                    template: "@SyliusUi/Block/_legacySonataEvent.html.twig"
+                    priority: 35
+                    context:
+                        event: app.admin.channable.row.after_breadcrumb
+                content:
+                    template: "@ChannableTemplates/Row/_content.html.twig"
+                    priority: 5
+                after_content_legacy:
+                    template: "@SyliusUi/Block/_legacySonataEvent.html.twig"
+                    priority: 5
+                    context:
+                        event: app.admin.channable.row.after_content

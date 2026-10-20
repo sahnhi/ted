@@ -1,0 +1,7 @@
+{% set shippingMethod = product_review.shippingMethod %}
+
+{% if shippingMethod.id is defined %}
+<h4 class="ui top attached styled header">
+    {{ 'sylius.ui.shipping'|trans ~' #'~ shippingMethod.name }}
+</h4>
+{% endif %}

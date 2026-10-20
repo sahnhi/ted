@@ -1,0 +1,8 @@
+Sylius\Component\Promotion\Model\PromotionAction:
+    attributes:
+        type:
+            groups:
+                - shop:cart:read
+        configuration:
+            groups:
+                - shop:cart:read

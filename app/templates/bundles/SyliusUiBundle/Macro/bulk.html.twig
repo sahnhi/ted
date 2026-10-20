@@ -1,0 +1,38 @@
+{% macro select(url, items, message, id, icon, class, field) %}
+    <div class="ui buttons {{ class }}">
+        <div class="ui button">{% if icon is not null %}<i class="icon {{ icon }}"></i>{% endif %} {{ message|trans}}</div>
+        <div class="ui dropdown icon button">
+            <i class="dropdown icon"></i>
+            <div class="menu">
+                {% for value, label in items %}
+                    <div class="item">
+                        <form action="{{ url }}" method="post">
+                            <button style="color : black" class="fluid ui labeled button" type="submit" data-bulk-action-requires-confirmation>
+                                {{ label|trans }}
+                            </button>
+                            <input type="hidden" name="{{ field }}" value="{{ value }}" />
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro text(url, message, id, icon, class, field, type) %}
+    <form action="{{ url }}" method="post">
+        <div class="ui action input">
+            <input type="{{ type|default('text') }}" name="{{ field }}" value="" />
+            <input type="hidden" name="type" value="date" />
+            <button class="ui button {{ class }}" type="submit" data-bulk-action-requires-confirmation>
+                {{ message|trans }}
+            </button>
+        </div>
+    </form>
+{% endmacro %}
+
+{% macro datetime(url, message, id, icon, class, field) %}
+    {% import _self as bulk %}
+
+    {{ bulk.text(url, message,id, icon, class, field, 'date') }}
+{% endmacro %}

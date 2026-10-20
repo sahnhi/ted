@@ -1,0 +1,14 @@
+liip_imagine:
+    resolvers:
+        default:
+            flysystem:
+                filesystem_service: media.storage
+                root_url: "https://storage.googleapis.com/%env(GOOGLE_CLOUD_MEDIA_BUCKET)%/"
+                cache_prefix: "media/cache"
+
+    loaders:
+        quality_image_loader:
+            flysystem:
+                filesystem_service: quality_image.storage
+
+    data_loader: quality_image_loader

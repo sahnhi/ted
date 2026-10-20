@@ -1,0 +1,8 @@
+App\View\ProductReviewQuestionListView:
+    properties:
+        product:
+            expose: true
+            groups: [ 'product_review_question.list' ]
+        questions:
+            expose: true
+            groups: [ 'product_review_question.list' ]

@@ -1,0 +1,14 @@
+{% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
+
+{% form_theme form 'Admin/Product/theme.html.twig' %}
+
+<div class="ui tab" data-tab='cms-faq'>
+    <div class='ui segments'>
+        <div class='ui segments'>
+            <h4 class="ui dividing header">{{ 'app.form.product.cms.cms_faq.title'|trans }}</h4>
+            <div class='ui segment'>
+                {{ form_row(form.productCMSFaq) }}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+{% if flow.firstStepNumber != flow.currentStepNumber %}
+    <div class="ui two bottom attached buttons">
+        <button id="prev-step" name="{{ flow.formTransitionKey() }}" type="submit" value="back" form="{{ form.vars.id }}" class="ui button">
+            <i class="icon backward"></i> {{ 'sylius.ui.previous' | trans }}
+        </button>
+        <button id="next-step" type="submit" form="{{ form.vars.id }}" class="ui button blue">
+            {{ 'sylius.ui.next' | trans }} &nbsp; <i class="icon forward"></i>
+        </button>
+    </div>
+{% else %}
+    <button id="next-step" type="submit" form="{{ form.vars.id }}" class="ui bottom attached button blue fluid">
+        {{ 'sylius.ui.next' | trans }} &nbsp; <i class="icon forward"></i>
+    </button>
+{% endif %}

@@ -1,0 +1,6 @@
+App\Doctrine\Entity\ProductVariantEcotax:
+    mattress_product_variant_140_200_ecotax:
+        ecotax: '@code_ecotax'
+        variant: '@mattress_product_variant_140_200'
+        manufacturerPaid: 0
+        quantity: 1

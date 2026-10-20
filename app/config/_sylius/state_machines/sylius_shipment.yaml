@@ -1,0 +1,34 @@
+winzou_state_machine:
+    sylius_shipment:
+        states:
+            delivered: ~
+        transitions:
+            deliver:
+                from: [ "shipped", "ready" ]
+                to: delivered
+        callbacks:
+            after:
+                sylius_shipping_inventory:
+                    on: [ "ship" ]
+                    do: [ "@sylius.inventory.order_inventory_operator", "sell" ]
+                    args: [ "object.getOrder()" ]
+                sylius_mail_return:
+                    on: [ "ship" ]
+                    do: [ "@app.mail.return.shipment_confirmation_return", "send" ]
+                    args: [ "object.getOrder()" ]
+                app_shipup_tracker:
+                    on: [ "ship" ]
+                    do: [ "@app.shipup.shipup_api", "tracker" ]
+                    args: [ "object" ]
+                sylius_resolve_deliver:
+                    on: [ "deliver" ]
+                    do: [ "@app.state_resolver.order_shipping", "resolve" ]
+                    args: [ "object.getOrder()" ]
+                sylius_invoice_creator:
+                    on: [ "ship" ]
+                    do: [ "@sylius_invoicing_plugin.creator.invoice", "__invoke" ]
+                    args: [ "object.getOrder().getNumber()", "object.getOrder().getCheckoutCompletedAt()" ]
+                sylius_invoice_generator:
+                    on: [ "ship" ]
+                    do: [ "@app.service.invoice_generator", "generate" ]
+                    args: [ "object.getOrder()", "event" ]

@@ -1,0 +1,39 @@
+App\View\TaxonView:
+    exclusion_policy: ALL
+    properties:
+        code:
+            expose: true
+            type: string
+            groups: [ 'taxon.list' ]
+        name:
+            expose: true
+            type: string
+            groups: [ 'taxon.list' ]
+        slug:
+            expose: true
+            type: string
+            groups: [ 'taxon.list' ]
+        description:
+            expose: true
+            type: string
+            groups: [ 'taxon.list' ]
+        averageRating:
+            expose: true
+            type: float
+            groups: [ 'taxon.list' ]
+        numberOfRating:
+            expose: true
+            type: int
+            groups: [ 'taxon.list' ]
+        minBound:
+            expose: true
+            type: int
+            groups: [ 'taxon.list' ]
+        maxBound:
+            expose: true
+            type: int
+            groups: [ 'taxon.list' ]
+        products:
+            expose: true
+            type: array<App\View\ProductView>
+            groups: [ 'taxon.list' ]

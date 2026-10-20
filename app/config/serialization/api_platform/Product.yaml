@@ -1,0 +1,62 @@
+App\Doctrine\Entity\Sylius\Product:
+    attributes:
+        options:
+            groups:
+                - shop:product:read:extended
+                - shop:product:read:options
+        enabledVariantsWithOptions:
+            groups:
+                - shop:product:read:options
+        joinStoryLink:
+            groups:
+                - shop:product:read
+        productCMS:
+            groups:
+                - shop:product:read
+                - shop:product:menu-read
+        productCMSTags:
+            groups:
+                - shop:product:read
+                - shop:product:menu-read
+        productCMSTechnicalInfos:
+            groups:
+                - shop:product:read
+        productCMSFocus:
+            groups:
+                - shop:product:read
+        claims:
+            groups:
+                - shop:product:read
+        rtbInfos:
+            groups:
+                - shop:product:read
+        productCMSFaq:
+            groups:
+                - shop:product:read
+        crossSellProducts:
+            groups:
+                - shop:product:read
+        code:
+            groups:
+                - shop:product:read
+                - shop:product:menu-read
+        slug:
+            groups:
+                - shop:product:read
+                - shop:product:menu-read
+                - shop:cart:read
+        name:
+            groups:
+                - shop:product:read
+                - shop:product:menu-read
+        template:
+            groups:
+                - shop:product:read
+                - shop:product:read:extended
+        bundleTypeValue:
+            groups:
+                - shop:cart:read
+                - shop:product:read:extended
+        quantitySelector:
+            groups:
+                - shop:product:read:extended

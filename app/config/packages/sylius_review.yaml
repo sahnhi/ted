@@ -1,0 +1,9 @@
+sylius_review:
+    resources:
+        product:
+            subject: "%sylius.model.product.class%"
+            review:
+                classes:
+                    model: App\Doctrine\Entity\Sylius\ProductReview
+                    repository: App\Doctrine\Repository\Sylius\ProductReviewRepository
+                    controller: App\Controller\Admin\ProductReviewController

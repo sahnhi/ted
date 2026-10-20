@@ -1,0 +1,11 @@
+shop_api_pack_show:
+    path: /{code}
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Api\Pack\ShowAction
+
+shop_api_pack_variants_show:
+    path: /variant/{variantCode}
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Api\Pack\Variant\ShowAction

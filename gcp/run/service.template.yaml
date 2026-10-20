@@ -1,0 +1,329 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+    annotations:
+        client.knative.dev/user-image: $IMAGE
+        run.googleapis.com/ingress: $INGRESS
+    labels:
+        cloud.googleapis.com/location: europe-west1
+    name: $SERVICE_NAME
+    namespace: $GOOGLE_PROJECT_ID
+spec:
+    template:
+        metadata:
+            annotations:
+                autoscaling.knative.dev/maxScale: '$MAX_SCALE'
+                autoscaling.knative.dev/minScale: '$MIN_SCALE'
+                client.knative.dev/user-image: $IMAGE
+                run.googleapis.com/cpu-throttling: '$CPU_THROTTLING'
+                run.googleapis.com/startup-cpu-boost: '$STARTUP_BOOST'
+                run.googleapis.com/client-name: cloud-console
+                run.googleapis.com/cloudsql-instances: $GCLOUD_SQL_INSTANCE
+                run.googleapis.com/vpc-access-connector: projects/$GOOGLE_PROJECT_ID/locations/europe-west1/connectors/tediber
+                run.googleapis.com/vpc-access-egress: all-traffic
+        spec:
+            containerConcurrency: $FPM_PM_MAX_CHILDREN
+            containers:
+                -   image: $IMAGE
+                    ports:
+                        -   containerPort: 8080
+                            name: http1
+                    resources:
+                        limits:
+                            cpu: $LIMIT_CPU
+                            memory: $LIMIT_MEMORY
+                    volumeMounts:
+                        -   mountPath: /app/gcp/run/secrets/gcp_credentials
+                            name: client-credentials
+                        -   mountPath: /app/gcp/run/secrets/jwt-private
+                            name: jwt-private
+                        -   mountPath: /app/gcp/run/secrets/jwt-public
+                            name: jwt-public
+                    startupProbe:
+                        httpGet:
+                            path: /_healthcheck
+                            httpHeaders:
+                                # Header 'Host' is required, otherwise nginx returns 400 response (probably webdevops image config)
+                                -   name: Host
+                                    value: tediber.run.app
+                        initialDelaySeconds: 20
+                        timeoutSeconds: 10
+                        failureThreshold: 10
+                        periodSeconds: 20
+                    livenessProbe:
+                        httpGet:
+                            path: /liveness-check
+                            httpHeaders:
+                                # Header 'Host' is required
+                                -   name: Host
+                                    value: tediber.run.app
+                        initialDelaySeconds: 30
+                        timeoutSeconds: 45
+                        failureThreshold: 10
+                        periodSeconds: 60
+                    env:
+                        -   name: APP_ENV
+                            value: $APP_ENV
+                        -   name: SECRET
+                            value: $SECRET
+                        -   name: SECURE_SCHEME
+                            value: https
+                        -   name: SYMFONY_ENV
+                            value: $SYMFONY_ENV
+                        -   name: SYLIUS_HOST
+                            value: $SYLIUS_HOST
+                        -   name: SYLIUS_APP_DEV_PERMITTED
+                            value: '$SYLIUS_APP_DEV_PERMITTED'
+                        -   name: MANDRILL_API_KEY
+                            value: $MANDRILL_API_KEY
+                        -   name: ZENDESK_API_KEY
+                            value: $ZENDESK_API_KEY
+                        -   name: ZENDESK_USERNAME
+                            value: $ZENDESK_USERNAME
+                        -   name: ZENDESK_SUBDOMAIN
+                            value: $ZENDESK_SUBDOMAIN
+                        -   name: BE2BILL_API_KEY_ID
+                            value: $BE2BILL_API_KEY_ID
+                        -   name: BE2BILL_API_KEY_VALUE
+                            value: $BE2BILL_API_KEY_VALUE
+                        -   name: BE2BILL_JS_URL
+                            value: $BE2BILL_JS_URL
+                        -   name: BE2BILL_JS_BRAND_URL
+                            value: $BE2BILL_JS_BRAND_URL
+                        -   name: REDIS_ENDPOINT
+                            value: $REDIS_ENDPOINT
+                        -   name: REDIS_PORT
+                            value: '$REDIS_PORT'
+                        -   name: MAILER_DSN
+                            value: $MAILER_DSN
+                        -   name: MAILER_RECIPIENT
+                            value: $MAILER_RECIPIENT
+                        -   name: MYSQL_DRIVER
+                            value: $MYSQL_DRIVER
+                        -   name: MYSQL_PORT
+                            value: '$MYSQL_PORT'
+                        -   name: MYSQL_DATABASE
+                            value: $MYSQL_DATABASE
+                        -   name: MYSQL_USER
+                            value: $MYSQL_USER
+                        -   name: MYSQL_PASSWORD
+                            value: '$MYSQL_PASSWORD'
+                        -   name: MYSQL_SOCKET
+                            value: $MYSQL_SOCKET
+                        -   name: MYSQL_HOST
+                            value: $MYSQL_HOST
+                        -   name: MYSQL_VERSION
+                            value: '$MYSQL_VERSION'
+                        -   name: MYSQL_DATABASE_FASTMAG
+                            value: $MYSQL_DATABASE_FASTMAG
+                        -   name: MYSQL_DRIVER_FASTMAG
+                            value: $MYSQL_DRIVER_FASTMAG
+                        -   name: MYSQL_HOST_FASTMAG
+                            value: $MYSQL_HOST_FASTMAG
+                        -   name: MYSQL_PORT_FASTMAG
+                            value: '$MYSQL_PORT_FASTMAG'
+                        -   name: MYSQL_USER_FASTMAG
+                            value: $MYSQL_USER_FASTMAG
+                        -   name: MYSQL_PASSWORD_FASTMAG
+                            value: '$MYSQL_PASSWORD_FASTMAG'
+                        -   name: WKHTMLTOPDF_PATH
+                            value: $WKHTMLTOPDF_PATH
+                        -   name: WKHTMLTOIMAGE_PATH
+                            value: $WKHTMLTOIMAGE_PATH
+                        -   name: CAPTAINMETRICS_PROJECTID
+                            value: $CAPTAINMETRICS_PROJECTID
+                        -   name: CAPTAINMETRICS_TOKEN
+                            value: $CAPTAINMETRICS_TOKEN
+                        -   name: GOOGLE_CLOUD_TRANSMISSION_BUCKET
+                            value: $GOOGLE_CLOUD_TRANSMISSION_BUCKET
+                        -   name: GOOGLE_CLOUD_MEDIA_BUCKET
+                            value: $GOOGLE_CLOUD_MEDIA_BUCKET
+                        -   name: GOOGLE_CLOUD_INVOICE_BUCKET
+                            value: $GOOGLE_CLOUD_INVOICE_BUCKET
+                        -   name: GOOGLE_CLOUD_QUALITY_IMAGE_BUCKET
+                            value: $GOOGLE_CLOUD_QUALITY_IMAGE_BUCKET
+                        -   name: GOOGLE_CLOUD_GENERIC_BUCKET
+                            value: $GOOGLE_CLOUD_GENERIC_BUCKET
+                        -   name: GOOGLE_CLOUD_EXPORT_BUCKET
+                            value: $GOOGLE_CLOUD_EXPORT_BUCKET
+                        -   name: GOOGLE_PROJECT_ID
+                            value: $GOOGLE_PROJECT_ID
+                        -   name: GOOGLE_API_KEY
+                            value: '$GOOGLE_API_KEY'
+                        -   name: PACKING_FOLDER
+                            value: $PACKING_FOLDER
+                        -   name: DRIP_ACCOUNT_ID
+                            value: '$DRIP_ACCOUNT_ID'
+                        -   name: DRIP_API_KEY
+                            value: $DRIP_API_KEY
+                        -   name: DRIP_SYLIUS_API_KEY
+                            value: $DRIP_SYLIUS_API_KEY
+                        -   name: URBANTZ_API_KEY
+                            value: $URBANTZ_API_KEY
+                        -   name: URBANTZ_API_KEY_SECRET
+                            value: $URBANTZ_API_KEY_SECRET
+                        -   name: URBANTZ_API_URL
+                            value: $URBANTZ_API_URL
+                        -   name: URBANTZ_TRACKING_URL
+                            value: $URBANTZ_TRACKING_URL
+                        -   name: LOKAD_SERVER
+                            value: $LOKAD_SERVER
+                        -   name: LOKAD_USERNAME
+                            value: $LOKAD_USERNAME
+                        -   name: LOKAD_PASSWORD
+                            value: $LOKAD_PASSWORD
+                        -   name: COLISSIMO_CONTRACT_NUMBER
+                            value: '$COLISSIMO_CONTRACT_NUMBER'
+                        -   name: COLISSIMO_PASSWORD
+                            value: $COLISSIMO_PASSWORD
+                        -   name: GOOGLE_SERVICE_ACCOUNT_CREDENTIAL_FILE
+                            value: $GOOGLE_SERVICE_ACCOUNT_CREDENTIAL_FILE
+                        -   name: ADYEN_VERSION
+                            value: $ADYEN_VERSION
+                        -   name: ADYEN_INTEGRITY_JS
+                            value: $ADYEN_INTEGRITY_JS
+                        -   name: ADYEN_INTEGRITY_CSS
+                            value: $ADYEN_INTEGRITY_CSS
+                        -   name: ADYEN_PAYMENT_REPORT_WEBHOOK_AUTHENTICATION_KEY
+                            value: $ADYEN_PAYMENT_REPORT_WEBHOOK_AUTHENTICATION_KEY
+                        -   name: ADYEN_PAYMENT_ACCOUNTING_REPORT_DOWNLOAD_BASIC_AUTHENTICATION
+                            value: $ADYEN_PAYMENT_ACCOUNTING_REPORT_DOWNLOAD_BASIC_AUTHENTICATION
+                        -   name: SENTRY_DSN
+                            value: $SENTRY_DSN
+                        -   name: SENTRY_ENV
+                            value: $SENTRY_ENV
+                        -   name: SENTRY_TRACE_SAMPLE_RATE
+                            value: '$SENTRY_TRACE_SAMPLE_RATE'
+                        -   name: SENTRY_PROFILE_SAMPLE_RATE
+                            value: '$SENTRY_PROFILE_SAMPLE_RATE'
+                        -   name: SENTRY_RELEASE
+                            value: '$SENTRY_RELEASE'
+                        -   name: VIR_PLAN_TRANSPORT_FOLDER
+                            value: $VIR_PLAN_TRANSPORT_FOLDER
+                        -   name: VIR_API_USER_ID
+                            value: $VIR_API_USER_ID
+                        -   name: VIR_API_PASSWORD
+                            value: $VIR_API_PASSWORD
+                        -   name: VIR_API_URL_TOKEN
+                            value: $VIR_API_URL_TOKEN
+                        -   name: VIR_API_URL_GET_TRACKING
+                            value: $VIR_API_URL_GET_TRACKING
+                        -   name: VIR_API_URL_TOKEN_RELEASE
+                            value: $VIR_API_URL_TOKEN_RELEASE
+                        -   name: ODOO_API_URL
+                            value: $ODOO_API_URL
+                        -   name: ODOO_API_KEY
+                            value: $ODOO_API_KEY
+                        -   name: SYLIUS_ODOO_API_URL
+                            value: $SYLIUS_ODOO_API_URL
+                        -   name: SYLIUS_ODOO_API_KEY
+                            value: $SYLIUS_ODOO_API_KEY
+                        -   name: TRUSTPILOT_API_KEY
+                            value: $TRUSTPILOT_API_KEY
+                        -   name: TRUSTPILOT_API_SECRET
+                            value: $TRUSTPILOT_API_SECRET
+                        -   name: TRUSTPILOT_BUSINESS_UNIT_ID
+                            value: $TRUSTPILOT_BUSINESS_UNIT_ID
+                        -   name: TRUSTPILOT_LOGIN
+                            value: $TRUSTPILOT_LOGIN
+                        -   name: TRUSTPILOT_PASSWORD
+                            value: $TRUSTPILOT_PASSWORD
+                        -   name: VERIFIED_REVIEWS_API_KEY
+                            value: $VERIFIED_REVIEWS_API_KEY
+                        -   name: VERIFIED_REVIEWS_API_SECRET
+                            value: $VERIFIED_REVIEWS_API_SECRET
+                        -   name: OLVO_API_URL
+                            value: $OLVO_API_URL
+                        -   name: OLVO_API_EMAIL
+                            value: $OLVO_API_EMAIL
+                        -   name: OLVO_API_TOKEN
+                            value: $OLVO_API_TOKEN
+                        -   name: ERP_BASE_URL
+                            value: $ERP_BASE_URL
+                        -   name: SPIDY_DOWNLOAD_INVOICE_API_KEY
+                            value: '$SPIDY_DOWNLOAD_INVOICE_API_KEY'
+                        -   name: TEMPORARY_PHP_TIME_FIX
+                            value: '$TEMPORARY_PHP_TIME_FIX'
+                        -   name: FPM_PM_MAX_CHILDREN
+                            value: '$FPM_PM_MAX_CHILDREN'
+                        -   name: FPM_PM_START_SERVERS
+                            value: '$FPM_PM_START_SERVERS'
+                        -   name: FPM_PM_MIN_SPARE_SERVERS
+                            value: '$FPM_PM_MIN_SPARE_SERVERS'
+                        -   name: FPM_PM_MAX_SPARE_SERVERS
+                            value: '$FPM_PM_MAX_SPARE_SERVERS'
+                        -   name: FPM_REQUEST_TERMINATE_TIMEOUT
+                            value: '$FPM_REQUEST_TERMINATE_TIMEOUT'
+                        -   name: SHIPUP_URL
+                            value: '$SHIPUP_URL'
+                        -   name: SHIPUP_KEY
+                            value: '$SHIPUP_KEY'
+                        -   name: RIMDIAN_WORKSPACE_ID
+                            value: '$RIMDIAN_WORKSPACE_ID'
+                        -   name: RIMDIAN_LOGIN_EMAIL
+                            value: '$RIMDIAN_LOGIN_EMAIL'
+                        -   name: RIMDIAN_PASSWORD
+                            value: '$RIMDIAN_PASSWORD'
+                        -   name: CHRONOPOST_PASSWORD
+                            value: '$CHRONOPOST_PASSWORD'
+                        -   name: TEDIBER_FRONT_URL
+                            value: '$TEDIBER_FRONT_URL'
+                        -   name: MAINTENANCE
+                            value: '$MAINTENANCE'
+                        -   name: JWT_SECRET_KEY
+                            value: '$JWT_SECRET_KEY'
+                        -   name: JWT_PUBLIC_KEY
+                            value: '$JWT_PUBLIC_KEY'
+                        -   name: JWT_PASSPHRASE
+                            value: '$JWT_PASSPHRASE'
+                        -   name: FTP_SPIDY_HOST
+                            value: '$FTP_SPIDY_HOST'
+                        -   name: FTP_SPIDY_USER
+                            value: '$FTP_SPIDY_USER'
+                        -   name: FTP_SPIDY_PASSWORD
+                            value: '$FTP_SPIDY_PASSWORD'
+                        -   name: FTP_SPIDY_DIRECTORY
+                            value: '$FTP_SPIDY_DIRECTORY'
+                        -   name: FTP_SPIDY_TRACKING_PATH
+                            value: '$FTP_SPIDY_TRACKING_PATH'
+                        -   name: FTP_SPIDY_DELIVERED_PATH
+                            value: '$FTP_SPIDY_DELIVERED_PATH'
+                        -   name: FTP_VIR_HOST
+                            value: '$FTP_VIR_HOST'
+                        -   name: FTP_VIR_USER
+                            value: '$FTP_VIR_USER'
+                        -   name: FTP_VIR_PASSWORD
+                            value: '$FTP_VIR_PASSWORD'
+                        -   name: FTP_VIR_DIRECTORY
+                            value: '$FTP_VIR_DIRECTORY'
+                        -   name: FTP_VIR_TRACKING_PATH
+                            value: '$FTP_VIR_TRACKING_PATH'
+                        -   name: FTP_VIR_DELIVERED_PATH
+                            value: '$FTP_VIR_DELIVERED_PATH'
+                        -   name: LOCK_DSN
+                            value: '$LOCK_DSN' 
+                        -   name: CORS_ALLOW_ORIGIN
+                            value: '$CORS_ALLOW_ORIGIN'
+            volumes:
+                -   name: client-credentials
+                    secret:
+                        secretName: tediber-client-credentials
+                        items:
+                            -   key: latest
+                                path: tediber.json
+                -   name: jwt-private
+                    secret:
+                        secretName: tediber-jwt-private
+                        items:
+                            -   key: latest
+                                path: private.pem
+                -   name: jwt-public
+                    secret:
+                        secretName: tediber-jwt-public
+                        items:
+                            -   key: latest
+                                path: public.pem
+            timeoutSeconds: 180
+    traffic:
+        -   latestRevision: true
+            percent: 100

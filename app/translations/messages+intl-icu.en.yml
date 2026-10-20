@@ -1,0 +1,183 @@
+app:
+    ui:
+        payment_details: Payment details
+        support: Zendesk Support
+        pay-leetchi: Pay with Leetchi
+        pay-pmt: Pay with Paga+Tarde
+        pay-be2bill-ntimes: Pay with Be2Bill
+        pay-braintree: Validate
+        delivery_slots: Delivery slots
+        start_delivery_slot: 'Start:'
+        end_delivery_slot: 'End:'
+        undefined: undefined
+        trial_period_days: days before end trial period
+        end_trial_period_days: End trial period
+        other_details: Other information
+        export:
+            product_review: Product review export
+            cohortes: Cohortes export
+        label:
+            credit_card_holder: "Name (as it appears on your card)"
+            credit_card_number: "Card number (no dashes or spaces)"
+            credit_card_expireAt: "Expiration date"
+            credit_card_securityCode: "Security code (3 on back)"
+        payment_details_transaction_id: Transaction ID
+        payment_details_status: Status du paiement
+        placeholder:
+            credit_card_expireAt: "MM/YY"
+
+    form:
+        payment_method:
+            price_rule:
+                greater: Greater than
+                lower: Lower than
+        promotion_action:
+            add_product_configuration:
+                product_variant: Product variant
+        product_review:
+            rating: Note
+            status: Status
+            locale: Langue
+        shipping_method:
+            delivery_conditions:
+                label: E-mail text
+        product_association_type:
+            delete_cross_selling: Association type "%type%" cannot be deleted
+
+    payum_gateway_factory:
+        paga_mas_tarde_checkout: Paga Mas Tarde
+        braintree_checkout: Braintree
+        leetchi_checkout: Leetchi
+        dalenys_3times: Dalenys 3 Times
+        be2bill_direct: Dalenys direct
+
+    product_review:
+        locale: Locale
+
+    api:
+        cart:
+            sponsor:
+                error:
+                    email_required: Email required.
+                    coupon_required: Coupon required.
+                    eligibility: You are not eligible to the sponsoring offer.
+                    validity: This coupon is not valid.
+                    group: Group with code {code} doesn't exist.
+        order:
+            complete:
+                error:
+                    not_found: Order with {token} token has not been found.
+                    cannot_complete: Order with {token} token cannot be completed.
+            address:
+                error:
+                    not_found: Order with {token} token has not been found.
+                    cannot_complete: Order with {token} token cannot be completed.
+                    email: This e-mail is invalid
+            shipping:
+                error:
+                    cart_not_found: Cart has not been found.
+                    cannot_proceed: Order cannot have shipment method assigned.
+                    shipping_method_not_found: Shipping method has not been found.
+                    shipment_not_found: Can not find shipment with given identifier.
+                    shipment_not_eligible: Given shipment is not eligible for provided shipping method.
+                    shipment_not_available: Oops, we don't seem to deliver to this address. Please contact our customer service team at hello@tediber.com.
+            payment:
+                error:
+                    cart_not_found: Cart has not been found.
+                    payment_completed: Payment completed
+                    payment_processing: Payment on processing
+                    payment_refunded: Payment refunded
+                    invalid_payment_method: Order cannot have payment method assigned.
+                    payment_method_not_found: Payment method has not been found.
+                    payment_not_found: Can not find payment with given identifier.
+
+sylius:
+    ui:
+        packs: Products packs
+        new_pack: New pack
+        edit_pack: Pack edition
+        pack:
+            title: Packs
+            information: Products packs management
+        
+        familiarities: Familiarities
+        new_familiarity: New familiarity
+        edit_familiarity: Familiarity edition
+        familiarity:
+            information: Familiarities management
+        
+        product_review:
+            remercie: Thank
+        product_review_questions: Questions about products
+        new_product_review_question: New question about a product
+        product_review_question:
+            information: Manage questions about products
+            index: Questions about products
+            show: Show questions
+        product_list_questions: See questions
+        question: Question
+        nps: NPS
+        shippingMethod: Shipping method
+        translate: Translate
+        new_product_review: New product review
+        product_edit_options_values_locales: Edit options by default
+        shipping_date: Date de livraison
+        shipping_method: Méthode de livraison
+        shipping_department: Département
+        contains_product: Contient ce produit
+        usageLimit: Limite d'utilisation
+        expires_date: Date d'expiration
+        exists_expires_date: Contient une date d'expiration ?
+        customer_locale: Locale client
+        promotion_coupon: Promotion coupon
+        calendar_errors:
+            no_slot_available: Oops, we don't seem to have any delivery slots available. Please contact our customer service team at hello@tediber.com.
+
+    menu:
+        admin:
+            bundles: Products Bundles
+            packs: Products packs
+            familiarities: Familiarities
+            product_review_question:
+                information: Questions about products
+                index: Questions about products
+            product_options_values_locales_default: Default options by product
+
+    form:
+        pack:
+            name: Pack name
+            code: Pack code
+        product:
+            variant:
+                packs: Available packs
+                ecotax: Environmental tax
+        familiarity:
+            wording: Wording
+            code: Code
+        familiarities: Familiarities
+        product_review_question:
+            enabled: Enabled
+            product: Product
+        option_value:
+            optgroup: Option standard
+            help: Help text
+            description: Description
+        osteopath: Osteopath
+        friends: Friends
+        product_review_translation:
+            name: Question
+            translations: Translations
+        customer:
+            optin: Optin SAV
+        order:
+            private_note: Note
+        locale:
+            locale: Locale
+            select: Sélectionner une locale
+
+sylius_admin_order_creation:
+    ui:
+        new_customer_email: E-mail
+        create_new: New customer
+        add_discount: Add discount
+        confirm: Confirm

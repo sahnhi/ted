@@ -1,0 +1,133 @@
+include:
+    - local: '/gitlab/templates.yml'
+
+##### STAGE CHECK #####
+.check_template: &check_template
+    stage: check
+    image:
+        name: $CI_REGISTRY_IMAGE/php:latest
+        pull_policy: always
+    environment: test
+    needs:
+        - vendor-dev
+    before_script:
+        - !reference [.load_environment_variables]
+        - export GOOGLE_SERVICE_ACCOUNT_CREDENTIAL_FILE=/app/config/client_credentials.json
+        - cd app
+    interruptible: true
+    cache:
+        paths:
+            - app/vendor/
+            - $COMPOSER_CACHE_DIR
+
+functional:
+    <<: *check_template
+    coverage: '/^\s*Lines:\s*\d+.\d+\%/'
+    services:
+        - name: mysql:5.7
+          alias: db
+        - name: redis:latest
+          alias: redis
+    allow_failure: true
+    variables:
+        MYSQL_DRIVER: 'pdo_mysql'
+        MYSQL_PORT: '3306'
+        MYSQL_USER: 'tediber'
+        MYSQL_ROOT_PASSWORD: 'nopassword'
+        MYSQL_DATABASE: 'tediber'
+        MYSQL_PASSWORD: 'secret'
+    script:
+        - bin/console doctrine:database:create
+        - bin/console doctrine:schema:create
+        - XDEBUG_MODE=coverage vendor/bin/phpunit --verbose --coverage-php coverage/functional.cov --colors=never --testsuite functional
+    artifacts:
+        when: always
+        reports:
+            junit: app/junit.xml
+        paths:
+            - app/coverage/functional.cov
+    rules:
+        -   if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+        -   if: $CI_COMMIT_TAG
+# behat:
+#     <<: *check_template
+#     services:
+#         -   name: mysql:5.7
+#     variables:
+#         # @todo: check why those are still needed and why # the ones loaded from .env.test don't work
+#         MYSQL_DATABASE: 'tediber'
+#         MYSQL_ROOT_PASSWORD: 'secret'
+#     script:
+#         - sh bin/migrations-fix.sh
+#         - bin/console sylius:install:database -n
+#         - vendor/bin/behat
+
+php-cs:
+    <<: *check_template
+    script: vendor/bin/ecs --no-progress-bar
+    rules:
+        -   if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+        -   if: $CI_COMMIT_TAG
+
+unit:
+    <<: *check_template
+    coverage: '/^\s*Lines:\s*\d+.\d+\%/'
+    script:
+        - XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-php coverage/unit.cov --colors=never --testsuite unit
+    variables:
+        APP_ENV: 'test'
+    artifacts:
+        when: always
+        reports:
+            junit: app/junit.xml
+        paths:
+            - app/coverage/unit.cov
+    rules:
+        -   if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+        -   if: $CI_COMMIT_TAG
+
+phpstan:
+    <<: *check_template
+    script:
+        - vendor/bin/phpstan analyse -c phpstan.neon --no-progress --no-interaction --no-ansi
+    rules:
+        -   if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+        -   if: $CI_COMMIT_TAG
+
+lint:
+    <<: *check_template
+    script: find src/ -type f -name '*.php' -exec php -l {} \; | (! grep -v "No syntax errors detected")
+    rules:
+        -   if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+        -   if: $CI_COMMIT_TAG
+
+composer:
+    <<: *check_template
+    script:
+        - $(which composer) validate --strict
+
+composer-normalize:
+    <<: *check_template
+    script:
+        - $(which composer) normalize --dry-run
+
+rector:
+    <<: *check_template
+    cache:
+        key: "rector-cache"
+        paths:
+            - /app/var/rector
+        policy: pull-push
+    script:
+        - vendor/bin/rector process --dry-run --no-progress-bar --ansi
+    rules:
+        -   if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+        -   if: $CI_COMMIT_TAG
+
+architecture:
+    <<: *check_template
+    script:
+        - vendor/bin/phparkitect check
+    rules:
+        -   if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+        -   if: $CI_COMMIT_TAG

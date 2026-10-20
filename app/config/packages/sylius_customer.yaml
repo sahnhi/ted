@@ -1,0 +1,7 @@
+sylius_customer:
+    resources:
+        customer:
+            classes:
+                controller: App\Controller\Admin\CustomerController
+                model: App\Doctrine\Entity\Sylius\Customer
+                repository: App\Doctrine\Repository\Sylius\CustomerRepository

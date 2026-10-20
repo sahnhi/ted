@@ -1,0 +1,397 @@
+sylius_admin_order_export:
+    path: /orders/export/{export}
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.order:indexAction
+
+sylius_admin_order_out_of_stock:
+    path: /orders/bulk/out_of_stock
+    methods: [ POST ]
+    defaults:
+        _controller: sylius.controller.order:outOfStockAction
+        _sylius:
+            repository:
+                method: findById
+                arguments: [ $ids ]
+
+sylius_admin_order_show_custom:
+    path: /orders/{id}
+    methods: [ GET, POST ]
+    defaults:
+        _controller: sylius.controller.order:showAction
+        _sylius:
+            section: admin
+            permission: true
+            template: 'bundles/SyliusAdminBundle/Order/show.html.twig'
+
+sylius_admin_order_creation_return:
+    path: /orders/{id}/return
+    methods: [ GET ]
+    options:
+        expose: true
+    defaults:
+        _controller: sylius.controller.order:createAction
+        _sylius:
+            event: admin_create
+            section: admin
+            permission: true
+            template: '@App/Admin/Order/create.html.twig'
+            form:
+                type: App\Form\Type\NewOrderType
+                options:
+                    attr:
+                        returnType: simple
+                    constraints:
+                        order_type: return
+            factory:
+                method: [ 'expr:service("Sylius\\AdminOrderCreationPlugin\\Factory\\OrderFactory")', 'createReorder' ]
+                arguments: [ "expr:service('sylius.repository.order').find($id)", "return", "simple" ]
+
+sylius_admin_order_creation_exchange:
+    path: /orders/{id}/exchange
+    methods: [ GET ]
+    options:
+        expose: true
+    defaults:
+        _controller: sylius.controller.order:createAction
+        _sylius:
+            event: admin_create
+            section: admin
+            permission: true
+            template: '@App/Admin/Order/create.html.twig'
+            form:
+                type: App\Form\Type\NewOrderType
+                options:
+                    attr:
+                        returnType: exchange
+                    constraints:
+                        order_type: return
+                        order_parent_id: $id
+            factory:
+                method: [ 'expr:service("Sylius\\AdminOrderCreationPlugin\\Factory\\OrderFactory")', 'createReorder' ]
+                arguments: [ "expr:service('sylius.repository.order').find($id)", "return", "exchange" ]
+
+sylius_admin_order_creation_refund:
+    path: /orders/{id}/refund
+    methods: [ GET ]
+    options:
+        expose: true
+    defaults:
+        _controller: sylius.controller.order:createAction
+        _sylius:
+            event: admin_create
+            section: admin
+            permission: true
+            template: '@App/Admin/Order/create.html.twig'
+            form:
+                type: App\Form\Type\NewRefundType
+                options:
+                    attr:
+                        returnType: refund
+                    constraints:
+                        order_type: return
+            factory:
+                method: [ 'expr:service("Sylius\\AdminOrderCreationPlugin\\Factory\\OrderFactory")', 'createReorder' ]
+                arguments: [ "expr:service('sylius.repository.order').find($id)", "return", "refund" ]
+
+sylius_admin_order_creation_return_sender:
+    path: /orders/{id}/return-sender
+    methods: [ GET ]
+    options:
+        expose: true
+    defaults:
+        _controller: sylius.controller.order:createAction
+        _sylius:
+            event: admin_create
+            section: admin
+            permission: true
+            template: '@App/Admin/Order/create.html.twig'
+            form:
+                type: App\Form\Type\NewOrderType
+                options:
+                    attr:
+                        returnType: sender
+                    constraints:
+                        order_type: return
+            factory:
+                method: [ 'expr:service("Sylius\\AdminOrderCreationPlugin\\Factory\\OrderFactory")', 'createReorder' ]
+                arguments: [ "expr:service('sylius.repository.order').find($id)", "return", "sender" ]
+
+sylius_admin_order_creation_return_warehouse:
+    path: /orders/{id}/return-warehouse
+    methods: [ GET ]
+    options:
+        expose: true
+    defaults:
+        _controller: sylius.controller.order:createAction
+        _sylius:
+            event: admin_create
+            section: admin
+            permission: true
+            template: '@App/Admin/Order/create.html.twig'
+            form:
+                type: App\Form\Type\NewOrderType
+                options:
+                    attr:
+                        returnType: warehouse
+                    constraints:
+                        order_type: return
+            factory:
+                method: [ 'expr:service("Sylius\\AdminOrderCreationPlugin\\Factory\\OrderFactory")', 'createReorder' ]
+                arguments: [ "expr:service('sylius.repository.order').find($id)", "return", "warehouse" ]
+
+sylius_admin_order_creation_return_autonomous:
+    path: /orders/{id}/return-autonomous
+    methods: [ GET ]
+    options:
+        expose: true
+    defaults:
+        _controller: sylius.controller.order:createAction
+        _sylius:
+            event: admin_create
+            section: admin
+            permission: true
+            template: '@App/Admin/Order/create.html.twig'
+            form:
+                type: App\Form\Type\NewOrderType
+                options:
+                    attr:
+                        returnType: autonomous
+                    constraints:
+                        order_type: return
+            factory:
+                method: [ 'expr:service("Sylius\\AdminOrderCreationPlugin\\Factory\\OrderFactory")', 'createReorder' ]
+                arguments: [ "expr:service('sylius.repository.order').find($id)", "return", "autonomous" ]
+
+sylius_admin_order_creation_order_create_from_preview_simple:
+    path: /orders/new/{customerId}/return/create-from-preview
+    methods: [ POST ]
+    options:
+        expose: true
+    defaults:
+        _controller: sylius.controller.order:createAction
+        _sylius:
+            event: admin_create
+            section: admin
+            permission: true
+            template: '@SyliusAdminOrderCreationPlugin/Order/preview.html.twig'
+            form:
+                type: App\Form\Type\NewOrderType
+                options:
+                    attr:
+                        returnType: simple
+            factory:
+                method: [ 'expr:service("Sylius\\AdminOrderCreationPlugin\\Factory\\OrderFactory")', 'createForCustomerAndChannel' ]
+                arguments: [ $customerId, $channelCode ]
+
+sylius_admin_order_creation_order_create_from_preview_exchange:
+    path: /orders/new/{customerId}/return/create-from-preview
+    methods: [ POST ]
+    options:
+        expose: true
+    defaults:
+        _controller: sylius.controller.order:createAction
+        _sylius:
+            event: admin_create
+            section: admin
+            permission: true
+            template: '@SyliusAdminOrderCreationPlugin/Order/preview.html.twig'
+            form:
+                type: App\Form\Type\NewOrderType
+                options:
+                    attr:
+                        returnType: exchange
+            factory:
+                method: [ 'expr:service("Sylius\\AdminOrderCreationPlugin\\Factory\\OrderFactory")', 'createForCustomerAndChannel' ]
+                arguments: [ $customerId, $channelCode ]
+
+sylius_admin_order_creation_order_create_from_preview_refund:
+    path: /orders/new/{customerId}/return/create-from-preview
+    methods: [ POST ]
+    options:
+        expose: true
+    defaults:
+        _controller: sylius.controller.order:createAction
+        _sylius:
+            event: admin_create
+            section: admin
+            permission: true
+            template: '@SyliusAdminOrderCreationPlugin/Order/preview.html.twig'
+            form:
+                type: App\Form\Type\NewOrderType
+                options:
+                    attr:
+                        returnType: refund
+            factory:
+                method: [ 'expr:service("Sylius\\AdminOrderCreationPlugin\\Factory\\OrderFactory")', 'createForCustomerAndChannel' ]
+                arguments: [ $customerId, $channelCode ]
+
+sylius_admin_order_creation_order_create_from_preview_sender:
+    path: /orders/new/{customerId}/return/create-from-preview/sender
+    methods: [ POST ]
+    options:
+        expose: true
+    defaults:
+        _controller: sylius.controller.order:createAction
+        _sylius:
+            event: admin_create
+            section: admin
+            permission: true
+            template: '@SyliusAdminOrderCreationPlugin/Order/preview.html.twig'
+            form:
+                type: App\Form\Type\NewOrderType
+                options:
+                    attr:
+                        returnType: sender
+            factory:
+                method: [ 'expr:service("Sylius\\AdminOrderCreationPlugin\\Factory\\OrderFactory")', 'createForCustomerAndChannel' ]
+                arguments: [ $customerId, $channelCode ]
+
+sylius_admin_order_creation_order_create_from_preview_warehouse:
+    path: /orders/new/{customerId}/return/create-from-preview/exchange-warehouse
+    methods: [ POST ]
+    options:
+        expose: true
+    defaults:
+        _controller: sylius.controller.order:createAction
+        _sylius:
+            event: admin_create
+            section: admin
+            permission: true
+            template: '@SyliusAdminOrderCreationPlugin/Order/preview.html.twig'
+            form:
+                type: App\Form\Type\NewOrderType
+                options:
+                    attr:
+                        returnType: warehouse
+            factory:
+                method: [ 'expr:service("Sylius\\AdminOrderCreationPlugin\\Factory\\OrderFactory")', 'createForCustomerAndChannel' ]
+                arguments: [ $customerId, $channelCode ]
+
+sylius_admin_order_creation_order_create_from_preview_autonomous:
+    path: /orders/new/{customerId}/return/create-from-preview
+    methods: [ POST ]
+    options:
+        expose: true
+    defaults:
+        _controller: sylius.controller.order:createAction
+        _sylius:
+            event: admin_create
+            section: admin
+            permission: true
+            template: '@SyliusAdminOrderCreationPlugin/Order/preview.html.twig'
+            form:
+                type: App\Form\Type\NewOrderType
+                options:
+                    attr:
+                        returnType: autonomous
+            factory:
+                method: [ 'expr:service("Sylius\\AdminOrderCreationPlugin\\Factory\\OrderFactory")', 'createForCustomerAndChannel' ]
+                arguments: [ $customerId, $channelCode ]
+
+sylius_invoicing_plugin_admin_invoice_resend:
+    path: /invoices/{id}/resend
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Admin\Action\ResendInvoiceAction
+
+app_admin_order_shipment_delivery_date:
+    path: /orders/{id}/delivery_date
+    methods: [ GET, PUT ]
+    defaults:
+        _controller: sylius.controller.shipment:updateAction
+        _sylius:
+            repository:
+                method: findOneByOrderId
+                arguments:
+                    id: $id
+                    orderId: $orderId
+            redirect: referer
+            section: admin
+            permission: true
+            template: "@SyliusAdmin/Order/update_shipment_delivery_date.html.twig"
+            form: App\Form\Type\ShipmentDeliveryDateType
+            vars:
+                route:
+                    parameters:
+                        orderId: $orderId
+                        id: $id
+
+sylius_confirmation_email_resend:
+    path: /order/{token}/confirmation/resend
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Admin\Action\ResendConfirmationEmailAction
+
+sylius_switch_to_vip:
+    path: /order/{id}/vip/{create}
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Admin\Action\SwitchOrderToVIPAction
+
+sylius_admin_order_cancel:
+    path: /orders/{id}/cancel
+    methods: [ PUT, POST ]
+    defaults:
+        _controller: sylius.controller.order:cancelAction
+        _sylius:
+            section: admin
+            permission: true
+            template: "@SyliusAdmin/Order/cancel.html.twig"
+            state_machine:
+                graph: sylius_order
+                transition: cancel
+
+sylius_admin_order_history:
+    path: /orders/{id}/history
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.order:historyAction
+        _sylius:
+            section: admin
+            permission: true
+            template: "@SyliusAdmin/Order/history.html.twig"
+
+app_admin_order_update_customer:
+    path: /orders/{id}/update-customer
+    methods: [ GET, PUT ]
+    defaults:
+        _controller: sylius.controller.order:updateAction
+        _sylius:
+            repository:
+                method: find
+                arguments:
+                    id: $id
+            redirect: referer
+            section: admin
+            permission: true
+            template: "@SyliusAdmin/Order/update_customer.html.twig"
+            form: App\Form\Type\Order\OrderUpdateCustomerType
+            vars:
+                route:
+                    parameters:
+                        id: $id
+
+app_admin_order_bis_creation_with_exchange:
+    path: /order/bis-create/exchange
+    methods: [ POST ]
+    defaults:
+        _controller: App\Controller\Admin\Action\BisCreationWithExchangeAction
+
+app_admin_order_item_logistic_generate:
+    path: /order/{id}/generate-order-item-logistic
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Admin\Action\GenerateOrderItemLogisticAction
+
+app_admin_order_payments_index:
+    path: /order-payments/
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.order::indexAction
+        _sylius:
+            grid: sylius_admin_order_payments
+            template: '@SyliusAdmin/Crud/index.html.twig'
+            vars:
+                header: sylius.ui.orders
+                subheader: app.ui.order_payements.sub_header

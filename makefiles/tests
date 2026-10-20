@@ -1,0 +1,68 @@
+##
+## ----- Tests -----
+##
+
+.PHONY: test-cs
+test-cs: ## Execute tests of coding style
+	@echo "Executing PHP-CS tests..."
+	@$(PHPCS_CMD)
+	@echo "Done !"
+
+.PHONY: fix-cs
+fix-cs: ## Fix any violations marked as fixable automatically
+	@$(PHPCS_CMD) --fix
+
+.PHONY: test-generate-baseline
+test-generate-baseline:
+	 @$(PHPSTAN_CMD) analyse --memory-limit 1G -c phpstan.neon --generate-baseline
+
+.PHONY: test-analysis
+test-analysis: ## Execute phpstan analysis tests. You can specify level (Eg : change level on phpstan.neon)
+	@$(PHPSTAN_CMD) analyse --memory-limit 1G -c phpstan.neon
+
+.PHONY: test-rector
+test-rector: ## Execute rector in dry-run mode.
+	@$(RECTOR_CMD) process --memory-limit 1G --dry-run
+
+.PHONY: test-rector-fix
+test-rector-fix: ## Execute rector to fix.
+	@$(RECTOR_CMD) process --memory-limit 1G
+
+.PHONY: test-architecture
+test-architecture: ## Execute phparkitect to ensure architecture is respected.
+	@$(PHP_CMD) vendor/bin/phparkitect check
+
+.PHONY: init-test-functional
+init-test-functional:  ## Init database for functional tests
+	@echo "Init database for functional tests..."
+	@$(PHP_CMD) bin/console doctrine:database:drop --env=test --if-exists --force
+	@$(PHP_CMD) bin/console doctrine:database:create --env=test
+	@$(PHP_CMD) bin/console doctrine:schema:create --env=test
+	@echo "Done !"
+
+.PHONY: test-functional
+test-functional:  ## Launch functional tests
+	@echo "Executing functional tests..."
+	@$(PHP_CMD) vendor/bin/phpunit --testsuite functional
+	@echo "Done !"
+
+.PHONY: test-unit
+test-unit: ## Launch unit tests
+	@echo "Executing unit tests..."
+	@$(PHP_CMD) vendor/bin/phpunit  --testsuite unit
+	@echo "Done !"
+
+.PHONY: test-phpunit
+test-phpunit: ## Launch phpunit all suites
+	@echo "Executing phpunit tests..."
+	@$(PHP_CMD) vendor/bin/phpunit
+	@echo "Done !"
+
+.PHONY: fix
+fix: fix-cs test-rector-fix ## Fix all violations marked as fixable automatically
+
+.PHONY: test
+test: test-cs test-architecture test-analysis rector test-functional test-unit  ## Execute all tests
+
+.PHONY: fix-and-test
+fix-and-test: fix test ## Fix all violations marked as fixable automatically and execute all tests

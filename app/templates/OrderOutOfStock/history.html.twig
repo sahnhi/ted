@@ -1,0 +1,23 @@
+{% set history = history|split(';') %}
+
+
+<h4 for="sylius_admin_out_of_stock_deliverDate">{{'sylius.ui.out_of_stock_history'|trans}}</h4>
+<p>
+    {% for line in history %}
+        {% set values = line|split('/') %}
+        {% if not loop.last %} {# We have an empty line at end, it's normal #}
+            {% set state = values[0] %}
+            {% set stateFrom = values[1] %}
+            {% set stateTo = values[2] %}
+            {% set stateDate = values[3] %}
+            {% set stateUser = values[4] %}
+
+            {{ ('sylius.ui.out_of_stock_state.'~state)|trans }}
+            {{ 'sylius.ui.out_of_stock_state.from' | trans }}
+            "{{ stateFrom is not null and stateFrom is not empty ? (('sylius.ui.'~stateFrom)|trans) : ('app.ui.undefined'|trans) }}"
+            {{ 'sylius.ui.out_of_stock_state.to' | trans }} "{{ ('sylius.ui.'~stateTo)|trans }}"
+            {{ stateDate }} {{ 'sylius.ui.out_of_stock_state.by'|trans }} {{ stateUser|capitalize }}<br />
+        {% endif %}
+    {% endfor %}
+</p>
+

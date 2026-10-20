@@ -1,0 +1,4 @@
+App\Doctrine\Entity\PackTranslation:
+    attributes:
+        name:
+            groups: [ 'pack:read' ]

@@ -1,0 +1,11 @@
+Sylius\Component\Locale\Model\Locale:
+    fr_locale:
+        code: 'fr_FR'
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+        
+        
+    es_locale:
+        code: 'es_ES'
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'

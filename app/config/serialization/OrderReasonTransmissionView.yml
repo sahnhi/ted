@@ -1,0 +1,15 @@
+App\View\OrderReasonTransmissionView:
+    exclusion_policy: ALL
+    properties:
+        name:
+            type: string
+            expose: true
+            groups: [ 'pickup' ]
+        variants:
+            expose: true
+            type: array<App\View\ProductVariantTransmissionView>
+            groups: [ 'pickup' ]
+        quantity:
+            type: string
+            expose: true
+            groups: [ 'pickup' ]

@@ -1,0 +1,4 @@
+App\Doctrine\Entity\Quality:
+    properties:
+        images:
+            -   Valid: ~

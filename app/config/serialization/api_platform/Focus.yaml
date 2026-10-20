@@ -1,0 +1,16 @@
+App\Doctrine\Entity\Campaigns\Bloc\Focus:
+  attributes: 
+    imageUrl:
+      groups: [ 'shop:campaign:read' ]
+    title:
+      groups: [ 'shop:campaign:read' ]
+    description:
+      groups: [ 'shop:campaign:read' ]
+    tag:
+      groups: [ 'shop:campaign:read' ]
+    buttonText:
+      groups: [ 'shop:campaign:read' ]
+    buttonUrl:
+      groups: [ 'shop:campaign:read' ]
+    position:
+      groups: [ 'shop:campaign:read' ]

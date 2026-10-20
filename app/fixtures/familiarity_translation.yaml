@@ -1,0 +1,15 @@
+App\Doctrine\Entity\FamiliarityTranslation:
+    familiarity_20h_tf1_translation_fr_FR:
+        locale: 'fr_FR'
+        wording: 'Le 20h de TF1 avec Pugadas'
+        translatable: '@familiarity_20h_tf1'
+    
+    familiarity_instagram_translation_fr_FR:
+        locale: 'fr_FR'
+        wording: 'Instagram'
+        translatable: '@familiarity_instagram'
+        
+    familiarity_disabled_translation_fr_FR:
+        locale: 'fr_FR'
+        wording: 'Désactivée'
+        translatable: '@familiarity_disabled'

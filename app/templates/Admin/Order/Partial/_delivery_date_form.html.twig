@@ -1,0 +1,12 @@
+<div class="ui segment">
+    <h5 class="ui dividing header">{{ 'app.ui.update_delivery_slots'|trans }}</h5><br>
+
+    {{ form_start(form, {'action': path('app_admin_order_shipment_delivery_date', configuration.vars.route.parameters), 'attr': {'class': 'ui loadable form', 'novalidate': 'novalidate'}}) }}
+    <input type="hidden" name="_method" value="PUT">
+
+    {% include '@SyliusAdmin/Order/Update/_form_shipment.html.twig' with {'form': form} %}
+
+    <button type="submit" class="fluid ui teal button">{{ 'sylius.ui.update'|trans }}</button>
+    {{ form_row(form._token) }}
+    {{ form_end(form, {'render_rest': false}) }}
+</div>

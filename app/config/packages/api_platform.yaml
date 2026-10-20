@@ -1,0 +1,19 @@
+api_platform:
+    title: Tediber
+    show_webby: false
+    description: Tediber Sylius API
+    version: 0.0.1
+    enable_swagger_ui: true
+    enable_re_doc: true
+    enable_swagger: true
+    enable_entrypoint: true
+    enable_docs: true
+    mapping:
+        paths:
+            - "%kernel.project_dir%/vendor/sylius/sylius/src/Sylius/Bundle/ApiBundle/Resources/config/api_resources"
+            - "%kernel.project_dir%/config/api_platform"
+            - "%kernel.project_dir%/src/Doctrine/Entity"
+    patch_formats:
+        json: ["application/merge-patch+json"]
+    swagger:
+        versions: [3]

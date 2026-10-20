@@ -1,0 +1,16 @@
+sylius_admin_satellite_page:
+    resource: |
+        alias: app.satellite_page
+        section: admin
+        templates: "@SyliusAdmin/Crud"
+        redirect: update
+        grid: app_admin_satellite_page
+        vars:
+            all:
+                templates:
+                  form: "@SyliusAdmin/SatellitePages/Form/form.html.twig"
+                header: "app.ui.satellite_page.header"
+            index:
+                icon: 'file'
+    type: sylius.resource
+    prefix: /admin

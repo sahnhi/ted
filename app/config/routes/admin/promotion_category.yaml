@@ -1,0 +1,14 @@
+app_promotion_category:
+    resource: |
+        alias: app.promotion_category
+        section: admin
+        templates: SyliusAdminBundle:Crud
+        redirect: update
+        grid: app_admin_promotion_category
+        vars:
+            all:
+                subheader: sylius.form.promotion_category.information
+            index:
+                icon: 'file image outline'
+    type: sylius.resource
+    

@@ -1,0 +1,8 @@
+{% form_theme orderReasonCreateForm '@App/Reason/collection-reason-theme.html.twig' %}
+
+<div class="ui segment" id="reason">
+    <h3 class="ui dividing header" id="shipping-state">{{ 'sylius.ui.trouble.reason'|trans }}</h3>
+        {{ form_start(orderReasonCreateForm, {'action': path('sylius_admin_order_show_custom', {'id': resource.id}), 'method': 'POST', 'attr': {'class': 'ui form'}}) }}
+        {{ form_row(orderReasonCreateForm.orderReason, {"is_problem": false}) }}
+        {{ form_end(orderReasonCreateForm) }}
+</div>

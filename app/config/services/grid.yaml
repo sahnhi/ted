@@ -1,0 +1,64 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    app.grid.filter.admin_order_state_filter:
+        class: App\Grid\Filter\AdminOrderStateFilter
+        tags:
+            - { name: sylius.grid_filter, type: admin_order_state, form_type: App\Form\Type\Filter\AdminOrderStateFilterType }
+
+    app.grid.filter.admin_product_review_remercie_filter:
+        class: App\Grid\Filter\AdminProductReviewRemercieFilter
+        tags:
+            - { name: sylius.grid_filter, type: admin_product_review_remercie, form_type: App\Form\Type\Filter\AdminProductReviewRemercieFilterType }
+
+    app.grid.filter.admin_product_review:
+        class: App\Grid\Filter\AdminProductReviewFilter
+        tags:
+            - { name: sylius.grid_filter, type: admin_product_review, form_type: App\Form\Type\Filter\AdminProductReviewFilterType }
+
+    app.grid.filter.admin_product_review_locale:
+        class: App\Grid\Filter\AdminProductReviewFilter
+        tags:
+            - { name: sylius.grid_filter, type: admin_product_review_locale, form_type: App\Form\Type\Filter\AdminProductReviewLocaleFilterType }
+
+    app.grid.filter.admin_product_stock_filter:
+        class: App\Grid\Filter\AdminProductStockFilter
+        tags:
+            - { name: sylius.grid_filter, type: admin_product_stock, form_type: App\Form\Type\Filter\AdminProductStockFilterType }
+
+    app.grid.filter.multiple_entity_filter:
+        class: App\Grid\Filter\MultipleEntityFilter
+        tags:
+            - { name: sylius.grid_filter, type: multiple_entity, form_type: App\Form\Type\Filter\EntityFilterType }
+    
+    app.grid.filter.admin_customer_group_filter:
+        class: App\Grid\Filter\AdminCustomerGroupFilter
+        tags:
+            - { name: sylius.grid_filter, type: admin_customer_group, form_type: App\Form\Type\Filter\AdminCustomerGroupFilterType }
+
+    app.grid.filter.admin_order_return_status_filter:
+        class: App\Grid\Filter\AdminOrderReturnStatusFilter
+        tags:
+            - { name: sylius.grid_filter, type: admin_order_return_status, form_type: App\Form\Type\Filter\AdminOrderReturnStatusFilterType }
+
+    app.grid.filter.admin_product_bundle_filter:
+        class: App\Grid\Filter\AdminProductBundleFilter
+        tags:
+            - { name: sylius.grid_filter, type: is_bundle, form_type: App\Form\Type\Filter\AdminProductBundleFilterType }
+
+    app.grid.filter.entity:
+        class: Sylius\Component\Grid\Filter\EntityFilter
+        tags:
+            - { name: sylius.grid_filter, type: entity_custom, form_type: App\Form\Type\Filter\EntityFilterType }
+
+    app.grid.filter.autocomplete:
+        class: Sylius\Component\Grid\Filter\EntityFilter
+        tags:
+            - { name: sylius.grid_filter, type: product_variant_autocomplete_custom, form_type: App\Form\Type\ProductVariantAutocompleteChoiceType }
+
+    app.grid.filter.product_autocomplete:
+        class: Sylius\Component\Grid\Filter\EntityFilter
+        tags:
+            - { name: sylius.grid_filter, type: product_autocomplete, form_type: Sylius\Bundle\ProductBundle\Form\Type\ProductAutocompleteChoiceType }

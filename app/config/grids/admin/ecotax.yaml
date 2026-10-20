@@ -1,0 +1,27 @@
+sylius_grid:
+    grids:
+        sylius_admin_ecotax:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\Ecotax
+            fields:
+                code:
+                    type: string
+                    label: sylius.ui.code
+                    sortable: translation.code
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete
+            filters:
+                search:
+                    type: string
+                    label: sylius.ui.search
+                    options:
+                        fields: [ code ]

@@ -1,0 +1,37 @@
+{% extends '@SyliusAdmin/Crud/update.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator_semanticui.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    {% set colors = ['red', 'teal', 'green', 'pink', 'grey', 'orange', 'blue', 'brown', 'yellow'] %}
+    {% set options_colors = {} %}
+
+    {% for option in product.options %}
+        {% set options_colors = options_colors|merge({(option.code): (colors[loop.index0%9])}) %}
+    {% endfor %}
+
+    {{ sylius_template_event('app.admin.bundles.generate.header', _context) }}
+
+    <div class="ui attached segment">
+        {% block body %}
+
+        {% endblock %}
+    </div>
+
+    {{ sylius_template_event('app.admin.bundles.generate.footer', _context) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {# TODO - Import them with node_modules #}
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    {{ sylius_template_event('app.admin.bundles.generate.javascripts') }}
+{% endblock %}

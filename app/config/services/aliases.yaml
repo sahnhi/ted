@@ -1,0 +1,6 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Sylius\Component\Core\Provider\ZoneProviderInterface: '@sylius.provider.channel_based_default_zone_provider'

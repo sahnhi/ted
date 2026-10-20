@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block payum_stylesheets "" %}
+    </head>
+    <body>
+
+        {# BEGIN CUSTOM TEMPLATE #}
+        <script src='https://js.sentry-cdn.com/552f359e47ea4362bc7c919f6ef76498.min.js' crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            Sentry.onLoad(() => {
+                Sentry.init({
+                    environment: '{{ app.environment }}'
+                });
+                Sentry.setTag("bundle", "Payum");
+                Sentry.setTag("channel", "{{ getChannel().code }}");
+            });
+        </script>
+        {# END CUSTOM TEMPLATE #}
+
+        {% block payum_body "" %}
+        {% block payum_vendor_javascripts "" %}
+        {% block payum_javascripts "" %}
+
+    </body>
+</html>

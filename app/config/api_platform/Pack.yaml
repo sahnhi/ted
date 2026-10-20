@@ -1,0 +1,24 @@
+App\Doctrine\Entity\Pack:
+    properties:
+        id:
+            identifier: false
+            writable: false
+        code:
+            identifier: true
+            writable: false
+        variants:
+            writable: false
+        addons:
+            writable: false
+        translations:
+            writable: false
+
+    itemOperations:
+        pack_get:
+            method: GET
+            path: /shop/packs/{code}
+            normalization_context:
+                groups:
+                    - pack:read
+            
+    collectionOperations: ~

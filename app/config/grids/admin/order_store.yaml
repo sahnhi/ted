@@ -1,0 +1,172 @@
+sylius_grid:
+    grids:
+        sylius_admin_order_store:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\OrderStore
+                    repository:
+                        method: createListQueryBuilder
+            sorting:
+                date: desc
+            fields:
+                number:
+                    type: twig
+                    label: sylius.ui.number
+                    path: order
+                    options:
+                        template: 'SyliusAdminBundle:Order/Grid/Field:number.html.twig'
+                date:
+                    type: datetime
+                    label: sylius.ui.date
+                    path: order.createdAt
+                    sortable: order.createdAt
+                    options:
+                        format: d-m-Y H:i:s
+                customer:
+                    type: twig
+                    label: sylius.ui.customer
+                    path: order.customer
+                    sortable: customer.lastName
+                    options:
+                        template: 'SyliusAdminBundle:Order/Grid/Field:customer.html.twig'
+                state:
+                    type: twig
+                    label: sylius.ui.state
+                    sortable: ~
+                    path: order.state
+                    options:
+                        template: "@SyliusUi/Grid/Field/state.html.twig"
+                        vars:
+                            labels: "@SyliusAdmin/Order/Label/State"
+                paymentState:
+                    type: twig
+                    label: sylius.ui.payment_state
+                    sortable: ~
+                    path: order.paymentState
+                    options:
+                        template: "@SyliusUi/Grid/Field/state.html.twig"
+                        vars:
+                            labels: "@SyliusAdmin/Order/Label/PaymentState"
+                shippingState:
+                    type: twig
+                    label: sylius.ui.shipping_state
+                    sortable: ~
+                    path: order.shippingState
+                    options:
+                        template: "@SyliusUi/Grid/Field/state.html.twig"
+                        vars:
+                            labels: "@SyliusAdmin/Order/Label/ShippingState"
+                store:
+                    type: twig
+                    label: sylius.ui.store
+                    options:
+                        template: "@SyliusAdmin/Grid/Field/store.html.twig"
+                seller:
+                    type: twig
+                    label: sylius.ui.quotation.seller
+                    options:
+                        template: "@SyliusAdmin/Grid/Field/seller.html.twig"
+                total:
+                    type: twig
+                    label: sylius.ui.total
+                    path: order
+                    sortable: order.total
+                    options:
+                        template: "@SyliusAdmin/Order/Grid/Field/total.html.twig"
+                items:
+                    type: twig
+                    label: sylius.ui.items
+                    path: order.items
+                    options:
+                        template: "@SyliusAdmin/Grid/Field/order_items.html.twig"
+            actions:
+                item:
+                    link:
+                        type: default
+                        label: sylius.ui.link
+                        icon: 'linkify icon'
+                        options:
+                            link:
+                                route: sylius_admin_order_store_update
+                                parameters:
+                                    id: resource.id
+                            class: blue
+                            roles: [ 'ROLE_ADMIN', 'ROLE_ADMINISTRATION_ACCESS' ]
+
+                subitem:
+                    link:
+                        type: default
+                        label: sylius.ui.quotation_resend.message
+                        icon: 'envelope'
+                        options:
+                            link:
+                                route: sylius_quotation_admin_resend
+                                parameters:
+                                    id: resource.order.id
+                            class: orange
+            filters:
+                number:
+                    type: string
+                    label: sylius.ui.number
+                    options:
+                        fields: [ order.number ]
+                customer:
+                    type: string
+                    label: sylius.ui.customer
+                    options:
+                        fields: [ order.customer.email, order.customer.firstName, order.customer.lastName ]
+                store:
+                    type: string
+                    label: sylius.ui.store
+                    options:
+                        fields: [ store.name ]
+                seller:
+                    type: string
+                    label: sylius.ui.quotation.seller
+                    options:
+                        fields: [ seller.name ]
+                date:
+                    type: date
+                    label: sylius.ui.date
+                    options:
+                        field: order.createdAt
+                        inclusive_to: true
+                total:
+                    type: money
+                    label: sylius.ui.total
+                    options:
+                        currency_field: currencyCode
+                        field: order.total
+                state:
+                    type: select
+                    label: sylius.ui.state
+                    options:
+                        field: order.state
+                    form_options:
+                        choices:
+                            sylius.ui.new: new
+                            sylius.ui.fulfilled: fulfilled
+                            sylius.ui.cancelled: cancelled
+                            sylius.ui.cart: cart
+                payment_state:
+                    type: select
+                    label: sylius.ui.payment_state
+                    options:
+                        field: order.paymentState
+                    form_options:
+                        choices:
+                            sylius.ui.awaiting_payment: awaiting_payment
+                            sylius.ui.paid: paid
+                            sylius.ui.cancelled: cancelled
+                            sylius.ui.refunded: refunded
+                shipping_state:
+                    type: select
+                    label: sylius.ui.shipping_state
+                    options:
+                        field: order.shippingState
+                    form_options:
+                        choices:
+                            sylius.ui.ready: ready
+                            sylius.ui.cancelled: cancelled
+                            sylius.ui.shipped: shipped

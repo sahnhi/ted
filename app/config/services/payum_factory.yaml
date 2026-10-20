@@ -1,0 +1,176 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+    
+    app.factory.gateway.be2bill_direct:
+        class: Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder
+        arguments:
+            - Payum\Be2Bill\Be2BillDirectGatewayFactory
+        tags:
+            - { name: payum.gateway_factory_builder, factory: be2bill_direct }
+
+    app.factory.gateway.dalenys:
+        class: Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder
+        arguments:
+            - App\Payum\Dalenys\Dalenys3TimesGatewayFactory
+        tags:
+            - { name: payum.gateway_factory_builder, factory: dalenys_3times }
+
+    app.factory.gateway.dalenys_webtpe:
+        class: Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder
+        arguments:
+            - App\Payum\WebTPE\DalenysWebTpeGatewayFactory
+        tags:
+            - { name: payum.gateway_factory_builder, factory: dalenys_webtpe }
+
+    app.factory.gateway.dalenys.action.capture:
+        class: App\Payum\Dalenys\Action\CaptureAction
+        public: true
+        tags:
+            - { name: payum.action, factory: dalenys_3times, alias: payum.action.capture }
+
+    app.factory.gateway.dalenys.action.notify:
+        class: App\Payum\Dalenys\Action\NotifyAction
+        public: true
+        tags:
+            - { name: payum.action, factory: dalenys_3times, alias: payum.action.notify }
+
+    app.factory.gateway.dalenys.action.refund:
+        class: App\Payum\Dalenys\Action\RefundAction
+        public: true
+        tags:
+            - { name: payum.action, factory: dalenys_3times, alias: payum.action.refund }
+
+    app.factory.gateway.webtpe.action.capture:
+        class: App\Payum\WebTPE\Action\CaptureAction
+        public: true
+        tags:
+            - { name: payum.action, factory: dalenys_webtpe }
+
+    app.factory.gateway.webtpe.action.notify:
+        class: App\Payum\WebTPE\Action\NotifyAction
+        public: true
+        tags:
+            - { name: payum.action, factory: dalenys_webtpe }
+
+    app.factory.gateway.webtpe.action.status:
+        class: App\Payum\WebTPE\Action\StatusAction
+        public: true
+        tags:
+            - { name: payum.action, factory: dalenys_webtpe }
+
+    app.factory.gateway.braintree:
+        class: Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder
+        arguments:
+            - App\Payum\Braintree\BraintreeCustomGatewayFactory
+        tags:
+            - { name: payum.gateway_factory_builder, factory: braintree }
+
+    app.factory.gateway.leetchi:
+        class: Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder
+        arguments:
+            - App\Payum\Leetchi\LeetchiGatewayFactory
+        tags:
+            - { name: payum.gateway_factory_builder, factory: leetchi }
+
+    app.factory.gateway.leetchi.action.capture:
+        class: App\Payum\Leetchi\Action\CaptureAction
+        public: true
+        arguments:
+            $templateName: '@@App/Payum/Leetchi/capture.html.twig'
+        tags:
+            - { name: payum.action, factory: leetchi }
+
+    app.factory.gateway.leetchi.action.notify:
+        class: App\Payum\Leetchi\Action\NotifyAction
+        public: true
+        tags:
+            - { name: payum.action, factory: leetchi }
+
+    app.factory.gateway.paga_mas_tarde:
+        class: Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder
+        arguments:
+            - App\Payum\PagaMasTarde\PagaMasTardeGatewayFactory
+        tags:
+            - { name: payum.gateway_factory_builder, factory: paga_mas_tarde }
+
+    app.factory.gateway.printemps:
+        class: Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder
+        arguments:
+            - App\Payum\Printemps\PrintempsGatewayFactory
+        tags:
+            - { name: payum.gateway_factory_builder, factory: printemps }
+
+    app.factory.gateway.printemps.action.capture:
+        class: App\Payum\Printemps\Action\CaptureAction
+        public: true
+        arguments:
+            $templateName: '@@App/Payum/Printemps/capture.html.twig'
+        tags:
+            - { name: payum.action, factory: printemps }
+
+    app.factory.gateway.younited:
+        class: Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder
+        arguments:
+            - App\Payum\Younited\YounitedGatewayFactory
+        tags:
+            - { name: payum.gateway_factory_builder, factory: younited }
+
+    app.factory.gateway.younited.action.capture:
+        class: App\Payum\Younited\Action\CaptureAction
+        public: true
+        arguments:
+            $templateName: '@@App/Payum/Younited/capture.html.twig'
+            $errorTemplateName: '@@App/Payum/Younited/error.html.twig'
+        tags:
+            - { name: payum.action, factory: younited, alias: payum.action.capture }
+
+    app.factory.gateway.younited.action.status_action:
+        class: App\Payum\Younited\Action\StatusAction
+        public: true
+        tags:
+            - { name: payum.action, factory: younited, alias: payum.action.status }
+
+    app.factory.gateway.younited.action.notify_action:
+        class: App\Payum\Younited\Action\NotifyAction
+        public: true
+        tags:
+            - { name: payum.action, factory: younited, alias: payum.action.notify }
+
+    app.factory.gateway.adyen:
+        class: Payum\Core\Bridge\Symfony\Builder\GatewayFactoryBuilder
+        arguments:
+            - App\Payum\Adyen\AdyenGatewayFactory
+        tags:
+            - { name: payum.gateway_factory_builder, factory: adyen }
+
+    app.factory.gateway.adyen.action.capture:
+        class: App\Payum\Adyen\Action\CaptureAction
+        public: true
+        tags:
+            - { name: payum.action, factory: adyen, alias: payum.action.capture }
+
+    app.factory.gateway.adyen.action.notify:
+        class: App\Payum\Adyen\Action\NotifyAction
+        public: true
+        tags:
+            - { name: payum.action, factory: adyen, alias: payum.action.notify }
+
+    app.factory.gateway.adyen.action.refund:
+        class: App\Payum\Adyen\Action\RefundAction
+        public: true
+        tags:
+            - { name: payum.action, factory: adyen, alias: payum.action.refund }
+
+    app.factory.gateway.adyen.action.status:
+        class: App\Payum\Adyen\Action\StatusAction
+        public: true
+        tags:
+            - { name: payum.action, factory: adyen, alias: payum.action.status }
+
+    app.factory.gateway.adyen.action.convert_payment:
+        class: App\Payum\Adyen\Action\ConvertPaymentAction
+        public: true
+        tags:
+            - { name: payum.action, factory: adyen, alias: payum.action.convert_payment }

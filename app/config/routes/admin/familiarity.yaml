@@ -1,0 +1,24 @@
+sylius_admin_familiarity:
+    resource: |
+        alias: sylius.familiarity
+        section: admin
+        templates: SyliusAdminBundle:Crud
+        redirect: update
+        grid: sylius_admin_familiarity
+        vars:
+            all:
+                subheader: sylius.ui.familiarity.information
+                templates:
+                    form: '@App/Familiarity/_form.html.twig'
+            index:
+                icon: 'file image outline'
+    type: sylius.resource
+
+sylius_admin_familiarity_enabled:
+    path: /familiarities/{id}/enabled
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.familiarity:enabledAction
+        _sylius:
+            section: admin
+            permission: true

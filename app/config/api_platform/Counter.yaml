@@ -1,0 +1,33 @@
+App\Doctrine\Entity\Counter:
+    properties:
+        id:
+            writable: false
+        key:
+            writable: false
+        year:
+            writable: false
+        counter:
+            writable: false
+
+    attributes:
+        normalization_context:
+            groups:
+                - counter:read
+    
+    collectionOperations:
+        counters_get:
+            method: GET
+            path: /counters
+
+    itemOperations:
+        counter_get:
+            method: GET
+            path: /counters/{id}
+        counter_put:
+            method: PUT
+            input: false
+            path: /counters/{id}
+            openapi_context:
+                requestBody:
+                    required: false
+                    content: [ ]

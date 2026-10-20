@@ -1,0 +1,74 @@
+sylius_grid:
+    grids:
+        app_campaign:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\Campaigns\Campaign
+            fields:
+                campaignName:
+                    type: string
+                    label: sylius.ui.title
+                    sortable: ~
+                url:
+                    type: string
+                    label: app.ui.campaign.url
+                startDate:
+                    type: datetime
+                    label: sylius.ui.start_date
+                    sortable: ~
+                endDate:
+                    type: datetime
+                    label: sylius.ui.end_date
+                    sortable: ~
+                enabled:
+                    type: twig
+                    label: sylius.ui.enabled
+                    options:
+                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
+                    sortable: ~
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete
+            filters:
+                campaignName:
+                    type: string
+                    label: sylius.ui.title
+                    enabled: true
+                enabled:
+                    type: boolean
+                    label: sylius.ui.enabled
+                    enabled: true
+
+        app_campaign_bloc:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\Campaigns\Bloc
+            fields:
+                name:
+                    type: string
+                    label: sylius.ui.title
+                totalProducts:
+                    type: string
+                    label: app.ui.bloc_campaign.total_products
+                enabled:
+                    type: twig
+                    label: sylius.ui.enabled
+                    options:
+                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete

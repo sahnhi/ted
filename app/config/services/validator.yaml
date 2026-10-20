@@ -1,0 +1,45 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+    
+    App\Validator\CalendarAvailabilityProductsValidator:
+        tags:
+            - { name: validator.constraint_validator, alias: app_shop_api_calendar_availability_products_validator }
+
+    App\Validator\ProductExistsValidator:
+        tags:
+            - { name: validator.constraint_validator, alias: sylius_shop_api_product_exists_validator }
+    
+    App\Validator\ConfigurableProductValidator:
+        tags:
+            - { name: validator.constraint_validator, alias: sylius_shop_api_configurable_product_validator }
+    
+    App\Validator\ProductVariantExistsValidator:
+        tags:
+            - { name: validator.constraint_validator, alias: sylius_shop_api_product_variant_exists_validator }
+    
+    sylius.validator.cart_item_availability:
+        class: App\Validator\Constraints\CartItemAvailabilityValidator
+        tags:
+            - { name: validator.constraint_validator, alias: sylius_cart_item_availability }
+    
+    sylius.validator.in_stock:
+        class: App\Validator\Constraints\InStockValidator
+        tags:
+            - { name: validator.constraint_validator, alias: sylius_in_stock }
+    
+    App\Validator\CustomerEmailValidator:
+        tags:
+            - { name: validator.constraint_validator, alias: app_invalid_customer_email }
+
+    App\Validator\Constraints\OrderProductEligibilityValidator:
+        tags:
+            - { name: validator.constraint_validator, alias: sylius_order_product_eligibility_validator }
+
+    App\Validator\OrderNPSReviewValidator: ~
+
+    App\Validator\GiftCardOrPromotionCouponValidator:
+        decorates: 'sylius.api.validator.promotion_coupon_eligibility'
+        arguments:
+            $promotionCouponValidator: '@App\Validator\GiftCardOrPromotionCouponValidator.inner'

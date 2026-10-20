@@ -1,0 +1,7 @@
+App\View\PackListView:
+    exclusion_policy: ALL
+    properties:
+        packs:
+            expose: true
+            type: array<App\View\PackView>
+            groups: [ 'pack.list' ]

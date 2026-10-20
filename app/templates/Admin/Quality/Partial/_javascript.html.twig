@@ -1,0 +1,50 @@
+<script>
+    $(document).ready(function () {
+        $('.logistic-toggler').each(function () {
+            $(this).click(function () {
+                $('.logistic-row[data-id="' + $(this).data('id') + '"]').toggle();
+                $(this).find('.logistic-label-hide').toggle();
+                $(this).find('.logistic-label-show').toggle();
+            });
+        });
+        filterReasons(getReasonValue(), false);
+
+        $('#app_quality_orderItemLogistic').change(function(){
+            filterReasons($(this).val(), true);
+        });
+    });
+
+    function filterReasons(value, unselect) {
+        $('#app_quality_reason optgroup').each(function() {
+            if (!$(this).attr('label').includes(value)) {
+                $(this).hide();
+                $(this).find('option').hide();
+            } else {
+                $(this).show();
+                $(this).find('option').show();
+            }
+        });
+
+        if (unselect) {
+            $("#app_quality_reason option:selected").prop("selected", false);
+        }
+    }
+
+    function getReasonValue(){
+        if (undefined !== $('#app_quality_orderItemLogistic option:selected').val()) {
+            return $('#app_quality_orderItemLogistic option:selected').val();
+        }
+
+        let reasonValue = $('#app_quality_orderItemLogistic').val()
+
+        if (undefined !== reasonValue) {
+            let values = reasonValue.split('-');
+
+            if (Array.isArray(values)) {
+                return  values[1].trim();
+            }
+        }
+
+        return null;
+    }
+</script>

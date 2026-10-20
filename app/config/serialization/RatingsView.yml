@@ -1,0 +1,17 @@
+App\View\RatingsView:
+    properties:
+        overall:
+            xml_value: true
+            expose: true
+            type: integer
+            groups: [ 'google.rss' ]
+        min:
+            xml_attribute: true
+            expose: true
+            type: integer
+            groups: [ 'google.rss' ]
+        max:
+            xml_attribute: true
+            expose: true
+            type: integer
+            groups: [ 'google.rss' ]

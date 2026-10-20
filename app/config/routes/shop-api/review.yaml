@@ -1,0 +1,23 @@
+shop_api_product_review_question_list:
+    path: /questions
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Api\Product\Review\Question\ListAction
+
+shop_api_product_review_question_list_without_token:
+    path: /questions/{token}
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Api\Product\Review\Question\ListAction
+
+shop_api_reviews_answer_v2:
+    path: /answer-v2
+    methods: [ POST ]
+    defaults:
+        _controller: App\Controller\Api\Product\Review\Answer\AnswerV2Action
+
+shop_api_review_nps:
+    path: /nps
+    methods: [ POST ]
+    defaults:
+        _controller: App\Controller\Api\Order\Review\NpsAction

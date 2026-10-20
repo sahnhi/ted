@@ -1,0 +1,24 @@
+### Odoo To Sylius ###
+odoo_api_product_post:
+    path: /product
+    methods: [POST, GET]
+    defaults:
+        _controller: App\Api\Odoo\Controller\Product
+
+odoo_api_product_variant_post:
+    path: /product-variant
+    methods: [POST, GET]
+    defaults:
+        _controller: App\Api\Odoo\Controller\ProductVariant
+        
+odoo_api_invoice_post:
+    path: /invoice
+    methods: [POST]
+    defaults:
+        _controller: App\Api\Odoo\Controller\Invoice
+
+odoo_sylius_api_sell:
+    path: /sell
+    methods: [GET]
+    defaults:
+        _controller: App\Api\Odoo\Controller\ApiOdooNewOrderAction

@@ -1,0 +1,31 @@
+App\View\GoogleRssView:
+    xml_root_name: feed
+    xml_namespaces:
+        vc: "http://www.w3.org/2007/XMLSchema-versioning"
+        xsi: "http://www.w3.org/2001/XMLSchema-instance"
+    properties:
+        xsi:
+            xml_attribute_map: true
+            expose: true
+            type: string
+            groups: [ 'google.rss' ]
+        version:
+            expose: true
+            type: string
+            groups: [ 'google.rss' ]
+            xml_element:
+                cdata: false
+        publisher:
+            xml_key_value_pairs: true
+            expose: true
+            type: array
+            groups: [ 'google.rss' ]
+            xml_element:
+                cdata: false
+        reviews:
+            expose: true
+            type: array<App\View\ProductReviewView>
+            serialized_name: 'reviews'
+            xml_list:
+                entry_name: 'review'
+            groups: [ 'google.rss' ]

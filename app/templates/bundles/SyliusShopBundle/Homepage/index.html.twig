@@ -1,0 +1,41 @@
+{% extends '@SyliusShop/layout.html.twig' %}
+
+{% block content %}
+<h2 class="ui horizontal section divider header">
+    {{ 'sylius.ui.all_products'|trans }}
+</h2>
+{# BEGIN CUSTOM TEMPLATE #}
+{{ render(url('app_shop_partial_product_index_ordered_by_taxon_code', {'code': getChannel().code, 'template': '@SyliusShop/Product/_horizontalList.html.twig'})) }}
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script type="text/javascript">
+    jQuery(document).ready(function($) {
+      jQuery("select[id^='sylius_add_to_cart']").on('change', function(event) {
+        event.preventDefault();
+        var productCode = jQuery(this).parents('.product-card').attr('data-product')
+        jQuery('div[data-product="' + productCode + '\"] #product-price').addClass('d-hide');
+        jQuery('div[data-product="' + productCode + '\"] #product-price-loader').removeClass('d-hide');
+        var options = {}
+
+        jQuery('div[data-product="' + productCode + '\"] select[id^="sylius_add_to_cart"]').each(function(index, el) {
+          options[$(this).attr('data-option')] = $(this).val()
+        });
+
+
+        $.post('/shop-api/' + '{{ getChannel().code }}' + '/fr_FR/products/'+ productCode + '/variants', JSON.stringify(options), function(data, textStatus, xhr) {
+          if (data && data.items && data.items.length) {
+            var price = data.items[0].price
+            jQuery('div[data-product="' + productCode + '\"] #product-price').html(price/100 + ' €')
+          } else {
+            jQuery('div[data-product="' + productCode + '\"] #product-price').html("{{ 'sylius.ui.out_of_stock'|trans }}")
+          }
+          jQuery('div[data-product="' + productCode + '\"] #product-price-loader').addClass('d-hide');
+          jQuery('div[data-product="' + productCode + '\"] #product-price').removeClass('d-hide');
+        });
+      });
+    });
+  </script>
+{% endblock %}
+{# END CUSTOM TEMPLATE #}

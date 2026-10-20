@@ -1,0 +1,52 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Factory\GoogleCloudStorageServiceFactory:
+        arguments:
+            $credentials: '%env(GOOGLE_SERVICE_ACCOUNT_CREDENTIAL_FILE)%'
+
+    app.google_cloud_storage.service:
+        class: \Google_Service_Storage
+        factory: [ '@App\Factory\GoogleCloudStorageServiceFactory', 'createService' ]
+
+    app.google_cloud_storage.client:
+        class: Google\Cloud\Storage\StorageClient
+        arguments:
+            -   keyFilePath: '%env(GOOGLE_SERVICE_ACCOUNT_CREDENTIAL_FILE)%'
+
+    App\Services\Filesystem\GoogleStorageEdiFilesystem:
+        arguments:
+            $filesystemStorage: !service { class: Gaufrette\Filesystem, arguments: [ '%app.google_storage_edi.filesystem%' ], factory: [ '@knp_gaufrette.filesystem_map', get ] }
+            $filesystemLocal: !service { class: Gaufrette\Filesystem, arguments: [ '%app.local.filesystem%' ], factory: [ '@knp_gaufrette.filesystem_map', get ] }
+
+    App\Services\Filesystem\GoogleStorageTransmissionFilesystem:
+        arguments:
+            $filesystemStorage: !service { class: Gaufrette\Filesystem, arguments: [ '%app.google_storage_transmission.filesystem%' ], factory: [ '@knp_gaufrette.filesystem_map', get ] }
+            $filesystemLocal: !service { class: Gaufrette\Filesystem, arguments: [ '%app.local.filesystem%' ], factory: [ '@knp_gaufrette.filesystem_map', get ] }
+    
+    App\Services\Filesystem\GoogleStorageInvoiceFilesystem:
+        arguments:
+            $filesystemStorage: !service { class: Gaufrette\Filesystem, arguments: [ '%app.google_storage_invoice.filesystem%' ], factory: [ '@knp_gaufrette.filesystem_map', get ] }
+            $filesystemLocal: !service { class: Gaufrette\Filesystem, arguments: [ '%app.local.filesystem%' ], factory: [ '@knp_gaufrette.filesystem_map', get ] }
+    
+    App\Services\Filesystem\GoogleStorageQualityImageFilesystem:
+        arguments:
+            $filesystemStorage: !service { class: Gaufrette\Filesystem, arguments: [ '%app.google_storage_quality_image.filesystem%' ], factory: [ '@knp_gaufrette.filesystem_map', get ] }
+            $filesystemLocal: !service { class: Gaufrette\Filesystem, arguments: [ '%app.local.filesystem%' ], factory: [ '@knp_gaufrette.filesystem_map', get ] }
+
+    App\Services\Filesystem\GoogleStorageRssReviewFilesystem:
+        arguments:
+            $filesystemStorage: !service { class: Gaufrette\Filesystem, arguments: [ '%app.google_storage_generic.filesystem%' ], factory: [ '@knp_gaufrette.filesystem_map', get ] }
+            $filesystemLocal: !service { class: Gaufrette\Filesystem, arguments: [ '%app.local.filesystem%' ], factory: [ '@knp_gaufrette.filesystem_map', get ] }
+
+    App\Services\Filesystem\GoogleStorageExportFileSystem:
+        arguments:
+            $filesystemStorage: !service { class: Gaufrette\Filesystem, arguments: [ '%app.google_storage_export.filesystem%' ], factory: [ '@knp_gaufrette.filesystem_map', get ] }
+            $filesystemLocal: !service { class: Gaufrette\Filesystem, arguments: [ '%app.local.filesystem%' ], factory: [ '@knp_gaufrette.filesystem_map', get ] }
+
+    App\Services\Filesystem\GoogleStorageExportReviewFilesystem:
+        arguments:
+            $filesystemStorage: !service { class: Gaufrette\Filesystem, arguments: [ '%app.google_storage_generic.filesystem%' ], factory: [ '@knp_gaufrette.filesystem_map', get ] }
+            $filesystemLocal: !service { class: Gaufrette\Filesystem, arguments: [ '%app.local.filesystem%' ], factory: [ '@knp_gaufrette.filesystem_map', get ] }

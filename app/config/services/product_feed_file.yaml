@@ -1,0 +1,39 @@
+services:
+    App\Processor\ProductFeedFile\Validators\FileIsAlreadyBeingImportedValidator:
+        arguments:
+            $productFeedFileImporterRepository: '@App\Doctrine\Repository\ProductFeedFileImporterRepository'
+        tags: [app.processor.product_feed_file.validator]
+
+    App\Processor\ProductFeedFile\ProductFeedFileValidator:
+        arguments:
+            - !tagged_iterator app.processor.product_feed_file.validator
+            - '@Symfony\Component\EventDispatcher\EventDispatcherInterface'
+
+    App\EventListener\ProductFeedFile\ResetImporterEvent:
+        arguments:
+            $garbageCollector: '@App\Services\ProductFeedFile\Importer\GarbageCollectorServiceInterface'
+        tags:
+            - {
+                  name: kernel.event_listener,
+                  event: product_feed_file.pre_validator,
+              }
+
+    App\Form\Type\ProductFeedFile\ProductFeedFileType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.product_feed_file.class%", ["sylius"]]
+
+    App\Form\Type\ProductFeedFile\ProductFeedFileTranslationType:
+        tags:
+            - { name: form.type }
+        arguments:
+            ["%app.model.product_feed_file_translation.class%", ["sylius"]]
+
+    App\Form\Type\ProductFeedFile\ProductFeedFileAdditionalImagesType:
+        tags:
+            - { name: form.type }
+        arguments:
+            [
+                "%app.model.product_feed_file_additional_images.class%",
+                ["sylius"],
+            ]

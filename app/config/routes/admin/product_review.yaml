@@ -1,0 +1,69 @@
+sylius_admin_product_review:
+    resource: |
+        alias: sylius.product_review
+        section: admin
+        permission: true
+        templates: SyliusAdminBundle:Crud
+        except: ['show']
+        redirect: update
+        grid: sylius_admin_product_review
+        vars:
+            all:
+                subheader: sylius.ui.manage_reviews_of_your_products
+                templates:
+                    form: "@SyliusAdmin/ProductReview/_form.html.twig"
+            index:
+                icon: newspaper
+    type: sylius.resource
+
+sylius_admin_product_review_export:
+    path: /product-reviews/{export}
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.product_review:indexAction
+        _sylius:
+            section: admin
+            permission: true
+            template: "SyliusAdminBundle:Crud:index.html.twig"
+            grid: sylius_admin_product_review
+
+sylius_admin_product_review_translate:
+    path: /product-review/{id}/translate
+    methods: [ GET, POST ]
+    defaults:
+        _controller: sylius.controller.product_review:translateAction
+        _sylius:
+            section: admin
+            permission: true
+            template: "@App/ProductReview/translate.html.twig"
+            grid: sylius_admin_product_review
+            vars:
+                route:
+                    arguments:
+                        $productId: $id
+
+sylius_admin_product_review_create:
+    path: /product-review/create
+    methods: [ GET, POST ]
+    defaults:
+        _controller: sylius.controller.product_review:createAction
+        _sylius:
+            section: admin
+            permission: true
+            template: "@App/ProductReview/create.html.twig"
+            grid: sylius_admin_product_review
+
+sylius_admin_product_review_remercie:
+    path: /products-review/{id}/remercie
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.product_review:remercieAction
+        _sylius:
+            section: admin
+            permission: true
+
+app_admin_product_review_summary:
+    path: /product-review/summary
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.product_review:summaryAction

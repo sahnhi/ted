@@ -1,0 +1,6 @@
+App\Doctrine\Entity\Friend:
+    attributes:
+        name:
+            groups:
+                - admin:customer:read
+                - shop:customer:read

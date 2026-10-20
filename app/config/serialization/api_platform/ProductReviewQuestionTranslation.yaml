@@ -1,0 +1,6 @@
+App\Doctrine\Entity\ProductReviewQuestionTranslation:
+    attributes:
+        name:
+            groups:
+                - admin:product_review:read
+                - reviews:question:read

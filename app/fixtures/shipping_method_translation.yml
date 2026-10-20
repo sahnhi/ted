@@ -1,0 +1,18 @@
+App\Doctrine\Entity\Sylius\ShippingMethodTranslation: 
+    vir_translation:
+        translatable: '@vir_shipping_method'
+        name: 'VIR'
+        locale: 'fr_FR'
+        delivery_conditions: 'Votre créneau de livraison sera affiné la veille de la livraison, par sms. Nous ne pourrons pas modifier ce créneau de notre côté.'
+
+    ups_translation:
+        translatable: '@ups_shipping_paid_method'
+        name: 'UPS'
+        locale: 'fr_FR'
+        delivery_conditions: ''
+
+    dpwr_translation_fr:
+        translatable: '@dpwr_shipping_method'
+        name: 'Dpwr'
+        locale: 'fr_FR'
+        delivery_conditions: 'Lorem Ipsum'

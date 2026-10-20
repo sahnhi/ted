@@ -1,0 +1,25 @@
+{% if customer.allPromotionCoupons is not empty %}
+<div class="eight wide column" id="info">
+    <div class="ui fluid card">
+        <div class="content">
+            <table class="ui celled table">
+                <thead>
+                    <tr>
+                        <th>Promotion code</th>
+                        <th>Coupon code</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for coupon in customer.allPromotionCoupons %}
+                        <tr>
+                            <td>{{ coupon.promotion.code }}</td>
+                            <td>{{ coupon.code }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}

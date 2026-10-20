@@ -1,0 +1,14 @@
+App\Doctrine\Entity\SatellitePages\TechnicalDetail:
+  attributes:
+    translations:
+      groups:
+        - shop:satellite-page-technical-detail:read
+
+App\Doctrine\Entity\SatellitePages\TechnicalDetailTranslation:
+  attributes:
+    title:
+      groups:
+        - shop:satellite-page-technical-detail:read
+    description:
+      groups:
+        - shop:satellite-page-technical-detail:read

@@ -1,0 +1,24 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+    
+    #prepare transmission service and serialization
+    App\Services\Transmission\PrepareTransmission:
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+            $apiKeyUrbantz: '%urbantz_api_key%'
+            $apiKeySecretUrbantz: '%urbantz_api_key_secret%'
+            $urlApiUrbantz: '%urbantz_api_url%'
+            $env: '%env(APP_ENV)%'
+
+    App\Services\Transmission\Entrepot\Spidy\Deliver:
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+
+    app.service.spidy.cancel:
+        class: App\Services\Transmission\Entrepot\Spidy\Cancel
+        public: true
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+            $urbantzApiUrl: '%urbantz_api_url%'

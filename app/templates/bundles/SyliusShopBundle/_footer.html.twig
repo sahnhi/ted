@@ -1,0 +1,56 @@
+{# BEGIN CUSTOM TEMPLATE #}
+<footer id="footer" class="ui inverted vertical footer segment">
+    <div class="ui container">
+        <div class="ui inverted divided equal height stackable grid">
+            {{ sonata_block_render_event('sylius.shop.layout.before_footer') }}
+
+            <div class="four wide column">
+                <h4 class="ui inverted header text-uppercase">{{ 'sylius.ui.products.header'|trans }}</h4>
+                <div class="ui inverted link list">
+                    <a href="https://www.tediber.com/matelas" class="item" target="_blank">{{ 'sylius.ui.products.mattress'|trans }}</a>
+                    <a href="https://www.tediber.com/matelas-ted" class="item" target="_blank">{{ 'sylius.ui.products.slim-mattress'|trans }}</a>
+                    <a href="https://www.tediber.com/sommier" class="item" target="_blank">{{ 'sylius.ui.products.bed-frame'|trans }}</a>
+                    <a href="https://www.tediber.com/oreiller" class="item" target="_blank">{{ 'sylius.ui.products.pillow'|trans }}</a>
+                    <a href="https://www.tediber.com/couette" class="item" target="_blank">{{ 'sylius.ui.products.blanket'|trans }}</a>
+                    <a href="https://www.tediber.com/matelas-enfant-bebe" class="item" target="_blank">{{ 'sylius.ui.products.small-mattress'|trans }}</a>
+                    <a href="https://www.tediber.com/linge-de-lit" class="item" target="_blank">{{ 'sylius.ui.products.bed-linen'|trans }}</a>
+                </div>
+            </div>
+            <div class="four wide column">
+                <h4 class="ui inverted header text-uppercase">{{ 'sylius.ui.about.header'|trans  }}</h4>
+                <div class="ui inverted link list">
+                    <a href="https://www.tediber.com/notre-histoire" class="item" target="_blank">{{ 'sylius.ui.about.about'|trans  }}</a>
+                    <a href="https://www.tediber.com/manifesto" class="item" target="_blank">{{ 'sylius.ui.about.manifesto'|trans  }}</a>
+                    <a href="https://www.tediber.com/matelas-au-prix-juste" class="item" target="_blank">{{ 'sylius.ui.about.mattress-price'|trans  }}</a>
+                    <a href="https://www.tediber.com/responsabilite-environnement-social" class="item" target="_blank">{{ 'sylius.ui.about.environment'|trans  }}</a>
+                    <a href="https://www.tediber.com/presse" class="item" target="_blank">{{ 'sylius.ui.about.press'|trans  }}</a>
+                    <a href="https://www.tediber.com/equipe" class="item" target="_blank">{{ 'sylius.ui.about.team'|trans  }}</a>
+                    <a href="https://www.tediber.com/avis/matelas" class="item" target="_blank">{{ 'sylius.ui.about.reviews'|trans  }}</a>
+                </div>
+            </div>
+            <div class="four wide column">
+                <h4 class="ui inverted header text-uppercase">{{ 'sylius.ui.information.header'|trans  }}</h4>
+                <div class="ui inverted link list">
+                    <a href="https://www.tediber.com/livraison" class="item" target="_blank">{{ 'sylius.ui.information.delivery'|trans  }}</a>
+                    <a href="https://www.tediber.com/reprise-ancienne-literie" class="item" target="_blank">{{ 'sylius.ui.information.product-return'|trans  }}</a>
+                    <a href="https://www.tediber.com/faq" class="item" target="_blank">{{ 'sylius.ui.information.faq'|trans  }}</a>
+                    <a href="https://www.tediber.com/garantie" class="item" target="_blank">{{ 'sylius.ui.information.guarantee'|trans  }}</a>
+                    <a href="https://www.tediber.com/cgv" class="item" target="_blank">{{ 'sylius.ui.information.cgv'|trans  }}</a>
+                    <a href="https://www.tediber.com/contact" class="item" target="_blank">{{ 'sylius.ui.information.contact'|trans  }}</a>
+                </div>
+            </div>
+            <div class="four wide column">
+                <h4 class="ui inverted header text-uppercase">{{ 'sylius.ui.universe.header'|trans  }}</h4>
+                <div class="ui inverted link list">
+                    <a href="https://mag.tediber.com" class="item" target="_blank">{{ 'sylius.ui.universe.mag'|trans  }}</a>
+                    <a href="https://www.tediber.com/pub-tv" class="item" target="_blank">{{ 'sylius.ui.universe.tv-ad'|trans  }}</a>
+                    <a href="https://www.tediber.com/jobs" class="item" target="_blank">{{ 'sylius.ui.universe.jobs'|trans  }}</a>
+                    <a href="https://www.tediber.com/concept-store" class="item" target="_blank">{{ 'sylius.ui.universe.shop'|trans  }}</a>
+                </div>
+            </div>
+
+            {{ sonata_block_render_event('sylius.shop.layout.after_footer') }}
+        </div>
+    </div>
+</footer>
+{# END CUSTOM TEMPLATE #}

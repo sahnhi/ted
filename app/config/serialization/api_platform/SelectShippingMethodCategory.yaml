@@ -1,0 +1,11 @@
+App\Model\SelectShippingMethodCategory:
+    attributes:
+        tokenValue:
+            groups:
+                - shop:cart:select_shipping_method
+        shippingMethodCategoryCode:
+            groups:
+                - shop:cart:select_shipping_method
+        serviceCodes:
+            groups:
+                - shop:cart:select_shipping_method

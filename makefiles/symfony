@@ -1,0 +1,23 @@
+##
+## ----- Symfony -----
+##
+
+.PHONY: cache-clear
+cache-clear: ## Clear symfony cache
+	@$(CONSOLE_CMD) cache:clear --env=$(ENV)
+
+.PHONY: debug-router
+debug-router: ## Displays routing informations
+	@$(CONSOLE_CMD) debug:router
+
+.PHONY: debug-container
+debug-container: ## Displays services informations
+	@$(CONSOLE_CMD) debug:container
+
+.PHONY: debug-event-dispatcher
+debug-event-dispatcher: ## Displays application events
+	@$(CONSOLE_CMD) debug:event-dispatcher
+
+.PHONY: debug-messenger
+debug-messenger: ## Displays messenger messages informations
+	@$(CONSOLE_CMD) debug:messenger

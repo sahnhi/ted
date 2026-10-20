@@ -1,0 +1,5 @@
+App\Doctrine\Entity\ShippingStock:
+    pack_lit_variant_stock_spidy:
+        productVariant: '@pack_lit_variant'
+        warehouse: '@spidy_warehouse'
+        shippingDate: '<(new \DateTime("2024-12-01 00:00:00"))>'

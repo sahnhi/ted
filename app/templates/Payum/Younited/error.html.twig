@@ -1,0 +1,19 @@
+{% extends "@App/Payum/layout.html.twig" %}
+
+{% block payum_stylesheets %}
+    {{ parent() }}
+    <link href="/assets/api/css/main.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block payum_body %}
+    <div class="col-12 column text-center">
+        <p class="text-red">Une erreur est survenu, merci de réessayer ou de choisir un autre moyen de paiement.</p>
+    </div>
+{% endblock %}
+
+{% block payum_javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        parent.postMessage('{ "payumStatus": "failed", "message": "" }', '*');
+    </script>
+{% endblock %}

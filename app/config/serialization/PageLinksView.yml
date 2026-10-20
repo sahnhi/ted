@@ -1,0 +1,14 @@
+App\View\PageLinksView:
+    properties:
+        self:
+            expose: true
+            groups: [ 'product_review.list', 'category_review.show' ]
+        first:
+            expose: true
+            groups: [ 'product_review.list', 'category_review.show' ]
+        last:
+            expose: true
+            groups: [ 'product_review.list', 'category_review.show' ]
+        next:
+            expose: true
+            groups: [ 'product_review.list', 'category_review.show' ]

@@ -1,0 +1,8 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Provider\ReturnProduct\ReturnProductVariantProvider:
+        arguments:
+            $variantTranslationRepository: '@sylius.repository.product_variant_translation'

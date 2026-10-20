@@ -1,0 +1,112 @@
+{
+  "tokenValue": "5811cf75-84a3-4673-9cc3-00755d1b72ad",
+  "channel": "default",
+  "currency": "EUR",
+  "locale": "fr_FR",
+  "checkoutState": "cart",
+  "checkoutCompletedAt": "2022-12-20T16:25:01+00:00",
+  "items": [
+    {
+      "id": 5,
+      "quantity": 1,
+      "total": 6900,
+      "totalWithoutPromotions": 6900,
+      "product": {
+        "code": "mattress",
+        "name": "matelas",
+        "slug": "mattress",
+        "variants": [
+          {
+            "code": "TED140190",
+            "name": "MATELAS TEDIBER 140cm x 200cm",
+            "price": 6900.0,
+            "ecotax": 1000,
+            "product": "mattress",
+            "slug": "mattress",
+            "enabled": true,
+            "bundles": [],
+            "gifted": [],
+            "optionValues": {"TED140190": "140 cm x 190 cm x 25 cm"},
+            "optionCodes": {"mattress-size": "TED140190"},
+            "optionTranslated": {"mattress-size": "Taille Matelas"},
+            "packs": ["example-pack"]
+          }
+        ],
+        "options": [],
+        "relatedProducts": [],
+        "ids": [],
+        "lowerPrice": 6900
+      }
+    }
+  ],
+  "totals": {
+    "undiscountedPrice": 7900,
+    "total": 7900,
+    "items": 6900,
+    "taxes": 1150,
+    "taxesRate": 0.2,
+    "shipping": 1000,
+    "promotion": 0,
+    "ecotax": 550,
+    "amountGiftCardUsed": -1000,
+    "amountGiftCardLeft": 1000
+  },
+  "payments": [
+    {
+      "state": "cart",
+      "method": {
+        "code": "adyen_cb",
+        "name": "Adyen",
+        "description": "Adyen Description"
+      },
+      "price": {
+        "current": 7900,
+        "currency": "EUR"
+      }
+    }
+  ],
+  "shipments": [
+    {
+      "state": "cart",
+      "method": {
+        "code": "VIR",
+        "name": "VIR",
+        "price": {
+          "current": 1000,
+          "currency": "EUR"
+        }
+      }
+    }
+  ],
+  "shippingAddress": {
+    "city": "paris",
+    "countryCode": "FR",
+    "details": "",
+    "firstName": "customer1 firstname",
+    "lastName": "customer1 lastname",
+    "postcode": "75000",
+    "provinceName": "",
+    "street": "street 1",
+    "tva": ""
+  },
+  "billingAddress": {
+    "city": "paris",
+    "countryCode": "FR",
+    "details": "",
+    "firstName": "customer1 firstname",
+    "lastName": "customer1 lastname",
+    "postcode": "75000",
+    "provinceName": "",
+    "street": "street 1",
+    "tva": ""
+  },
+  "customer": {
+    "id": "1",
+    "new": false,
+    "email": "customer1@email.com",
+    "phoneNumber": "0166666666"
+  },
+  "cartDiscounts": [],
+  "relatedProducts": [],
+  "gamification": []
+}

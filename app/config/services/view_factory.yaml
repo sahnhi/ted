@@ -1,0 +1,21 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Factory\View\ProductViewFactory:
+        arguments:
+            $fallbackLocale: '%locale%'
+
+    App\Factory\View\LimitedProductAttributeValuesViewFactory:
+        arguments:
+            $allowedAttributesCodes: '%sylius.shop_api.included_attributes%'
+
+    App\Factory\View\ShippingMethodViewFactory:
+        arguments:
+            $calculatorRegistry: '@sylius.registry.shipping_calculator'
+    
+    App\Factory\View\TotalViewFactory:
+        arguments:
+            $taxRate: '@sylius.repository.tax_rate'
+            $strategyRegistry: '@sylius.registry.tax_calculation_strategy'

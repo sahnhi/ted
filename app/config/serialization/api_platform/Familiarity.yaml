@@ -1,0 +1,14 @@
+App\Doctrine\Entity\Familiarity:
+    attributes:
+        code:
+            groups:
+                - shop:customer:read
+                - admin:customer:read
+                - familiarity:read
+        translations:
+            groups:
+                - shop:customer:read
+                - admin:customer:read
+        name:
+            groups:
+                - familiarity:read

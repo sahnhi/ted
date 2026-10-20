@@ -1,0 +1,5 @@
+{% set path = link.url is defined ? link.url : path(link.route, link.parameters|default([])) %}
+
+{% if (link.condition is not defined or data is null) or attribute(data, link.condition) %}
+    <a class="item" href="{{ path }}">{% if link.icon is defined %}<i class="{{ link.icon }} icon"></i> {% endif %}{{ link.label|trans }}</a>
+{% endif %}

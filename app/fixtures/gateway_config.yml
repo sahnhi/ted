@@ -1,0 +1,6 @@
+Sylius\Bundle\PayumBundle\Model\GatewayConfig:
+    adyen_cb_gateway_config:
+        gateway_name: 'adyen_cb'
+        factory_name: 'adyen'
+        
+        

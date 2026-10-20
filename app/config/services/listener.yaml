@@ -1,0 +1,82 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Menu\AdminOrderShowMenuListener:
+        tags:
+            - { name: kernel.event_listener, event: sylius.menu.admin.order.show, method: addAdminOrderShowMenuItems }
+
+    App\Menu\AdminPromotionShowMenuListener:
+        tags:
+            - { name: kernel.event_listener, event: sylius.menu.admin.promotion.update, method: addAdminPromotionShowMenuItems }
+
+    App\Menu\AdminProductShowMenuListener:
+        tags:
+            - { name: kernel.event_listener, event: sylius.menu.admin.product.update, method: addAdminProductShowMenuItems }
+
+    Sylius\AdminOrderCreationPlugin\EventListener\OrderCreationListener:
+        class: App\EventListener\AdminOrderCreationPlugin\OrderCreationListener
+        tags:
+            - { name: 'kernel.event_listener', event: 'sylius.order.pre_admin_create', method: 'checkShippingMethod' }
+            - { name: 'kernel.event_listener', event: 'sylius.order.pre_admin_create', method: 'processOrderBeforeCreation' }
+            - { name: 'kernel.event_listener', event: 'sylius.order.pre_admin_create', method: 'completeOrderBeforeCreation' }
+            - { name: 'doctrine.event_listener', event: 'postPersist', method: 'postPersist' }
+
+    App\EventListener\Shop\LoyaltyApplyCouponListener:
+        arguments:
+            $couponEligibilityChecker: '@sylius.promotion_coupon_eligibility_checker'
+        tags:
+            - { name: 'kernel.event_listener', event: 'sylius.cart_change', method: 'apply' }
+
+    App\EventListener\OutOfStock\OutOfStockUpdateListener:
+        lazy: true
+        tags:
+            - { name: 'doctrine.orm.entity_listener', event: 'preUpdate', entity: 'App\Doctrine\Entity\OrderOutOfStock' }
+
+    App\EventListener\OrderReturn\OrderReturnUpdateListener:
+        lazy: true
+        tags:
+            - { name: 'doctrine.orm.entity_listener', event: 'preUpdate', entity: 'App\Doctrine\Entity\OrderReturn' }
+            - { name: 'doctrine.orm.entity_listener', event: 'preFlush', entity: 'App\Doctrine\Entity\OrderReturn' }
+    
+    app.listener.quality.images_upload:
+        class: Sylius\Bundle\CoreBundle\EventListener\ImagesUploadListener
+        autoconfigure: false
+        public: false
+        arguments:
+            - '@app.uploader.quality_image'
+        tags:
+            - { name: kernel.event_listener, event: app.quality.pre_create, method: uploadImages }
+            - { name: kernel.event_listener, event: app.quality.pre_update, method: uploadImages }
+    
+    app.listener.quality.images_remove:
+        class: Sylius\Bundle\CoreBundle\EventListener\ImagesRemoveListener
+        autoconfigure: false
+        public: false
+        arguments:
+            - '@app.uploader.quality_image'
+        tags:
+            - { name: doctrine.event_listener, event: onFlush }
+            - { name: doctrine.event_listener, event: postFlush }
+
+    App\Menu\AdminMenuListener:
+        tags:
+            - { name: kernel.event_listener, event: sylius.menu.admin.main, method: addAdminMenuItems }
+
+    App\Menu\ProductFormMenuListener:
+        tags:
+            - { name: kernel.event_listener, event: sylius.menu.admin.product.form, method: addAdminProductFormItem }
+    
+    App\Menu\ProductVariantFormMenuListener:
+        tags:
+            - { name: kernel.event_listener, event: sylius.menu.admin.product_variant.form, method: addItems }
+
+    App\EventListener\ProductAssociationType\PreDeleteListener:
+        tags:
+            - { name: kernel.event_listener, event: sylius.product_association_type.pre_delete }
+
+    App\EventListener\Order\PreUpdateListener:
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate }
+

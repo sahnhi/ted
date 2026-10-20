@@ -1,0 +1,16 @@
+admin_product_cms_sizing_guide:
+    resource: |
+        alias: app.product_cms_sizing_guide
+        section: admin
+        templates: '@SyliusAdmin\\Crud'
+        redirect: update
+        grid: sylius_admin_product_cms_sizing_guide
+        vars:
+            all:
+                subheader: 'Product CMS Sizing Guide'
+                templates:
+                    form: '@SyliusAdmin/ProductCMSSizingGuide/form/form.html.twig'
+            index:
+                icon: 'resize'
+    type: sylius.resource
+    prefix: /admin

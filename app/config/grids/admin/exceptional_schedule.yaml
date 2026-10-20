@@ -1,0 +1,35 @@
+sylius_grid:
+    grids:
+        sylius_admin_exceptional_schedule:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\ExceptionalSchedule
+            fields:
+                type:
+                    type: string
+                    label: sylius.ui.type
+                start:
+                    type: datetime
+                    label: sylius.ui.exceptional_schedule.start
+                end:
+                    type: datetime
+                    label: sylius.ui.exceptional_schedule.end
+                shippingMethod:
+                    type: string
+                    label: sylius.ui.shippingMethod
+                warehouse:
+                    type: string
+                    label: sylius.ui.warehouse.title
+                serviceRules:
+                    type: string
+                    label: sylius.ui.service_rule.title
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete

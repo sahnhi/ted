@@ -1,0 +1,36 @@
+App\Model\Logistic\PickUp\PickUpPoint:
+    attributes:
+        id:
+            groups: [ 'shop:order:pickup' ]
+        active:
+            groups: [ 'shop:order:pickup' ]
+        distance:
+            groups: [ 'shop:order:pickup' ]
+        name:
+            groups: [ 'shop:order:pickup' ]
+        address:
+            groups: [ 'shop:order:pickup' ]
+        addressBis:
+            groups: [ 'shop:order:pickup' ]
+        addressTer:
+            groups: [ 'shop:order:pickup' ]
+        addressQuarter:
+            groups: [ 'shop:order:pickup' ]
+        localHint:
+            groups: [ 'shop:order:pickup' ]
+        zipCode:
+            groups: [ 'shop:order:pickup' ]
+        city:
+            groups: [ 'shop:order:pickup' ]
+        countryCode:
+            groups: [ 'shop:order:pickup' ]
+        longitude:
+            groups: [ 'shop:order:pickup' ]
+        latitude:
+            groups: [ 'shop:order:pickup' ]
+        mapUrl:
+            groups: [ 'shop:order:pickup' ]
+        available:
+            groups: [ 'shop:order:pickup' ]
+        openingHours:
+            groups: [ 'shop:order:pickup' ]

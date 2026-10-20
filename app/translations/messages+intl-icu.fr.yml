@@ -1,0 +1,1288 @@
+app:
+    adjustment:
+        types:
+            offered_service: Service Inclus
+    ui:
+        order_payements:
+            sub_header: Liste des clients ayant plusieurs commandes ou panier dans la même journée
+        customer_id: ID de client
+        calendar:
+            errors:
+                no_service: Génération de créneaux impossible. Problème de configuration pour le produit "{variantCode}" détecté (taxon, catégorie d’expédition, …).
+                product_disabled: Livraison impossible. Produit "{productCode}" désactivé ou poids non renseigné.
+                no_provider: Impossibilité de livrer un des produits du panier a l'adresse saisie. Une revue du paramétrage des transporteurs et zones associées est nécessaire
+                no_slot_available: Oups, il semblerait qu'aucun créneau de livraison ne soit disponible. Veuillez contacter notre service client à hello@tediber.com.
+        zone:
+            test_shipping: Test des zones de livraisons pour une adresse
+        catalog_promotion:
+            form:
+                promotion_rule:
+                    contains_variant: Variante fait parti de la liste
+                    contains_variant_configuration:
+                        variants: Liste de variantes
+        paybylink_thank_you: "La commande n'a pas encore été payée, un lien de paiement a été envoyé au client. Celui-ci expirera dans 15 minutes"
+        product_variant:
+            exclude_from_promotions: Exclure des promotions
+        relays: Points relais
+        apply_to_selected: Appliquer à la selection
+        is_free: Est offert ?
+        drag_and_drop: Cliquez et déplacez
+        refuse_taxon: Ne contient pas le(s) taxon(s)
+        bundle: Bundle
+        order:
+            token_value: Identifiant du panier
+            creation:
+                breadcrumb:
+                    product_and_address: Produits et Adresses
+                    select_shipping: Choix de la livraison
+                select_shipping: Nouvelle commande - Choix de la livraison
+                product_and_address: Nouvelle commande - Produits et Adresses
+        bundle_association:
+            errors:
+                nb_product_problem: Retournez à l'étape 1, le nombre de produits paramétré ne peut pas être inférieur à 2
+                cant_continue: Impossible de continuer la génération
+                product_is_not_compatible: Impossible de générer des bundles pour ce produit
+                their_is_no_options: Veuillez configurer des options pour le produit
+                cant_generate_options_combinations: Aucune combinaison d'option n'a pu être générée
+                no_combination_selected: Aucune combinaison générable n'a été sélectionnée à l'étape précédente
+            steps:
+                options:
+                    title: Options
+                    sub_title: Paramétrez les options du produit
+                preview:
+                    title: Prévisualisation
+                    sub_title: Choisissez les combinaisons pertinentes
+                naming:
+                    title: Nommage
+                    sub_title: Définissez une règle pour les codes
+                products:
+                    title: Produits
+                    sub_title: Indiquez les produits éligibles
+                variants:
+                    title: Composition
+                    sub_title: Composez vos bundles
+            labels:
+                carefull_with_pagination: Attention, les pages qui ne sont pas actives ne peuvent pas être éditées. Si vous cliquez sur "Tout cocher" la pagination affichera tout par défaut
+                variant_generated: bundles ont été générés. contactez l'IT si vous constatez une anomalie
+                select_product: Choisissez un produit un modifier
+                select_variant: Choisissez le variant à appliquer
+                will_apply_to_not_empty: Attention, applique également aux champs déjà renseignés. Pensez à filtrer avant
+                options_tips: Nous vous conseillons de renseigner un maximum d'option pré-définies
+                quantity_tip: Si le variant sera un pack (par exemple TED2O6060 = 2 quantité de TEDO6060), ajustez la quantité en conséquence (TED2O6060 x1 ou TEDO6060 x2)
+                options_reminder: Rappel des options
+                number_of_products: Nombre de produits différents dans la composition*
+                including_products: (Incluant les produits offerts, quelque soit la quantité du produit)
+                all_editable_later: Vous pourrez éditer tous les codes individuellement à l'étape 5
+                code_with_options: Exemple avec les valeurs d'options suivantes
+                code_rule:
+                    title: Voici la règle de génération du code
+                    message: "PREFIX[Lettre1_valeur_option_position_1][Lettre1_valeur_option_position_2]_[valeur_option_position_3]_[valeur_option_position_4]_[etc...]SUFFIX"
+                    underscores: "Les cases à cocher permettent de définir si un underscore ( _ ) sera placé devant l'élément"
+                code_prefix: Prefix du code
+                code_suffix: Suffix du code
+                check_all: Tout cocher
+                uncheck_all: Tout décocher
+                force_value: Faut-il forcer une valeur pour ces options ?
+                generate: Générer des bundles
+                details: Composition
+                nb_products: Composé de {nb_products} éléments
+                empty: Vide
+                part_of_product: Fait parti du produit
+                first_choose_products: I. Choisissez les produits composants les bundles
+                confirm_pre_generation: II. Confirmez les combinaisons possibles
+                options_no_data:
+                    title: Aucune données à générer
+                    message: Vérifiez que les options sont bien sélectionnées et cliquez sur "Génerer"
+                options_error:
+                    title: Erreur lors de la génération
+                    message: Une erreur s'est produite lors de la génération, veuillez réessayer ou contacter l'IT
+                options_generation_loading:
+                    title: Génération en cours
+                    message: Veuillez patienter, les combinaisons de bundles s'afficherons bientôt
+                message_already_exists: Les lignes en <b>jaune</b> indiquent que cette combinaison ne sera pas générée car elle existe déjà
+                message_deleted: Les lignes en <b>rouge</b> ont été marquée comme non pertinentes et ne seront pas générées.
+            variant: Variant
+            quantity: Quantité
+            price: Prix Unitaire
+            delete: Supprimer
+            validators:
+                product_not_blank: Veuillez choisir un produit
+        coupon_duration: Durée de validité des coupons
+        drip:
+            liquid_shortcode: Drip Liquid ShortCode
+            url: Url de connexion =>
+        validate: Valider
+        transactionId: ID de transaction
+        phone_number: Téléphone
+        location: Localisation
+        payment_details: Détails de paiement
+        export_limit: Le nombre de résultat ayant dépassé la limite, votre fichier ne contient pas l'ensemble des lignes.
+        support: Support Zendesk
+        pay-leetchi: Payer avec Leetchi
+        pay-pmt: Payer avec Paga+Tarde
+        pay-be2bill-ntimes: Payer en 3x sans frais
+        pay-braintree: Valider
+        pay-younited: Payer avec Younited
+        delivery_slots: Créneaux de livraison
+        update_delivery_slots: Modification des créneaux de livraison
+        start_delivery_slot: "Début :"
+        end_delivery_slot: "Fin :"
+        undefined: indéfini
+        trial_period_days: jours restant avant la fin de la période d'essai
+        end_trial_period_days: Période d'essai fini
+        other_details: Autres informations
+        export:
+            product_review: Export des avis produit
+            cohortes: Export des cohortes
+        label:
+            credit_card_brand: "Type de carte"
+            credit_card_holder: "Nom sur la carte"
+            credit_card_number: "Numéro de la carte (sans espaces ni tirets)"
+            credit_card_expireAt: "Date d'expiration"
+            credit_card_securityCode: "Code de sécurité (3 chiffres au dos)"
+            printemps: "Vente Printemps"
+            barcode: "Code barre"
+            orderNumber: "Numéro de commande"
+            sofincoAccountId: "Numéro dossier Sofinco"
+        state: État
+        payment_details_transaction_id: Transaction ID
+        payment_details_bar_code: Code barre
+        payment_details_contract_reference: Référence du contrat
+        payment_details_status: Statut du paiement
+        payment_details_refund_code: Code de remboursement
+        payment_details_refunded_by: Remboursé par
+        placeholder:
+            credit_card_expireAt: "MM/AA"
+            barcode: "Entrez les 15 chiffres du ticket de caisse"
+            sofincoAccountId: "Entrez le numéro de dossier Sofinco"
+        cancel: "Annuler"
+        confirm: "Confirmer"
+        printemps_error_mail: Votre commande a bien été enregistrée mais une erreur est survenue. Merci de prévenir le SAV
+        quotation_creation:
+        quotation:
+            creation_success: Le devis a bien été envoyé
+            cart_already_has_quotation: Cette commande a déja fait l'objet d'un devis.
+        sales_by_day: ventes ce jour
+        sales_total: ventes totales
+        returns: Effectuer un retour
+        return: Retour simple
+        exchange: Échange
+        sender: Retour Expéditeur
+        exchange_warehouse: Echange Entrepôt
+        refund: Remboursement
+        return_autonomous: Retour autonome
+        bis: Créer une bis
+        select_customer_by_email: Sélectionner un client par son adresse e-mail
+        update_customer_order: Mise à jour de la fiche client
+        refund_will_not_be_executed_automatically: Ce remboursement ne sera pas exécuté automatiquement !
+        save: Enregistrer
+        order_return_destination:
+            restock: mis en stock (neuf)
+            phenix: phenix
+            emmaus: emmaus
+            untrack: non trace
+            trash: poubelle
+            supplier: retour fournisseur
+            waiting: en attente de traitement
+        order_return_logistics: Retours entrepôt
+        loyalty:
+            i_have_a_sponsor_code: J'ai un code parrain
+            loyalty_tediber: Parrainage Tediber
+            verify_eligibility: Vous bénéficiez d’un code parrain ? Vérifiez votre éligibilité ci-dessous
+            verify_code: Vérifier le code
+            email:
+                label: Votre Email
+            coupon:
+                label: Le code parrain
+
+        gateway:
+            younited:
+                form:
+                    environment:
+                        label: Environement
+                        choices:
+                            production: Production
+                            development: Développement
+                    client_id:
+                        label: Client ID
+                        validate:
+                            not_blank: Le Client ID est requis
+                    client_secret:
+                        label: Client secret
+                        validate:
+                            not_blank: Le Client secret est requis
+                    resource:
+                        label: Resource URL
+                        validate:
+                            not_blank: L'identifiant Younited est requis
+            adyen:
+                form:
+                    environment:
+                        label: Environnement
+                        choices:
+                            production: Production
+                            development: Développement
+                    endpointUrlPrefix:
+                        label: Endpoint Url Prefix
+                    merchantAccount:
+                        label: Merchant account
+                    wsUser:
+                        label: WS User
+                    wsPassword:
+                        label: WS Password
+                    apiKey:
+                        label: API Key
+                    clientKey:
+                        label: Client Key
+                    methodPayment:
+                        label: Méthode de paiement
+                        cb:
+                            label: Carte bleue
+                        paypal:
+                            label: Paypal
+                            merchandId:
+                                label: Merchant ID Paypal
+                        paybylink:
+                            label: Pay By Link
+                    hmacNotification:
+                        label: HMAC Notification
+        qualities: Fiches qualité
+        new_quality: Créer une fiche qualité
+        edit_quality: Modifier la fiche qualité
+        quality:
+            menu: Fiches qualité
+            name: Fiche qualité
+            subheader: Gérer vos fiches qualités
+            statuses:
+                new: Nouveau
+                in_progress: En cours
+                accepted: Validé
+                refused: Refusé
+            title: Titre
+            status: Etat
+            validation_required: Validation requise
+            sav_comment: Commentaire SAV
+            quality_comment: Commentaire qualité
+            images: Images
+            created_by: Utilisateur
+        order_item_logistic:
+            generate: Générer les produits logistiques
+        ask_review_templates: Gestion template demande d'avis
+        edit_ask_review_template: Modifier le template d'avis
+        days_delay_review: Nombres de jours après envoi
+        shipment:
+            form:
+                notify_warehouse: Envoyer un e-mail à l'entrepôt
+        odoo:
+            order:
+                created: Crée
+                not_ready: Non envoyé
+                ready: Prête à l'envoi
+                cancelled: Annulée
+                destocked: Mouvement stock OK
+                shipped: Expédié
+                refunded: Remboursé
+
+        edit_product_feed_file: Modification des informations produit
+        new_product_feed_file: Création d'un produit pour un flux produit
+        product_feed_files: Fichiers de flux produits
+        product_feed_file:
+            edit: Modification des informations produit
+            file_admin_menu: Fichiers de flux produits
+            product_admin_menu: Produits GMC
+            filter_search: Recherche par nom du variant
+            import_file: Importer fichier CSV
+            variant_grid:
+                variant: Code du variant
+                updated_at: Dernière mise à jour
+        channable_file_logs: Logs de création de fichiers Channable
+        channable_file:
+            filename: Nom du fichier
+            counter: Nombre de transmissions
+            variants: Voir les produits
+            generate_new_file: Générer un nouveau fichier
+            last_transmission: Dernière transmission
+        promotion_categories: Catégories de promotion
+        new_promotion_category: Créer votre catégorie de promotion
+        edit_promotion_category: Modifier votre catégorie de promotion
+        new_campaign: Nouvelle Campagne
+        campaigns: Campagnes
+        edit_campaign: Édition d'une campagne
+        campaign:
+            menu:
+                main_information: Informations principales
+                seo: Configuration SEO
+                variants: Variants de la Campagne
+                admin_menu: Campagnes
+                blocs: Blocs de Campagnes
+            add_blocs: Ajout des blocs Campagnes
+            url: Url Campagne
+        bloc_campaign:
+            menu:
+                main_menu_title: Blocs Campagne
+                page_menu:
+                    main_information: Configuration
+                    variants: Variants
+                    focus: Marroniers
+            admin:
+                header: Blocs Campagne
+                subheader: Gestion des blocs campagne
+            total_products: Nombre de produits
+        campaign_blocs: Blocs Campagne
+        export_accounting_datas: Export comptabilité
+        export_accounting_data: 
+            menu: Export comptabilité
+            export: Export des Commandes
+            start_date: Date de début
+            end_date: Date de fin
+            scope_checkout: Par date de commande
+            scope_delivered: Par date d'expédition
+            scope: Type d'Export
+            download: Télécharger
+
+        
+        edit_shipping_method_category: Modifier une offre de livraison
+        new_shipping_method_category: Créer une nouvelle offre de livraison
+        shipping_method_categories: Offre de livraison
+        shipping_method_category:
+            claims:
+                label: Arguments
+                pushed: Mis en avant
+                pushed_help: Si cochée, cet argument sera mis en avant et affiché dans le tunnel d'achat
+            claims_help: Utilise du <a target="_blank" href="https://markdownlivepreview.com/">markdown</a>
+            menu: Offre de livraison
+            new: Nouvelle offre de livraison
+            subheader: Offre de livraison
+            services: Prestations
+            included_service: Prestation incluse
+            available_paid_services: Prestations payantes disponibles
+            submit_selected_category: Choisir cette offre
+            included_service_help: Si cochée, cete prestation sera automatiquement et <b>gratuitement</b> ajouté au panier si cette offre de livraison est selectionnée par le client.
+            linked_variant: Prestation associée
+            linked_variant_help: Cette variante sera ajoutée au panier si le client sélectionne cette prestation ou si elle est paramétrée comme incluse.
+            shipping_methods_help: Défini les modes de livraison qui seront utilisés par le calendrier pour obtenir les créneaux de livraison
+            restricted_products_label: Produits requis
+            restricted_products_help: Une commande doit contenir au moins un de ces produits pour que cette prestation soit proposée à l'utilisateur. <b>Si vide, cette prestation sera toujours disponible.</b>
+            filters:
+                contains_shipping_method: Contiens mode de livraison
+            placeholder: Sélectionnez une offre de livraison
+        rtb_infos: RTBs
+        rtb:
+            menu: RTBs
+            title: RTBs Listing
+            subtitle: Gestion des RTBs
+        shipping_category:
+            claims: Arguments
+            claims_help: Utilise du <a target="_blank" href="https://markdownlivepreview.com/">markdown</a>
+        product_cms_sizing_guides: Guide de tailles
+        edit_product_cms_sizing_guide: Modifier le guide de tailles
+        new_product_cms_sizing_guide: Créer un guide de tailles
+        satellite_pages: Pages Satellites
+        satellite_page:
+            header: Édition de la Page Satellite
+            admin_menu: Pages Satellites
+        shipping_method_groups:
+            admin_menu: Groupes de modes de livraison
+            manage_shipping_method_groups: Gérer les groupes de modes de livraison
+            placeholder: Sélectionnez un groupe de modes de livraison
+        order_payments: Clients avec plusieurs commandes/paniers
+        order_payments_menu: Liste clients multi paniers
+    form:
+        shipping_calculator:
+            amount_threshold:
+                label: Seuil de gratuité
+                help: Le seul de gratuité défini le montant total des produits du panier à partir du quel les frais de ports seront offerts
+        payment_method:
+            price_rule:
+                greater: Plus grand que
+                lower: Plus petit que
+            type: Régle
+            rules:
+                label: Conditions de disponibilité de ce moyen de paiment.
+        promotion:
+            action:
+                gift_product_variant: Variante(s) Offerte(s)
+                percentage_filter: Remise en pourcentage produit avec exclusion
+            exceptional: Exceptionnelle
+            automatically_applied: Détectable par l'application automatique des promotions
+        promotion_rule:
+            order_has_coupon: Le code promo à été ajouté au panier
+            shipment_has_the_shipping_method_category: L'offre de livraison sélectionnée est
+            sponsoring: N-ième filleul parrainé
+            sponsoring_configuration:
+                nth: Seuil filleul
+        promotion_action:
+            shipping_fixed_discount: Rabais fixe expédition
+            apply_highest_priority_promotion: Appliquer la promotion éligible la plus prioritaire parmis
+            add_product_configuration:
+                product_variant: Variante de produit
+        product_review:
+            rating: Note
+            status: Status
+            locale: Langue
+        order:
+            seller:
+                label: Vendeur
+                placeholder: Sélectionner un vendeur
+            store:
+                label: Boutique
+                placeholder: Sélectionner une boutique
+            barcode:
+                label: Code barre
+                placeholder: Renseigner un code barre
+            reason:
+                save: Enregistrer
+        product:
+            can_generate_bundle: Peut générer des bundles
+            generate_returns: Générer les produits retours
+            template: Type de template
+            quantity_selector: Sélecteur Quantité
+            cms:
+                title: CMS
+                tags:
+                    primary_tag: Tag Principal
+                    primary_tag_help: Ce label apparaîtra sur l'image du produit en première position
+                    secondary_tag: Tag Secondaire
+                    secondary_tag_help: Ce label apparaîtra sur l'image du produit en dessous du tag principal
+                sub_title: Sous Titre Produit
+                sub_title_help: Ce texte apparaîtra en dessous du titre du produit
+                sub_title_hx: Sous Titre
+                sub_info: Sous Claim 1
+                sub_info_bis: Sous Claim 2
+                product_details_title: Titre de la section Bloc Produit
+                product_details_sub_title: Sous titre de la première section Bloc Produit
+                product_details_sub_claim: Claims de la première section Bloc Produit
+                product_details_sub_title_bis: Sous titre de la deuxième section Bloc Produit
+                product_details_sub_claim_bis: Claims de la deuxième section Bloc Produit
+                product_details_sub_claim_help: Chaque paragraphe apparaitra comme un claim dans une liste avec des bullets points
+                technical_infos:
+                    title: Informations Techniques
+                    subtitle: Titre de la Section
+                    header: Titre de la ligne
+                    text: Texte de Description
+                cms_focus:
+                    title: Bloc Focus
+                    main_title: Titre
+                    term: header
+                    definition: texte
+                    description: Description
+                cms_faq:
+                    title: Bloc FAQ
+                    header: Titre du bloc
+                    question: Question
+                    answer: Réponse
+                sizing_guide:
+                    title: Titre du guide de tailles
+                    sub_title: Sous titre du guide de tailles
+                    link: Lien du guide de tailles
+                    item:
+                        item: Blocs
+                        name: Titre de bloc
+                        description: Description du bloc
+                        image_path: Lien de l'image
+        customer_group:
+            label: Groupe
+            recommendee_code: Filleuls transformés
+            sponsor_code: Parrains
+            sponsor_recommendee_code: Filleuls potentiels
+        shipping_method:
+            delivery_conditions:
+                label: Texte e-mail
+        shipping_method_rule:
+            contains_only_taxon: Contient uniquement le taxon
+            contains_at_least_taxon: Contient au moins le taxon
+            does_not_contains_taxon: Ne contient pas le taxon
+            lower_or_equal_than_method_max_articles: Si nombre article max non dépassé
+            greater_than_method_max_articles: Si nombre article max dépassé
+        product_association_type:
+            delete_cross_selling: Impossible de supprimer le type d'association "%type%"
+        product_feed_file:
+            title: Titre du produit
+            description: Description du produit
+            google_category: Catégorie de produits Google
+            google_category_documentation: Documentation Google Catégories
+            product_type: Type de produit
+            material: Matière
+            url: Lien du produit
+            object_state: État de l'objet
+            promotion_identifier: Identifiant de promotion
+            group_identifier: Identifiant de groupe
+            sizing_system: Système de taille
+            composition: Composition du produit
+            tags: Tags
+            main_image: Image principale
+            enabled: Activer l'export de ce produit
+            additional_images: Images supplémentaires
+            product_variant: Variante de produit source
+            google_id_title: Identifiant Google
+            google_id: Google Id
+        campaign:
+            campaign_name: Nom de la Campagne
+            campaign_note: Annotations pour la Campagne
+            enabled: Activer ou désactiver la Campagne pour toutes les langues
+            title: Titre Publique de la Campagne
+            title_help: H1 de la page Campagne
+            main_image_url: Image du Header Campagne (Desktop)
+            main_image_url_help: Lien Cloudinary de l'image du Header Campagne
+            mobile_image_url: Image du Header Campagne (Mobile)
+            mobile_image_url_help: Lien Cloudinary de l'image mobile
+            description: Sous titre de la Campagne
+            description_help: Ce sous titre sera affiché en dessous du titre de la Campagne sur la page
+            url: URL de la Campagne
+            url_help: "URL publique pour accéder à la Campagne sur le site, i.e : la-meilleure-campagne "
+            meta_title: Titre de la Page de la Campagne pour le SEO
+            meta_title_help: Élément Title html de la page Campagne
+            meta_description: Meta Description de la Campagne
+            meta_keywords: Meta Mots-clés de la Campagne
+            indexable: Indexable par les moteurs de recherche
+            indexable_help: Si décoché, la Campagne ne sera pas indexée par les moteurs de recherche
+            followable: Liens suivables par les moteurs de recherche
+            followable_help: Si décoché, les liens de la Campagne ne seront pas suivis par les moteurs de recherche
+            start_date: Date de début de la Campagne
+            end_date: Date de fin de la Campagne
+            redirect_url: URL de redirection
+            redirect_url_help: URL de redirection lorsque la Campagne est désactivée
+            redirection_http_status_code: Code de statut HTTP de redirection
+            redirection_http_status_code_help: Code de statut HTTP de redirection lorsque la Campagne est désactivée
+            enabled_for_locale: Activer la campagne pour cette langue
+            bloc: 
+                bloc_title: Choississez le bloc à ajouter
+                priority: Position d'affichage (chiffre de 1 à 1000, s'il y a conflit de valeur système fonctionnera sans provoquer d'erreur)
+                seo_block: Affichage en mode réduit
+                seo_block_help: Si coché, le bloc sera affiché en mode réduit sur la page uniquement avec les textes
+            seo_block_title: Titre du bloc SEO
+            seo_block_title_help: Titre du bloc SEO qui sera affiché en bas de page
+            seo_block_description: Description du bloc SEO
+            seo_block_description_help: Description du bloc SEO qui sera affiché en bas de page
+        bloc_campaign:
+            bloc_name: Titre du Bloc
+            bloc_name_helper: Ce titre du bloc sera affiché sur la page campagne sur le site
+            description: Annotations
+            description_helper: Champs libre pour annotation, il ne sera pas affiché sur le site
+            button_text: Texte du Bouton
+            button_text_help: Laisser ce champs vide pour ne pas afficher un bouton
+            button_link: Url associé au bouton
+            button_link_help: Url de redirection lors du clique sur le bouton
+            variants: 
+                search_variant: Rechercher un variant
+                satellite_page_url_label: Url de la page satellite
+                satellite_page_url_label_help: Si vous voulez utilisez une page satellite indiquez l'url ici, si vide au click on affichera la page du produit
+                position: Position dans la page
+                position_help: Indiquez la position d'affichage du produit dans la page, s'il y a conflit le système décidera lequel afficher en premier
+            focus:
+                image_url: Lien de l'image
+                image_url_help: Normalement on ajoute le lien cloudinary de l'image
+                title: Titre du Marronier
+                title_help: Texte principal affiché sur la photo marronier
+                description: Sous Titre
+                description_help: Texte affiché sous le titre du marronier
+                tag: Tag du marronier
+                button_text: Texte du Bouton
+                button_text_help: Laisser ce champs vide pour ne pas afficher un bouton
+                button_url: Url associé au bouton
+                button_url_help: Url de redirection lors du clique sur le bouton
+                position: Position parmis les éléments
+                position_help: Indiquez la position d'affichage du marronier, il s'adapte aux produits automatiquement
+
+        rtb:
+            label: Titre RTB
+            description: Texte court RTB
+            url: Lien vers page explicative RTB
+            image_url: Lien du picto RTB
+            priority: Position d'affichage
+        satellite_page:
+            tag: Tag du produit
+            name: Nom de la page satellite
+            main_phrase: Phrase marque
+            focus: Conçu pour vous
+            satellite_url: Url de la page satellite
+            quality_claim: Claim 1 - Atout
+            technical_claim: Claim 2 - Technique
+            claims: Arguments
+            claim_field_label: Définition de l'argument
+            technical_info_title: Titre du bloc technique
+            technical_detail_title: Titre de la ligne
+            technical_detail_description: Description de la ligne
+        product_option:
+            internal_name: Nom interne
+            site_name: Nom site
+
+    payum_gateway_factory:
+        paga_mas_tarde_checkout: Paga Mas Tarde
+        braintree_checkout: Braintree
+        leetchi_checkout: Leetchi
+        dalenys_3times: Dalenys 3 fois
+        dalenys_webtpe: Dalenys Web TPE
+        be2bill_direct: Dalenys direct
+        printemps: Printemps / Sofinco N fois
+        younited: Younited
+        adyen: Adyen
+
+        product_review:
+            locale: Locale
+
+    api:
+        cart:
+            sponsor:
+                error:
+                    email_required: Email requis.
+                    coupon_required: Coupon requis.
+                    eligibility: Vous n'êtes pas éligible à l'offre de parrainage.
+                    validity: Ce coupon n'est pas valide.
+                    group: Le groupe avec le code {code} n'existe pas.
+        order:
+            complete:
+                error:
+                    not_found: La commande avec le token {token} n'a pas été trouvée.
+                    cannot_complete: La commande avec le token {token} n'a pas pu aboutir.
+            address:
+                error:
+                    not_found: La commande avec le token {token} n'a pas été trouvée.
+                    cannot_complete: La commande avec le token {token} n'a pas pu aboutir.
+                    email: Cet e-mail n'est pas valide
+            shipping:
+                error:
+                    cart_not_found: Le panier n'a pas été trouvé.
+                    cannot_proceed: La commande ne peut pas avoir de méthode de livraison assignée.
+                    shipping_method_not_found: La méthode de livraison n'a pas été trouvée.
+                    shipment_not_found: La livraison avec cet identifiant n'a pas pu être trouvée.
+                    shipment_not_eligible: Cette livraison n'est pas éligible pour le mode de livraison choisi.
+                    shipment_not_available: Oups, il semblerait que nous ne livrons pas à cette adresse. Veuillez contacter notre service client à hello@tediber.com.
+            payment:
+                error:
+                    cart_not_found: Le panier n'a pas pu être trouvé.
+                    payment_completed: Paiement complété
+                    payment_processing: Paiement en cours de traitement
+                    payment_refunded: Paiement remboursé
+                    invalid_payment_method: La commande ne peut avoir ce mode de paiement.
+                    payment_method_not_found: La méthode de paiement n'a pas pu être trouvée.
+                    payment_not_found: Aucun paiement trouvé avec cet identifiant.
+
+sylius:
+    ui:
+        invoice_type:
+            carrier: Transporteur
+        yes: Oui
+        no: Non
+        warehouse_empty: Aucun Entrepôt
+        date_out_of_stock: Date de mise en rupture
+        deliver_error: Echec du changement de statut
+        edit_order_store: Modifier le devis
+        choose_order: Choisir une commande
+        link: Lier
+        called_no: Non contacté
+        called: Contacté
+        need_call: À rappeler
+        calledback: Rappelé
+        customer_state: Contact client
+        younited:
+            activate: Activer le contrat Younited
+        delivered: Livrée
+        collected: Collectée
+        delivered_collected: Livrée / Collectée
+        mark_as_delivered: Marquer comme livrée
+        mark_as_collected: Marquer comme collectée
+        duplicate: Dupliquer
+        quotation_resend:
+            message: Renvoyer le devis
+            error: Le devis n'a pas pu être ré-envoyé
+            confirmation: Le devis a bien été ré-envoyé
+        confirmation_resend:
+            message: Renvoyer l'email de confirmation
+            error: L'email n'a pas pu être ré-envoyé
+            confirmation: L'email de confirmation a bien été ré-envoyé
+        show: Lister
+        update: Modifier
+        packs: Packs de produits
+        new_pack: Nouveau pack
+        edit_pack: Modification d'un pack
+        pack:
+            title: Packs
+            information: Gestion des packs de produits
+
+        familiarities: Familiarités
+        new_familiarity: Nouvelle familiarité
+        edit_familiarity: Modification d'une familiarité
+        familiarity:
+            information: Gestion des familiarités
+
+        product_review:
+            remercie: Remercier
+            star: Star
+            savAnswer: Réponse du SAV
+        product_review_questions: Questions relatives aux produits
+        new_product_review_question: Nouvelle question relative à un produit
+        edit_product_review_question: Éditer la question relative à un produit
+        product_review_question:
+            information: Gestion des questions relatives aux produits
+            index: Questions relatives aux produits
+            show: Voir les questions
+        product_review_answer_choices: Réponses
+        new_product_review_answer_choices: Nouvelle réponse
+        edit_product_review_answer_choices: Éditer la réponse
+        product_review_answer_choice:
+            information: Gestions des réponses relatives aux questions
+        product_list_questions: Voir les questions
+        question: Question
+        nps: NPS
+        shippingMethod: Mode de livraison
+        translate: Traduire
+        new_product_review: Nouvel avis de produit
+        product_option_value_locale_defaults: Éditer les options par défaut
+        product_edit_options_values_locales: Éditer les options par défaut
+        edit_product_option_value_locale_default: Editer les options par défaut par produit
+        edit_order_outofstock: Éditer la rupture
+        delivery_date: Date de livraison
+        shipping_date: Date d'expédition
+        shipping_method: Méthode de livraison
+        shipping_department: Code postal
+        contains_product: Contient ce produit
+        contains_variant: Contient cette variante
+        contains_variant_logistic: Contient cette variante logistique
+        not_contains_variant: Ne contient pas cette variante
+        destination: Destination
+        usageLimit: Limite d'utilisation
+        expires_date: Date d'expiration
+        exists_expires_date: Contient une date d'expiration ?
+        customer_locale: Locale client
+        promotion: Promotion
+        promotion_coupon: Coupon
+        sellers: Liste des vendeurs
+        new_seller: Nouveau vendeur
+        edit_seller: Modifier le vendeur
+        delete_seller: Supprimer le vendeur
+        stores: Liste des boutiques
+        new_store: Nouvelle boutique
+        edit_store: Modifier la boutique
+        delete_stote: Supprimer la boutique
+        company: Entreprise
+        no_store: Aucune boutique assignée
+        no_seller: Aucun vendeur assigné
+        store: Boutique
+        terminalId: ID Terminal
+        no_product_rule: Aucune règle produit
+        product_rule:
+            1: Pas de produit à sélectionner
+            2: Produit identique à la commande mère
+            3: Produit retour simple
+            4: Produit retour qualité
+        no_reason_group: Aucun groupe
+        delivery-date: Date de livraison
+        calendar-loading: Recherche des disponibilités
+        calendar-slots: Créneaux de livraison
+        only-slot: ⬆ N’oubliez pas de valider votre créneau
+        calendar-slots-loading: Chargement des créneaux disponibles
+        provider-takeaway: Retrait en magasin
+        error:
+            no-provider: Nous ne livrons malheureusement pas (encore) l'ensemble de votre panier à votre adresse.
+            no-response: Nous n'avons malheureusement pas réussi à vous localiser. Vous pouvez réessayer avec une autre adresse.
+        all_products: Tous les produits
+        price-loading: Calcul du prix
+        delivery-text: Livraison le <strong>{date}</strong> entre <strong>{start}</strong> et <strong>{end}</strong>.
+        products:
+            google_rss: Configuration Google Reviews
+            header: Nos produits
+            pillow: L'oreiller
+            bed-frame: Le sommier
+            blanket: La couette
+            mattress: Le matelas Tediber
+            small-mattress: Le matelas bébé
+            bed-linen: Le linge de lit
+            slim-mattress: Le matelas Ted
+        about:
+            header: Qui sommes-nous ?
+            about: Notre histoire
+            manifesto: Pourquoi choisir Tediber ?
+            mattress-price: Matelas au prix juste
+            environment: Entreprise responsable
+            press: Presse
+            team: Équip
+            reviews: Avis
+        information:
+            header: Information & Services
+            delivery: Livraison express
+            product-return: Reprise de votre literie
+            faq: Questions Fréquentes
+            guarantee: Garantie
+            cgv: CGV
+            contact: Contactez-nous
+        universe:
+            header: Notre univers
+            mag: TediberMag
+            tv-ad: Pub TV
+            jobs: Jobs
+            shop: Boutique à Paris
+        placed_an_order: Votre commande N° {command_number} a bien été prise en compte
+        edit_addresses: Editer les adresses
+        quotation:
+            title: Création d'un devis
+            button: Créer un devis
+            store: Boutique
+            seller: Vendeur
+            email: Email client
+            phone: Téléphone client
+            name: Nom
+            firstname: Prénom
+            address: Adresse
+            city: Ville
+            zipcode: Code Postal
+            country: Pays
+        commissions: Commissions
+        commission: Commission
+        new_commission: Nouvelle commission
+        edit_commission: Édition commission
+        country:
+            paidReturn: Retour payant
+
+        reasons: Raisons
+        new_reason: Créer une raison
+        edit_reason: Modifier la raison
+        delete_reason: Supprimer la raison
+        reason_group_name: Groupe
+        mandatory_variant: Sélection produit obligatoire
+        reason_type: Type
+        order_reason: Raison
+        trouble:
+            label: Problème(s) signalé(s)
+            reason: Raison de création
+        trouble_new: Signaler un problème
+        trouble_motif: Motif
+        trouble_variant: Produit concerné
+        trouble_quantity: Quantité
+        trouble_commercial_offer: Offre commerciale
+        trouble_created_at: Date de création
+        trouble_created_by: Créée par
+        trouble_comment: Commentaire
+        trouble_customer_comment: Commentaire client
+        no_channel: Aucun canal
+        new_reason_group: Nouveau groupe
+        edit_reason_group: Modifier groupe
+        reason_groups: Liste des groupes
+        type: Type
+        sav: SAV
+        onhand:
+            label: Stock
+            equal: Égal
+            greater: Supérieur
+            greater_or_equal: Supérieur ou égal
+            less: Inférieur
+            less_or_equal: Inférieur ou égal
+
+        lingot: Lingot
+        maxGift: Max gift
+        promotionCoupon: Code promo
+        refund: Remboursement
+        warehouses: Entrepôts
+        warehouse_information: Gestion des entrepôts
+        edit_warehouse: Modifier l'entrepôt
+        new_warehouse: Créer un entrepôt
+        warehouse:
+            title: Entrepôt
+            calendar_days: Journée calendaire d'ouverture
+            opening_time: Horaire d'ouverture
+            closing_time: Horaire de fermeture
+            cutoff: Cut off
+            placeholder: Aucun entrepôt
+        services: Services
+        service_rules_information: Gestions des livraisons spécifiques
+        edit_service_rules: Modifier la livraison spécifique
+        new_service_rules: Créer une livraisonl spécifique
+        service_rules: Livraisons spécifiques
+        service_rule:
+            shipping_method: Transporteur
+            title: Livraison spécifique
+            name: Nom de la livraison spécifique
+            priority: Priorité
+            max_articles: Nombre d'articles maximum
+            delivery_slot: Créneaux de livraison
+            warehouse: Entrepôt
+            zone: Zone
+            placeholder: Sélectionnez une livraison spécifique
+        shipping_stock:
+            label: Date d'expédition
+            date: Date d'expédition
+            add_shipping_date: Ajouter une date d'expédition
+            warehouse: Entrepôt
+        days:
+            monday: Lundi
+            tuesday: Mardi
+            wednesday: Mercredi
+            thursday: Jeudi
+            friday: Vendredi
+            saturday: Samedi
+            sunday: Dimanche
+        shipping_categories: Catégorie d'expédition
+        shipping_category_information: Gestion des catégories d'expédition
+        new_shipping_category: Créer une catégorie d'expédition
+        edit_shipping_category: Modifier la catégorie d'expédition
+        shipping_category:
+            name: Nom
+            shipping_method: Modes de livraison
+        shipping:
+            label: Expédition
+            delivery_message: Spécificités de livraison
+            opening_calendar_days: Journée calendaire d'ouverture
+            opening_time: Horaire d'ouverture
+            closing_time: Horaire de fermeture
+            priority: Priorité
+            max_per_day: Livraison max/jour
+            max_per_slot: Livraison max/créneau
+            time_slot: Créneau de livraison
+            transport_time: délai de transport
+            shipping_time_date: délai supplémentaire de préparation
+            max_articles: Nombre d'articles max
+            see_pod: Voir la preuve de livraison
+        zip_codes: Codes Postaux
+        zip_code_information: Gestion des codes Postaux
+        edit_zip_code: Modifier le code postal
+        new_zip_code: Créer un nouveau code postal
+        zip_code:
+            country: Code pays
+            code: Code Postal
+        exceptional_schedules: Créneaux exceptionnel
+        exceptional_schedule_information: Gestion des créneaux exceptionnel
+        new_exceptional_schedule: Créer un créneau
+        edit_exceptional_schedule: Modifier le créneau
+        exceptional_schedule:
+            label: Créneaux exceptionnel
+            type: Type
+            opening: Ouverture /journée
+            closing: Fermeture /journée
+            opening_slot: Ouverture créneau
+            closing_slot: Fermeture créneau
+            start: Début
+            end: Fin
+            calendar_days: Journée calendaire
+        product:
+            weighting: Ponderation
+            review_requested: Avis demandé
+            warranty: Garantie (nombre d'années)
+            meta_data: Métadonnées
+            metadata:
+                shipping_method: Méthode de livraison
+                data: Texte
+            join_story_link: Lien JoinStory
+            bundle_type: Type de bundle
+
+        calendar_errors:
+            product_disabled: L'un de vos produits n'est pas disponible actuellement.
+            no_zone: Notre incroyable calendrier n’a pas trouvé votre code postal.
+            no_providers: Nous ne livrons malheureusement pas (encore) ce produit à votre adresse.
+        order_store_informations: Gestion des Devis
+        order_stores: Devis
+        items: Produits
+        item_logistic: Produit Logistique
+        show_logistic: Afficher les produits logistiques
+        hide_logistic: Masquer les produits logistiques
+        batch_number: Numéro de lot
+        order_outofstocks: Ruptures
+        order_outofstocks_information: Gestion des Ruptures
+        order_outofstocks_state: Etat de rupture
+        order_outofstocks_date_confirmed: Date confirmée
+        partially_planned: Planifiée à avancer
+        to_send: A expédier
+        out_of_stock_state:
+            status: Statut de la rupture
+            customerState: Etat du contact client
+            from: passé de
+            to: à
+            by: par
+        out_of_stock: En rupture
+        out_of_stock_history: Historique des modifications de la rupture
+        stock_priority: Pondération
+        isBundle: Bundle
+        customer:
+            group: Groupe
+        order:
+            history: Commandes associées
+            cancelled_failed: Impossible d'annuler l'initiale
+        shipping_estimated_cost: Coût d’expédition et de montage estimé
+        order_returns: Retours SAV
+        order_return:
+            order: Numéro de commande
+            history: Historique des modifications d'état
+            by: Par
+            savStatus: État SAV
+            warehouseStatus: État entrepôt
+            product_variant: Produits variants
+            add_product: Ajouter un produit
+            notes: Commentaire entrepôt
+            reason: Motif
+            product: Produit concerné
+        new_order_return: Créer les états
+        edit_order_return: Modifier les états
+        order_returns_status: État de retour
+        new_order_return_status: Créer un état
+        edit_order_return_status: Modifier un état
+        order_return_statuses: État de retour
+        order_return_status: Liste des états de retour
+        taxes_total: Total des taxes
+        gift_card:
+            email:
+                to_sender: À l'acheteur
+                to_recipient: Au bénéficiaire
+        giftCards:
+            label: Cartes cadeaux
+            code: Code
+            amount: Montant
+            refund_amount: Recréditer la carte à hauteur de
+        ecotaxes: Ecotaxes
+        amountHT: Montant HT
+        amountTTC: Montant TTC
+        edit_ecotax: Modifier une Écotaxe
+        customer_phone: Téléphone
+        reason:
+            template_options_label: Options à afficher dans l'email
+            options:
+                refund_needed: Nécessite un remboursement ?
+                100_nights: 100 nuits d'essai reconduites ?
+        product_combos: Produits combos
+        product_combo:
+            information: Gestion des combos
+        new_product_combo: Nouveau produit combo
+        edit_product_combo: Modifier le combo
+        product_variant: Produit variant
+        product_variant_logistic: Produit logistique
+        order_item_product_bis: Élément de la bis
+        fastmag_id: Fastmag ID
+        ftp_details:
+            label: Serveur FTP/SFTP
+            placeholder: Aucun
+        user: Utilisateur
+        ask_review_template:
+            id: Identifiant du template
+            service_name: Nom du service tiers
+        shipping_total: Total des frais de port et de montage
+        checkout_state: Etat du panier
+        checkout_state_selected_payment: Non payé
+    menu:
+        admin:
+            bundles: Produits Bundles
+            packs: Pack de produits
+            familiarities: Familiarités
+            product_review_question:
+                information: Questions relatives aux produits
+                index: Questions relatives aux produits
+            product_options_values_locales_default: Options par défaut des produits
+            reasons: Raisons / Problèmes
+            reason:
+                index: Liste des Problèmes/Retours
+            reason_group:
+                index: Groupe de problèmes
+            coupons: Coupons
+            warehouse: Entrepôts
+            shipping_category: Catégories d'expédition
+            service_rules: Livraisons spécifiques
+            zip_codes: Code Postaux
+            exceptional_schedule: Créneaux exceptionnel
+            ecotaxes: Ecotaxes
+            product_review_answer_choices:
+                index: Réponses aux questions spécifiques
+            product_combos_label: Produits combos
+            app_admin_ask_review:
+                index: Gestion template demande d'avis
+            promotion_caegories: Catégories de promotion
+            product_cms_sizing_guide: Guide de tailles
+            transport: Transport
+
+    form:
+        return:
+            q77_notify: Souhaitez-vous demander à Quai77 le retour et la remise en stock de la commande ?
+        pack:
+            name: Nom du pack
+            code: Code du pack
+        product:
+            variant:
+                packs: Packs disponibles
+                ecotax: Écotaxe
+            label: Produit
+            placeholder: Sélectionner un produit
+        familiarity:
+            wording: Libellé
+            code: Code
+        familiarities: Familiarités
+        product_review_question:
+            question: Question
+            enabled: Activé
+            product: Produit
+            questionType: Type de question
+            position: Position
+            answer: Réponses
+        product_review_answer_choices:
+            code: Code
+            name: Réponse
+            translations: Traductions
+        option_value:
+            optgroup: Option standard
+            help: Texte d'aide
+            description: Description
+        osteopath: Ostéopathe
+        friends: Amis
+        product_review_translation:
+            name: Question
+            translations: Traductions
+        promotion_coupon_generator_instruction:
+            amount: Nombre de coupons
+        customer:
+            optin: Optin SAV
+        order:
+            not_sent: Cette commande ne sera pas transmise !
+            private_note: Note
+            stock_toggler: Sans ruptures
+            parent_cancel: Souhaitez-vous annuler automatiquement la commande précédente ?
+            parent:
+                label: Que souhaitez-vous faire sur la commande précédente ?
+                placeholder: Ne rien faire
+                out_of_stock: Mettre en rupture traitée la commande initiale
+                put_out_of_stock: Mettre en rupture
+                cancel: Annuler la commande
+            out_of_stock:
+                empty_choice: Aucun pour le moment
+                customer_state: État du contact client
+                provisional_date: Date provisoire
+                label: Rupture
+                bulk:
+                    state: Statut de rupture
+                    state_out_of_stock: En rupture
+                    state_none: Aucun
+                    state_partially_planned: Planifiée à avancer
+                    state_to_send: A expédier
+                    label: Activer/Désactiver la mise en rupture
+                placeholder: Sélectionner un statut
+                planned: Planifiée
+                partially_planned: Planifiée à avancer
+        locale:
+            locale: Locale
+            select: Sélectionner une locale
+        seller:
+            label: Vendeur
+            title: Vendeurs
+            information: Gestion des vendeurs
+        store:
+            label: Boutique
+            title: Boutiques
+            information: Gestion des boutiques
+        commission:
+            subheader: Gérer les commissions par produit
+        reason:
+            information: Gestion des raisons
+            channel_placeholder: Sélectionner un canal
+            product_rule: Règle produit
+            type:
+                product_support: SAV
+                commercial_offer: Offres commerciales
+        order_reason:
+            quantity: Quantité
+            motif:
+                label: Motif
+                placeholder: Sélectionner un motif
+            commercial_offer:
+                label: Offres commerciales
+                placeholder: Sélectionner une offre
+            return_type:
+                label: Retour
+                placeholder: Aucun
+                exchange: Échange
+                normal: Normal
+                return_quality: Retour simple / Qualité
+                exchange_quality: Echange / Qualité
+                refund: Remboursement
+                sender: Expéditeur
+                autonomous: Autonome
+            variant_placeholder: Sélectionner un produit associé au problème si nécessaire
+            comment: Commentaire
+            placeholder: Champ texte libre
+        reason_group:
+            information: Gestion des groupes de problèmes
+        refund:
+            amount: Montant
+            code: Code
+            confirm: Confirmer le remboursement
+        shipping_category: Catégorie d'expédition
+        zone:
+            message: Message spécifique
+            department_filter: N'afficher que les codes postaux du département
+        shipping_method:
+            floor: Livraison en étage
+            tuned: Créneaux affinés
+            tracking: Lien de tracking
+            calendar: Calendrier
+            pick_up_point: Livraison en Point Relay
+            placeholder: Sélectionnez un mode de livraison
+        ecotax:
+            information: Gérer votre écotaxe
+            code: Code
+            amountHT: Montant HT
+            amountTTC: Montant TTC
+            label: Écotaxe
+            quantity: Quantité
+            manufacturerPaid: Payée par le fournisseur
+            notpaid: Non
+            paid: Oui
+            return: Retour
+        product_combo:
+            product_variant: Produit Variant
+            product_variant_logistic: Produit logistique
+        order_return:
+            information: Gestion des retours
+            create: Modifier le statut
+            savStatus: État SAV
+            warehouseStatus: État entrepôt
+            sav_placeholder: Sélectionner un état
+            warehouse_placeholder: Sélectionner un état
+            notes: Commentaire entrepôt
+            notes_sav: Commentaire SAV
+            items:
+                quantity: Quantité
+                product: Produit
+        order_return_status:
+            information: Gestion des états des retours
+            type:
+                label: Type d'état
+                sav: SAV
+                warehouse: Entrepôt
+            sav_status: État SAV
+            warehouse_status: État entrepôt
+        promotion:
+            cart_min_total: Total minimum du panier
+        quality:
+            image:
+                download: Télécharger l'image
+        warehouse:
+            crm: Nom dans odoo
+        variant:
+            weight: Poids emballé
+        promotion_category:
+            information: Gérer vos catégories de promotion
+            priority: Priorité
+        promotions: Promotions
+
+sylius_admin_order_creation:
+    ui:
+        new_customer_email: E-mail
+        create_new: Nouveau client
+        add_discount: Ajouter une promotion
+        order_preview: Prévisualisation de la commande
+        parent_command: Contenu de la commande originale
+        confirm: Créer
+        reorder: Créer une bis
+        order_discount: Promotions supplémentaire
+        customer_selection: Sélection du client
+        wrap: Emballé
+        customer_firstname: Le prénom du client ne peut être vide
+        customer_lastname: Le nom du client ne peut être vide
+        switch_to_vip: La priorité de la commande a bien été modifiée
+        others: Gestion de la priorité
+        to_vip: Passer en VIP
+        not_vip: Ne plus mettre en VIP
+        bis_exchange_reaons: Raison création de bis
+        bis_exchange_products: Produits bis
+        bis_exchange_create_error: Impossible de créer automatiquement la bis
+
+sylius_admin_service_rules_creation:
+    ui:
+        create: Créer une livraison spécifique
+
+sylius_invoicing_plugin:
+    ui:
+        store: Boutique

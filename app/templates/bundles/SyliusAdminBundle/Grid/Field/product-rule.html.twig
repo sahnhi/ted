@@ -1,0 +1,5 @@
+{% if data is not null %}
+    {{ ('sylius.ui.product_rule.'~data)|trans }}
+{% else %}
+    {{ 'sylius.ui.no_product_rule'|trans }}
+{% endif %}

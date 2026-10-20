@@ -1,0 +1,8 @@
+App\Doctrine\Entity\BundleAssociationPrice:
+    bundle_price_pack_lit:
+        price: 100000
+        created_at: '<date_create()>'
+    
+    bundle_price_pack_couette:
+        price: 50000
+        created_at: '<date_create()>'

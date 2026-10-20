@@ -1,0 +1,71 @@
+parameters:
+    app.google_storage_transmission.filesystem: 'app_google_storage_transmission'
+    app.google_storage_media.filesystem: 'app_google_storage_media'
+    app.google_storage_invoice.filesystem: 'app_google_storage_invoice'
+    app.google_storage_edi.filesystem: 'app_google_storage_edi'
+    app.google_storage_quality_image.filesystem: 'app_google_storage_quality_image'
+    app.google_storage_export.filesystem: 'app_google_storage_export'
+    app.google_storage_generic.filesystem: 'app_google_storage_generic'
+    app.local.filesystem: 'app_local'
+    app.local_var.filesystem: 'app_local_var'
+
+knp_gaufrette:
+    adapters:
+        app_google_storage_transmission:
+            google_cloud_storage:
+                service_id: 'app.google_cloud_storage.service'
+                bucket_name: '%google_cloud_transmission_bucket%'
+        app_google_storage_media:
+            google_cloud_storage:
+                service_id: 'app.google_cloud_storage.service'
+                bucket_name: '%google_cloud_media_bucket%'
+        app_google_storage_invoice:
+            google_cloud_storage:
+                service_id: 'app.google_cloud_storage.service'
+                bucket_name: '%google_cloud_invoice_bucket%'
+        app_google_storage_edi:
+            google_cloud_storage:
+                service_id: 'app.google_cloud_storage.service'
+                bucket_name: '%google_cloud_erp_bucket%'
+        app_google_storage_quality_image:
+            google_cloud_storage:
+                service_id: 'app.google_cloud_storage.service'
+                bucket_name: '%google_cloud_quality_image_bucket%'
+        app_google_storage_generic:
+            google_cloud_storage:
+                service_id: 'app.google_cloud_storage.service'
+                bucket_name: '%google_cloud_generic_bucket%'
+        app_google_storage_export:
+            google_cloud_storage:
+                service_id: 'app.google_cloud_storage.service'
+                bucket_name: '%google_cloud_export_bucket%'
+        app_local:
+            local:
+                directory: '%kernel.project_dir%/src/Resources/private'
+                create: true
+        app_local_var:
+            local:
+                directory: '%kernel.project_dir%/var'
+                create: true
+    
+    filesystems:
+        app_google_storage_transmission:
+            adapter: '%app.google_storage_transmission.filesystem%'
+        app_google_storage_media:
+            adapter: '%app.google_storage_media.filesystem%'
+        app_google_storage_invoice:
+            adapter: '%app.google_storage_invoice.filesystem%'
+        app_google_storage_edi:
+            adapter: '%app.google_storage_edi.filesystem%'
+        app_google_storage_quality_image:
+            adapter: '%app.google_storage_quality_image.filesystem%'
+        app_google_storage_export:
+            adapter: '%app.google_storage_export.filesystem%'
+        app_google_storage_generic:
+            adapter: '%app.google_storage_generic.filesystem%'
+        app_local:
+            adapter: '%app.local.filesystem%'
+        app_local_var:
+            adapter: '%app.local_var.filesystem%'
+
+    stream_wrapper: ~

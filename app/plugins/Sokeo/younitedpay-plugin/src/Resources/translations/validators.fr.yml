@@ -1,0 +1,17 @@
+sokeo_sylius_younitedpay:
+    api_key_public_prod:
+        not_blank: La clé API publique de production est obligatoire.
+    api_key_private_prod:
+        not_blank: La clé API privée de production est obligatoire.
+    api_key_public_sandbox:
+        not_blank: La clé API publique de test est obligatoire.
+    api_key_private_sandbox:
+        not_blank: La clé API privée de test est obligatoire.
+    type:
+        not_blank: Type cannot be blank.
+    amount_min:
+        not_blank: Un montant minimum est obligatoire.
+    amount_max:
+        not_blank: Un montant maximum est obligatoire.
+    monthly_payments:
+        not_blank: Ce champ est obligatoire.

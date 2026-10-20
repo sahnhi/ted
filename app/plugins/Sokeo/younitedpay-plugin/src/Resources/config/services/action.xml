@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="Sokeo\SyliusYounitedpayPlugin\Payum\Action\CaptureAction" public="true">
+            <argument type="service" id="request_stack"/>
+            <argument type="service" id="session.flash_bag" />
+            <argument type="service" id="router" />
+            <argument type="string" key="$captureTemplateName">@Sokeo/capture.html.twig</argument>
+            <argument type="string" key="$errorTemplateName">@Sokeo/error.html.twig</argument>
+            <argument type="service" key="$reporting" id="app.sentry.reporting"/>
+            <argument type="service" key="$logger" id="logger"/>
+            <argument type="service" key="$smFactory" id="sm.factory"/>
+            <tag name="payum.action" factory="younitedpay" alias="payum.action.capture" />
+        </service>
+    </services>
+</container>

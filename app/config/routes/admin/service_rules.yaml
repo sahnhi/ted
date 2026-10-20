@@ -1,0 +1,13 @@
+sylius_admin_service_rules:
+    resource: |
+        alias: sylius.service_rules
+        section: admin
+        templates: SyliusAdminBundle:Crud
+        redirect: update
+        grid: sylius_admin_service_rules
+        vars:
+            all:
+                subheader: sylius.ui.service_rules_information
+            index:
+                icon: 'file image outline'
+    type: sylius.resource

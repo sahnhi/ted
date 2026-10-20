@@ -1,0 +1,7 @@
+App\View\FamiliarityListView:
+    exclusion_policy: ALL
+    properties:
+        items:
+            expose: true
+            type: array<App\View\FamiliarityView>
+            groups: [ 'familiarity.list' ]

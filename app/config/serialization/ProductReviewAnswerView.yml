@@ -1,0 +1,11 @@
+App\View\ProductReviewAnswerView:
+    properties:
+        question:
+            expose: true
+            groups: [ 'product_review.list', 'category_review.show' ]
+        answerCode:
+            expose: true
+            groups: [ 'product_review.list', 'category_review.show' ]
+        answer:
+            expose: true
+            groups: [ 'product_review.list', 'category_review.show' ]

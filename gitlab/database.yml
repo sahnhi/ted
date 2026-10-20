@@ -1,0 +1,69 @@
+include:
+    - local: '/gitlab/templates.yml'
+
+##### STAGE DATABASE #####
+.install_cloud_sql_proxy: &install_cloud_sql_proxy
+    - curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-$GCLOUD_SDK_VERSION-linux-x86_64.tar.gz
+    - tar -xf google-cloud-cli-$GCLOUD_SDK_VERSION-linux-x86_64.tar.gz
+    - ./google-cloud-sdk/install.sh -q
+    - source ./google-cloud-sdk/path.bash.inc
+    - wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O ./google-cloud-sdk/cloud_sql_proxy
+    - chmod +x ./google-cloud-sdk/cloud_sql_proxy
+
+.migration_template:
+    image:
+        name: $CI_REGISTRY_IMAGE/php:latest
+        pull_policy: always
+    stage: database
+    before_script:
+        - *install_cloud_sql_proxy
+        - !reference [.load_gcloud_configuration]
+        - !reference [.load_environment_variables]
+        - ./google-cloud-sdk/cloud_sql_proxy -quiet -instances=$GCLOUD_SQL_INSTANCE=tcp:0.0.0.0:3306&
+        - sleep 5
+        - export GOOGLE_SERVICE_ACCOUNT_CREDENTIAL_FILE=/app/config/client_credentials.json
+        - export MYSQL_HOST=0.0.0.0
+        - cd app
+
+.migration_migrate:
+    extends: .migration_template
+    when: manual
+    script:
+        - bin/console doctrine:migrations:migrate --no-interaction
+
+migration-migrate-demo:
+    extends: .migration_migrate
+    environment: demo
+    needs:
+        - vendor-prod
+    except:
+        - tags
+        - master
+        - staging
+        - hotfix
+        - product
+
+migration-migrate-staging:
+    extends: .migration_migrate
+    environment: staging
+    needs:
+        - vendor-prod
+    only:
+        - staging
+        - hotfix
+
+migration-migrate-product:
+    extends: .migration_migrate
+    environment: product
+    needs:
+        - vendor-prod
+    only:
+        - product
+
+migration-migrate-prod:
+    extends: .migration_migrate
+    environment: prod
+    needs:
+        - vendor-prod
+    only:
+        - tags

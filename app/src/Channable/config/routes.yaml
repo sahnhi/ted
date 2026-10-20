@@ -1,0 +1,63 @@
+app_admin_channable:
+    resource: |
+        alias: app.channable_file_log
+        section: admin
+        templates: '@SyliusAdmin\\Crud'
+        redirect: index
+        grid: app.channable_file_log
+        vars:
+          index:
+            icon: 'file image outline'
+    type: sylius.resource
+    prefix: /admin
+
+app_admin_channable_row:
+    resource: |
+        alias: app.channable_file_row
+        section: admin
+        templates: '@SyliusAdmin\\Crud'
+        redirect: index
+        except: ['show']
+        grid: app.channable_file_row
+        vars:
+          all:
+            subheader: app.ui.channable
+          index:
+            icon: 'file image outline'
+    type: sylius.resource
+    prefix: /admin
+
+app_admin_channable_row_show:
+    resource: |
+        alias: app.channable_file_row
+        section: admin
+        templates: '@ChannableTemplates/Row'
+        redirect: index
+        only: ['show']
+        grid: app.channable_file_row
+        vars:
+          all:
+            subheader: app.ui.channable
+          index:
+            icon: 'file image outline'
+    type: sylius.resource
+    prefix: /admin
+
+app_admin_channable_generate:
+    path: /admin/channable/generate
+    controller: App\Channable\Controller\ChannableGenerateAction
+    methods: [GET]
+
+app_admin_channable_export:
+    path: /admin/channable/generate/{id}
+    controller: App\Channable\Controller\ChannableGenerateAction::export
+    methods: [GET]
+
+app_admin_channable_enable:
+    path: /admin/channable/enable/{id}
+    controller: App\Channable\Controller\ChannableGenerateAction::enabled_file
+    methods: [GET]
+
+channable_annotations:
+    resource: "../src/Channable/Controller"
+    type: annotation

@@ -1,0 +1,32 @@
+sylius_admin_order_store:
+    resource: |
+        alias: sylius.order_store
+        section: admin
+        templates: SyliusAdminBundle:Crud
+        redirect: update
+        grid: sylius_admin_order_store
+        vars:
+            all:
+                subheader: sylius.ui.order_store_informations
+            index:
+                icon: 'file image outline'
+    type: sylius.resource
+
+sylius_admin_order_store_update:
+    path: /order-stores/{id}/edit
+    methods: [ GET, PUT ]
+    defaults:
+        _controller: sylius.controller.order_store:updateAction
+        _sylius:
+            redirect: sylius_admin_order_store_index
+            section: admin
+            permission: true
+            form: App\Form\Type\OrderStore\LinkType
+            template: "SyliusAdminBundle:Crud:update.html.twig"
+
+sylius_quotation_admin_resend:
+    path: /order-stores/{id}/resend
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Admin\Action\ResendQuotationAction
+

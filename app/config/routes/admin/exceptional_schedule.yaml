@@ -1,0 +1,15 @@
+sylius_admin_exceptional_schedule:
+    resource: |
+        alias: sylius.exceptional_schedule
+        section: admin
+        templates: SyliusAdminBundle:Crud
+        redirect: update
+        grid: sylius_admin_exceptional_schedule
+        vars:
+            all:
+                subheader: sylius.ui.exceptional_schedule_information
+                templates:
+                    form: "Admin/ExceptionalSchedule/_form.html.twig"
+            index:
+                icon: 'file image outline'
+    type: sylius.resource

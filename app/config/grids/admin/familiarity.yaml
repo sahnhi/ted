@@ -1,0 +1,46 @@
+sylius_grid:
+    grids:
+        sylius_admin_familiarity:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\Familiarity
+            fields:
+                wording:
+                    type: string
+                    label: sylius.ui.name
+                    sortable: translation.name
+                enabled:
+                    type: twig
+                    label: sylius.ui.enabled
+                    options:
+                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    enabled:
+                        type: default
+                        label: sylius.ui.enable
+                        icon: 'toggle on'
+                        options:
+                            link:
+                                route: sylius_admin_familiarity_enabled
+                                invisible: resource.enabled
+                                parameters:
+                                    id: resource.id
+                    disabled:
+                        type: default
+                        label: sylius.ui.disable
+                        icon: 'toggle off'
+                        options:
+                            link:
+                                route: sylius_admin_familiarity_enabled
+                                visible: resource.enabled
+                                parameters:
+                                    id: resource.id
+                    update:
+                        type: update
+                    delete:
+                        type: delete

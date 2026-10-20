@@ -1,0 +1,5 @@
+App\Calendar\ViewModels\CalendarSlots:
+    attributes:
+        calendarSlots:
+            groups:
+                - shop:order:calendar:autonomous-return

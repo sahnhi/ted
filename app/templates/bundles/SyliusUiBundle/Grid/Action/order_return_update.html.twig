@@ -1,0 +1,10 @@
+{% import '@SyliusUi/Macro/buttons.html.twig' as buttons %}
+
+{% set class = options.class is defined ? options.class : '' %}
+{% if data.orderReturn is null %}
+    {% set path = options.link.url|default(path(options.link.route, options.link.parameters|default({'id': data.id}))) %}
+    {{ buttons.default(path, action.label, null, action.icon, class) }}
+{% else %}
+    {% set path = options.link.url|default(path('sylius_admin_order_return_update', {'id': data.orderReturn.id})) %}
+    {{ buttons.default(path, action.label, null, action.icon, class) }}
+{% endif %}

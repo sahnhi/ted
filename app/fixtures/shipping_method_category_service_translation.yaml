@@ -1,0 +1,18 @@
+App\Doctrine\Entity\ShippingMethodCategoryServiceTranslation:
+    shipping_method_category_eco_service_assembly_translation:
+        translatable: '@shipping_method_category_eco_service_assembly'
+        name: 'Assemblage Eco'
+        description: 'Lorem Ipsum'
+        locale: 'fr_FR'
+        
+    shipping_method_category_eco_service_recuperation_translation:
+        translatable: '@shipping_method_category_eco_service_recuperation'
+        name: 'Récupération Eco'
+        description: 'Lorem Ipsum'
+        locale: 'fr_FR'
+
+    shipping_method_category_eco_service_assembly_restricted_translation:
+        translatable: '@shipping_method_category_eco_service_assembly_restricted'
+        name: 'Assemblage Eco Restreint'
+        description: 'Lorem Ipsum'
+        locale: 'fr_FR'

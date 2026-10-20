@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    app.admin.order_export:
+        class: App\Services\Admin\Export\OrderExport
+        public: true
+        arguments:
+            $objectManager: '@doctrine.orm.default_entity_manager'

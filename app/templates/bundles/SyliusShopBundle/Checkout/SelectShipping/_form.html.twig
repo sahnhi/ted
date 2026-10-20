@@ -1,0 +1,48 @@
+{# BEGIN CUSTOM TEMPLATE #}
+{% for error in form.vars.errors.form.getErrors(true) %}
+    <div class="ui negative message">
+        <i class="close icon"></i>
+        <div class="header">
+            {{ error.message }}
+        </div>
+    </div>
+{% endfor %}
+
+{{ form_row(form.shippingMethodCategory) }}
+
+<div class="ui two column grid">
+    <div class="column"></div>
+    <div class="right aligned column">
+        <a class="positive ui button" id="refreshCalendarBtn">
+            {{ 'app.ui.shipping_method_category.submit_selected_category'|trans }}
+        </a>
+    </div>
+</div>
+
+<div id="calendar-component" class="ui grid stackable hid">
+    <label class="ten wide computer sixteen wide tablet column required text-uppercase">{{ 'sylius.ui.delivery-date'|trans }}
+        <div id="delivery-date" data-language="fr" class="my-5"></div>
+        <div id="calendar-loading" class="centered text-center" style="display: none;">
+            <img src="{{ asset('assets/shop/img/calendar-loading.gif') }}" alt="">
+            <p>{{ 'sylius.ui.calendar-loading'|trans }}</p>
+        </div>
+    </label>
+    <label class="six wide computer sixteen wide tablet column required text-uppercase">{{ 'sylius.ui.calendar-slots'|trans }}
+        <div id="providers" class="ui grid providers" data-only-slot="{{ 'sylius.ui.only-slot'|trans }}"></div>
+        <div id="slot-loading" class="centered text-center" style="display: none;">
+            <p>{{ 'sylius.ui.calendar-slots-loading'|trans }}</p>
+        </div>
+        <div id="error" class="d-hide">
+            <p class="mt-5">
+                Oups... <br><br>
+                <span class="text-error"></span>
+                <strong class="empty-error d-hide">{{ 'sylius.ui.error.no-provider'|trans }}</strong>
+                <strong class="found-error d-hide">{{ 'sylius.ui.error.no-response'|trans }}</strong>
+            </p>
+        </div>
+    </label>
+</div>
+
+{# END CUSTOM TEMPLATE #}
+{{ form_row(form.shipments) }}
+

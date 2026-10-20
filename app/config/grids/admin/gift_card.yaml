@@ -1,0 +1,29 @@
+sylius_grid:
+    grids:
+        setono_sylius_gift_card_admin_gift_card:
+            actions:
+                item:
+                    resend_email:
+                        type: gift_card_resend_email
+                        enabled: false
+                subitem:
+                    resend_email:
+                        type: links
+                        label: setono_sylius_gift_card.ui.resend_email
+                        options:
+                            visible: resource.hasOrderOrCustomer
+                            links:
+                                to_sender:
+                                    label: sylius.ui.gift_card.email.to_sender
+                                    route: sylius_gift_card_plugin_confirmation_email_resend
+                                    parameters:
+                                        id: resource.id
+                                        recipient: 0
+                                to_recipient:
+                                    label: sylius.ui.gift_card.email.to_recipient
+                                    route: sylius_gift_card_plugin_confirmation_email_resend
+                                    parameters:
+                                        id: resource.id
+                                        recipient: 1
+
+

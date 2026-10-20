@@ -1,0 +1,12 @@
+# This file has to stay because if I inject automatically the Repository folder (cf ./default.yaml::20)
+# I get errors on repositories to inject Metadata class
+# So far I have not been able to find a way to inject it correctly for ProductVariantRepository
+# @todo: find a way to inject those repositories (ProductVariantRepository and others) correctly
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Doctrine\Repository\OrderItemLogisticRepository:
+
+    App\Doctrine\Repository\CounterRepository:

@@ -1,0 +1,21 @@
+sylius_admin_reason:
+    resource: |
+        alias: sylius.reason
+        section: admin
+        templates: SyliusAdminBundle:Crud
+        redirect: update
+        grid: sylius_admin_reason
+        vars:
+            all:
+                subheader: sylius.form.reason.information
+            index:
+                icon: 'file image outline'
+    type: sylius.resource
+
+sylius_admin_reason_placeholder:
+    path: /reason/placeholder/{id}
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.reason:placeholderAction
+    options:
+        expose: true

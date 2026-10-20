@@ -1,0 +1,26 @@
+##
+## ----- Composer commands -----
+##
+
+node_modules: package.json
+	@$(NPM_CMD) install
+
+.PHONY: composer-install
+composer-install: ## Install composer dependencie. Eg : make composer-install COMPOSER_OPTIONS=--dry-drun
+	@$(COMPOSER_CMD_INSTALL) $(COMPOSER_OPTIONS)
+
+.PHONY: composer-require
+composer-require: ## Updates composer dependencies. Eg : make composer-require COMPOSER_OPTIONS=-W DEP="your/plugin v1.0.0"
+	@$(COMPOSER_CMD_REQUIRE) $(COMPOSER_OPTIONS) $(DEP)
+
+.PHONY: composer-update
+composer-update: ## Updates composer dependencies. Eg : make composer-update COMPOSER_OPTIONS=-W DEP="your/plugin v1.0.0"
+	$(COMPOSER_CMD_UPDATE) $(COMPOSER_OPTIONS) $(DEP)
+
+.PHONY: composer-validate
+composer-validate: ## Checks if composer.json is valid, recommended before committing .lock changes, especially in case of merge
+	@$(COMPOSER_CMD) validate $(COMPOSER_OPTIONS)
+
+.PHONY: composer-remove
+composer-remove: ## Removes composer dependencies. Eg : make composer-remove COMPOSER_OPTIONS=-W DEP="your/plugin v1.0.0"
+	$(COMPOSER_CMD_REMOVE) $(COMPOSER_OPTIONS) $(DEP)

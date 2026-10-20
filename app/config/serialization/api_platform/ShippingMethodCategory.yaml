@@ -1,0 +1,33 @@
+App\Doctrine\Entity\ShippingMethodCategory:
+    attributes:
+        code:
+            groups:
+                - shop:shipping-method-category:read
+                - shop:cart:select_shipping_method
+                - shop:cart:read
+        shippingMethods:
+            groups:
+                - shop:shipping-method-category:read
+        includedServicesValues:
+            serialized_name: 'includedServices'
+            groups:
+                - shop:shipping-method-category:read
+        paidServicesValues:
+            serialized_name: 'paidServices'
+            groups:
+                - shop:shipping-method-category:read
+        enabledClaims:
+            groups:
+                - shop:shipping-method-category:read
+        pushedClaims:
+            groups:
+                - shop:shipping-method-category:read
+                - shop:cart:read
+        lowestPrice:
+            groups:
+                - shop:shipping-method-category:read
+        translations:
+            groups:
+                - shop:shipping-method-category:read
+                - shop:cart:select_shipping_method
+                - shop:cart:read

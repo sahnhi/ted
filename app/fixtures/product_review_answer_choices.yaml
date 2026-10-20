@@ -1,0 +1,6 @@
+App\Doctrine\Entity\ProductReviewAnswerChoices:
+    product_review_answer_choice_back_problem:
+        code: 'backProblem'
+        translations: ['@product_review_answer_choice_back_problem_translation']
+        questions: ['@product_review_question_1']
+

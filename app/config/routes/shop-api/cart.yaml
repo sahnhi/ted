@@ -1,0 +1,63 @@
+shop_api_cart_pickup:
+    path: /carts
+    methods: [ POST ]
+    defaults:
+        _controller: App\Controller\Api\Cart\PickupAction
+
+shop_api_cart_summary:
+    path: /carts/{token}
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Api\Cart\SummarizeAction
+    requirements:
+        token: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}|.{10}$
+
+shop_api_cart_summary_number_email:
+    path: /carts/{email}/{number}
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Api\Cart\SummarizeAction
+
+shop_api_cart_put:
+    path: /carts/{token}/items
+    methods: [ POST ]
+    defaults:
+        _controller: App\Controller\Api\Cart\PutItemsAction
+
+shop_api_cart_remove_item:
+    path: /carts/{token}/items/{id}
+    methods: [ DELETE ]
+    defaults:
+        _controller: App\Controller\Api\Cart\RemoveItemAction
+
+shop_api_cart_change_item_quantity:
+    path: /carts/{token}/items/{id}
+    methods: [ PUT ]
+    defaults:
+        _controller: App\Controller\Api\Cart\ChangeItemQuantityAction
+
+shop_api_cart_drop:
+    path: /carts/{token}
+    methods: [ DELETE ]
+    defaults:
+        _controller: App\Controller\Api\Cart\DropAction
+    requirements:
+        token: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}|.{10}$
+
+shop_api_cart_coupon_add:
+    path: /carts/{token}/coupon
+    methods: [ PUT ]
+    defaults:
+        _controller: App\Controller\Api\Cart\AddCouponAction
+
+shop_api_cart_coupon_remove:
+    path: /carts/{token}/coupon
+    methods: [ DELETE ]
+    defaults:
+        _controller: App\Controller\Api\Cart\RemoveCouponAction
+
+shop_api_sponsor:
+    path: /carts/{token}/sponsor
+    methods: [ POST ]
+    defaults:
+        _controller: App\Controller\Api\Cart\Sponsor\SponsorAction

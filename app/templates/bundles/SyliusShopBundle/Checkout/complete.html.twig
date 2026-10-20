@@ -1,0 +1,84 @@
+{% extends '@SyliusShop/Checkout/layout.html.twig' %}
+
+{% form_theme form '@SyliusUi/Form/theme.html.twig' %}
+
+{% block content %}
+    {% include '@SyliusShop/Checkout/_steps.html.twig' with {'active': 'complete', 'orderTotal': order.total} %}
+
+    {{ sonata_block_render_event('sylius.shop.checkout.complete.after_steps', {'order': order}) }}
+
+    <div class="ui padded segment">
+        {% include '@SyliusShop/Checkout/Complete/_header.html.twig' %}
+
+        {{ sonata_block_render_event('sylius.shop.checkout.complete.after_content_header', {'order': order}) }}
+
+        {% include '@SyliusShop/_flashes.html.twig' %}
+
+        {{ form_start(form, {'action': path('sylius_shop_checkout_complete'), 'attr': {'class': 'ui loadable form', 'novalidate': 'novalidate'}}) }}
+        {{ form_errors(form) }}
+        <input type="hidden" name="_method" value="PUT" />
+
+        {{ sonata_block_render_event('sylius.shop.checkout.complete.before_summary', {'order': order, 'form': form}) }}
+
+        {% include '@SyliusShop/Common/Order/_summary.html.twig' %}
+
+        {{ sonata_block_render_event('sylius.shop.checkout.complete.after_summary', {'order': order}) }}
+
+        <div class="ui hidden divider"></div>
+        {% include '@SyliusShop/Checkout/Complete/_form.html.twig' %}
+
+        {# BEGIN CUSTOM TEMPLATE #}
+        <div class="ui two column grid">
+            <div class="column">
+                {{ form_row(form.orderStore.store) }}
+            </div>
+            <div class="column">
+                {{ form_row(form.orderStore.seller) }}
+                {{ form_row(form.orderStore.order) }}
+            </div>
+        </div>
+        <div class="ui hidden divider"></div>
+        {# END CUSTOM TEMPLATE #}
+
+        {{ sonata_block_render_event('sylius.shop.checkout.complete.before_navigation', {'order': order}) }}
+
+        {% include '@SyliusShop/Checkout/Complete/_navigation.html.twig' %}
+
+        {{ form_row(form._token) }}
+        {{ form_end(form, {'render_rest': false}) }}
+    </div>
+{% endblock %}
+
+{# BEGIN CUSTOM TEMPLATE #}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            jQuery('#sylius_checkout_complete_orderStore_store').on('change', function(event) {
+                jQuery('#sylius_checkout_complete_orderStore_seller optgroup').each(function(index, el) {
+                    if (jQuery('#sylius_checkout_complete_orderStore_store').val() === "" || el.getAttribute('label') === jQuery('#sylius_checkout_complete_orderStore_store option:selected').html() || el.getAttribute('label') === 'Autres') {
+                        if( ($(this).parent().is('span')) ) $(this).unwrap();
+                    } else {
+                        if( !($(this).parent().is('span')) ) {
+                            $(this).wrap('<span>');
+                            $(this).parent().addClass('d-hide');
+                        }
+                    }
+                });
+            });
+
+            $('#sylius_checkout_complete_orderStore_store, #sylius_checkout_complete_orderStore_seller').on('change', function(){
+                if ($('#sylius_checkout_complete_orderStore_store').val() !== '' && $('#sylius_checkout_complete_orderStore_seller').val() !== '') {
+                    $('form[name="sylius_checkout_complete"] button[type="submit"]').prop('disabled', false);
+                } else {
+                    $('form[name="sylius_checkout_complete"] button[type="submit"]').prop('disabled', true);
+                }
+            });
+
+            if ($('#sylius_checkout_complete_orderStore_store option').length > 1) {
+                $('form[name="sylius_checkout_complete"] button[type="submit"]').prop('disabled', true);
+            }
+        });
+    </script>
+{% endblock %}
+{# END CUSTOM TEMPLATE #}

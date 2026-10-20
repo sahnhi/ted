@@ -1,0 +1,26 @@
+sylius_grid:
+    grids:
+        sylius_admin_customer_order:
+            extends: sylius_admin_order
+            driver:
+                options:
+                    repository:
+                        method: createByCustomerIdQueryBuilder
+                        arguments:
+                            customerId: $id
+            filters:
+                customer:
+                    type: string
+                    enabled: false
+            actions:
+                bulk:
+                    export:
+                        type: export
+                        label: Export CSV
+                        options:
+                            link:
+                                route: sylius_admin_customer_order_export
+                                parameters:
+                                    id: $id
+                                    export: csv
+                                    criteria: "expr:service('request_stack').getCurrentRequest().get('criteria', [])"

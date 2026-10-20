@@ -1,0 +1,7 @@
+Sylius\Component\Taxation\Model\TaxCategory:
+    tva:
+        code: 'TVA'
+        name: 'TVA'
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+        

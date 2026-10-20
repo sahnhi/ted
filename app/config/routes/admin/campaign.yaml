@@ -1,0 +1,37 @@
+app_admin_campaign:
+    resource: |
+        alias: app.campaign
+        section: admin
+        templates: "@SyliusAdmin\\Crud"
+        redirect: update
+        grid: app_campaign
+        vars:
+            all:
+                subheader: app.ui.campaigns
+                templates:
+                    form: "@SyliusAdmin/Campaigns/Form/_form.html.twig"
+            index:
+                icon: 'file image outline'
+    type: sylius.resource
+    prefix: admin
+
+app_admin_campaign_bloc:
+    resource: |
+        alias: app.campaign_bloc
+        section: admin
+        templates: "@SyliusAdmin\\Crud"
+        redirect: update
+        grid: app_campaign_bloc
+        vars:
+            all:
+                header: app.ui.bloc_campaign.admin.header
+                subheader: app.ui.bloc_campaign.admin.subheader
+                templates:
+                    form: "@SyliusAdmin/CampaignBloc/Form/_form.html.twig"
+    type: sylius.resource
+    prefix: admin
+
+app_admin_campaign_add_variant:
+    path: /admin/campaigns/add-variant
+    controller: App\Controller\Admin\CampaignsController::addVariantAction
+    methods: [POST]

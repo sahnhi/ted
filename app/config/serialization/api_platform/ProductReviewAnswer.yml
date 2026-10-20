@@ -1,0 +1,9 @@
+App\Doctrine\Entity\ProductReviewAnswer:
+    attributes:
+        answer:
+            groups:
+                - admin:product_review:read
+        answerChoices:
+            type: array<App\Doctrine\Entity\ProductReviewAnswerChoices>
+            groups: 
+                - admin:product_review:read

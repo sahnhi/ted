@@ -1,0 +1,527 @@
+sylius_resource:
+    resources:
+        sylius.pack:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\Pack
+                form: App\Form\Type\PackType
+                repository: App\Doctrine\Repository\PackRepository
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\PackTranslation
+                    form: App\Form\Type\PackTranslationType
+
+        sylius.familiarity:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\Familiarity
+                form: App\Form\Type\FamiliarityType
+                controller: App\Controller\Admin\FamiliarityController
+                repository: App\Doctrine\Repository\FamiliarityRepository
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\FamiliarityTranslation
+                    form: App\Form\Type\FamiliarityTranslationType
+
+        sylius.product_review_question:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ProductReviewQuestion
+                form: App\Form\Type\ProductReviewQuestionType
+                controller: App\Controller\ProductReviewQuestion\ProductReviewQuestionController
+                repository: App\Doctrine\Repository\ProductReviewQuestionRepository
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\ProductReviewQuestionTranslation
+                    form: App\Form\Type\ProductReviewQuestionTranslationType
+
+        sylius.product_option_value_locale_default:
+            driver: doctrine/orm
+            classes:
+                model: "%sylius.model.product.class%"
+                form: App\Form\Type\ProductOptionLocaleDefaultType
+                controller: App\Controller\ProductOptionValueLocaleDefault\ProductOptionValueLocaleDefaultController
+
+        sylius.seller:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\Seller
+                form: App\Form\Type\OrderStore\SellerType
+                repository: App\Doctrine\Repository\SellerRepository
+
+        sylius.store:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\Store
+                repository: App\Doctrine\Repository\StoreRepository
+                form: App\Form\Type\OrderStore\StoreType
+
+        sylius.product_combo:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ProductCombo
+                repository: App\Doctrine\Repository\ProductComboRepository
+                form: App\Form\Type\ProductComboType
+
+        sylius.order_store:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\OrderStore
+                repository: App\Doctrine\Repository\OrderStoreRepository
+                form: App\Form\Type\OrderStore\OrderStoreType
+                controller: App\Controller\Admin\OrderStoreController
+
+        sylius.commission:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\Commission
+                form: App\Form\Type\Commission\CommissionType
+                controller: App\Controller\Admin\CommissionController
+        sylius.reason:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\Reason
+                form: App\Form\Type\Reason\ReasonType
+                controller: App\Controller\Admin\ReasonController
+                repository: App\Doctrine\Repository\ReasonRepository
+
+        sylius.reason_group:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ReasonGroup
+
+        sylius.transmission:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\Transmission
+                repository: App\Doctrine\Repository\TransmissionRepository
+
+        sylius.warehouse:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\Warehouse
+                form: App\Form\Type\WarehouseType
+                repository: App\Doctrine\Repository\WarehouseRepository
+
+        sylius.shipping_stock:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ShippingStock
+
+        sylius.payment_method_rule:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\PaymentMethodRule
+                form: App\Form\Type\PaymentMethodRuleType
+
+        sylius.service_rules:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ServiceRules
+                form: App\Form\Type\ServiceRulesType
+                repository: App\Doctrine\Repository\ServiceRulesRepository
+                controller: App\Controller\Admin\ServiceRulesController
+
+        sylius.shipping_category:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\Sylius\ShippingCategory
+                form: App\Form\Type\ShippingCategoryType
+                repository: App\Doctrine\Repository\Sylius\ShippingCategoryRepository
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\ShippingCategoryTranslation
+
+        sylius.zip_code:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ZipCode
+                form: App\Form\Type\ZipCodeType
+
+        sylius.exceptional_schedule:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ExceptionalSchedule
+                form: App\Form\Type\ExceptionalScheduleType
+                repository: App\Doctrine\Repository\ExceptionalScheduleRepository
+                controller: App\Controller\Admin\ExceptionalScheduleController
+
+        sylius.zone_extended:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\Sylius\Zone
+                repository: App\Doctrine\Repository\ZoneRepository
+                controller: App\Controller\Admin\ZoneController
+
+        sylius.zone_member:
+            driver: doctrine/orm
+            classes:
+                model: Sylius\Component\Addressing\Model\ZoneMember
+                repository: App\Doctrine\Repository\ZoneMemberRepository
+
+        sylius.order_outofstock:
+            driver: doctrine/orm
+            classes:
+                controller: App\Controller\Admin\OrderOutOfStockController
+                model: App\Doctrine\Entity\OrderOutOfStock
+                repository: App\Doctrine\Repository\OrderOutOfStockRepository
+                form: App\Form\Type\OrderOutOfStockType
+
+        sylius.order_vip:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\OrderVip
+
+        sylius.ecotax:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\Ecotax
+                form: App\Form\Type\EcotaxType
+
+        sylius.product_review_answer_choices:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ProductReviewAnswerChoices
+                form: App\Form\Type\ProductReviewAnswerChoicesType
+                controller: App\Controller\ProductReviewAnswerChoices\ProductReviewAnswerChoicesController
+                repository: App\Doctrine\Repository\ProductReviewAnswerChoicesRepository
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\ProductReviewAnswerChoicesTranslation
+                    form: App\Form\Type\ProductReviewAnswerChoicesTranslationType
+
+        sylius.product_variant_ecotax:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ProductVariantEcotax
+
+        sylius.product_taxon:
+            driver: doctrine/orm
+            classes:
+                controller: Sylius\Bundle\CoreBundle\Controller\ProductTaxonController
+                model: Sylius\Component\Core\Model\ProductTaxon
+                repository: App\Doctrine\Repository\Sylius\ProductTaxonRepository
+
+        sylius.product_review_answer:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ProductReviewAnswer
+                repository: App\Doctrine\Repository\ProductReviewAnswerRepository
+
+        sylius.order_return:
+            driver: doctrine/orm
+            classes:
+                controller: App\Controller\Admin\OrderReturnController
+                model: App\Doctrine\Entity\OrderReturn
+                form: App\Form\Type\OrderReturn\OrderReturnType
+
+        app.order_return_logistic:
+            driver: doctrine/orm
+            classes:
+                controller: App\Controller\Admin\OrderReturnController
+                model: App\Doctrine\Entity\OrderReturn
+                form: App\Form\Type\OrderReturn\OrderReturnType
+
+        sylius.order_return_status:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\OrderReturnStatus
+                form: App\Form\Type\OrderReturn\OrderReturnStatusType
+
+        sylius.order_return_item:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\OrderReturnItem
+
+        app.quality:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\Quality
+                repository: App\Doctrine\Repository\QualityRepository
+                form: App\Form\Type\QualityType
+                factory: App\Factory\QualityFactory
+                controller: App\Controller\Admin\QualityController
+
+        app.quality_image:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\QualityImage
+                form: App\Form\Type\QualityImageType
+
+        app.bundle_association:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\BundleAssociation
+                form: App\Form\Type\BundleAssociationType
+
+        app.product_google_rss:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ProductGoogleRss
+                form: App\Form\Type\ProductGoogleRssType
+                repository: App\Doctrine\Repository\ProductGoogleRssRepository
+
+        app.ask_review_template:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\AskReviewTemplate
+                repository: App\Doctrine\Repository\AskReviewTemplateRepository
+
+        app.invoice:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\Invoice
+                repository: App\Doctrine\Repository\InvoiceRepository
+
+        app.admin_parameter:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\AdminParameter
+                repository: App\Doctrine\Repository\AdminParameterRepository
+
+        app.bundle_generator:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\BundleGenerator
+                controller: App\Controller\Admin\BundleGeneratorController
+                factory: App\Factory\BundleGeneratorFactory
+
+        app.product_feed_file:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ProductFeedFile
+                repository: App\Doctrine\Repository\ProductFeedFileRepository
+                form: App\Form\Type\ProductFeedFile\ProductFeedFileType
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\ProductFeedFileTranslation
+                    form: App\Form\Type\ProductFeedFile\ProductFeedFileTranslationType
+
+        app.product_feed_file_importer:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ProductFeedFileImporter
+                repository: App\Doctrine\Repository\ProductFeedFileImporterRepository
+
+        app.product_feed_file_additional_images:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ProductFeedFileAdditionalImages
+                form: App\Form\Type\ProductFeedFile\ProductFeedFileAdditionalImagesType
+
+        app.product_cms_tags:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ProductCMSTags
+                form: App\Form\Type\ProductCMSTagsType
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\ProductCMSTagsTranslation
+                    form: App\Form\Type\ProductCMSTagsTranslationType
+
+        app.product_cms_claims:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ProductCMSClaims
+                form: App\Form\Type\ProductCMS\ProductCMSClaimsType
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\ProductCMSClaimsTranslation
+                    form: App\Form\Type\ProductCMS\ProductCMSClaimsTranslationType
+
+        app.rtb_infos:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\RtbInfos
+                form: App\Form\Type\RtbInfosType
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\RtbInfosTranslation
+                    form: App\Form\Type\RtbInfosTranslationType
+
+        app.product_cms:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ProductCMS
+                form: App\Form\Type\ProductCMS\ProductCMSType
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\ProductCMSTranslation
+                    form: App\Form\Type\ProductCMS\ProductCMSTranslationType
+
+        app.product_cms_technical_infos:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ProductCMSTechnicalInfos
+                form: App\Form\Type\ProductCMS\ProductCMSTechnicalInfosType
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\ProductCMSTechnicalInfosTranslations
+                    form: App\Form\Type\ProductCMS\ProductCMSTechnicalInfosTranslationsType
+
+        app.product_cms_technical_details:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ProductCMSTechnicalDetails
+                form: App\Form\Type\ProductCMS\ProductCMSTechnicalDetailsType
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\ProductCMSTechnicalDetailsTranslations
+                    form: App\Form\Type\ProductCMS\ProductCMSTechnicalDetailsTranslationsType
+
+        app.product_cms_focus:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ProductCMSFocus
+                form: App\Form\Type\ProductCMSFocusType
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\ProductCMSFocusTranslations
+                    form: App\Form\Type\ProductCMSFocusTranslationsType
+
+        app.product_cms_focus_details:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ProductCMSFocusDetails
+                form: App\Form\Type\ProductCMSFocusDetailsType
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\ProductCMSFocusDetailsTranslations
+                    form: App\Form\Type\ProductCMSFocusDetailsTranslationsType
+
+        app.product_cms_faq:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ProductCMSFaq
+                form: App\Form\Type\ProductCMS\ProductCMSFaqType
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\ProductCMSFaqTranslations
+                    form: App\Form\Type\ProductCMS\ProductCMSFaqTranslationType
+
+        app.product_cms_faq_question:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ProductCMSFaqQuestion
+                form: App\Form\Type\ProductCMS\ProductCMSFaqQuestionType
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\ProductCMSFaqQuestionTranslations
+                    form: App\Form\Type\ProductCMS\ProductCMSFaqQuestionTranslationType
+
+        sylius.channel_pricing:
+            classes:
+                model: App\Doctrine\Entity\Sylius\ChannelPricing
+                repository: App\Doctrine\Repository\Sylius\ChannelPricingRepository
+
+        app.promotion_category:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\PromotionCategory
+                form: App\Form\Type\PromotionCategory\PromotionCategoryType
+                repository: App\Doctrine\Repository\PromotionCategoryRepository
+
+        app.campaign:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\Campaigns\Campaign
+                form: App\Form\Type\Campaigns\CampaignType
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\Campaigns\CampaignTranslations
+                    form: App\Form\Type\Campaigns\CampaignTranslationsType
+
+        app.campaign_bloc:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\Campaigns\Bloc
+                form: App\Form\Type\Campaigns\BlocType
+
+        app.bloc_variants:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\Campaigns\Bloc\Variant
+                form: App\Form\Type\Campaigns\Bloc\VariantsType
+
+        app.bloc_focus:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\Campaigns\Bloc\Focus
+                form: App\Form\Type\Campaigns\Bloc\FocusType
+
+        app.campaign_bloc_display:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\Campaigns\Bloc\CampaignBlocDisplay
+                form: App\Form\Type\Campaigns\Bloc\CampaignBlocDisplayType
+
+        app.export_accounting_data:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ExportAccountingData
+                form: App\Form\Type\ExportAccountingDataType
+        
+        app.product_cms_sizing_guide:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ProductCMSSizingGuide
+                form: App\Form\Type\ProductCMS\ProductCMSSizingGuideType
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\ProductCMSSizingGuideTranslation
+                    form: App\Form\Type\ProductCMS\ProductCMSSizingGuideTranslationType
+
+        app.product_cms_sizing_guide_item:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ProductCMSSizingGuideItem
+                form: App\Form\Type\ProductCMS\ProductCMSSizingGuideItemType
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\ProductCMSSizingGuideItemTranslation
+                    form: App\Form\Type\ProductCMS\ProductCMSSizingGuideItemTranslationType
+
+        app.satellite_page:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\SatellitePages\SatellitePage
+                form: App\Form\Type\SatellitePages\SatellitePageType
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\SatellitePages\SatellitePageTranslation
+                    form: App\Form\Type\SatellitePages\SatellitePageTranslationType
+
+        app.satellite_page_technical_details:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\SatellitePages\TechnicalDetail
+                form: App\Form\Type\SatellitePages\TechnicalDetailType
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\SatellitePages\TechnicalDetailTranslation
+                    form: App\Form\Type\SatellitePages\TechnicalDetailTranslationType
+
+        app.satellite_page_claim:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\SatellitePages\Claim
+                form: App\Form\Type\SatellitePages\ClaimType
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\SatellitePages\ClaimTranslation
+                    form: App\Form\Type\SatellitePages\ClaimTranslationType
+
+        app.satellite_page_technical_info:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\SatellitePages\TechnicalInfo
+                form: App\Form\Type\SatellitePages\TechnicalInfoType
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\SatellitePages\TechnicalInfoTranslation
+                    form: App\Form\Type\SatellitePages\TechnicalInfoTranslationType
+        app.shipping_method_group:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ShippingMethodGroup
+                form: App\Form\Type\ShippingMethodGroup\ShippingMethodGroupType

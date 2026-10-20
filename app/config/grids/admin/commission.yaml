@@ -1,0 +1,25 @@
+sylius_grid:
+    grids:
+        sylius_admin_commission:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\Commission
+            fields:
+                product:
+                    type: string
+                    label: sylius.ui.product
+                commission:
+                    type: twig
+                    label: sylius.ui.commission
+                    options:
+                        template: "@SyliusUi/Grid/Field/_commission.html.twig"
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete

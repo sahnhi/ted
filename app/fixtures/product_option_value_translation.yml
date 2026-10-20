@@ -1,0 +1,8 @@
+App\Doctrine\Entity\Sylius\ProductOptionValueTranslation:
+    mattress_size_value_translatable:
+        translatable: '@mattress_size_value'
+        value: '140 cm x 190 cm x 25 cm'
+        locale: 'fr_FR'
+        help: ''
+        description: '140 cm x 190 cm'
+        optgroup: 1

@@ -1,0 +1,8 @@
+App\Model\Logistic\PickUp\PickUpPoints:
+    attributes:
+        points:
+            groups: [ 'shop:order:pickup' ]
+        shippingMethodCode:
+            groups: [ 'shop:order:pickup' ]
+        shippingMethodId:
+            groups: [ 'shop:order:pickup' ]

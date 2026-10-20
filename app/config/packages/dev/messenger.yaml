@@ -1,0 +1,113 @@
+parameters:
+    messenger_transport_dsn: 'redis://redis:6379'
+    messenger_max_retries: 3
+    messenger_retry_strategy_delay: 1000
+
+framework:
+    messenger:
+        failure_transport: failed
+        transports:
+            # Uncomment the following line to enable a transport named "amqp"
+            mail:
+                dsn: '%messenger_transport_dsn%/mail' # for local environment only
+                retry_strategy:
+                    max_retries: '%messenger_max_retries%'
+                    delay: '%messenger_retry_strategy_delay%'
+                    multiplier: 2
+                    max_delay: 0
+            drip:
+                dsn: '%messenger_transport_dsn%/drip' # for local environment only
+                retry_strategy:
+                    max_retries: '%messenger_max_retries%'
+                    delay: '%messenger_retry_strategy_delay%'
+                    multiplier: 2
+                    max_delay: 0
+            captainmetrics:
+                dsn: '%messenger_transport_dsn%/captainmetrics' # for local environment only
+                retry_strategy:
+                    max_retries: '%messenger_max_retries%'
+                    delay: '%messenger_retry_strategy_delay%'
+                    multiplier: 2
+                    max_delay: 0
+            invoice:
+                dsn: '%messenger_transport_dsn%/invoice' # for local environment only
+                retry_strategy:
+                    max_retries: '%messenger_max_retries%'
+                    delay: '%messenger_retry_strategy_delay%'
+                    multiplier: 2
+                    max_delay: 0
+            odoo:
+                dsn: '%messenger_transport_dsn%/odoo' # for local environment only
+                retry_strategy:
+                    max_retries: '%messenger_max_retries%'
+                    delay: '%messenger_retry_strategy_delay%'
+                    multiplier: 2
+                    max_delay: 0
+            failed:
+                dsn: '%messenger_transport_dsn%/failed' # for local environment only
+                retry_strategy:
+                    max_retries: '%messenger_max_retries%'
+                    delay: '%messenger_retry_strategy_delay%'
+                    multiplier: 2
+                    max_delay: 0
+            preview_rss_xml:
+                dsn: '%messenger_transport_dsn%/preview_rss_xml' # for local environment only
+                retry_strategy:
+                    max_retries: '%messenger_max_retries%'
+                    delay: '%messenger_retry_strategy_delay%'
+                    multiplier: 2
+                    max_delay: 0
+            preview_rss_zip:
+                dsn: '%messenger_transport_dsn%/preview_rss_zip' # for local environment only
+                retry_strategy:
+                    max_retries: '%messenger_max_retries%'
+                    delay: '%messenger_retry_strategy_delay%'
+                    multiplier: 2
+                    max_delay: 0
+            webhook:
+                dsn: '%messenger_transport_dsn%/webhook' # for local environment only
+                retry_strategy:
+                    max_retries: '%messenger_max_retries%'
+                    delay: '%messenger_retry_strategy_delay%'
+                    multiplier: 2
+                    max_delay: 0
+            shipup:
+                dsn: '%messenger_transport_dsn%/shipup' # for local environment only
+                retry_strategy:
+                    max_retries: '%messenger_max_retries%'
+                    delay: '%messenger_retry_strategy_delay%'
+                    multiplier: 2
+                    max_delay: 0
+            rimdian:
+                dsn: '%messenger_transport_dsn%/rimdian' # for local environment only
+                retry_strategy:
+                    max_retries: '%messenger_max_retries%'
+                    delay: '%messenger_retry_strategy_delay%'
+                    multiplier: 2
+                    max_delay: 0
+            export_accounting_data:
+                dsn: '%messenger_transport_dsn%/export_accounting_data'
+                retry_strategy:
+                    max_retries: "%messenger_max_retries%"
+                    multiplier: 1
+                    delay: 0
+                    max_delay: 0
+        
+        routing:
+            # Route your messages to the transports
+            'App\Message\Mail': mail
+            'App\Message\Drip': drip
+            'App\Message\Invoice': invoice
+            'App\Message\CaptainMetrics': captainmetrics
+            'App\Api\Odoo\Message\Odoo': odoo
+            'App\Message\PreviewRss\PreviewRssXml': preview_rss_xml
+            'App\Message\PreviewRss\PreviewRssZip': preview_rss_zip
+            'App\PaymentReport\Command\PaymentReportNotificationCommand': webhook
+            'App\PaymentReport\Command\DownloadReportCommand': webhook
+            'App\Api\ChronoPost\Command\ShipupWebhookCommand': webhook
+            'App\Message\Shipup': shipup
+            'App\Analytic\Command\ImportUserFromOrder': rimdian
+            'App\Analytic\Command\ImportOrderCommand': rimdian
+            'App\Analytic\Command\ImportBatchUsers': rimdian
+            'App\Message\ExportAccountingData': export_accounting_data
+            'Symfony\Component\Mailer\Messenger\SendEmailMessage': mail

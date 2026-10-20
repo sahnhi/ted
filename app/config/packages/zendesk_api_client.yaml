@@ -1,0 +1,10 @@
+services:
+    client.zendesk:
+        class: Zendesk\API\HttpClient
+        public: true
+        arguments:
+            - '%env(ZENDESK_SUBDOMAIN)%'
+        calls:
+            - [ 'setAuth', [ 'basic', { username: '%env(ZENDESK_USERNAME)%', token: '%env(ZENDESK_API_KEY)%' } ] ]
+
+    Zendesk\API\HttpClient: '@client.zendesk'

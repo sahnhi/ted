@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+    
+    app.shipup.shipup_api:
+        class: App\Api\Shipup\ShipupApi
+        public: true
+        arguments:
+            $shipupApiUrl: '%shipup_url%'
+            $shipupApiKey: '%shipup_key%'
+            $env: '%env(APP_ENV)%'
+
+    App\Api\Shipup\ShipupApi: '@app.shipup.shipup_api'

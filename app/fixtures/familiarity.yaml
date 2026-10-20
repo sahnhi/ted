@@ -1,0 +1,12 @@
+App\Doctrine\Entity\Familiarity:
+    familiarity_20h_tf1:
+        code: '20h-tf1'
+        enabled: true
+    
+    familiarity_instagram:
+        code: 'instagram'
+        enabled: true
+        
+    familiarity_disabled:
+        code: 'familiarity_disabled'
+        enabled: false

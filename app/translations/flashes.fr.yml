@@ -1,0 +1,6 @@
+sylius:
+    payment:
+        authorized: 'Le paiement a été autorisé.'
+        completed: 'Le paiement a été effectué.'
+        refund_made_only_locally: Remboursement effectué uniquement en local
+        refund_successful: Remboursement effectué avec succès !

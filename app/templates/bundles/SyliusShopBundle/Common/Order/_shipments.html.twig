@@ -1,0 +1,18 @@
+{% for shipment in order.shipments %}
+    <div class="ui large icon message">
+        <i class="truck icon"></i>
+        <div class="content">
+            <div class="header" id="sylius-shipping-method">
+                {{ shipment.method }}
+            </div>
+            {# BEGIN CUSTOM TEMPLATE #}
+            {% if shipment.method != 'MAGASIN' %}
+              <div>
+
+                {{ 'sylius.ui.delivery-text'|trans({'date': shipment.startDeliverySlot|localizeddate('none', 'none', 'fr_FR', null, 'EEEE dd MMMM y'), 'start': shipment.startDeliverySlot|localizeddate('none', 'short', 'fr_FR'), 'end': shipment.endDeliverySlot|localizeddate('none', 'short', 'fr_FR')})|raw }}
+              </div>
+            {% endif %}
+            {# END CUSTOM TEMPLATE #}
+        </div>
+    </div>
+{% endfor %}

@@ -1,0 +1,18 @@
+App\Doctrine\Entity\ProductCMSSizingGuide:
+    attributes:
+      code:
+        groups: [ 'shop:read:sizing_guide' ]
+      translations:
+        groups: [ 'shop:read:sizing_guide' ]
+      productCMSSizingGuideItems:
+        groups: [ 'shop:read:sizing_guide' ]
+
+App\Doctrine\Entity\ProductCMSSizingGuideTranslation:
+    attributes:
+      title:
+        groups: [ 'shop:read:sizing_guide' ]
+      subTitle:
+        groups: [ 'shop:read:sizing_guide' ]
+      link:
+        groups: [ 'shop:read:sizing_guide' ]
+

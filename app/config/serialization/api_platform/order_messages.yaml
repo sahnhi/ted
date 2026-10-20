@@ -1,0 +1,8 @@
+App\Model\Order\OrderMessage:
+    attributes:
+        message:
+            groups:
+                - shop:cart:read
+        type:
+            groups:
+                - shop:cart:read

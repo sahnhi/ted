@@ -1,0 +1,5 @@
+App\Doctrine\Entity\ProductCMSClaimsTranslation:
+    attributes:
+        claim:
+            groups:
+                - shop:product:read

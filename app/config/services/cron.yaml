@@ -1,0 +1,23 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+    
+    App\Services\Cron\Transmission\PackingProcessor:
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+            $packingFolder: '%env(PACKING_FOLDER)%'
+
+    App\Services\Cron\Transmission\TrackingProcessor:
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+
+    App\Context\CliBasedChannelContext:
+        tags:
+            - { name: 'sylius.context.channel', priority: -256 }
+
+    ## CRON Commands
+    ## Called from CLoud Scheduler and executed in a Cloud Run Job
+    App\Command\Cron\Transmission\UpdateInventoryCommand:
+        arguments:
+            $projectDir: '%kernel.project_dir%'

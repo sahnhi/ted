@@ -1,0 +1,28 @@
+App\Doctrine\Entity\ProductReviewQuestion:
+    attributes:
+        question:
+            groups: 
+                - admin:product_review:read
+                - reviews:question:read
+        questionType:
+            groups: 
+                - admin:product_review:read
+                - reviews:question:read
+        position:
+            groups: 
+                - admin:product_review:read
+                - reviews:question:read
+        translations:
+            type: array<App\Doctrine\Entity\ProductReviewQuestionTranslation>
+            groups: 
+                - admin:product_review:read
+                - reviews:question:read
+        productReviewAnswerChoices:
+            type: array<App\Doctrine\Entity\ProductReviewAnswerChoices>
+            groups: 
+                - admin:product_review:read
+                - reviews:question:read
+        product:
+            groups:
+                - admin:product_review:read
+                - reviews:question:read 

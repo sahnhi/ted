@@ -1,0 +1,10 @@
+{% for item in data %}
+    {% if item.variant.isBundle %}
+        {% for bundle in item.variant.bundleAssociations %}
+            {% set total = item.quantity * bundle.quantity %}
+            {{ bundle.variant.code }} ({{ total }}) <br />
+        {% endfor %}
+    {% else %}
+        {{ item.variant.code }} ({{ item.quantity }}) <br />
+    {% endif %}
+{% endfor %}

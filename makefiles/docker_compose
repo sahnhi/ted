@@ -1,0 +1,40 @@
+##
+## ----- Project initialisation -----
+##
+
+.PHONY: start
+start: ##Start docker containers
+	@$(DOCKER_COMPOSE_CMD) up -d
+
+.PHONY: start-debug
+start-debug: ##Start debug containers
+	@$(DOCKER_COMPOSE_CMD) --profile debug up -d
+
+.PHONY: stop
+stop: ##Stop docker containers
+	@$(DOCKER_COMPOSE_CMD) stop
+
+.PHONY: down
+down: ##Down docker containers
+	@$(DOCKER_COMPOSE_CMD) down
+
+.PHONY: restart
+restart: stop start ##Restart docker containers
+
+.PHONY: clean
+clean: stop ##Stop docker containers and remove all dependencies files
+	@echo "Removing dependencies files..."
+	@sudo rm -rf $(PWD)/app/node_modules $(PWD)/app/vendor $(PWD)/app/var/cache $(PWD)/app/var/log $(PWD)/app/public/assets $(PWD)/app/public/bundles
+	@echo "Done !"
+
+.PHONY: clear
+clear: clean ##Make clean then remove docker containers
+	@echo "Removing docker containers..."
+	@$(DOCKER_COMPOSE_CMD) down -v --remove-orphans
+	@echo "Done !"
+
+.PHONY: build
+build: ##Force recreation of containers
+	@echo "Recreate containers...."
+	@$(DOCKER_COMPOSE_CMD) up -d --build --force-recreate
+	@echo "Done !"

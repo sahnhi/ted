@@ -1,0 +1,20 @@
+Sylius\Component\Product\Model\ProductVariantTranslation:
+    mattress_product_variant_translation_140_200:
+        translatable: '@mattress_product_variant_140_200'
+        name: 'MATELAS TEDIBER 140cm x 200cm'
+        locale: 'fr_FR'
+
+    mattress_product_variant_translation_160_200:
+        translatable: '@mattress_product_variant_160_200'
+        name: 'MATELAS TEDIBER 160cm x 200cm'
+        locale: 'fr_FR'    
+
+    bed_frame_product_variant_1_translation_fr:
+        translatable: '@bed_frame_product_variant_1'
+        name: 'SOMMIER gris 70cm x 190cm, pieds:15 cm - Hêtre clair'
+        locale: 'fr_FR'
+    
+    discounted_product_half_discount_variant_translation_fr:
+        translatable: '@discounted_product_half_discount_variant'
+        name: 'Produit Discount - Réduction de 50%'
+        locale: 'fr_FR'

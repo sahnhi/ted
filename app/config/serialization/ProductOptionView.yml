@@ -1,0 +1,19 @@
+App\View\ProductOptionView:
+    exclusion_policy: ALL
+    properties:
+        code:
+            expose: true
+            type: string
+            groups: [ 'product.show', 'taxon.list' ]
+        name:
+            expose: true
+            type: string
+            groups: [ 'product.show', 'taxon.list' ]
+        defaultOptionValue:
+            expose: true
+            type: string
+            groups: [ 'product.show', 'taxon.list' ]
+        values:
+            expose: true
+            type: array<App\View\ProductOptionValueView>
+            groups: [ 'product.show', 'taxon.list' ]

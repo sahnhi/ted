@@ -1,0 +1,80 @@
+{% if resource.hasCombinationToGenerate %}
+    {% set firstCombination = resource.combinations.first %}
+
+    {{ form_start(form, {'attr': {'id': form.vars.name, 'autocomplete': 'off'}}) }}
+
+    <div class="ui info message">
+        <div class="header">
+            {{ 'app.ui.bundle_association.labels.code_rule.title' | trans }}
+        </div>
+        <p>{{ 'app.ui.bundle_association.labels.code_rule.message' | trans }}</p>
+        <p>{{ 'app.ui.bundle_association.labels.code_rule.underscores' | trans }}</p>
+    </div>
+
+    <div class="ui horizontal segments" id="code-generator-configuration">
+        <div class="ui black segment">
+            <h4 class="ui header">{{ 'app.ui.bundle_association.labels.code_prefix' | trans }}</h4>
+            <div class="content">
+                <div class="ui fluid input">
+                    {{ form_widget(form.prefix) }}
+                </div>
+                {{ form_errors(form.prefix) }}
+            </div>
+        </div>
+        {% for child in form.options %}
+            {% set option = child.vars.data %}
+            <div class="ui {{ options_colors[option.productOption.code] }} segment option-code-element sortable" data-optionValue="{{ resource.formatedValueForCode(firstCombination.valueForOption(option.productOption)) }}">
+                <h4 class="ui header {{ options_colors[option.productOption.code] }}">{{ option.productOption.name }}</h4>
+                <div class="content">
+                    {{ 'app.ui.drag_and_drop' | trans }}
+                    {{ form_widget(child.needsUnderscore) }}
+                </div>
+
+                {{ form_widget(child.position) }}
+            </div>
+        {% endfor %}
+        <div class="ui black segment">
+            <h4 class="ui header">{{ 'app.ui.bundle_association.labels.code_suffix' | trans }}</h4>
+            <div class="content">
+                <div class="ui fluid input">
+                    {{ form_widget(form.suffix) }}
+                </div>
+                {{ form_errors(form.suffix) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="ui segment">
+        <div class="ui header">
+            {{ 'app.ui.bundle_association.labels.code_with_options' | trans }} :
+        </div>
+        <div class="ui content" style="margin-bottom: 20px;">
+            {% for optionValue in firstCombination.optionValues %}
+                <div class="ui {{ options_colors[optionValue.option.code] }} horizontal label">{{ optionValue.value }}</div>
+            {% endfor %}
+        </div>
+        <div class="ui content">
+            <div class="label"></div>
+            <div class="ui labeled fluid input icon">
+                <div class="ui label">
+                    <i class="icon eye"></i> {{ 'app.ui.bundle_association.steps.preview.title' | trans }}
+                </div>
+                <input type="text" id="code-rule-preview" disabled value="{{ resource.generateCodeForCombination(firstCombination) }}">
+                <i class="refresh icon"></i>
+            </div>
+
+{#            Do not delete, will be usefull later #}
+{#            <div class="ui warning message">#}
+{#                <p>{{ 'app.ui.bundle_association.labels.all_editable_later' | trans }}</p>#}
+{#            </div>#}
+        </div>
+    </div>
+
+    <div style="display: none">
+        {{ form_rest(form) }}
+    </div>
+
+    {{ form_end(form) }}
+{% else %}
+    {% include '@App/Admin/Bundle/Content/_error.html.twig' with {'message': 'app.ui.bundle_association.errors.no_combination_selected'} %}
+{% endif %}

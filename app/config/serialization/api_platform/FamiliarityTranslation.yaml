@@ -1,0 +1,6 @@
+App\Doctrine\Entity\FamiliarityTranslation:
+    attributes:
+        wording:
+            groups:
+                - shop:customer:read
+                - admin:customer:read

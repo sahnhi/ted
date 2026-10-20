@@ -1,0 +1,85 @@
+import chug from 'gulp-chug';
+import gulp from 'gulp';
+import yargs from 'yargs';
+
+const { argv } = yargs
+  .options({
+    rootPath: {
+      description: '<path> path to web assets directory',
+      type: 'string',
+      requiresArg: true,
+      required: false,
+    },
+    nodeModulesPath: {
+      description: '<path> path to node_modules directory',
+      type: 'string',
+      requiresArg: true,
+      required: false,
+    },
+    srcPath: {
+      description: '<path> path to src directory',
+      type: 'string',
+      requiresArg: true,
+      required: false,
+    },
+  });
+
+const config = [
+  '--rootPath',
+  argv.rootPath || '../../../../../../../public/assets',
+  '--nodeModulesPath',
+  argv.nodeModulesPath || '../../../../../../../node_modules',
+  '--srcPath',
+  argv.srcPath || '../src',
+];
+
+export const buildAdmin = function buildAdmin() {
+  return gulp.src('vendor/sylius/sylius/src/Sylius/Bundle/AdminBundle/gulpfile.babel.js', { read: false })
+    .pipe(chug({ args: config }));
+};
+buildAdmin.description = 'Build admin assets.';
+
+export const watchAdmin = function watchAdmin() {
+  return gulp.src('vendor/sylius/sylius/src/Sylius/Bundle/AdminBundle/gulpfile.babel.js', { read: false })
+    .pipe(chug({ args: config, tasks: 'watch' }));
+};
+watchAdmin.description = 'Watch admin asset sources and rebuild on changes.';
+
+export const buildShop = function buildShop() {
+  return gulp.src('vendor/sylius/sylius/src/Sylius/Bundle/ShopBundle/gulpfile.babel.js', { read: false })
+    .pipe(chug({ args: config }));
+};
+buildShop.description = 'Build shop assets.';
+
+export const watchShop = function watchShop() {
+  return gulp.src('vendor/sylius/sylius/src/Sylius/Bundle/ShopBundle/gulpfile.babel.js', { read: false })
+    .pipe(chug({ args: config, tasks: 'watch' }));
+};
+watchShop.description = 'Watch shop asset sources and rebuild on changes.';
+
+export const buildApi = function buildApi() {
+  return gulp.src('src/gulpfile.babel.js', { read: false })
+    .pipe(chug({ args: config }));
+};
+buildApi.description = 'Build Api assets.';
+
+export const watchApi = function watchApi() {
+  return gulp.src('src/gulpfile.babel.js', { read: false })
+    .pipe(chug({ args: config, tasks: 'watch' }));
+};
+watchApi.description = 'Watch Api asset sources and rebuild on changes.';
+
+export const build = gulp.parallel(buildAdmin, buildShop, buildApi);
+build.description = 'Build assets.';
+
+export const watch = gulp.series(watchAdmin, watchShop, watchApi);
+watch.description = 'Watch asset sources and rebuild on changes.';
+
+gulp.task('admin', buildAdmin);
+gulp.task('admin-watch', watchAdmin);
+gulp.task('shop', buildShop);
+gulp.task('shop-watch', watchShop);
+gulp.task('api', buildApi);
+gulp.task('api-watch', watchApi);
+
+export default build;

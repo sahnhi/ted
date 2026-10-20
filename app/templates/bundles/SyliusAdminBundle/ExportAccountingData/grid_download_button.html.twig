@@ -1,0 +1,7 @@
+{% import "@SyliusUi/Macro/buttons.html.twig" as buttons %}
+
+{% set path = path(options.link.url, options.link.parameters) %}
+
+{% if options.state == constant('App\\Doctrine\\Entity\\ExportAccountingData::STATUS_COMPLETED') %}
+    {{ buttons.default(path, action.label, null, 'download', 'purple') }}
+{% endif %}

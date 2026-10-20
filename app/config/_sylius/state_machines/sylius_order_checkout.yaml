@@ -1,0 +1,47 @@
+winzou_state_machine:
+    sylius_order_checkout:
+        transitions:
+            select_payment:
+                from: [ payment_selected, shipping_skipped, shipping_selected, completed ]
+                to: payment_selected
+        callbacks:
+            before:
+                app_decrement_promotions_usages:
+                    on: [ "select_payment" ]
+                    do: [ "@app.decrement_promotions_usages_on_select_payment", "__invoke" ]
+                    args: [ "object" ]
+            after:
+                sylius_drip_send_order:
+                    on: [ "address", "complete" ]
+                    do: [ "@app.drip.drip_api", "sendOrder" ]
+                    args: [ "object" ]
+                sylius_drip_send_customer:
+                    on: [ "address", "complete" ]
+                    do: [ "@app.drip.drip_api", "sendCustomer" ]
+                    args: [ "object.getCustomer()" ]
+                sylius_captain_metrics_send_customer:
+                    on: [ "address", "complete" ]
+                    do: [ "@app.captainmetrics.captainmetrics_api", "sendUser" ]
+                    args: [ "object" ]
+                app_increment_promotions_usages:
+                    on: [ "complete" ]
+                    do: [ "@sylius.promotion_usage_modifier", "increment" ]
+                    args: [ "object" ]
+                setono_gift_card_create:
+                    disabled: true
+                app_decrement_gift_card_amount:
+                    on: [ "complete" ]
+                    do: [ "@setono_sylius_gift_card.modifier.order_gift_card_amount", "decrement" ]
+                    args: [ "object" ]
+                app_handle_forward_erp_manualy:
+                    on: [ "complete" ]
+                    do: [ "@app.erp.forward_handler", "handleForward" ]
+                    args: [ "object" ]
+                app_autonomous_return_created:
+                    on: [ "address" ]
+                    do: [ '@app.order_return.type.autonomous', "postCreate" ]
+                    args: [ "object" ]
+                app_autonomous_return_post_shipping_selected:
+                    on: [ "select_shipping" ]
+                    do: [ '@app.order_return.type.autonomous', "postShippingSelected" ]
+                    args: [ "object" ]

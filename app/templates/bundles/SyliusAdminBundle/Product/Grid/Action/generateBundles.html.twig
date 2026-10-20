@@ -1,0 +1,9 @@
+{% import '@SyliusUi/Macro/buttons.html.twig' as buttons %}
+
+{% set path = options.link.url|default(path('app_admin_bundle_generation_form', {'productId': options.product.id})) %}
+
+{% if options.product.options is not empty %}
+    {% if options.condition is empty or attribute(options.product, options.condition) %}
+        {{ buttons.default(path, 'app.ui.bundle_association.labels.generate', null, 'plus', 'green') }}
+    {% endif %}
+{% endif %}

@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Services\Calendar\VirTransportPlanService:
+        arguments:
+            $virTransportPlanFolder: "%transport_plan_vir_folder%"
+            $projectDir: "%kernel.project_dir%"
+            $cache: '@transport_plan.cache.traceable'
+    
+    App\Services\Calendar\ZoneService:
+        arguments:
+            $addressFactory: '@sylius.factory.address'

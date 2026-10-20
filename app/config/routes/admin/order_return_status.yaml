@@ -1,0 +1,14 @@
+sylius_admin_order_return_status:
+    resource: |
+        alias: sylius.order_return_status
+        section: admin
+        templates: SyliusAdminBundle:Crud
+        redirect: index
+        grid: sylius_admin_order_return_status
+        vars:
+            all:
+                subheader: sylius.form.order_return_status.information
+            index:
+                icon: 'file image outline'
+    type: sylius.resource
+

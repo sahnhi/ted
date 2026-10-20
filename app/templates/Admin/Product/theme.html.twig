@@ -1,0 +1,17 @@
+{% extends '@SyliusAdmin/Form/theme.html.twig' %}
+
+{% block _sylius_product_productCMSFaq_widget %}
+    {% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
+
+    {{ translationForm(form.translations) }}
+
+    <div class="ui segment">
+        {{ form_row(form.questions) }}
+    </div>
+{% endblock %}
+
+{% block _sylius_product_productCMSFaq_questions_entry_widget %}
+    {% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
+
+    {{ translationForm(form.translations) }}
+{% endblock %}

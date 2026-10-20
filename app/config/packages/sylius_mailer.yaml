@@ -1,0 +1,10 @@
+sylius_mailer:
+    emails:
+        shipment_confirmation:
+            enabled: false
+        order_confirmation:
+            enabled: false
+        gift_card_customer:
+            enabled: false
+        gift_card_order:
+            enabled: false

@@ -1,0 +1,11 @@
+Sylius\Component\Core\Model\TaxRate:
+    tax_rate_fr_tva:
+        category: '@tva'
+        zone: '@fr_tva'
+        code: 'TVAFR'
+        name: 'TVA'
+        amount: '0.20000'
+        included_in_price: true
+        calculator: 'default'
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'        

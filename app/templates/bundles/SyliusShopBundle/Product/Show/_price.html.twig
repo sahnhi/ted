@@ -1,0 +1,10 @@
+{% import "@SyliusShop/Common/Macro/money.html.twig" as money %}
+
+{# BEGIN CUSTOM TEMPLATE #}
+<div class="ui huge header">
+  <div id="product-price" class="ui header">
+    {{ money.calculatePrice(product|sylius_resolve_variant) }}
+  </div>
+  <div id="product-price-loader" class="d-hide ui active centered indeterminate text inline loader">{{ 'sylius.ui.price-loading'|trans }}</div>
+</div>
+{# END CUSTOM TEMPLATE #}

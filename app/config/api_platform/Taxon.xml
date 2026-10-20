@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+
+<resources xmlns="https://api-platform.com/schema/metadata"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="https://api-platform.com/schema/metadata https://api-platform.com/schema/metadata/metadata-2.0.xsd"
+>
+    <resource class="%sylius.model.taxon.class%" shortName="Taxon">
+        <attribute name="validation_groups">sylius</attribute>
+
+        <collectionOperations>
+            <collectionOperation name="shop_get">
+                <attribute name="method">GET</attribute>
+                <attribute name="path">/shop/taxons</attribute>
+                <!-- BEGIN CUSTOM CODE -->
+                <attribute name="filters">
+                    <attribute>app.api.taxon_slug_filter</attribute>
+                </attribute>
+                <!-- END CUSTOM CODE -->
+                <attribute name="normalization_context">
+                    <attribute name="groups">shop:taxon:read</attribute>
+                </attribute>
+            </collectionOperation>
+        </collectionOperations>
+
+        <itemOperations>
+            <itemOperation name="shop_get">
+                <attribute name="method">GET</attribute>
+                <attribute name="path">/shop/taxons/{code}</attribute>
+                <attribute name="normalization_context">
+                    <attribute name="groups">shop:taxon:read</attribute>
+                </attribute>
+            </itemOperation>
+        </itemOperations>
+
+        <property name="id" identifier="false" writable="false" />
+        <property name="code" identifier="true" required="true" />
+        <property name="translations" readable="true" writable="true" />
+    </resource>
+</resources>

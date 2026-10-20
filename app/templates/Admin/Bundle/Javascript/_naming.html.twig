@@ -1,0 +1,78 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+        if ($('#code-generator-configuration').length) {
+            $(function() {
+                $( "#code-generator-configuration" ).sortable({
+                    items : '.sortable',
+                    update: function( event, ui ) {
+                        updatePositions();
+                    }
+                });
+            });
+        }
+
+        $('.check-underscore').each(function(){
+            $(this).change(function(){
+                updateCodePreview();
+            });
+        });
+
+        $('#bundle_configuration_prefix, #bundle_configuration_suffix').each(function(){
+            $(this).on('keyup', function(){
+                $(this).val($(this).val().toUpperCase());
+                updateCodePreview();
+            });
+        });
+
+        updateCodePreview();
+    });
+
+    function updateCodePreview() {
+        let previewInput = $('#code-rule-preview');
+        let segments = $('.option-code-element');
+        let prefix = $('#bundle_configuration_prefix');
+        let suffix = $('#bundle_configuration_suffix');
+        let newValue = prefix.val();
+        let firstLetter = segments.length > 0 ? ($(segments[0]).data('optionvalue') + '').charAt(0) : '';
+        let secondLetter = segments.length > 1 ? ($(segments[1]).data('optionvalue') + '').charAt(0) : '';
+        let optionsValues = '';
+        let div = previewInput.parent('.ui.input');
+
+        div.addClass('success');
+
+        newValue += firstLetter + secondLetter;
+
+        $.each(segments, function (index) {
+            let checkbox = $(this).find('.check-underscore');
+            let underScoreNeeded = checkbox.is(':checked');
+
+            if (index === 0 || index === 1) {
+                $(checkbox).hide();
+                return;
+            }
+
+            $(checkbox).show();
+
+            if (underScoreNeeded) {
+                optionsValues += '_';
+            }
+
+            optionsValues += $(this).data('optionvalue');
+        });
+
+        newValue += optionsValues + suffix.val();
+        previewInput.val(newValue);
+
+        setTimeout(() => {
+            div.removeClass('success');
+        }, 200);
+    }
+
+    function updatePositions() {
+        $('#code-generator-configuration .sortable').each(function(index) {
+            $(this).find('.option-position').val(index);
+        });
+
+        updateCodePreview();
+    }
+</script>

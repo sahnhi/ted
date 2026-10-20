@@ -1,0 +1,176 @@
+{% extends "@App/Payum/layout.html.twig" %}
+
+{% block payum_stylesheets %}
+    {{ parent() }}
+    <link href="/assets/api/css/main.css" rel="stylesheet" type="text/css"/>
+    <style>
+      .form-input iframe {
+        height: 30px;
+        line-height: 30px;
+      }
+    </style>
+{% endblock %}
+
+{% block payum_body %}
+  {% block be2bill_payment_form %}
+    <form method="POST" action="{{ actionUrl }}" id="be2bill-form" class="columns px-5">
+      <div class="form-group form-required col-12 column">
+          <label class="form-label" for="credit_card_holder">{{ 'app.ui.label.credit_card_holder'|trans({}, 'messages', app.request.query.get('localeCode')) }}</label>
+          <input type="text" name="credit_card_holder" class="form-input" autofocus="autofocus">
+      </div>
+      <div class="form-group form-required col-10 col-sm-12 column card-container">
+        <label class="form-label" for="credit_card_number">{{ 'app.ui.label.credit_card_number'|trans({}, 'messages', app.request.query.get('localeCode')) }}</label>
+        <span class="form-input" id="be2bill-card-container"></span>
+      </div>
+      <div class="form-group form-required col-2 col-sm-12 column brand-container">
+        <label class="form-label" for="credit_card_brand">{{ 'app.ui.label.credit_card_brand'|trans({}, 'messages', app.request.query.get('localeCode')) }}</label>
+        <span class="brand-input" id="be2bill-brand-container"></span>
+      </div>
+
+      <div class="form-group form-required col-4 col-sm-12 column">
+        <label class="form-label" for="credit_card_expireAt">{{ 'app.ui.label.credit_card_expireAt'|trans({}, 'messages', app.request.query.get('localeCode')) }}</label>
+        <span class="form-input" id="be2bill-expiry-container"></span>
+      </div>
+      <div class="form-group form-required col-4 col-sm-12 column">
+        <label class="form-label" for="credit_card_securityCode">{{ 'app.ui.label.credit_card_securityCode'|trans({}, 'messages', app.request.query.get('localeCode')) }}</label>
+        <span class="form-input" id="be2bill-cvv-container"></span>
+      </div>
+
+      <div role="alert" id="text-error" class="col-12 mt-5"></div>
+
+      <div class="col-12 column text-center">
+          <button id="btn-submit" type="submit" class="btn btn-secondary btn-lg text-uppercase my-2">{{ 'app.ui.pay-be2bill-ntimes'|trans({}, 'messages', app.request.query.get('localeCode')) }}</button>
+      </div>
+    </form>
+  {% endblock %}
+
+  {% block be2bill_load_js %}
+    <script src="{{ BE2BILL_JS_URL }}"></script>
+    <script src="{{ BE2BILL_JS_BRAND_URL }}"></script>
+  {% endblock %}
+
+  {% block be2bill_init_js %}
+    <script type="text/javascript">
+
+      var form = document.getElementById('be2bill-form');
+      var errorContainer = document.getElementById('text-error');
+      var btnSubmit = document.getElementById('btn-submit');
+
+      var style = {
+        'input': {
+          'color': '#32325d',
+          'line-height': '20px',
+          'font-size': '16px'
+        },
+        '::placeholder': {
+          'color': '#aab7c4'
+        }
+      }
+
+      // Initialize the hosted-fields library
+      var be2billHostedFields = dalenys.hostedFields({
+        // Use your SDK API Key
+        key: {
+            id: '{{ BE2BILL_API_KEY_ID|raw }}',
+            value: '{{ BE2BILL_API_KEY_VALUE|raw }}'
+        },
+        // Link and configure each hosted input field by providing the corresponding container ID
+        fields: {
+          'brand': {
+            id: 'be2bill-brand-container',
+            style: style,
+            onInput: function (event) {
+              if(event.type == 'invalid') {
+                console.error(event);
+                displayBe2billErr(event['message']);
+                return;
+              }
+            },
+          },
+          'card': {
+            id: 'be2bill-card-container',
+            style: style,
+            onInput: function (event) {
+              if(event.type == 'invalid') {
+                console.error(event);
+                displayBe2billErr(event['message']);
+                return;
+              }
+            },
+          },
+          'expiry': {
+            id: 'be2bill-expiry-container',
+            placeholder: '{{ "app.ui.placeholder.credit_card_expireAt"|trans }}',
+            style: style,
+            onInput: function (event) {
+              if(event.type == 'invalid') {
+                console.error(event);
+                displayBe2billErr(event['message']);
+                return;
+              }
+            },
+          },
+          'cryptogram': {
+            id: 'be2bill-cvv-container',
+            style: style,
+            onInput: function (event) {
+              if(event.type == 'invalid') {
+                console.error(event);
+                displayBe2billErr(event['message']);
+                return;
+              }
+            },
+          }
+        },
+        // Choose the language for error messages
+        locate: '{{ app.request.languages[0]|slice(0, 1) }}'
+      });
+      be2billHostedFields.load();
+
+      // Form catching and tokenization
+      form.addEventListener('submit', function(event) {
+          event.preventDefault();
+
+          btnSubmit.setAttribute('disabled', true);
+          btnSubmit.classList.add('loading');
+          btnSubmit.parentNode.classList.add('loading');
+
+          be2billHostedFields.createToken(function (result) {
+              if (result.execCode == '0000') {
+                  // Insert the token into the form so it gets submitted to the server
+                  var hiddenInput = document.createElement('input');
+                  hiddenInput.setAttribute('type', 'hidden');
+                  hiddenInput.setAttribute('name', 'token');
+                  hiddenInput.setAttribute('value', result.hfToken);
+                  form.appendChild(hiddenInput);
+
+                  // Submit the form
+                  form.submit();
+              } else {
+                  btnSubmit.removeAttribute('disabled');
+                  btnSubmit.classList.remove('loading');
+                  btnSubmit.parentNode.classList.remove('loading');
+
+                  console.error(result);
+
+                  try {
+                      Sentry.captureException(result);
+                  } catch (e) {
+                      console.log(e);
+                  }
+                  
+                  displayBe2billErr(result.message);
+              }
+          });
+          // Prevents the submit of the form in case of failed tokenization request
+          return false;
+      });
+
+      function displayBe2billErr (err) {
+        console.error(err);
+        errorContainer.innerHTML = err;
+      }
+    </script>
+  {% endblock %}
+{% endblock %}
+

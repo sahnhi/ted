@@ -1,0 +1,29 @@
+Sylius\Component\Order\Model\Adjustment:
+    attributes:
+        id:
+            groups:
+                - shop:cart:read
+        type:
+            groups:
+                - shop:cart:read
+        label:
+            groups:
+                - shop:cart:read
+        amount:
+            groups:
+                - shop:cart:read
+        order:
+            groups:
+                - shop:cart:read
+        order_item:
+            groups:
+                - shop:cart:read
+        order_item_unit:
+            groups:
+                - shop:cart:read
+        neutral:
+            groups:
+                - shop:cart:read
+        locked:
+            groups:
+                - shop:cart:read

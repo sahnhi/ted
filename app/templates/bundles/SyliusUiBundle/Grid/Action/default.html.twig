@@ -1,0 +1,26 @@
+{% import '@SyliusUi/Macro/buttons.html.twig' as buttons %}
+
+{% set path = options.link.url|default(path(options.link.route, options.link.parameters|default({}))) %}
+
+{% set visible = options.link.visible is defined ? options.link.visible : true %}
+
+{% set invisible = options.link.invisible is defined ? options.link.invisible : false %}
+{# CUSTOM CODE #}
+{% if options.roles is defined and options.roles is not empty %}
+    {% set authorize = false %}
+
+    {% for role in app.user.roles %}
+        {% if role in options.roles %}
+            {% set authorize = true %}
+        {% endif %}
+    {% endfor %}
+
+    {% set invisible = authorize ? false : true %}
+{% endif %}
+{# END CUSTOME CODE #}
+
+{% set class = options.class is defined ? options.class : '' %}
+
+{% if visible and invisible == false %}
+    {{ buttons.default(path, action.label, null, action.icon, class) }}
+{% endif %}

@@ -1,0 +1,17 @@
+nearby_chrono_relais:
+    path: /shop-api/chronopost/chronorelais
+    methods: [ GET ]
+    defaults:
+        _controller: App\Api\ChronoPost\Controller\GetChronoRelais::getForFront
+
+nearby_relay_admin:
+    path: /admin/relays
+    methods: [ GET ]
+    defaults:
+        _controller: App\Api\ChronoPost\Controller\GetChronoRelais::getForAdmin
+
+get_pick_up_points:
+    path: /shop-api/pick-up/{method}
+    methods: [ GET ]
+    defaults:
+        _controller: App\Api\Logistic\PickUpController

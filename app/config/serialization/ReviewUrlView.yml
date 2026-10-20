@@ -1,0 +1,14 @@
+App\View\ReviewUrlView:
+    properties:
+        reviewUrl:
+            xml_value: true
+            expose: true
+            type: string
+            groups: [ 'google.rss' ]
+            xml_element:
+                cdata: false
+        type:
+            xml_attribute: true
+            expose: true
+            type: string
+            groups: [ 'google.rss' ]

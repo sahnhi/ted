@@ -1,0 +1,3 @@
+parameters:
+    verified_reviews_api_key: '%env(VERIFIED_REVIEWS_API_KEY)%'
+    verified_reviews_api_secret: '%env(VERIFIED_REVIEWS_API_SECRET)%'

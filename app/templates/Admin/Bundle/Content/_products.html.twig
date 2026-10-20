@@ -1,0 +1,45 @@
+{% if resource.products | length >= 2 %}
+    {{ form_start(form, {'attr': {'id': form.vars.name, 'autocomplete': 'off'}}) }}
+
+    <table class="ui celled table">
+        <thead>
+        <tr>
+            <th>{{ 'sylius.ui.product' | trans }}</th>
+            <th>{{ 'sylius.ui.quantity' | trans }}</th>
+            <th>{{ 'app.ui.is_free' | trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for child in form.products %}
+            <tr>
+                <td>
+                    {{ form_row(child.product) }}
+                </td>
+                <td>
+                    <div class="ui input fluid">
+                        {{ form_widget(child.quantity) }}
+                    </div>
+                    {{ form_errors(child.quantity) }}
+                </td>
+                <td>
+                    {{ form_row(child.isFree) }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="ui warning message">
+        {{ 'app.ui.bundle_association.labels.quantity_tip' | trans | raw }}
+    </div>
+
+
+    <div style="display: none">
+        {{ form_rest(form) }}
+    </div>
+
+    {{ form_row(form._token) }}
+    {{ form_end(form) }}
+{% else %}
+    {% include '@App/Admin/Bundle/Content/_error.html.twig' with {'message': 'app.ui.bundle_association.errors.nb_product_problem'} %}
+{% endif %}

@@ -1,0 +1,8 @@
+app_admin_zone_test:
+    path: /zones/test
+    methods: [ GET, POST ]
+    defaults:
+        _controller: sylius.controller.zone:testAction
+        _sylius:
+            form:
+                type: Sylius\Bundle\AddressingBundle\Form\Type\AddressType

@@ -1,0 +1,25 @@
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: 'fr_FR'
+
+    google_cloud_transmission_bucket: '%env(GOOGLE_CLOUD_TRANSMISSION_BUCKET)%'
+    google_cloud_media_bucket: '%env(GOOGLE_CLOUD_MEDIA_BUCKET)%'
+    google_cloud_invoice_bucket: '%env(GOOGLE_CLOUD_INVOICE_BUCKET)%'
+    google_cloud_erp_bucket: '%env(GOOGLE_CLOUD_TRANSMISSION_BUCKET)%'
+    google_cloud_quality_image_bucket: '%env(GOOGLE_CLOUD_QUALITY_IMAGE_BUCKET)%'
+    google_cloud_export_bucket: '%env(GOOGLE_CLOUD_EXPORT_BUCKET)%'
+    google_cloud_generic_bucket: '%env(GOOGLE_CLOUD_GENERIC_BUCKET)%'
+
+    transport_plan_vir_folder: '%env(VIR_PLAN_TRANSPORT_FOLDER)%'
+
+    sylius_host: '%env(resolve:SYLIUS_HOST)%'
+    
+    packing_folder: '%env(PACKING_FOLDER)%'
+    
+    tediber_front_url: '%env(TEDIBER_FRONT_URL)%'
+
+imports:
+    - { resource: "parameters/trust_pilot.yaml" }
+    - { resource: "parameters/verified_reviews.yaml" }
+    - { resource: "parameters/order_message.yaml" }

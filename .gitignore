@@ -1,0 +1,25 @@
+### IDE
+.idea/
+.vscode/
+
+### Environement
+.data/
+.php-cs-fixer.cache
+.phpactor.json
+.vscode
+
+###> terraform ###
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*tfplanfile*
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+###< terraform ###
+
+cloud-sql-proxy

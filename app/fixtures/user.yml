@@ -1,0 +1,14 @@
+#Sylius\Component\Core\Model\AdminUser:
+#    user{1..10}:
+#        username: '<name()>'
+#        username_canonical: 'user{1..10}'
+#        enabled: true
+#        password: 'ZOrW3cOFcxOeVQgfVR8uwGnY5xgXs/J3ImMnKv7Iw9iJpWgX/3ygsolJlLxJEiopJowOoU6EhdHaUGI1GGpp+w=='
+#        email: 'sami@tediber.com'
+#        email_canonical: 'sami@tediber.com'
+#        roles: ['ROLE_ADMIN']
+#        created_at: '<date_create()>'
+#        updated_at: '<date_create()>'
+#        locale_code: 'fr_FR'
+#        encoder_name: 'sha512'
+##        favoriteNumber: '50%? <numberBetween(1, 200)>'

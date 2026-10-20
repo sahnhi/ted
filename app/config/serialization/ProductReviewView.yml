@@ -1,0 +1,104 @@
+App\View\ProductReviewView:
+    accessor_order: custom
+    custom_accessor_order: [ reviewId, reviewer ]
+    properties:
+        title:
+            expose: true
+            type: string
+            groups: [ 'product_review.list', 'category_review.show' ]
+        rating:
+            expose: true
+            type: string
+            groups: [ 'product_review.list', 'category_review.show' ]
+        comment:
+            expose: true
+            type: string
+            groups: [ 'product_review.list', 'category_review.show' ]
+        firstName:
+            expose: true
+            type: string
+            groups: [ 'product_review.list', 'category_review.show' ]
+        date:
+            expose: true
+            type: string
+            groups: [ 'product_review.list', 'category_review.show' ]
+        orderDate:
+            expose: true
+            type: string
+            groups: [ 'product_review.list', 'category_review.show' ]
+        city:
+            expose: true
+            type: string
+            groups: [ 'product_review.list', 'category_review.show' ]
+        age:
+            expose: true
+            type: string
+            groups: [ 'product_review.list', 'category_review.show' ]
+        orderId:
+            expose: true
+            type: string
+            groups: [ 'product_review.list', 'category_review.show' ]
+        verified:
+            expose: true
+            type: string
+            groups: [ 'product_review.list', 'category_review.show' ]
+        translated:
+            expose: true
+            type: string
+            groups: [ 'product_review.list', 'category_review.show' ]
+        savAnswer:
+            expose: true
+            type: string
+            groups: [ 'product_review.list' ]
+        answers:
+            expose: true
+            type: array
+            groups: [ 'product_review.list', 'category_review.show' ]
+        reviewer:
+            xml_key_value_pairs: true
+            expose: true
+            type: array
+            groups: [ 'google.rss' ]
+            xml_element:
+                cdata: false
+        url:
+            expose: true
+            type: array<App\View\ReviewUrlView>
+            groups: [ 'google.rss' ]
+            xml_list:
+                entry_name: 'review_url'
+                inline: true
+        ratings:
+            expose: true
+            type: array<App\View\RatingsView>
+            groups: [ 'google.rss' ]
+            xml_list:
+                entry_name: 'overall'
+        products:
+            expose: true
+            type: array<App\View\ProductView>
+            groups: [ 'google.rss' ]
+            xml_list:
+                entry_name: 'product'
+        reviewId:
+            expose: true
+            type: string
+            groups: [ 'google.rss' ]
+            serialized_name: review_id
+            xml_element:
+                cdata: false
+    virtual_properties:
+        xmlTimestamp:
+            exp: object.getTimestamp()
+            serialized_name: 'review_timestamp'
+            type: string
+            groups: [ 'google.rss' ]
+            xml_element:
+                cdata: false
+        content:
+            exp: object.getContent()
+            type: string
+            groups: [ 'google.rss' ]
+            xml_element:
+                cdata: false
+

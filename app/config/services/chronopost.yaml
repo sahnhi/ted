@@ -1,0 +1,7 @@
+services:
+    App\Api\ChronoPost\Client\ChronoRelaisClient:
+        autowire: true
+        arguments:
+            $baseUri: '%env(CHRONOPOST_BASE_URI)%'
+            $accountNumber: '%env(CHRONOPOST_ACCOUNT_NUMBER)%'
+            $password: '%env(CHRONOPOST_PASSWORD)%'

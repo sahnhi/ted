@@ -1,0 +1,13 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+    
+    app.captainmetrics.captainmetrics_api:
+        class: App\Services\CaptainMetrics\CaptainMetricsApi
+        public: true
+        arguments:
+            $projectId: '%captainmetrics_project_id%'
+            $token: '%captainmetrics_api_token%'
+    
+    App\Services\CaptainMetrics\CaptainMetricsApi: '@app.captainmetrics.captainmetrics_api'

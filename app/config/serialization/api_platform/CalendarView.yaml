@@ -1,0 +1,8 @@
+App\Calendar\ViewModels\CalendarView:
+    attributes:
+        slots:
+            groups:
+                - shop:order:calendar:autonomous-return
+        order:
+            groups:
+                - shop:order:calendar:autonomous-return

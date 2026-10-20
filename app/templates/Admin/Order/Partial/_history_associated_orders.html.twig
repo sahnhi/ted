@@ -1,0 +1,50 @@
+<style type="text/css">
+    #history .content{
+        border-top : none;
+        padding : 0px;
+    }
+
+    #history .header {
+        padding-top : 5px;
+    }
+
+    #history .list {
+        padding-left : 20px;
+    }
+</style>
+
+{% macro recursiveHistory(orders, childs) %}
+    {% for order in childs %}
+        <div class="item">
+            <div class="header">
+                {% include '@SyliusAdmin/Common/_channel.html.twig' with {'channel': order.channel} %} - # {{ order.number }}
+            </div>
+            <div class="content">
+                <div class="list">
+                    {% for item in order.items %}
+                        <div class="item">
+                            <div class="content">{{ item.quantity }} x {{ item.variant.code }}</div>
+                        </div>
+                    {% endfor %}
+
+                    {% if orders[order.number] is defined %}
+                        <div class="list">
+                            {{ _self.recursiveHistory(orders, orders[order.number]) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endmacro %}
+
+{% if orders | length > 1 %}
+    <div class="ui styled fluid accordion">
+        <div class="title"><i class="dropdown icon"></i> {{ "sylius.ui.order.history" | trans() }}</div>
+        <div class="content">
+            <div class="ui list">
+                {{ _self.recursiveHistory(orders, orders[orders | keys | first]) }}
+            </div>
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,41 @@
+sylius_admin_product_review_question:
+    resource: |
+        alias: sylius.product_review_question
+        section: admin
+        templates: SyliusAdminBundle:Crud
+        redirect: update
+        grid: sylius_admin_product_review_question
+        vars:
+            all:
+                subheader: sylius.ui.product_review_question.information
+                templates:
+                    form: "@App/ProductReviewQuestion/_form.html.twig"
+            index:
+                icon: 'file image outline'
+    type: sylius.resource
+
+sylius_admin_product_review_question_index:
+    path: /product_review_questions/
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.product:indexAction
+        _sylius:
+            section: admin
+            permission: true
+            template: "@SyliusAdmin/Crud/index.html.twig"
+            grid: sylius_admin_product_review_question_list_product
+
+sylius_admin_product_question_list:
+    path: /product-review-questions/list-questions/{id}
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.product_review_question:indexAction
+        _sylius:
+            section: admin
+            permission: true
+            template: "@SyliusAdmin/Crud/index.html.twig"
+            grid: sylius_admin_product_review_question
+            vars:
+                route:
+                    arguments:
+                        $productId: $id

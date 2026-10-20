@@ -1,0 +1,28 @@
+{% import "@SyliusAdmin/Common/Macro/money.html.twig" as money %}
+{% import '@SyliusUi/Macro/labels.html.twig' as label %}
+
+<div class="ui segment" id="payment-state">
+    <h3 class="ui dividing header">{{ 'sylius.ui.giftCards.label'|trans }}</h3>
+    <div class="ui relaxed divided list" id="sylius-payments">
+        {% for giftCard in order.giftCards %}
+            <div class="item">
+                <div class="right floated content">
+                    {{ giftCard.code }}
+                </div>
+                <div class="content">
+                    <div class="header">
+                        {{ 'sylius.ui.giftCards.code'|trans }}:
+                    </div>
+                    <div class="description">
+                        {{ 'sylius.ui.giftCards.amount'|trans }}: {{ money.format(giftCard.initialAmount, order.currencyCode) }}
+                    </div>
+                    {% if giftCard.refundAmount != 0 %}
+                        <div class="ui negative message">
+                            {{ 'sylius.ui.giftCards.refund_amount'|trans }} : {{ money.format(giftCard.refundAmount, order.currencyCode) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

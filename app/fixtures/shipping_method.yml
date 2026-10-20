@@ -1,0 +1,103 @@
+parameters:
+    configuration_free_method:
+        default:
+            amount: 0
+        boutique:
+            amount: 0
+    configuration_paid_method:
+        default:
+            amount: 1000
+        boutique:
+            amount: 1000
+    configuration_vir_amount_threshold:
+        default:
+            amountThreshold: 500000
+            price: 1000
+        boutique:
+            amountThreshold: 500000
+            price: 1000
+
+App\Doctrine\Entity\Sylius\ShippingMethod:
+    vir_shipping_method:
+        zone: '@zone_vir'
+        code: 'VIR'
+        category_requirement: 1
+        calculator: !php/const App\Calculator\Shipping\AmountThresholdCalculator::TYPE
+        warehouse: '@spidy_warehouse'
+        configuration: '<{configuration_vir_amount_threshold}>'
+        enabled: true
+        position: 14
+        opening_time: '<(new \DateTime("2022-12-20 07:00:00"))>'
+        closing_time: '<(new \DateTime("2022-12-20 22:00:00"))>'
+        time_slot: '<(new \DateTime("2022-12-20 05:00:00"))>'
+        openingCalendarDays: [ 1, 2, 3, 4, 5, 6 ]
+        max_per_day: 130
+        max_per_slot: 500
+        max_articles: 999
+        transport_time: 8.6
+        shipping_time_date: 2
+        has_tracking: 1
+        floor: 1
+        tuned: 1
+        translations: [ '@vir_translation' ]
+        channels: [ '@web_channel', '@boutique_channel' ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+        __calls:
+            -   addShippingCategory: [ '@shipping_category1' ]
+    
+    ups_shipping_paid_method:
+        zone: '@zone_ups'
+        code: 'UPS'
+        category_requirement: true
+        calculator: 'flat_rate'
+        warehouse: '@spidy_warehouse'
+        configuration: '<{configuration_paid_method}>'
+        enabled: true
+        position: 14
+        opening_time: '<(new \DateTime("2022-12-20 07:00:00"))>'
+        closing_time: '<(new \DateTime("2022-12-20 22:00:00"))>'
+        time_slot: '<(new \DateTime("2022-12-20 05:00:00"))>'
+        openingCalendarDays: [ 1, 2, 3, 4, 5, 6 ]
+        max_per_day: 130
+        max_per_slot: 500
+        max_articles: 9992
+        transport_time: 8.6
+        shipping_time_date: 2
+        has_tracking: 1
+        floor: 1
+        tuned: 1
+        translations: [ '@ups_translation' ]
+        channels: [ '@web_channel', '@boutique_channel' ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+        __calls:
+            - addShippingCategory: [ '@shipping_category1' ]
+    
+    dpwr_shipping_method:
+        zone: '@zone_vir'
+        code: 'DPWR'
+        category_requirement: 1
+        calculator: 'flat_rate'
+        warehouse: '@spidy_warehouse'
+        configuration: '<{configuration_paid_method}>'
+        enabled: true
+        position: 14
+        opening_time: '<(new \DateTime("2022-12-20 07:00:00"))>'
+        closing_time: '<(new \DateTime("2022-12-20 22:00:00"))>'
+        time_slot: '<(new \DateTime("2022-12-20 05:00:00"))>'
+        openingCalendarDays: [ 1, 2, 3, 4, 5, 6 ]
+        max_per_day: 130
+        max_per_slot: 500
+        max_articles: 999
+        transport_time: 2.0
+        shipping_time_date: 2
+        has_tracking: 1
+        floor: 1
+        tuned: 1
+        translations: [ '@dpwr_translation_fr' ]
+        channels: [ '@web_channel', '@boutique_channel' ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+        __calls:
+            -   addShippingCategory: [ '@shipping_category1' ]

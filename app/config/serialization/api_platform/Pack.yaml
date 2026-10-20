@@ -1,0 +1,10 @@
+App\Doctrine\Entity\Pack:
+    attributes:
+        code:
+            groups: [ 'pack:read', 'shop:product_variant:read' ]
+        addons:
+            groups:
+                  - pack:read
+        translations:
+            type: array<App\Doctrine\Entity\PackTranslation>
+            groups: [ 'pack:read' ]

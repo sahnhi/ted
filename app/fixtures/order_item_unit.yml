@@ -1,0 +1,22 @@
+App\Doctrine\Entity\Sylius\OrderItemUnit:
+    order_with_mattress_order_item_unit:
+        __construct: ['@order_with_mattress_order_item']
+        created_at: '<(new \DateTime("2022-12-20 16:23:19"))>'
+        updated_at: '<(new \DateTime("2022-12-20 16:25:01"))>'
+        
+    fulfilled_order_item_unit:
+        __construct: ['@fulfilled_order_item']
+        created_at: '<(new \DateTime("2022-12-20 16:23:19"))>'
+        updated_at: '<(new \DateTime("2022-12-20 16:25:01"))>'
+        
+    cart_with_mattress_order_item_unit:
+        __construct: ['@cart_with_mattress_order_item']
+        created_at: '<(new \DateTime("2022-12-20 16:23:19"))>'
+        updated_at: '<(new \DateTime("2022-12-20 16:25:01"))>'
+        shipment: '@cart_with_mattress_order_item_unit_shipment'
+        
+    cart_addressed_with_mattress_order_item_unit:
+        __construct: ['@cart_addressed_with_mattress_order_item']
+        created_at: '<(new \DateTime("2022-12-20 16:23:19"))>'
+        updated_at: '<(new \DateTime("2022-12-20 16:25:01"))>'
+        shipment: '@cart_addressed_with_mattress_item_unit_shipment'

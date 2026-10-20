@@ -1,0 +1,23 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+    
+    app.drip.drip_api:
+        class: App\Services\Drip\DripAPI
+        public: true
+        arguments:
+            $dripAccountId: '%drip_account_id%'
+            $bus: '@sylius_default.bus'
+    
+    App\Services\Drip\DripAPI: '@app.drip.drip_api'
+
+    app.service.sponsor.sync_filleul_to_parrain_drip:
+        class: App\Services\Sponsor\SyncFilleulToParrainDrip
+        public: true
+
+    App\Services\Sponsor\SyncFilleulToParrainDrip: '@app.service.sponsor.sync_filleul_to_parrain_drip'
+
+    App\Services\Drip\DripUrlBuilder:
+        arguments:
+            $token: '%drip_sylius_api_key%'

@@ -1,0 +1,3 @@
+{% for shippingStock in data %}
+    <p><span class="ui small header">{{ shippingStock.warehouse.name }} -</span> {{ shippingStock.shippingDate|date("d/m/Y") }}</p>
+{% endfor %}

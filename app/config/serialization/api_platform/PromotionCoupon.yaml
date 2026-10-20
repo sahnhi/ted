@@ -1,0 +1,11 @@
+"%sylius.model.promotion_coupon.class%":
+    attributes:
+        code:
+            groups:
+                - shop:cart:read
+        used:
+            groups:
+                - shop:cart:read
+        promotion:
+            groups:
+                - shop:cart:read

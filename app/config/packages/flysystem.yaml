@@ -1,0 +1,14 @@
+# Read the documentation at https://github.com/thephpleague/flysystem-bundle/blob/master/docs/1-getting-started.md
+flysystem:
+    storages:
+        media.storage:
+            adapter: 'gcloud'
+            options:
+                client: 'app.google_cloud_storage.client'
+                bucket: '%env(GOOGLE_CLOUD_MEDIA_BUCKET)%'
+        
+        quality_image.storage:
+            adapter: 'gcloud'
+            options:
+                client: 'app.google_cloud_storage.client'
+                bucket: '%env(GOOGLE_CLOUD_QUALITY_IMAGE_BUCKET)%'

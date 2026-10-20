@@ -1,0 +1,54 @@
+{% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
+
+{% form_theme form 'Admin/ShippingMethodCategory/theme.html.twig' %}
+
+<h5 class="ui top attached header">
+    {{ 'sylius.ui.general_info'|trans }}
+</h5>
+<div class="ui attached segment">
+    <div class="two fields">
+        <div class="field">
+            {{ form_row(form.code) }}
+        </div>
+        <div class="field">
+            {{ form_row(form.enabled) }}
+        </div>
+    </div>
+</div>
+
+<h5 class="ui attached header">
+    {{ 'sylius.ui.translations'|trans }}
+</h5>
+<div class="ui attached segment">
+    {{ translationForm(form.translations) }}
+</div>
+
+<div class="ui divider"></div>
+
+<h5 class="ui top attached header">
+    {{ 'app.ui.shipping_method_category.claims.label'|trans }}
+</h5>
+<div class="ui attached segment">
+    {{ form_row(form.claims) }}
+</div>
+
+<div class="ui divider"></div>
+
+<h5 class="ui top attached header">
+    {{ 'sylius.ui.shipping_methods'|trans }}
+</h5>
+<div class="ui attached segment">
+    <div class="ui info message">
+        {{ 'app.ui.shipping_method_category.shipping_methods_help'|trans }}
+    </div>
+    {{ form_row(form.shippingMethods) }}
+</div>
+
+<div class="ui divider"></div>
+
+<h5 class="ui top attached header">
+    {{ 'app.ui.shipping_method_category.services'|trans }}
+</h5>
+<div class="ui attached segment">
+    {{ form_row(form.shippingMethodCategoryServices) }}
+</div>

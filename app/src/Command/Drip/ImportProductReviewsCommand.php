@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Command\Drip;
+
+use App\Services\Drip\DripApiInterface;
+use Sylius\Component\Resource\Repository\RepositoryInterface;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
+final class ImportProductReviewsCommand extends Command
+{
+    protected static $defaultName = 'app:drip:import-product-reviews';
+
+    public function __construct(
+        private readonly RepositoryInterface $productReviewRepository,
+        private readonly DripApiInterface $dripApi
+    ) {
+        parent::__construct();
+    }
+
+    protected function configure()
+    {
+        $this->setDescription('Import product reviews to Drip')
+            ->setHelp('Send reviews to Drip')
+            ->addArgument('start', InputArgument::REQUIRED, 'Starting index of the Product Reviews range')
+            ->addArgument('limit', InputArgument::REQUIRED, 'Number of Product Reviews to sync (1000 max)');
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $output->writeln('Preparing product reviews');
+        $offset = $input->getArgument('start');
+        $limit = $input->getArgument('limit');
+        $productReviews = $this->productReviewRepository->findBy([], [], $limit, $offset);
+        $output->writeln('Sending product reviews...');
+
+        $results = $this->dripApi->sendBatchProductReviews($productReviews);
+
+        $output->writeln('Results:');
+        $output->writeln($results);
+
+        // todo replace by COMMAND::SUCCESS on version 5.1
+        return 0;
+    }
+}

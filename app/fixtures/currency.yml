@@ -1,0 +1,6 @@
+Sylius\Component\Currency\Model\Currency:
+    eur_currency:
+        code: 'EUR'
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+        

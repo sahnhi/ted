@@ -1,0 +1,133 @@
+app:
+    ui:
+        payment_details: Dettagli di pagamento
+        support: Support Zendesk
+        pay-leetchi: Paga con Leetchi
+        pay-pmt: Paga con Paga+Tarde
+        pay-be2bill-ntimes: Paga in 3 rate senza interessi
+        pay-braintree: Conferma il pagamento
+        delivery_slots: Fascia oraria di consegna
+        start_delivery_slot: 'Data di inizio:'
+        end_delivery_slot: 'Data di fine:'
+        undefined: indéfini
+        other_details: Autres informations
+        export:
+            product_review: Esportazione di recensioni
+            cohortes: Esportazione di coorte
+        label:
+            credit_card_brand: "Tipo di carta"
+            credit_card_holder: "Titolare della carta"
+            credit_card_number: "Numero di carta"
+            credit_card_expireAt: "Data di scadenza"
+            credit_card_securityCode: "Codice di sicurezza"
+
+    form:
+        payment_method:
+            price_rule:
+                greater: Più grande di
+                lower: Più piccolo di
+
+        promotion_action:
+            add_product_configuration:
+                product_variant: Variante del prodotto
+        product_review:
+            rating: Note
+            status: Status
+            locale: Langue
+
+    payum_gateway_factory:
+        paga_mas_tarde_checkout: Paga Mas Tarde
+        braintree_checkout: Braintree
+        leetchi_checkout: Leetchi
+        dalenys_3times: Dalenys 3 rate
+        be2bill_direct: Dalenys direct
+    
+    product_review:
+        locale: Locale
+
+sylius:
+    ui:
+        packs: Packs de produits
+        new_pack: Nouveau pack
+        edit_pack: Modification d'un pack
+        pack:
+            title: Packs
+            information: Gestion des packs de produits
+        
+        familiarities: Familiarités
+        new_familiarity: Nouvelle familiarité
+        edit_familiarity: Modification d'une familiarité
+        familiarity:
+            information: Gestion des familiarités
+        
+        product_review:
+            remercie: Remercier
+        product_review_questions: Questions relatives aux produits
+        new_product_review_question: Nouvelle question relative à un produit
+        product_review_question:
+            information: Gestion des questions relatives aux produits
+            index: Questions relatives aux produits
+            show: Voir les questions
+        product_list_questions: Voir les questions
+        question: Question
+        nps: NPS
+        shippingMethod: Mode de livraison
+        translate: Traduire
+        new_product_review: Nouvel avis de produit
+        shipping_date: Date de livraison
+        shipping_method: Méthode de livraison
+        shipping_department: Département
+        contains_product: Contient ce produit
+        usageLimit: Limite d'utilisation
+        expires_date: Date d'expiration
+        exists_expires_date: Contient une date d'expiration ?
+        customer_locale: Locale client
+        promotion_coupon: Promotion coupon
+
+    menu:
+        admin:
+            packs: Pack de produits
+            familiarities: Familiarités
+            product_review_question:
+                information: Questions relatives aux produits
+                index: Questions relatives aux produits
+            product_options_values_locales_default: Default options by product
+
+    form:
+        pack:
+            name: Nom du pack
+            code: Code du pack
+        product:
+            variant:
+                packs: Packs disponibles
+                ecotax: Écotaxe
+        familiarity:
+            wording: Libellé
+            code: Code
+        familiarities: Familiarités
+        product_review_question:
+            enabled: Activé
+            product: Produit
+        option_value:
+            optgroup: Option standard
+            help: Texte d'aide
+            description: Description
+        osteopath: Ostéopathe
+        friends: Amis
+        product_review_translation:
+            name: Question
+            translations: Traductions
+        customer:
+            optin: Optin SAV
+        order:
+            private_note: Note
+        locale:
+            locale: Locale
+            select: Sélectionner une locale
+
+sylius_admin_order_creation:
+    ui:
+        new_customer_email: E-mail
+        create_new: Nouveau client
+        add_discount: Ajouter une promotion
+        confirm: Créer

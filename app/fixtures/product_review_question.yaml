@@ -1,0 +1,9 @@
+App\Doctrine\Entity\ProductReviewQuestion:
+    product_review_question_1:
+        product: '@mattress_product'
+        enabled: true
+        question: 'problemesAvants'
+        questionType: 'checkbox'
+        position: 1
+        translations: ['@product_review_question_1_translation']
+        productReviewAnswerChoices: ['@product_review_answer_choice_back_problem']

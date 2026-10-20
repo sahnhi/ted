@@ -1,0 +1,9 @@
+{% if data.orderReturn is null %}
+    {{'app.ui.order_return_destination.waiting'|trans}}
+{% else %}
+    {% for item in data.orderReturn.items %}
+        {% for key, value in constant('App\\Services\\OrderReturn\\EnumOrderReturnDestination::AVAILABLE_DESTINATION_TYPE')|filter(value => value == item.destination) %}
+            {{ item.variant.code }} : {{ key|trans }} <br/>
+        {% endfor %}
+    {% endfor %}
+{% endif %}

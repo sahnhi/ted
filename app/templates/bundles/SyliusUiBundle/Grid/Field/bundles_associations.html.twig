@@ -1,0 +1,19 @@
+<div class="popup-toggler">
+    <div class="ui icon blue button"
+         data-html="
+            <table class='ui celled table'>
+                {% for assoc in data %}
+                    <tr>
+                        <td>{{ assoc.variant.name }}</td>
+                        <td>{{ assoc.quantity }}
+                    </tr>
+                {% else %}
+                    <tr><td>{{ 'app.ui.bundle_association.labels.empty' | trans }}</td></tr>
+                {% endfor %}
+            </table>
+         "
+         data-position="left center">
+        <i class="question circle outline icon"></i>
+        {{ 'app.ui.bundle_association.labels.nb_products' | trans({'nb_products': (data | length)}) }}
+    </div>
+</div>

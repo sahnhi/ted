@@ -1,0 +1,8 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Specification\Promotion\PromotionIsAdvantageousSpecification:
+        arguments:
+            $productVariantPricesCalculator: '@sylius.calculator.product_variant_price'

@@ -1,0 +1,100 @@
+App\View\OrderTransmissionView:
+    exclusion_policy: ALL
+    properties:
+        delivery:
+            type: string
+            expose: true
+            groups: [ 'eDeliv' ]
+        sender:
+            type: string
+            expose: true
+            groups: [ 'eDeliv' ]
+        items:
+            expose: true
+            type: array<App\View\ItemTransmissionView>
+            serialized_name: 'items'
+            groups: [ 'spidy', 'eDeliv','olvo','vir' ]
+        shippingAddress:
+            expose: true
+            groups: [ 'spidy','eDeliv','olvo','vir','pickup' ]
+            serialized_name: 'address'
+        shipments:
+            expose: true
+            type: array<App\View\ShipmentTransmissionView>
+            groups: [ 'spidy','olvo','pickup' ]
+    virtual_properties:
+        getTEDNumberTransmission:
+            name: 'number'
+            serialized_name: 'N° de commande'
+            type: string
+            groups: [ 'spidy' ]
+        getNumberTransmission:
+            name: 'taskId'
+            serialized_name: 'taskId'
+            type: string
+            groups: [ 'eDeliv','olvo','vir', 'pickup' ]
+        getInstructions:
+            name: 'details'
+            serialized_name: 'instructions'
+            type: string
+            groups: [ 'eDeliv' ]
+        getType:
+            name: 'type'
+            serialized_name: 'type'
+            type: string
+            groups: [ 'eDeliv' ]
+        getSender:
+            name: 'sender'
+            serialized_name: 'sender'
+            type: string
+            groups: [ 'eDeliv' ]
+        getDateShipment:
+            name: 'date'
+            serialized_name: 'date'
+            groups: [ 'eDeliv' ]
+        getTimeWindows:
+            name: 'timeWindow'
+            serialized_name: 'timeWindow'
+            groups: [ 'eDeliv' ]
+        getDateOrder:
+            name: 'dateOrder'
+            serialized_name: 'date order'
+            groups: [ 'vir' ]
+        getDateShipmentFR:
+            name: 'dateShipment'
+            serialized_name: 'dateShipment'
+            groups: [ 'vir','pickup' ]
+        getShipmentDeliveryHour:
+            name: 'ShipmentDeliveryHour'
+            serialized_name: 'ShipmentDeliveryHour'
+            groups: [ 'vir' ]
+        getOrderType:
+            name: 'Type de commande'
+            serialized_name: 'Type de commande'
+            groups: [ 'spidy' ]
+        getCustomer:
+            name: 'Contact'
+            serialized_name: 'contact'
+            groups: [ 'eDeliv','vir' ]
+        getEmail:
+            name: 'Commentaire 2'
+            serialized_name: 'Commentaire 2'
+            type: string
+            groups: [ 'spidy' ]
+        getPhone:
+            name: 'Phone'
+            serialized_name: 'phone'
+            type: string
+            groups: [ 'olvo' ]
+        getMetadata:
+            name: 'metadata'
+            serialized_name: 'metadata'
+            groups: [ 'eDeliv' ]
+        getPickupItems:
+            name: 'Produits'
+            serialized_name: 'products'
+            groups: [ 'pickup' ]
+        getReasons:
+            name: 'reasons'
+            serialized_name: 'reasons'
+            groups: [ 'pickup' ]

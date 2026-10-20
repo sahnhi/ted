@@ -1,0 +1,26 @@
+parameters:
+    locale: 'fr_FR'
+    sylius_odoo_api_key: 'foo-bar'
+
+services:
+    # Default configuration for services in *this* file
+    _defaults:
+        # Automatically injects dependencies in your services
+        autowire: true
+    
+    app.filesystem.local_storage:
+        class: Gaufrette\Filesystem
+        factory: [ '@knp_gaufrette.filesystem_map', get ]
+        arguments: [ '%app.local_var.filesystem%' ]
+    
+    # When in dev environment, we never want to go fetch the invoice in the remote bucket   
+    App\Services\Filesystem\GoogleStorageExportFilesystem:
+        arguments:
+            $filesystemStorage: '@app.filesystem.local_storage'
+            $filesystemLocal: '@app.filesystem.local_storage'
+            
+    App\Services\Filesystem\GoogleStorageInvoiceFilesystem:
+        arguments:
+            $filesystemStorage: '@app.filesystem.local_storage'
+            $filesystemLocal: '@app.filesystem.local_storage'
+

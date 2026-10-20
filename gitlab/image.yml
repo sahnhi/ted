@@ -1,0 +1,19 @@
+include:
+    - local: '/gitlab/templates.yml'
+
+##### STAGE IMAGE #####
+build-images:
+    image: google/cloud-sdk:$GCLOUD_SDK_VERSION
+    stage: image
+    when: manual
+    variables:
+        IMAGE: $IMAGE_REPO:$CI_COMMIT_SHA
+        IMAGE_WORKERS: $IMAGE_REPO_WORKERS:$CI_COMMIT_SHA
+    needs:
+        - assets
+        - symfony-assets
+    before_script:
+        - !reference [.load_gcloud_configuration]
+        - gcloud config set project $GCLOUD_EXPLOITATION_PROJECT_ID
+    script:
+        - ./gitlab/build-images.sh

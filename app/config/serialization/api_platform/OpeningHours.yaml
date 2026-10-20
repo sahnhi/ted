@@ -1,0 +1,8 @@
+App\Model\Logistic\PickUp\OpeningHours:
+    attributes:
+        day:
+            groups: [ 'shop:order:pickup' ]
+        openTime:
+            groups: [ 'shop:order:pickup' ]
+        closeTime:
+            groups: [ 'shop:order:pickup' ]

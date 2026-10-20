@@ -1,0 +1,11 @@
+shop_api_sponsor_add:
+    path: /add
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Api\Sponsor\AddAction
+
+shop_api_sponsor_gift_add:
+    path: /gift/add
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Api\Sponsor\GiftAddAction

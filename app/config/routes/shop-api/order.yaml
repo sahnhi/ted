@@ -1,0 +1,53 @@
+shop_api_order_address:
+    path: /{token}/address
+    methods: [ PUT ]
+    defaults:
+        _controller: App\Controller\Api\Order\AddressAction
+
+shop_api_payment_list:
+    path: /{token}/payment
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Api\Order\ListPaymentAction
+
+shop_api_order_payment:
+    path: /{token}/payment
+    methods: [ PUT ]
+    defaults:
+        _controller: App\Controller\Api\Order\ChoosePaymentAction
+
+shop_api_order_complete:
+    path: /{token}/complete
+    methods: [ PUT ]
+    defaults:
+        _controller: App\Controller\Api\Order\CompleteAction
+
+shop_api_order_modify:
+    path: /{token}/modify
+    methods: [ PUT ]
+    defaults:
+        _controller: App\Controller\Api\Order\ModifyAction
+
+shop_api_order_after_pay:
+    path: /after-pay
+    methods: [ GET, POST, PUT ]
+    defaults:
+        _controller: App\Controller\Api\Order\AfterPayAction
+
+shop_api_order_shipping:
+    path: /{token}/shipping
+    methods: [ PUT ]
+    defaults:
+        _controller: App\Controller\Api\Order\ChooseShippingAction
+
+shop_api_order_tracking:
+    path: /{token}/tracking
+    methods: [ PUT ]
+    defaults:
+        _controller: App\Controller\Api\Order\TrackingAction
+
+shop_api_order_gift_card_address:
+    path: /{token}/gift-card-address
+    methods: [ PUT ]
+    defaults:
+        _controller: App\Controller\Api\Order\GiftCardAddressAction

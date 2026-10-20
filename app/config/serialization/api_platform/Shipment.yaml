@@ -1,0 +1,14 @@
+App\Doctrine\Entity\Sylius\Shipment:
+    attributes:
+        shippingMethodCategory:
+            groups:
+                - shop:cart:read
+        startDeliverySlot:
+            groups:
+                - shop:cart:read
+        endDeliverySlot:
+            groups:
+                - shop:cart:read
+        tracking:
+            groups:
+                - shop:cart:read

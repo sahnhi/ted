@@ -1,0 +1,8 @@
+App\View\ShippingMethodTransmissionView:
+    exclusion_policy: ALL
+    properties:
+        code:
+            expose: true
+            type: string
+            groups: [ 'spidy','retour','pickup' ]
+            serialized_name: 'Pre tournée / TRANSPORTEUR'

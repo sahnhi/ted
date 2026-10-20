@@ -1,0 +1,11 @@
+App\Doctrine\Entity\RtbInfosTranslation:
+    attributes:
+        label:
+            groups:
+                - shop:product:read
+        description:
+            groups:
+                - shop:product:read
+        url:
+            groups:
+                - shop:product:read

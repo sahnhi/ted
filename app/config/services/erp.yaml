@@ -1,0 +1,19 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    app.client.erp:
+        class: GuzzleHttp\Client
+        arguments:
+            -   base_uri: '%env(ERP_BASE_URL)%'
+
+    GuzzleHttp\ClientInterface: "@app.client.erp"
+
+    app.erp.forward:
+        class: App\Services\Erp\ForwardToErp
+        public: true
+
+    app.erp.forward_handler:
+        class: App\Services\Erp\ForwardToErpHandler
+        public: true

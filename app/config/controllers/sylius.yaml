@@ -1,0 +1,16 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        tags: [ 'controller.service_arguments' ]
+
+    Sylius\AdminOrderCreationPlugin\Controller\CustomerCreationAction:
+        arguments:
+            $customerProvider: 'App\Provider\CustomerProvider'
+
+    ## @todo: why not call the one extending (cf: App\Controller\Admin\ProductVariantController)
+    Sylius\Bundle\CoreBundle\Controller\ProductVariantController:
+        alias: sylius.controller.product_variant
+
+    sylius_invoicing_plugin.ui.action.download_invoice:
+        class: App\Controller\Invoice\DownloadInvoiceAction

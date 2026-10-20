@@ -1,0 +1,105 @@
+winzou_state_machine:
+    !php/const App\Api\Odoo\Model\OrderInterface::GRAPH:
+        class: "%sylius.model.order.class%"
+        property_path: odooState
+        graph: !php/const App\Api\Odoo\Model\OrderInterface::GRAPH
+        state_machine_class: "%sylius.state_machine.class%"
+        states:
+            - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_NOT_READY
+            - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_READY
+            - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_CREATED
+            - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_SHIPPED
+            - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_DESTOCKED
+            - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_CANCELLED
+            - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_REFUNDED
+        transitions:
+            !php/const App\Api\Odoo\Model\OrderInterface::ODOO_TRANSITION_CREATE:
+                from:
+                    - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_NOT_READY
+                    - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_READY
+                to: !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_CREATED
+            !php/const App\Api\Odoo\Model\OrderInterface::ODOO_TRANSITION_CREATE_RETURN:
+                from:
+                    - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_NOT_READY
+                    - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_READY
+                to: !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_CREATED
+            !php/const App\Api\Odoo\Model\OrderInterface::ODOO_TRANSITION_DESTOCK:
+                from:
+                    - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_CREATED
+                to: !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_DESTOCKED
+            !php/const App\Api\Odoo\Model\OrderInterface::ODOO_TRANSITION_SHIP:
+                from:
+                    - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_DESTOCKED
+                to: !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_SHIPPED
+            !php/const App\Api\Odoo\Model\OrderInterface::ODOO_TRANSITION_CONFIRM_RETURN:
+                from:
+                    - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_CREATED
+                to: !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_REFUNDED
+            !php/const App\Api\Odoo\Model\OrderInterface::ODOO_TRANSITION_CANCEL:
+                from:
+                    - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_NOT_READY
+                    - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_READY
+                    - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_CREATED
+                    - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_SHIPPED
+                    - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_DESTOCKED
+                    - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_REFUNDED
+                to: !php/const App\Api\Odoo\Model\OrderInterface::ODOO_STATE_CANCELLED
+        callbacks:
+            guard:
+                guard_cancel:
+                    on: [!php/const App\Api\Odoo\Model\OrderInterface::ODOO_TRANSITION_CANCEL]
+                    do: [App\Api\Odoo\StateMachine\Guard\CancelOrder, __invoke]
+                    args: ["object"]
+                guard_refund:
+                    on: [!php/const App\Api\Odoo\Model\OrderInterface::ODOO_TRANSITION_CONFIRM_RETURN]
+                    do: [App\Api\Odoo\StateMachine\Guard\ConfirmReturnOrder, __invoke]
+                    args: ["object"]
+                guard_create:
+                    on: [!php/const App\Api\Odoo\Model\OrderInterface::ODOO_TRANSITION_CREATE]
+                    do: [App\Api\Odoo\StateMachine\Guard\CreateOrder, __invoke]
+                    args: ["object"]
+                guard_create_return:
+                    on: [!php/const App\Api\Odoo\Model\OrderInterface::ODOO_TRANSITION_CREATE_RETURN]
+                    do: [App\Api\Odoo\StateMachine\Guard\CreateReturn, __invoke]
+                    args: ["object"]
+                guard_destock:
+                    on: [!php/const App\Api\Odoo\Model\OrderInterface::ODOO_TRANSITION_DESTOCK]
+                    do: [App\Api\Odoo\StateMachine\Guard\DestockOrder, __invoke]
+                    args: ["object"]
+            before:
+                odoo_cancel_order:
+                    on:
+                        - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_TRANSITION_CANCEL
+                    do: [App\Api\Odoo\Action\CancelOrder, __invoke]
+                    args: ["object"]
+                odoo_create_order:
+                    on:
+                        - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_TRANSITION_CREATE
+                    do: [App\Api\Odoo\Action\CreateOrder, __invoke]
+                    args: ["object"]
+                odoo_create_return:
+                    on:
+                        - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_TRANSITION_CREATE_RETURN
+                    do: [App\Api\Odoo\Action\CreateReturnOrder, __invoke]
+                    args: ["object"]
+                odoo_confirm_return:
+                    on:
+                        - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_TRANSITION_CONFIRM_RETURN
+                    do: [App\Api\Odoo\Action\ConfirmReturn, __invoke]
+                    args: ["object"]
+                odoo_destock_order:
+                    on:
+                        - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_TRANSITION_DESTOCK
+                    do: [App\Api\Odoo\Action\DestockOrder, __invoke]
+                    args: ["object"]
+                odoo_ship_order:
+                    on:
+                        - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_TRANSITION_SHIP
+                    do: [App\Api\Odoo\Action\ShipOrder, __invoke]
+                    args: ["object"]
+            after:
+                destock_after_create:
+                    on:
+                        - !php/const App\Api\Odoo\Model\OrderInterface::ODOO_TRANSITION_CREATE
+                    do: ["@sm.callback.cascade_transition", "apply"]
+                    args: ["object", "event", "'destock'", "'sylius_order_odoo'"]

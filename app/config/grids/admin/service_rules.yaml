@@ -1,0 +1,21 @@
+sylius_grid:
+    grids:
+        sylius_admin_service_rules:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\ServiceRules
+            fields:
+                name:
+                    type: string
+                    label: sylius.ui.name
+                    sortable: translation.name
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete

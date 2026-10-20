@@ -1,0 +1,29 @@
+{% if attribute(data, 'id') is defined %}
+    {% set value = 'sylius.ui.' ~ data.shippingState %}
+    {% set object = data %}
+    {% set data = object.shippingState %}
+{% else %}
+    {% set value = 'sylius.ui.' ~ data %}
+{% endif %}
+
+{% if options.vars.labels is defined %}
+    {% include [(options.vars.labels ~ '/' ~ data ~ '.html.twig'), '@SyliusUi/Label/_default.html.twig'] with {'value': value} %}
+{% else %}
+    {% include '@SyliusUi/Label/_default.html.twig' with {'value': value} %}
+{% endif %}
+
+{% for shipment in object.shipments %}
+    <b>{{ shipment.method }}</b>
+    <p>
+        {% if shipment.endDeliverySlot is not null %}
+            {{ shipment.endDeliverySlot|format_datetime }}
+        {% else %}
+            {{ 'app.ui.undefined'|trans }}
+        {% endif %}
+    </p>
+    {% if shipment.shippingDate is not null %}
+    <p>
+        {{ 'sylius.ui.shipping.label' | trans }} : {{ shipment.shippingDate|format_datetime }}
+    </p>
+    {% endif %}
+{% endfor %}

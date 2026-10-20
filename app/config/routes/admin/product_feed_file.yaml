@@ -1,0 +1,14 @@
+app_admin_product_feed_file:
+    resource: |
+        alias: app.product_feed_file
+        section: admin
+        templates: "@SyliusAdmin\\Crud"
+        redirect: index
+        grid: app_admin_product_feed_file
+        vars:
+            all:
+                templates:
+                    form: "@SyliusAdmin/ProductFeedFile/Form/_form.html.twig"
+            index:
+                icon: 'list alternate outline'
+    type: sylius.resource

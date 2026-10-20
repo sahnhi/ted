@@ -1,0 +1,13 @@
+sylius_admin_seller:
+    resource: |
+        alias: sylius.seller
+        section: admin
+        templates: SyliusAdminBundle:Crud
+        redirect: update
+        grid: sylius_admin_seller
+        vars:
+            all:
+                subheader: sylius.form.seller.information
+            index:
+                icon: 'file image outline'
+    type: sylius.resource

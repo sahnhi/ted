@@ -1,0 +1,76 @@
+sylius_grid:
+    grids:
+        app_admin_bundle:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\Sylius\ProductVariant
+                    repository:
+                        method: getBundlesQueryBuilder
+            fields:
+                code:
+                    type: string
+                    label: sylius.ui.code
+                    sortable: ~
+                enabled:
+                    type: twig
+                    label: sylius.ui.enabled
+                    options:
+                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
+                product:
+                    type: string
+                    label: sylius.ui.product
+                    path: product.name
+                bundleAssociations:
+                    type: twig
+                    label: app.ui.bundle_association.labels.details
+                    options:
+                        template: "@SyliusUi/Grid/Field/bundles_associations.html.twig"
+                createdAt:
+                    type: datetime
+                    label: sylius.ui.created_at
+                    options:
+                        format: d-m-Y
+            filters:
+                code:
+                    type: string
+                    label: sylius.ui.code
+                bundleAssociations:
+                    type: entity_custom
+                    label: app.ui.bundle_association.labels.details
+                    options:
+                        fields: [ bundleAssociations.variant ]
+                    form_options:
+                        choice_label: nameAndCode
+                        needLocale: true
+                        class: "%sylius.model.product_variant.class%"
+                        method: getForFilter
+                        attr:
+                            class: "select2"
+                product:
+                    type: entity_custom
+                    label: sylius.ui.product
+                    options:
+                        fields: [ product.id ]
+                    form_options:
+                        choice_label: nameAndCode
+                        class: "%sylius.model.product.class%"
+                        method: findAllForBundlesQueryBuilder
+                        attr:
+                            class: "select2"
+            actions:
+                item:
+                    update:
+                        type: update
+                        options:
+                            link:
+                                parameters:
+                                    id: resource.id
+                                    productId: resource.product.id
+                    delete:
+                        type: delete
+                        options:
+                            link:
+                                parameters:
+                                    id: resource.id
+                                    productId: resource.product.id

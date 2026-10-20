@@ -1,0 +1,26 @@
+App\Calendar\Command\SelectCalendarSlotForAutonomousReturn:
+    attributes:
+        tokenValue:
+            groups:
+                - shop:order:calendar:select:autonomous-return
+        email:
+            groups:
+                - shop:order:calendar:select:autonomous-return
+        method:
+            groups:
+                - shop:order:calendar:select:autonomous-return
+        startSlot:
+            groups:
+                - shop:order:calendar:select:autonomous-return
+        endSlot:
+            groups:
+                - shop:order:calendar:select:autonomous-return
+        erpId:
+            groups:
+                - shop:order:calendar:select:autonomous-return
+        relayId:
+            groups:
+                - shop:order:calendar:select:autonomous-return
+        relayAddress:
+            groups:
+                - shop:order:calendar:select:autonomous-return

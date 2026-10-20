@@ -1,0 +1,10 @@
+App\Doctrine\Entity\Counter:
+    attributes:
+        id:
+            groups: [ 'counter:read' ]
+        key:
+            groups: [ 'counter:read' ]
+        year:
+            groups: [ 'counter:read' ]
+        counter:
+            groups: [ 'counter:read' ]

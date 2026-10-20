@@ -1,0 +1,27 @@
+sylius_grid:
+    grids:
+        sylius_admin_product_cms_sizing_guide:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\ProductCMSSizingGuide
+            fields:
+                code:
+                    label: sylius.ui.code
+                    type: string
+                enabled:
+                    label: sylius.ui.enabled
+                    type: twig
+                    options:
+                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
+            actions:
+                main:
+                    create:
+                        type: create
+                        icon: 'add'
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete
+

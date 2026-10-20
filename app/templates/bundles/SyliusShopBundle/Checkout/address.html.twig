@@ -1,0 +1,107 @@
+{% extends '@SyliusShop/Checkout/layout.html.twig' %}
+
+{% form_theme form '@SyliusShop/Form/theme.html.twig' %}
+
+{% block content %}
+    {% include '@SyliusShop/Checkout/_steps.html.twig' %}
+
+    {{ sonata_block_render_event('sylius.shop.checkout.address.after_steps', {'order': order}) }}
+
+    <div class="ui stackable grid">
+        <div class="eleven wide column">
+            <div class="ui segment">
+                {{ sonata_block_render_event('sylius.shop.checkout.address.before_form', {'order': order}) }}
+
+                {{ form_start(form, {'action': path('sylius_shop_checkout_address'), 'attr': {'class': 'ui loadable form', 'novalidate': 'novalidate'}}) }}
+                    {{ form_errors(form) }}
+                    <input type="hidden" name="_method" value="PUT" />
+
+                    {% include '@SyliusShop/Checkout/Address/_form.html.twig' %}
+                    <div class="ui hidden divider"></div>
+
+                    {{ sonata_block_render_event('sylius.shop.checkout.address.before_navigation', {'order': order}) }}
+
+                    {{ form_row(form.customer) }}
+
+                    {% include '@SyliusShop/Checkout/Address/_navigation.html.twig' %}
+
+                    {{ form_row(form._token) }}
+                {{ form_end(form, {'render_rest': false}) }}
+            </div>
+        </div>
+        <div class="five wide column">
+            {{ sonata_block_render_event('sylius.shop.checkout.address.before_summary', {'order': order}) }}
+
+            {% include '@SyliusShop/Checkout/_summary.html.twig' with {'order': order} %}
+
+            {{ sonata_block_render_event('sylius.shop.checkout.address.before_support', {'order': order}) }}
+
+            {% include '@SyliusShop/Checkout/_support.html.twig' %}
+
+            {{ sonata_block_render_event('sylius.shop.checkout.address.after_support', {'order': order}) }}
+        </div>
+    </div>
+{% endblock %}
+
+{# BEGIN CUSTOM TEMPLATE #}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{GOOGLE_API_KEY}}&libraries=places&language=fr"></script>
+    <script type="text/javascript">
+        var fields = ['street_number', 'country', 'locality', 'postal_code'];
+
+        jQuery(document).ready(function($) {
+            initPlaceAPI();
+        });
+
+        /**
+        * Initializes Google Place API
+        */
+        function initPlaceAPI() {
+            try {
+                var inputs = getFieldInputs(fields);
+                var autocomplete = new google.maps.places.Autocomplete(inputs['street_number'], { types: ['geocode']});
+
+                var componentForm = {
+                    street_number: 'short_name',
+                    route: 'long_name',
+                    locality: 'long_name',
+                    country: 'short_name',
+                    postal_code: 'short_name'
+                }
+                var autocompleteLsr = autocomplete.addListener('place_changed', () => {
+                    var addressInput = inputs['street_number'];
+                    var place = autocomplete.getPlace()
+                    var ac = place.address_components
+                    addressInput.value = ''
+
+                    for (var i = 0; i < ac.length; i++) {
+                        var addressType = ac[i].types[0]
+                        if (addressType === 'street_number' || addressType === 'route') {
+                            var val = ac[i][componentForm[addressType]]
+                            addressInput.value += val + ' '
+                        } else if (componentForm[addressType]) {
+                            var val = ac[i][componentForm[addressType]]
+                            var input = inputs[addressType]
+                            input.value = val;
+                        }
+                    }
+                })
+            } catch (e) {
+                console.log(e)
+            }
+        }
+
+        function getFieldInputs (fields) {
+            var inputs = {};
+
+            for (var index in fields) {
+                var field = fields[index]
+                inputs[field] = jQuery('[data-autocomplete="'+ field + '"]')[0];
+            }
+
+            return inputs;
+        }
+    </script>
+{% endblock %}
+{# END CUSTOM TEMPLATE #}

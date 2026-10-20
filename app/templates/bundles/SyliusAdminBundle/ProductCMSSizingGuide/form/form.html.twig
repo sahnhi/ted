@@ -1,0 +1,20 @@
+{% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
+{% from '@SyliusAdmin/ProductCMSSizingGuide/form/_product_cms_sizing_guide_items.html.twig' import translationFormForms %}
+
+{{ form_errors(form) }}
+<div class="ui segment">
+    {{ form_row(form.code) }}
+</div>
+    {{ translationForm(form.translations) }}
+<div class="ui segment">
+    {{ form_row(form.products) }}
+</div>
+<div class="ui segment">
+    <h3 class="ui header">
+        {{ 'app.form.product.cms.sizing_guide.item.item'|trans }}
+    </h3>
+    {{ translationFormForms(form.productCMSSizingGuideItems) }}
+</div>
+<div class="ui segment">
+    {{ form_row(form.enabled) }}
+</div>

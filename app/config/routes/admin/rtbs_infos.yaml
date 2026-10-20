@@ -1,0 +1,17 @@
+app_rtbs_infos:
+    resource: |
+        alias: app.rtb_infos
+        section: admin
+        templates: "@SyliusAdmin\\Crud"
+        redirect: update
+        grid: app_rtb_infos
+        vars:
+            all:
+                header: app.ui.rtb.title
+                subheader: app.ui.rtb.subtitle
+                templates:
+                    form: "@SyliusAdmin/Rtb/form.html.twig"
+            index:
+                icon: 'file image outline'
+    type: sylius.resource
+    prefix: /admin

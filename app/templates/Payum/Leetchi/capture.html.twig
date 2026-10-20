@@ -1,0 +1,25 @@
+{% extends layout ?: "@PayumCore/layout.html.twig" %}
+
+{% block payum_stylesheets %}
+    {{ parent() }}
+    <link href="https://www.leetchi.com/Payment/MerchantFrame.css" rel="stylesheet" type="text/css"/>
+    <link href="/assets/api/css/main.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block payum_body %}
+    {{ parent() }}
+    <form id="leetchi_payment_form" action="https://{{ environment }}.leetchi.com/Payment" method="post" class="text-center">
+        <input type="hidden" name="pay_to_email" value="{{ email }}"/>
+        <input type="hidden" name="status_url" value="{{ statusUrl }}"/>
+        <input type="hidden" name="return_url" value="{{ returnUrl }}"/>
+        <input type="hidden" name="cancel_url" value="{{ cancelUrl }}"/>
+        <input type="hidden" name="amount" value="{{ amount }}"/>
+        <input type="hidden" name="transaction_id" value="{{ orderId }}" />
+        <input type="submit" value="{{ 'app.ui.pay-leetchi'|trans({}, 'messages', app.request.query.get('localeCode')) }}" class="btn btn-secondary btn-lg text-uppercase" />
+    </form>
+{% endblock %}
+
+{% block payum_javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://www.leetchi.com/Payment/MerchantFrame.js"></script>
+{% endblock %}

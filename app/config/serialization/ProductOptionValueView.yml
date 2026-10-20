@@ -1,0 +1,39 @@
+App\View\ProductOptionValueView:
+    exclusion_policy: ALL
+    properties:
+        code:
+            expose: true
+            type: string
+            groups: [ 'product.show', 'product_variant.list', 'taxon.list' ]
+        value:
+            expose: true
+            type: string
+            groups: [ 'product.show', 'product_variant.list', 'taxon.list' ]
+        help:
+            expose: true
+            type: string
+            groups: [ 'product.show', 'product_variant.list', 'taxon.list' ]
+        description:
+            expose: true
+            type: string
+            groups: [ 'product.show', 'product_variant.list', 'taxon.list' ]
+        optgroup:
+            expose: true
+            type: integer
+            groups: [ 'product.show', 'product_variant.list', 'taxon.list' ]
+        monobloc:
+            expose: true
+            type: array
+            groups: [ 'product.show', 'product_variant.list', 'taxon.list' ]
+        bibloc:
+            expose: true
+            type: array
+            groups: [ 'product.show', 'product_variant.list', 'taxon.list' ]
+        difference:
+            expose: true
+            type: integer
+            groups: [ 'product.show', 'product_variant.list', 'taxon.list' ]
+        bedFramePriceDiff:
+            expose: true
+            type: array
+            groups: [ 'product.show', 'product_variant.list', 'taxon.list' ]

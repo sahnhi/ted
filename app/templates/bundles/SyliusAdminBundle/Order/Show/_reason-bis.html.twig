@@ -1,0 +1,20 @@
+{% if order.orderReason.count > 0 %}
+    <h4 class="ui top attached styled header">
+        {{ 'sylius.ui.reasons'|trans }}
+    </h4>
+    <div class="ui attached segment">
+        {% for orderReason in order.orderReason if orderReason.reason %}
+            <div class="content">
+                <div class="header">
+                    {{ orderReason.reason.name }}
+                </div>
+                {% if orderReason.commercialOffer %}
+                    <div class="description">
+                        {{ orderReason.quantity }}
+                        <b>{{ orderReason.commercialOffer.name }}</b>
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

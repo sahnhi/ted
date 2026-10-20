@@ -1,0 +1,37 @@
+sylius_grid:
+    grids:
+        sylius_admin_order_return_status:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\OrderReturnStatus
+            fields:
+                statusType:
+                    type: twig
+                    label: sylius.ui.type
+                    options:
+                        template: '@SyliusAdmin/Grid/Field/OrderReturn/order_return_status_type.html.twig'
+                savStatus:
+                    type: string
+                    label: sylius.form.order_return_status.sav_status
+                    sortable: translation.name
+                warehouseStatus:
+                    type: string
+                    label: sylius.form.order_return_status.warehouse_status
+                    sortable: translation.name
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete
+            filters:
+                savStatus:
+                    type: string
+                    label: sylius.form.order_return_status.sav_status
+                warehouseStatus:
+                    type: string
+                    label: sylius.form.order_return_status.warehouse_status

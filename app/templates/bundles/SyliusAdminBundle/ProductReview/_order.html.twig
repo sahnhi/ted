@@ -1,0 +1,10 @@
+{% set order = product_review.order %}
+
+{% if order.id is defined %}
+<h4 class="ui top attached styled header">
+    {{ 'sylius.ui.order'|trans ~' #'~ order.number }}
+</h4>
+<div class="ui attached segment">
+    <a href="{{ path('sylius_admin_order_show', {'id': order.id}) }}" class="header sylius-product-name">{{ order.number }}</a>
+</div>
+{% endif %}

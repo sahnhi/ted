@@ -1,0 +1,8 @@
+{% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
+
+{{ form_errors(form) }}
+{{ translationForm(form.translations) }}
+{{ form_row(form.code) }}
+{{ form_row(form.variants) }}
+{{ form_row(form.addons) }}
+{{ form_rest(form) }}

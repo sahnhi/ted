@@ -1,0 +1,130 @@
+parameters:
+    messenger_max_retries: 3
+
+framework:
+    messenger:
+        buses:
+            sylius.command_bus:
+                middleware:
+                    - App\Notification\SaveWebhookNotificationMiddleware
+                    - doctrine_ping_connection
+                    - doctrine_close_connection
+
+        failure_transport: failed
+        transports:
+            # Uncomment the following line to enable a transport named "amqp"
+            # amqp: '%env(MESSENGER_TRANSPORT_DSN)%'
+            mail:
+                dsn: "enqueue://gps?queue[name]=mail&topic[name]=mail"
+                retry_strategy:
+                    max_retries: "%messenger_max_retries%"
+                    multiplier: 2
+                    delay: 0
+                    max_delay: 0
+            drip:
+                dsn: "enqueue://gps?queue[name]=drip&topic[name]=drip"
+                retry_strategy:
+                    max_retries: "%messenger_max_retries%"
+                    multiplier: 2
+                    delay: 0
+                    max_delay: 0
+            captainmetrics:
+                dsn: "enqueue://gps?queue[name]=captainmetrics&topic[name]=captainmetrics"
+                retry_strategy:
+                    max_retries: "%messenger_max_retries%"
+                    multiplier: 2
+                    delay: 0
+                    max_delay: 0
+            odoo:
+                dsn: "enqueue://gps?queue[name]=odoo&topic[name]=odoo"
+                retry_strategy:
+                    max_retries: 1
+                    delay: 0
+                    max_delay: 0
+            invoice:
+                dsn: "enqueue://gps?queue[name]=invoice&topic[name]=invoice" # for staging and prod environment only
+                retry_strategy:
+                    max_retries: "%messenger_max_retries%"
+                    multiplier: 2
+                    delay: 0
+                    max_delay: 0
+            dalenys_notify:
+                dsn: "enqueue://gps?queue[name]=dalenys_notify&topic[name]=dalenys_notify"
+                retry_strategy:
+                    max_retries: "%messenger_max_retries%"
+                    multiplier: 2
+                    delay: 0
+                    max_delay: 0
+            failed:
+                dsn: "enqueue://gps?queue[name]=failed&topic[name]=failed"
+                retry_strategy:
+                    max_retries: "%messenger_max_retries%"
+                    multiplier: 2
+                    delay: 0
+                    max_delay: 0
+            preview_rss_xml:
+                dsn: "enqueue://gps?queue[name]=preview_rss_xml&topic[name]=preview_rss_xml"
+                retry_strategy:
+                    max_retries: "%messenger_max_retries%"
+                    multiplier: 2
+                    delay: 0
+                    max_delay: 0
+            preview_rss_zip:
+                dsn: "enqueue://gps?queue[name]=preview_rss_zip&topic[name]=preview_rss_zip"
+                retry_strategy:
+                    max_retries: "%messenger_max_retries%"
+                    multiplier: 2
+                    delay: 0
+                    max_delay: 0
+            webhook:
+                dsn: "enqueue://gps?queue[name]=webhook&topic[name]=webhook"
+                retry_strategy:
+                    max_retries: "%messenger_max_retries%"
+                    multiplier: 2
+                    delay: 0
+                    max_delay: 0
+            shipup:
+                dsn: "enqueue://gps?queue[name]=shipup&topic[name]=shipup"
+                retry_strategy:
+                    max_retries: "%messenger_max_retries%"
+                    multiplier: 2
+                    delay: 0
+                    max_delay: 0
+            rimdian:
+                dsn: "enqueue://gps?queue[name]=rimdian&topic[name]=rimdian"
+                retry_strategy:
+                    max_retries: "%messenger_max_retries%"
+                    multiplier: 2
+                    delay: 0
+                    max_delay: 0
+            export_accounting_data:
+                dsn: "enqueue://gps?queue[name]=export_accounting_data&topic[name]=export_accounting_data"
+                retry_strategy:
+                    max_retries: "%messenger_max_retries%"
+                    multiplier: 1
+                    delay: 0
+                    max_delay: 0
+            sync: "sync://"
+        routing:
+            # Route your messages to the transports
+            'App\Message\Mail': mail
+            'App\Message\Drip': drip
+            'App\Message\Invoice': invoice
+            'App\Message\CaptainMetrics': captainmetrics
+            'App\Message\DalenysNotify': dalenys_notify
+            'App\Api\Odoo\Message\Odoo': odoo
+            'App\Api\Odoo\Message\OdooMessageInterface': odoo
+            'App\Message\PreviewRss\PreviewRssXml': preview_rss_xml
+            'App\Message\PreviewRss\PreviewRssZip': preview_rss_zip
+            'App\PaymentReport\Command\PaymentReportNotificationCommand': webhook
+            'App\PaymentReport\Command\DownloadReportCommand': webhook
+            'App\Api\ChronoPost\Command\ShipupWebhookCommand': webhook
+            'App\Message\Shipup': shipup
+            'App\Analytic\Command\ImportUserFromOrder': rimdian
+            'App\Analytic\Command\ImportOrderCommand': rimdian
+            'App\Analytic\Command\ImportBatchUsers': rimdian
+            'App\Channable\Message\ExportFile': sync
+            'App\Channable\Message\ExportProductRow': sync
+            'App\Message\ExportAccountingData': export_accounting_data
+            'Symfony\Component\Mailer\Messenger\SendEmailMessage': mail
+

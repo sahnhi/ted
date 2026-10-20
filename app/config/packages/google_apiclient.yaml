@@ -1,0 +1,9 @@
+parameters:
+    google_api_key: '%env(GOOGLE_API_KEY)%'
+    google_project_id: '%env(GOOGLE_PROJECT_ID)%'
+
+services:
+    Google_Client:
+        class: Google_Client
+        calls:
+            - [ setDeveloperKey, [ '%google_api_key%' ] ]

@@ -1,0 +1,12 @@
+<div class="ui segment">
+    {{ render(path('app_admin_partial_order_autorefund', {'number': order.number, 'template': 'Admin/Order/Partial/_autorefund.html.twig'})) }}
+
+    <h3 class="ui dividing header">{{ 'sylius.ui.refund'|trans }}</h3>
+    {{ form_start(refundForm, {'action': path('sylius_admin_order_show_custom', {'id': resource.id}), 'method': 'POST', 'attr': {'class': 'ui form'}}) }}
+    <div class="ui field">
+        {{ form_row(refundForm.amount) }}
+        {{ form_row(refundForm.refundCode) }}
+    </div>
+    {{ form_widget(refundForm.submit) }}
+    {{ form_end(refundForm) }}
+</div>

@@ -1,0 +1,70 @@
+App\Doctrine\Entity\Sylius\ChannelPricing:
+    mattress_product_variant_140_200_pricing_web:
+        product_variant: '@mattress_product_variant_140_200'
+        price: 6900
+        channel_code: 'default'
+        
+    mattress_product_variant_140_200_pricing_boutique:
+        product_variant: '@mattress_product_variant_140_200'
+        price: 6900
+        channel_code: 'boutique'
+        
+    mattress_product_variant_160_200_pricing_web:
+        product_variant: '@mattress_product_variant_160_200'
+        price: 7500
+        channel_code: 'default'
+        
+    mattress_product_variant_160_200_pricing_boutique:
+        product_variant: '@mattress_product_variant_160_200'
+        price: 7500
+        channel_code: 'boutique'    
+    
+    bed_frame_product_variant_1_pricing_web:
+        product_variant: '@bed_frame_product_variant_1'
+        price: 10000
+        channel_code: 'default'
+        
+    bed_frame_product_variant_1_pricing_boutique:
+        product_variant: '@bed_frame_product_variant_1'
+        price: 10000
+        channel_code: 'boutique'
+        
+    pack_lit_variant_pricing_boutique:
+        product_variant: '@pack_lit_variant'
+        price: 9000
+        channel_code: 'default'
+        
+    pack_couette_variant_pricing_boutique:
+        product_variant: '@pack_couette_variant'
+        price: 10000
+        channel_code: 'default'
+    
+    discounted_product_half_discount_variant_pricing_web:
+        product_variant: '@discounted_product_half_discount_variant'
+        price: 50000
+        originalPrice: 100000
+        channel_code: 'default'
+
+    product_assembly_variant_channel_pricing_default:
+        product_variant: '@product_assembly_variant'
+        price: 1000
+        original_price: 2000
+        channel_code: 'default'
+
+    product_assembly_variant_channel_pricing_boutique:
+        product_variant: '@product_assembly_variant'
+        price: 1000
+        original_price: 2000
+        channel_code: 'boutique'
+
+    product_recuperation_variant_channel_pricing_default:
+        product_variant: '@product_recuperation_variant'
+        price: 1000
+        original_price: 2000
+        channel_code: 'default'
+
+    product_recuperation_variant_channel_pricing_boutique:
+        product_variant: '@product_recuperation_variant'
+        price: 1000
+        original_price: 2000
+        channel_code: 'boutique'

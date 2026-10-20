@@ -1,0 +1,5 @@
+{% if data == constant('App\\Doctrine\\Entity\\OrderReturnStatus::TYPE_SAV') %}
+    {{'sylius.ui.sav'|trans}}
+{% elseif data == constant('App\\Doctrine\\Entity\\OrderReturnStatus::TYPE_WAREHOUSE') %}
+    {{'sylius.ui.warehouse.title'|trans}}
+{% endif %}

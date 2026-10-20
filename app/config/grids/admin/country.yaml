@@ -1,0 +1,17 @@
+sylius_grid:
+    grids:
+        sylius_admin_country:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\Sylius\Country
+            fields:
+                paidReturn:
+                    label: sylius.ui.country.paidReturn
+                    type: twig
+                    options:
+                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
+            filters:
+                paidReturn:
+                    label: sylius.ui.country.paidReturn
+                    type: boolean

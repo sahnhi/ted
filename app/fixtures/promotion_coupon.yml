@@ -1,0 +1,46 @@
+App\Doctrine\Entity\Sylius\PromotionCoupon:
+    coupon_promotion_1:
+        promotion: '@promotion_1'
+        code: 'promotion_1'
+        usage_limit: 2
+        used: 1
+        reusable_from_cancelled_orders: true
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+
+    coupon_invalid_1:
+        promotion: '@promotion_invalid'
+        code: 'promotion_invalid'
+        usage_limit: 1
+        used: 1
+        reusable_from_cancelled_orders: true
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+
+    coupon_15pct:
+        promotion: '@promotion_15'
+        code: 'promotion_15'
+        reusable_from_cancelled_orders: true
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+
+    coupon_75pct:
+        promotion: '@promotion_75'
+        code: 'promotion_75'
+        reusable_from_cancelled_orders: true
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+
+    coupon_blackfriday_coupon:
+        promotion: '@blackfriday_coupon'
+        code: 'BLACKFRIDAY'
+        reusable_from_cancelled_orders: true
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+
+    coupon_couette_offerte:
+        promotion: '@couette_coupon'
+        code: 'BFCOUETTE'
+        reusable_from_cancelled_orders: true
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'

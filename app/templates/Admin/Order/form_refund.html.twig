@@ -1,0 +1,42 @@
+<div class="ui segment">
+    {{ form_start(form, {'action': action, 'attr': {'class': 'ui loadable form', 'novalidate': 'novalidate'}}) }}
+
+    {% if form.bis is defined %}
+        {{ form_row(form.bis) }}
+        {{ form_row(form.parentNumber) }}
+        {% if form.returnType is defined %}
+            {{ form_row(form.returnType) }}
+        {% endif %}
+    {% endif %}
+
+    {% if form.return is defined %}
+        {{ form_row(form.return) }}
+    {% endif %}
+
+    <div class="ui styled fluid accordion">
+        {% if form.items is defined %}
+            <div class="title active">
+                <i class="dropdown icon"></i> {{ 'sylius.ui.order_reason'|trans }}
+            </div>
+
+            <div class="content active">
+                {{ form_row(form.items) }}
+            </div>
+    {% endif %}
+        <div class="title">
+            <i class="dropdown icon"></i> {{ 'sylius.ui.shipping_address'|trans }}
+            &amp; {{ 'sylius.ui.billing_address'|trans }}
+        </div>
+        <div class="content">
+            <div class="ui horizontal segments">
+                <div class="ui segment">{{ form_row(form.shippingAddress) }}</div>
+                <div class="ui segment">{{ form_row(form.billingAddress) }}</div>
+            </div>
+        </div>
+    </div>
+
+    {% include '@SyliusUi/Form/Buttons/_create.html.twig' with {'paths': {'cancel': path('sylius_admin_order_index')}} %}
+
+    {{ form_row(form._token) }}
+    {{ form_end(form, {'render_rest': false}) }}
+</div>

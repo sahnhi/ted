@@ -1,0 +1,136 @@
+<div class="ui segment">
+    {{ form_start(form, {'action': action, 'attr': {'class': 'ui loadable form', 'novalidate': 'novalidate'}}) }}
+
+    {% if form.bis is defined %}
+        {{ form_row(form.bis) }}
+        {{ form_row(form.parentNumber) }}
+        {% if form.returnType is defined %}
+            {{ form_row(form.returnType) }}
+        {% endif %}
+    {% endif %}
+
+    {% if form.return is defined %}
+        {{ form_row(form.return) }}
+    {% endif %}
+
+    <div class="ui styled fluid accordion">
+        <div class="title {% if form.children['returnType'] is defined or form.children['bisType']  is not defined %}active{% endif %}">
+            <i class="dropdown icon"></i> {{ 'sylius.ui.items'|trans }}
+        </div>
+        <div id="items" class="content {% if form.children['returnType'] is defined or form.children['bisType']  is not defined %}active{% endif %}">
+            {{ form_row(form.items) }}
+        </div>
+
+        <div class="title">
+            <i class="dropdown icon"></i> {{ 'sylius.ui.shipping_address'|trans }} &amp; {{ 'sylius.ui.billing_address'|trans }}
+        </div>
+        <div class="content">
+            <div class="ui horizontal segments">
+                <div class="ui segment">{{ form_row(form.shippingAddress) }}</div>
+                <div class="ui segment">{{ form_row(form.billingAddress) }}</div>
+            </div>
+        </div>
+
+        <div id="localeTab" class="title">
+            <i class="dropdown icon"></i> {{ 'sylius.ui.locale'|trans }} & {{ 'sylius.ui.currency'|trans }}
+        </div>
+        <div id="locale" class="content">
+            <div class="ui horizontal segments">
+                <div class="ui segment">{{ form_row(form.localeCode) }}</div>
+                <div class="ui segment">{{ form_row(form.currencyCode) }}</div>
+            </div>
+        </div>
+
+        {% if form.bisExchange is defined %}
+            <div class="title">
+                <i class="dropdown icon"></i> {{ 'sylius_admin_order_creation.ui.bis_exchange_reaons'|trans }}
+            </div>
+
+            <div class="content">
+                {{ form_row(form.bisExchange) }}
+            </div>
+        {% endif %}
+
+        <div id="bisExchange" class="title">
+            <i class="dropdown icon"></i> {{ 'sylius_admin_order_creation.ui.bis_exchange_products'|trans }}
+        </div>
+        <div id="bisExchangeProducts" class="content">
+            {{ form_row(form.bisItems) }}
+        </div>
+
+        <div id="shipmentsAndPaymentsTab" class="title">
+            <i class="dropdown icon"></i> {{ 'sylius.ui.shipments'|trans }} &amp; {{ 'sylius.ui.payments'|trans }}
+        </div>
+        <div id="shipmentsAndPayments" class="content">
+            <div class="ui segments">
+                <div class="ui segment">
+                    <div class="invalid-data-message">{{ 'sylius_admin_order_creation.ui.shipping_methods_selection_requirement'|trans }}</div>
+
+                    <div id="calendar-component" class="ui grid" style="display: none;">
+                        {% if form.outOfStock is defined %}
+                            <div class="sixteen wide column" id="out-of-stock-status" style="display: none;">
+                                {{ form_row(form.outOfStock) }}
+                                <div class="ui red small header">{{ 'sylius.form.order.not_sent'|trans }}</div>
+                            </div>
+                        {% endif %}
+                        <div class="sixteen wide column" id="out-of-stock-toggler">
+                            {{ form_row(form.outOfStockToggler) }}
+                        </div>
+
+                        <div class="sixteen wide column">
+                            <div class="ui buttons">
+                                <button id="relayBtn" type="button" class="ui button">{{ 'app.ui.relays' | trans }}</button>
+                                <div class="or"></div>
+                                <button id="calendarBtn" type="button" class="ui button active">{{ 'sylius.ui.calendar-slots' | trans }}</button>
+                            </div>
+                        </div>
+
+                        <div id="calendar-option" class="ui grid">
+                            <label class="eight wide column required">DATE DE LIVRAISON
+                                <div id="delivery-date" data-language="fr" class="my-5"></div>
+                                <div id="calendar-loading" class="centered text-center" style="display: none;">
+                                    <p>Recherche des disponibilités</p>
+                                </div>
+                            </label>
+                            <label class="six wide column required">CRÉNEAU DE LIVRAISON
+                                <div id="providers" class="ui grid providers"
+                                     data-only-slot="⬆ N’oubliez pas de valider votre créneau"></div>
+                                <div id="slot-loading" class="centered text-center" style="display: none;">
+                                    <p>Chargement des créneaux disponibles</p>
+                                </div>
+                                <div id="error" class="d-hide">
+                                    <p class="mt-5">
+                                        Oups... <br><br>
+                                        <span class="text-error"></span>
+                                        <strong class="empty-error d-hide">Nous ne livrons malheureusement pas (encore)
+                                            l'ensemble de votre panier à votre adresse.</strong>
+                                        <strong class="found-error d-hide">Nous n'avons malheureusement pas réussi à
+                                            vous localiser. <br>Vous pouvez réessayer avec une autre adresse.</strong>
+                                    </p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div id="relays-option" style="display: none; margin-bottom: 25px;">
+                            <label class="sixteen wide column required" style="display: none;">{{ 'app.ui.relays' | trans | upper }}
+                                <div id="relays" class="ui cards relays">
+                                    {% include '@App/Shipment/Partial/_relays.html.twig' %}
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    {{ form_row(form.shipments) }}
+                </div>
+                <div class="ui segment">
+                    {{ form_row(form.payments) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include '@SyliusUi/Form/Buttons/_create.html.twig' with {'paths': {'cancel': path('sylius_admin_order_index')}} %}
+
+    {{ form_row(form._token) }}
+    {{ form_end(form, {'render_rest': false}) }}
+</div>

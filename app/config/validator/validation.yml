@@ -1,0 +1,94 @@
+Sylius\Component\Addressing\Model\Zone:
+    constraints:
+        -   Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+                fields: [ code ]
+                message: sylius.zone.code.unique
+                groups: [ app_zone ]
+    properties:
+        members:
+            -   Count:
+                    min: 0 #Custom Code
+                    minMessage: sylius.zone.members.min_count
+                    groups: [ app_zone ]
+        code:
+            -   NotBlank:
+                    message: sylius.zone.code.not_blank
+                    groups: [ app_zone ]
+            -   Regex:
+                    message: sylius.zone.code.regex
+                    pattern: /^[\w-]*$/
+                    groups: [ app_zone ]
+        scope:
+            -   NotBlank:
+                    message: sylius.zone.scope.not_blank
+                    groups: [ app_zone ]
+        name:
+            -   NotBlank:
+                    message: sylius.zone.name.not_blank
+                    groups: [ app_zone ]
+            -   Length:
+                    min: 2
+                    max: 255
+                    minMessage: sylius.zone.name.min_length
+                    maxMessage: sylius.zone.name.max_length
+                    groups: [ app_zone ]
+
+Sylius\Component\Core\Model\ChannelPricing:
+    properties:
+        price:
+            -   Range:
+                    min: 0
+                    minMessage: sylius.channel_pricing.price.min
+                    groups: [ app_channel_pricing ]
+        originalPrice:
+            -   Range:
+                    min: 0
+                    minMessage: sylius.channel_pricing.original_price.min
+                    groups: [ app_channel_pricing ]
+
+Sylius\Component\Core\Model\ProductVariant:
+    properties:
+        onHand:
+            -   NotBlank:
+                    message: sylius.product_variant.onHand.not_blank
+                    groups: [ app_product_variant ]
+        weight:
+            -   Range:
+                    min: 0
+                    minMessage: sylius.product_variant.weight.min
+                    groups: [ app_product_variant ]
+        width:
+            -   Range:
+                    min: 0
+                    minMessage: sylius.product_variant.width.min
+                    groups: [ app_product_variant ]
+        height:
+            -   Range:
+                    min: 0
+                    minMessage: sylius.product_variant.height.min
+                    groups: [ app_product_variant ]
+        depth:
+            -   Range:
+                    min: 0
+                    minMessage: sylius.product_variant.depth.min
+                    groups: [ app_product_variant ]
+        channelPricings:
+            -   Valid: ~
+    constraints:
+        -   Sylius\Bundle\CoreBundle\Validator\Constraints\HasAllPricesDefined:
+                groups: [ app_product_variant ]
+
+Setono\SyliusGiftCardPlugin\Model\GiftCard:
+    properties:
+        amount:
+            -   NotBlank:
+                    message: setono_sylius_gift_card.gift_card.amount.not_blank
+                    groups: [ app_gift_card ]
+            -   Type:
+                    type: int
+                    message: setono_sylius_gift_card.gift_card.amount.integer
+                    groups: [ app_gift_card ]
+            -   GreaterThanOrEqual:
+                    value: 0
+                    message: setono_sylius_gift_card.gift_card.amount.greater_than_or_equal
+                    groups: [ app_gift_card ]

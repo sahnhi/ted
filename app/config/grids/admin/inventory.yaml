@@ -1,0 +1,63 @@
+sylius_grid:
+    grids:
+        sylius_admin_inventory:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: "%sylius.model.product_variant.class%"
+                    repository:
+                        method: createInventoryListQueryBuilder
+                        arguments: [ "%locale%" ]
+            fields:
+                enabled:
+                    type: twig
+                    label: sylius.ui.enabled
+                    options:
+                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
+                shippingStock:
+                    type: twig
+                    label: sylius.ui.shipping_stock.label
+                    options:
+                        template: "@SyliusUi/Grid/Field/_inventory_shipping_date.html.twig"
+            actions:
+                item:
+                    enabled:
+                        position: 1
+                        type: default
+                        label: sylius.ui.enable
+                        icon: 'toggle on'
+                        options:
+                            link:
+                                route: sylius_admin_product_variant_enabled
+                                invisible: resource.enabled
+                                parameters:
+                                    id: resource.id
+                                    productId: resource.product.id
+                    disabled:
+                        position: 1
+                        type: default
+                        label: sylius.ui.disable
+                        icon: 'toggle off'
+                        options:
+                            link:
+                                route: sylius_admin_product_variant_enabled
+                                visible: resource.enabled
+                                parameters:
+                                    id: resource.id
+                                    productId: resource.product.id
+            filters:
+                enabled:
+                    type: boolean
+                    label: sylius.ui.enabled
+                onHand:
+                    type: admin_product_stock
+                    label: sylius.ui.stock
+                shippingStock:
+                    type: date
+                    label: sylius.ui.shipping_stock.date
+                    options:
+                        field: shippingStock.shippingDate
+
+    templates:
+        filter:
+            admin_product_stock: '@SyliusAdmin/Grid/Filter/admin_product_stock.html.twig'

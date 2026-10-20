@@ -1,0 +1,15 @@
+app_admin_shipping_method_category:
+    resource: |
+        alias: app.shipping_method_category
+        section: admin
+        templates: "@SyliusAdmin\\Crud"
+        redirect: update
+        grid: app_admin_shipping_method_category
+        vars:
+            all:
+                subheader: app.ui.shipping_method_category.subheader
+                templates:
+                    form: "Admin/ShippingMethodCategory/_form.html.twig"
+            index:
+                icon: 'warehouse'
+    type: sylius.resource

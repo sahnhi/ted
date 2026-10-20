@@ -1,0 +1,20 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    setono_sylius_gift_card.controller.action.download_pdf:
+        class: App\Controller\GiftCard\Action\DownloadGiftCardPdfAction
+        tags: [ 'controller.service_arguments' ]
+    
+    setono_sylius_gift_card.provider.gift_card_configuration:
+        class: Setono\SyliusGiftCardPlugin\Provider\GiftCardChannelConfigurationProvider
+        arguments:
+            - '@setono_sylius_gift_card.repository.gift_card_channel_configuration'
+            - '@setono_sylius_gift_card.repository.gift_card_configuration'
+            - '@sylius.context.locale'
+            - '@sylius.repository.locale'
+    
+    Setono\SyliusGiftCardPlugin\Provider\GiftCardChannelConfigurationProviderInterface: '@setono_sylius_gift_card.provider.gift_card_configuration'
+    Setono\SyliusGiftCardPlugin\Resolver\RedirectUrlResolverInterface: '@setono_sylius_gift_card.resolver.redirect_url'
+    Setono\SyliusGiftCardPlugin\Applicator\GiftCardApplicatorInterface: '@setono_sylius_gift_card.applicator.gift_card'

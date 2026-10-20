@@ -1,0 +1,12 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Modifier\OrderModifier:
+        arguments:
+            $cartItemFactory: '@sylius.custom_factory.order_item'
+
+    setono_sylius_gift_card.modifier.order_gift_card_amount:
+        class: App\Modifier\OrderGiftCardAmountModifier
+        public: true

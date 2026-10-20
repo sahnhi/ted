@@ -1,0 +1,30 @@
+sylius_grid:
+    grids:
+        sylius_admin_seller:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\Seller
+            fields:
+                name:
+                    type: string
+                    label: sylius.ui.name
+                    sortable: translation.name
+                email:
+                    type: string
+                    label: sylius.ui.email
+                    sortable: email
+                store:
+                    type: twig
+                    label: sylius.ui.store
+                    options:
+                        template: '@SyliusAdmin/Grid/Field/store.html.twig'
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete

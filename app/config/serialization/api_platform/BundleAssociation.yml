@@ -1,0 +1,13 @@
+App\Doctrine\Entity\BundleAssociation:
+    attributes:
+        quantity:
+            groups:
+                - shop:product_variant:read
+                - shop:cart:read
+        variant:
+            groups:
+                - shop:product_variant:read
+                - shop:cart:read
+        price:
+            groups:
+                - shop:product_variant:read

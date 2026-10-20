@@ -1,0 +1,442 @@
+{% import "@SyliusShop/Common/Macro/money.html.twig" as money %}
+
+{% set shopBillingData = invoice.shopBillingData %}
+
+{% set paymentMethod = '' %}
+{% for payment in order.payments %}
+    {%  if payment.state == 'completed' %}
+        {% set paymentMethod = payment.method %}
+    {% endif %}
+{% endfor %}
+{% set billingAddress = order.billingAddress %}
+{% set shippingAddress = order.shippingAddress %}
+{% set taxItemTotal = 0 %}
+{% set subTotal = 0 %}
+{% set giftCardTotal = 0 %}
+{% set totalWeight = 0 %}
+{% set pricePerKg = 0.7 %}
+
+{% for item in invoice.taxItems %}
+    {% set taxItemTotal = taxItemTotal + item.amount %}
+{% endfor %}
+
+{% for adjustment in order.adjustments %}
+    {% if adjustment.type == 'order_gift_card' %}
+        {% set giftCardTotal = giftCardTotal + adjustment.amount %}
+    {% endif %}
+{% endfor %}
+
+{% set ecoTaxTotal = order.ecotaxTotal %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Facture Tediber n°{{ invoice.number }}</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        @page {
+            size: A4 portrait;
+            margin: 1.5cm .5cm;
+        }
+
+        body {
+            height: 34cm;
+            color: #333;
+            font-family: 'Roboto', cursive;
+            position: relative;
+            font-size: 14px;
+        }
+
+        .head {
+            margin-bottom : 25px;
+        }
+
+        footer {
+            font-size: 12px;
+            position: absolute;
+            bottom: 0;
+        }
+
+        .companyData, .billingAddress, .paymentMethod, .shippingAddress {
+            font-size: 14px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .col-12 {
+            width: 100%;
+        }
+        .my-2 {
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+        .my-5 {
+            margin-bottom: 15px;
+            margin-top: 15px;
+        }
+
+        .l-float {
+            float: left;
+        }
+        .r-float {
+            float: right;
+        }
+        .clear {
+            clear: both;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+        .text-right {
+            text-align: right;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-bold {
+            font-weight: bold;
+        }
+        .text-italic {
+            font-style: italic;
+        }
+
+        .primary-color {
+            color: #6062AA;
+            font-size: 16px;
+        }
+        .gray-color {
+            color: #7f7c89;
+        }
+
+        table {
+            border-collapse: collapse;
+            page-break-inside: avoid;
+            width: 100%;
+        }
+        table thead tr,
+        table tfoot tr {
+            border-top: 1px solid black;
+        }
+        table thead th {
+            background-color: black;
+            color: white;
+            padding: 5px;
+        }
+        table td {
+            font-size: 14px;
+            padding: 5px;
+        }
+
+        .infos {
+            margin-bottom : 25px;
+        }
+
+        .w-20 {width: 20%;}
+        .w-30 { width: 30%;}
+        .w-45 { width: 45%;}
+        .w-50 { width: 50%;}
+    </style>
+</head>
+<body>
+<header class="col-12 my-5">
+    <div class="head">
+        <div class="l-float" style="width: 60% ; margin-top : 20px;">
+            <strong style="font-size: 25px;">
+                Facture n° {{ invoice.number }} <br />
+                {{ invoice.issuedAt | date('d/m/Y') }}
+            </strong>
+        </div>
+        <div class="r-float">
+            <img src="{{ invoiceLogoPath }}" alt="Tediber Logo" width="190">
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <div class="infos">
+        <table class="l-float w-45">
+            <thead>
+                <tr>
+                    <th class="w-50" colspan="2">Expéditeur</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="w-20"><strong>Nom : </strong></td>
+                    <td class="w-30">
+                        TEDIBER
+                    </td>
+                </tr>
+                <tr>
+                    <td class="w-20"><strong>Adresse : </strong></td>
+                    <td class="w-30">
+                        Paris/FR c/o Figexa Sa, <br />
+                        Route de Champ-colin, 12 <br />
+                        1260 Nyon
+                    </td>
+                </tr>
+                <tr>
+                    <td class="w-20"><strong>Pays : </strong></td>
+                    <td class="w-30">
+                        Suisse
+                    </td>
+                </tr>
+                <tr>
+                    <td class="w-20"><strong>Téléphone : </strong></td>
+                    <td class="w-30">
+                        +33 1 86 95 47 10
+                    </td>
+                </tr>
+                <tr>
+                    <td class="w-20"><strong>E-mail : </strong></td>
+                    <td class="w-30">
+                        hello@tediber.com
+                    </td>
+                </tr>
+                <tr>
+                    <td class="w-20"><strong>Compte douane : </strong></td>
+                    <td class="w-30">
+                        16297-5
+                    </td>
+                </tr>
+                <tr>
+                    <td class="w-20"><strong>N° TVA : </strong></td>
+                    <td class="w-30">
+                        CHE-270.426.612 TVA
+                    </td>
+                </tr>
+                <tr>
+                    <td class="w-20"><strong>Monnaie : </strong></td>
+                    <td class="w-30">
+                        Euro
+                    </td>
+                </tr>
+                <tr>
+                    <td class="w-20"><strong>Transporteur : </strong></td>
+                    <td class="w-30">
+                        {{ order.shipments.first.method.name }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="w-20"><strong>Nb colis : </strong></td>
+                    <td class="w-30">
+                        {{ productList.nbProducts }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="r-float w-45">
+            <thead>
+            <tr>
+                <th class="w-50" colspan="2">Destinataire</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="w-20"><strong>Nom : </strong></td>
+                <td class="w-30">
+                    {% if shippingAddress.firstName is same as (shippingAddress.lastName) %}
+                        {{ shippingAddress.firstName }}
+                    {% else %}
+                        {{ shippingAddress.firstName }} {{ shippingAddress.lastName }}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td class="w-20"><strong>Adresse : </strong></td>
+                <td class="w-30">
+                    {% if shippingAddress.company %}
+                        {{ shippingAddress.company }}<br/>
+                    {% endif %}
+                    {{ shippingAddress.street }}<br/>
+                    {{ shippingAddress.postcode }} {{ shippingAddress.city }}<br/>
+                </td>
+            </tr>
+            <tr>
+                <td class="w-20"><strong>Pays : </strong></td>
+                <td class="w-30">
+                    {{ shippingAddress.countryCode|sylius_country_name|upper }}
+                </td>
+            </tr>
+            <tr>
+                <td class="w-20"><strong>Téléphone : </strong></td>
+                <td class="w-30">
+                    {{ shippingAddress.phoneNumber }}
+                </td>
+            </tr>
+            <tr>
+                <td class="w-20"><strong>E-mail : </strong></td>
+                <td class="w-30">
+                    {{ order.customer.email }}
+                </td>
+            </tr>
+            <tr>
+                <td class="w-20"><strong>N° commande : </strong></td>
+                <td class="w-30">
+                    {{ order.number }}
+                </td>
+            </tr>
+            <tr>
+                <td class="w-20" style="vertical-align: top"><strong>Facturation : </strong></td>
+                <td class="w-30">
+                    <strong>
+                        {% if invoice.billingData.firstName is same as (invoice.billingData.lastName) %}
+                            {{ invoice.billingData.firstName }}
+                        {% else %}
+                            {{ invoice.billingData.firstName }} {{ invoice.billingData.lastName }}
+                        {% endif %}
+                    </strong><br>
+                    {% if invoice.billingData.company %}
+                        {{ invoice.billingData.company }}<br/>
+                    {% endif %}
+                    {{ invoice.billingData.street }}<br/>
+                    {{ invoice.billingData.postcode }} {{ invoice.billingData.city }}<br/>
+                    {{ invoice.billingData.countryCode|sylius_country_name|upper }}
+                </td>
+            </tr>
+            <tr>
+                <td class="w-20"><strong>N° client : </strong></td>
+                <td class="w-30">
+                    {{ order.customer.id }}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="clear"></div>
+    </div>
+</header>
+
+<div class="col-12 my-5">
+    <table>
+        <thead>
+            <th class="text-bold">N°</th>
+            <th class="text-bold text-left">Description</th>
+            <th class="text-bold text-left">Code Douanier</th>
+            <th class="text-bold text-left">Origine</th>
+            <th class="text-bold">Qté</th>
+            <th class="text-bold" >Poids pièce</th>
+            <th class="text-bold">Poids total</th>
+            <th class="text-bold">HT unitaire</th>
+            <th class="text-bold">HT total</th>
+        </thead>
+        <tbody>
+            {% for item in productList.invoiceProducts %}
+                {% set totalWeight = totalWeight + (item.weight * item.quantity) %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td class="text-left">{{ item.variantName }}</td>
+                    <td class="text-left">{{ item.htc }}</td>
+                    <td class="text-left">France</td>
+                    <td class="text-center">{{ item.quantity }}</td>
+                    <td class="text-center">{{ item.weight }} kg</td>
+                    <td class="text-center">{{ item.quantity * item.weight }} kg</td>
+                    <td class="text-center">{{ item.htPrice|sylius_format_money(invoice.currencyCode, invoice.localeCode) }}</td>
+                    <td class="text-center">{{ item.totalHtPrice|sylius_format_money(invoice.currencyCode, invoice.localeCode) }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        {% block totals %}
+            <tfoot>
+                {% if order.getOrderPromotionTotal > 0 %}
+                    <tr>
+                        <td colspan="5"></td>
+                        <td class="text-bold text-right" colspan="3">Promotion : </td>
+                        <td class="text-bold text-right">{{ order.getOrderPromotionTotal|sylius_format_money(invoice.currencyCode, invoice.localeCode) }}</td>
+                    </tr>
+                {% endif %}
+                {% if order.getOrderPromotionTotal > 0 %}
+                    <tr>
+                        <td colspan="5"></td>
+                        <td class="text-bold text-right" colspan="3">Promotion : </td>
+                        <td class="text-bold text-right">{{ order.getOrderPromotionTotal|sylius_format_money(invoice.currencyCode, invoice.localeCode) }}</td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <td colspan="5"></td>
+                    <td class="text-italic text-right" colspan="3">
+                        <strong>Sous-total HT :</strong>
+                    </td>
+                    <td class="text-italic text-right">
+                        {% set subTotal = order.itemsTotal - taxItemTotal %}
+                        {{ subTotal|sylius_format_money(invoice.currencyCode, invoice.localeCode) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5"></td>
+                    <td class="text-bold text-right" colspan="3">Montant TTC : </td>
+                    <td class="text-bold text-right">{{ order.itemsTotal|sylius_format_money(invoice.currencyCode, invoice.localeCode) }}</td>
+                </tr>
+                {% for item in invoice.taxItems %}
+                    <tr>
+                        <td colspan="5"></td>
+                        <td class="text-italic text-right" colspan="3">
+                            <strong>{{ item.label }}</strong>
+                        </td>
+                        <td class="text-italic text-right">
+                            {{ item.amount|sylius_format_money(invoice.currencyCode, invoice.localeCode) }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% if giftCardTotal < 0 %}
+                    <tr>
+                        <td colspan="5"></td>
+                        <td class="text-italic text-right" colspan="3">
+                            <strong>Montant total Carte cadeau :</strong>
+                        </td>
+                        <td class="text-italic text-right">
+                            {{ giftCardTotal|sylius_format_money(invoice.currencyCode, invoice.localeCode) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5"></td>
+                        <td class="text-italic text-right" colspan="3">
+                            <strong>Montant total TTC payé :</strong>
+                        </td>
+                        <td class="text-italic text-right">
+                            {{ invoice.total|sylius_format_money(invoice.currencyCode, invoice.localeCode) }}
+                        </td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <td colspan="5"></td>
+                    <td class="text-italic text-right" colspan="3">Frais de port (inclus dans le prix de vente) : </td>
+                    <td class="text-italic text-right">{{ money.convertAndFormat(totalWeight * pricePerKg * 100) }}</td>
+                </tr>
+                <tr>
+                    <td colspan="5"></td>
+                    <td class="text-italic text-right" colspan="3">Dont Eco-participation : </td>
+                    <td class="text-italic text-right">{{ money.convertAndFormat(ecoTaxTotal) }}</td>
+                </tr>
+            </tfoot>
+        {% endblock %}
+    </table>
+
+    <div class="clear"></div>
+        <p>
+            <small>
+                Incoterm : DDP<br>
+                We hereby certify that the information contained in this invoice is true and correct and that the contents of this shipment are as started above.
+            </small>
+        </p>
+</div>
+
+
+<footer class="col-12 text-center gray-color">
+        TEDIBER SAS
+        - Siret: 8130 9638 00015 - Code NAF 7010Z <br>
+        Paris/FR c/o Figexa Sa,
+        Route de Champ-colin, 12 -
+        1260 Nyon
+        ·
+        Téléphone : 01 86 95 47 10
+        · <a href="https://www.tediber.com">www.tediber.com</a>
+        · <a href="mailto:hello@tediber.com">hello@tediber.com</a><br>
+        N° TVA : CHE-270.426.612 TVA
+</footer>
+</body>
+</html>

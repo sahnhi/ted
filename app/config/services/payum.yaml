@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+    
+    sylius.payum_action.capture_payment:
+        class: App\Controller\Payum\CapturePaymentAction
+        tags:
+            - { name: payum.action, all: true, alias: sylius.capture_payment }
+        public: true

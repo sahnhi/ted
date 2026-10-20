@@ -1,0 +1,5 @@
+{% extends '@App/Admin/Bundle/layout.html.twig' %}
+
+{% block body %}
+    {{ sylius_template_event('app.admin.bundles.generate.options', _context) }}
+{% endblock %}

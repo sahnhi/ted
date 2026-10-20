@@ -1,0 +1,11 @@
+App\Doctrine\Entity\ProductReviewAnswerChoices:
+    attributes:
+        code:
+            groups: 
+                - admin:product_review:read
+                - reviews:question:read
+        translations:
+            type: array<App\Doctrine\Entity\ProductReviewAnswerChoicesTranslation>
+            groups: 
+                - admin:product_review:read
+                - reviews:question:read

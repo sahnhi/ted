@@ -1,0 +1,124 @@
+{% set disabledInputs = disabledInputs is defined and disabledInputs == true %}
+
+<div class="ui stackable grid">
+    <div class="twelve wide column">
+        <div class="ui segment">
+            {% include 'Admin/Order/Partial/_summary.html.twig' %}
+            {# Custom Code #}
+            {% if parent is defined and parent is not null %}
+                {% include '@SyliusAdminOrderCreationPlugin/Order/Show/_summary.html.twig' %}
+            {% endif %}
+            {# End Custom Code #}
+        </div>
+
+        {% if orderReasonCreateForm is defined %}
+            {% include '@SyliusAdmin/Order/Show/_reason.html.twig' %}
+        {% endif %}
+
+        {% if order.number is not null %}
+            <div id="history">
+                {{ render(path('app_admin_partial_history_associated_orders', {'id': resource.id})) }}
+            </div>
+        {% endif %}
+
+        {% if form.notes is defined %}
+            <div class="ui segment">
+                {{ form_start(form, {'action': path('sylius_admin_order_show_custom', {'id': resource.id}), 'method': 'POST', 'attr': {'class': 'ui loadable form', 'novalidate': 'novalidate'}}) }}
+                {{ form_row(form.notes) }}
+
+                <button class="ui labeled icon primary button" type="submit" id="sylius_save_changes_button"><i
+                        class="save icon"></i> Enregistrer la note
+                </button>
+                {{ form_row(form._token) }}
+                {{ form_end(form) }}
+            </div>
+        {% endif %}
+
+        {# CUSTOM CODE #}
+        {% if resource.orderOutOfStock is not null and resource.orderOutOfStock.history is not null %}
+            <div class="ui segment">
+                {% include '@App/OrderOutOfStock/history.html.twig' with {'history':resource.orderOutOfStock.history} %}
+            </div>
+        {% endif %}
+        {# END CUSTOM CODE #}
+
+        {% include '@SyliusAdmin/Order/Show/_notes.html.twig' %}
+
+        {% if orderReasonForm is defined %}
+            {% include '@SyliusAdmin/Order/Show/_problem.html.twig' %}
+        {% endif %}
+        {% if resource.orderReturn %}
+            {% set orderReturn = resource.orderReturn %}
+            {% if orderReturn.history is not null %}
+                <div class="ui segment" id="order-return-history">
+                    {% include '@App/OrderReturn/history.html.twig' with {'history':orderReturn.history} %}
+                </div>
+            {% endif %}
+            {% if orderReturn.notes is not null %}
+                <div class="ui segment" id="order-return-notes">
+                    <h4 for="sylius_admin_order_return_history">{{ 'sylius.ui.order_return.notes'|trans }}</h4>
+                    <p>
+                        {{ orderReturn.notes }}
+                    </p>
+                </div>
+            {% endif %}
+        {% endif %}
+        {% if order.number is not null %}
+            {% include '@SyliusInvoicingPlugin/Order/Admin/fetchInvoices.html.twig' with {'order': resource} %}
+        {% endif %}
+
+    </div>
+    <div class="four wide column">
+        {% if order.tokenValue is not empty %}
+            <div class="ui fluid card">
+                <div class="content">
+                    <div class="header">{{ 'app.ui.order.token_value'|trans }}</div>
+                </div>
+                <div class="content">
+                    {{ order.tokenValue }}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if parent is defined and parent is not null %}
+            {% include 'Admin/Order/Partial/_warranty.html.twig' with { 'order': parent } %}
+        {% else %}
+            {% include 'Admin/Order/Partial/_warranty.html.twig' with { 'order': order } %}
+        {% endif %}
+        {% if order.promotionCoupon %}
+            <div class="ui fluid card">
+                <div class="content">
+                    <h3 class="header">{{ 'sylius.ui.promotionCoupon'|trans }}</h3>
+                    {{ order.promotionCoupon.code }}
+                </div>
+            </div>
+        {% endif %}
+        {{ sonata_block_render_event('sylius.admin.order.show.before_customer_information', {'resource': resource}) }}
+
+        {% include '@SyliusAdmin/Order/Show/_customer.html.twig' with { 'customer': order.customer } %}
+
+        {% if supportTickets is defined %}
+            {% include '@SyliusAdmin/Order/Show/_support.html.twig' %}
+        {% endif %}
+
+        {{ sonata_block_render_event('sylius.admin.order.show.before_addresses', {'resource': resource}) }}
+
+        {% if resource.shippingAddress is not null %}
+            {% include '@SyliusAdmin/Order/Show/_addresses.html.twig' %}
+        {% endif %}
+
+        {{ sonata_block_render_event('sylius.admin.order.show.before_payments', {'resource': resource}) }}
+
+        {% include '@SyliusAdmin/Order/Show/_payments.html.twig' %}
+        {% if order.giftCards is not empty %}
+            {% include '@SyliusAdmin/Order/Show/_giftCard.html.twig' %}
+        {% endif %}
+        {% if (order.shippingState == constant('Sylius\\Component\\Core\\OrderShippingStates::STATE_SHIPPED') or
+            order.shippingState == constant('App\\Component\\Core\\OrderShippingStates::STATE_DELIVERED')) and refundForm is defined and refundForm != false %}
+            {% include '@SyliusAdmin/Order/Show/_refund.html.twig' %}
+        {% endif %}
+        {% include '@SyliusAdmin/Order/Show/_shipments.html.twig' %}
+
+        {{ sonata_block_render_event('sylius.admin.order.show.after_shipments', {'resource': resource}) }}
+    </div>
+</div>

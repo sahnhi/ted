@@ -1,0 +1,14 @@
+App\Doctrine\Entity\Sylius\ShippingCategory:
+    shipping_category1:
+        code: 'mattress-tediber-best'
+        name: 'Matelas Tediber best'
+        description: 'top 3 refs matelas: 140*190, 140*200, 160*200'
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+    
+    shipping_category_bulky:
+        code: 'bulky'
+        name: 'Encombrant'
+        description: 'Sommier / Tête de lit / matelas TEDIBER (>=120) hors top 3 refs '
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'

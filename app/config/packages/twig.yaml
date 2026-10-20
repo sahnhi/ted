@@ -1,0 +1,24 @@
+twig:
+    paths:
+        '%kernel.project_dir%/templates': App
+        '%kernel.project_dir%/plugins/Sokeo/younitedpay-plugin/templates': Sokeo
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    exception_controller: null
+    globals:
+        BE2BILL_JS_URL: '%env(BE2BILL_JS_URL)%'
+        BE2BILL_JS_BRAND_URL: '%env(BE2BILL_JS_URL)%'
+        BE2BILL_API_KEY_ID: '%env(BE2BILL_API_KEY_ID)%'
+        BE2BILL_API_KEY_VALUE: '%env(BE2BILL_API_KEY_VALUE)%'
+        GOOGLE_API_KEY: '%env(GOOGLE_API_KEY)%'
+        ADYEN_VERSION: '%env(ADYEN_VERSION)%'
+        ADYEN_INTEGRITY_JS: '%env(ADYEN_INTEGRITY_JS)%'
+        ADYEN_INTEGRITY_CSS: '%env(ADYEN_INTEGRITY_CSS)%'
+
+services:
+    _defaults:
+        public: false
+        autowire: true
+        autoconfigure: true
+
+    Twig\Extra\Intl\IntlExtension: ~

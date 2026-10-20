@@ -1,0 +1,21 @@
+{% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationFormWithSlug %}
+{% set block_link = 'https://tediber.com/campagnes/block-' ~ product.offlineCode %}
+
+<div class="ui active tab" data-tab="main-information">
+    <div class='ui segment'>
+        {{ form_row(form.name) }}
+        {{ form_row (form.description) }}
+        {{ form_row (form.enabled) }}
+    </div>
+
+    <div class='ui segment'>
+        {{ form_row(form.buttonText) }}
+        {{ form_row(form.buttonLink) }}
+    </div>
+
+    {% if action != 'create' %}
+        <div class='ui segment'>
+            Preview du bloc : <a href={{block_link}}>{{ block_link}}</a>
+        </div>
+    {% endif %}
+</div>

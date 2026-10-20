@@ -1,0 +1,6 @@
+parameters:
+    captainmetrics_api_token: '%env(CAPTAINMETRICS_TOKEN)%'
+    captainmetrics_project_id: '%env(CAPTAINMETRICS_PROJECTID)%'
+    drip_sylius_api_key: '%env(DRIP_SYLIUS_API_KEY)%'
+    shipup_url: '%env(SHIPUP_URL)%'
+    shipup_key: '%env(SHIPUP_KEY)%'

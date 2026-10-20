@@ -1,0 +1,10 @@
+Sylius\Component\Core\Model\ProductTaxon:
+    pack_lit_bundle_taxon:
+        product: '@pack_lit'
+        taxon: '@bundle'
+        position: 0
+        
+    pack_couette_bundle_taxon:
+        product: '@pack_couette'
+        taxon: '@bundle'
+        position: 0

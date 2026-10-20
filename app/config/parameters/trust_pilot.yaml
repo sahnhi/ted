@@ -1,0 +1,6 @@
+parameters:
+    trust_pilot_api_key: '%env(TRUSTPILOT_API_KEY)%'
+    trust_pilot_api_secret: '%env(TRUSTPILOT_API_SECRET)%'
+    trust_pilot_login: '%env(TRUSTPILOT_LOGIN)%'
+    trust_pilot_password: '%env(TRUSTPILOT_PASSWORD)%'
+    trust_pilot_business_unit_id: '%env(TRUSTPILOT_BUSINESS_UNIT_ID)%'

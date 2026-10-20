@@ -1,0 +1,41 @@
+sylius_grid:
+    grids:
+        app_admin_promotion_category:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\PromotionCategory
+            sorting:
+                enabled: desc
+            fields:
+                name:
+                    type: string
+                    label: sylius.ui.name
+                code:
+                    type: string
+                    label: sylius.ui.code
+                enabled:
+                    type: twig
+                    label: sylius.ui.enabled
+                    sortable: ~
+                    options:
+                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete
+            filters:
+                name:
+                    type: string
+                    label: sylius.ui.name
+                code:
+                    type: string
+                    label: sylius.ui.code
+                enabled:
+                    type: boolean
+                    label: sylius.ui.enabled

@@ -1,0 +1,18 @@
+sylius_grid:
+    grids:
+        app_admin_ask_review_template:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\AskReviewTemplate
+            fields:
+                templateId:
+                    type: string
+                    label: sylius.ui.ask_review_template.id
+                serviceName:
+                    type: string
+                    label: sylius.ui.ask_review_template.service_name
+            actions:
+                item:
+                    update:
+                        type: update

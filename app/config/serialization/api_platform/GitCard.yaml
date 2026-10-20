@@ -1,0 +1,14 @@
+App\Doctrine\Entity\Sylius\GiftCard:
+    attributes:
+        code:
+            groups:
+                - shop:cart:read
+        initialAmount:
+            groups:
+                - shop:cart:read
+        amount:
+            groups:
+                - shop:cart:read
+        message:
+            groups:
+                - shop:cart:read

@@ -1,0 +1,25 @@
+sylius_admin_partial_invoice_order_seller_partial:
+    path: /order/{orderNumber}/seller
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.order:showAction
+        _sylius:
+            repository:
+                method: findOneByNumber
+                arguments:
+                    - '$orderNumber'
+            template: $template
+            permission: true
+
+sylius_admin_partial_invoice_order_store_partial:
+    path: /order/{orderNumber}/store
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.order:showAction
+        _sylius:
+            repository:
+                method: findOneByNumber
+                arguments:
+                    - '$orderNumber'
+            template: $template
+            permission: true

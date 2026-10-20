@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Edeliv\Client\EdelivClient:
+        arguments:
+            $baseUri: '%urbantz_api_url%'
+            $apiKeySecretUrbantz: '%urbantz_api_key_secret%'
+            $apiKeyUrbantz: '%urbantz_api_key%'

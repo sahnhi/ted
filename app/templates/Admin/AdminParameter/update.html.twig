@@ -1,0 +1,3 @@
+{% set event_prefix = metadata.applicationName ~ '.admin.' ~ metadata.name ~ '.update' %}
+
+{{ sylius_template_event([event_prefix, 'sylius.admin.update'], _context) }}

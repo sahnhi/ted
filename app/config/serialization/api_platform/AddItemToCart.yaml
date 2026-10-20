@@ -1,0 +1,9 @@
+App\Message\Order\AddItemToCart:
+    attributes:
+        productVariantCode:
+            groups: ['shop:cart:add_item']
+            serialized_name: 'productVariant'
+        quantity:
+            groups: ['shop:cart:add_item']
+        addons:
+            groups: ['shop:cart:add_item']

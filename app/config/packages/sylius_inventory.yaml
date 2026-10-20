@@ -1,0 +1,2 @@
+sylius_inventory:
+    checker: 'App\Checker\Inventory\AvailabilityChecker'

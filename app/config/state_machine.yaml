@@ -1,0 +1,192 @@
+winzou_state_machine:
+    sylius_order_checkout:
+        transitions:
+            select_payment:
+                from: [ payment_selected, shipping_skipped, shipping_selected, completed ]
+                to: payment_selected
+        callbacks:
+            before:
+                app_decrement_promotions_usages:
+                    on: [ "select_payment" ]
+                    do: [ "@app.decrement_promotions_usages_on_select_payment", "__invoke" ]
+                    args: [ "object" ]
+            after:
+                sylius_drip_send_order:
+                    on: [ "address", "complete" ]
+                    do: [ "@app.drip.drip_api", "sendOrder" ]
+                    args: [ "object" ]
+                sylius_drip_send_customer:
+                    on: [ "address", "complete" ]
+                    do: [ "@app.drip.drip_api", "sendCustomer" ]
+                    args: [ "object.getCustomer()" ]
+                sylius_captain_metrics_send_customer:
+                    on: [ "address", "complete" ]
+                    do: [ "@app.captainmetrics.captainmetrics_api", "sendUser" ]
+                    args: [ "object" ]
+                rimdian_send_customer:
+                    on: [ "address", "complete" ]
+                    do: [ "@app.analytic.entry_point.import_user", "sendUserFromOrder" ]
+                    args: [ "object"]
+                app_increment_promotions_usages:
+                    on: [ "complete" ]
+                    do: [ "@sylius.promotion_usage_modifier", "increment" ]
+                    args: [ "object" ]
+                setono_gift_card_create:
+                    disabled: true
+                app_decrement_gift_card_amount:
+                    on: [ "complete" ]
+                    do: [ "@setono_sylius_gift_card.modifier.order_gift_card_amount", "decrement" ]
+                    args: [ "object" ]
+                app_handle_forward_erp_manualy:
+                    on: [ "complete" ]
+                    do: [ "@app.erp.forward_handler", "handleForward" ]
+                    args: [ "object" ]
+                app_autonomous_return_created:
+                    on: [ "address" ]
+                    do: [ '@app.order_return.type.autonomous', "postCreate" ]
+                    args: [ "object" ]
+                app_autonomous_return_post_shipping_selected:
+                    on: [ "select_shipping" ]
+                    do: [ '@app.order_return.type.autonomous', "postShippingSelected" ]
+                    args: [ "object" ]
+
+    sylius_order_payment:
+        callbacks:
+            before:
+                sylius_b2b_promotion:
+                    on: [ "pay" ]
+                    do: [ "@app.bi.promotion.btob", "check" ]
+                    args: [ "object" ]
+            after:
+                sylius_order_paid:
+                    on: [ "pay" ]
+                    do: [ "@sylius.inventory.order_inventory_operator", "hold" ]
+                    args: [ "object" ]
+                sylius_erp_sync:
+                    on: [ "pay" ]
+                    do: [ "@app.erp.forward", "postComplete" ]
+                    args: [ "object" ]
+                sylius_order_item_logistic:
+                    on: [ "pay" ]
+                    do: [ "@app.action.order_item_logistic", "process" ]
+                    args: [ "object" ]
+                sylius_drip_send_order:
+                    on: [ "pay" ]
+                    do: [ "@app.drip.drip_api", "sendOrder" ]
+                    args: [ "object" ]
+                sylius_captain_metrics_send_order:
+                    on: [ "pay" ]
+                    do: [ "@app.captainmetrics.captainmetrics_api", "sendOrder" ]
+                    args: [ "object" ]=
+                rimdian_send_order:
+                    on: [ "pay" ]
+                    do: [ "@app.analytic.entry_point.import_order", "sendOrder" ]
+                    args: [ "object" ]
+                sylius_partial_payment_alert:
+                    on: [ "partially_pay" ]
+                    do: [ "@app.mail.swiftmailer.partial_payment_alert", "__invoke" ]
+                    args: [ "object" ]
+                sylius_order_outofstock_planned:
+                    on: [ "pay" ]
+                    do: [ "@app.erp.forward", "orderPlanned" ]
+                    args: [ "object" ]
+                sylius_drip_synch_filleul_to_parrain:
+                    on: [ "pay" ]
+                    do: [ "@app.service.sponsor.sync_filleul_to_parrain_drip", "__invoke" ]
+                    args: [ "object" ]
+                sylius_influencer_command:
+                    on: [ "pay" ]
+                    do: [ "@app.promotion.influencer.command", "checkPromotion" ]
+                    args: [ "object" ]
+                app_shipup_new_order:
+                    on: [ "pay" ]
+                    do: [ "@app.shipup.shipup_api", "order" ]
+                    args: [ "object" ]
+                sylius_invoice_creator:
+                    on: [ "pay" ]
+                    do: [ "@sylius_invoicing_plugin.creator.invoice", "__invoke" ]
+                    args: [ "object.getNumber()", "object.getCheckoutCompletedAt()" ]
+                sylius_carrier_invoice_creator:
+                    on: [ "pay" ]
+                    do: [ "@sylius_invoicing_plugin.creator.invoice", "handleCarrierInvoice" ]
+                    args: [ "object", "object.getCheckoutCompletedAt()" ]
+                sylius_invoice_generator:
+                    on: [ "pay" ]
+                    do: [ "@app.service.invoice_generator", "generate" ]
+                    args: [ "object", "event" ]
+    sylius_shipment:
+        states:
+            delivered: ~
+        transitions:
+            deliver:
+                from: [ "shipped", "ready" ]
+                to: delivered
+        callbacks:
+            after:
+                sylius_shipping_inventory:
+                    on: [ "ship" ]
+                    do: [ "@sylius.inventory.order_inventory_operator", "sell" ]
+                    args: [ "object.getOrder()" ]
+                sylius_mail_return:
+                    on: [ "ship" ]
+                    do: [ "@app.mail.return.shipment_confirmation_return", "send" ]
+                    args: [ "object.getOrder()" ]
+                app_shipup_tracker:
+                    on: [ "ship" ]
+                    do: [ "@app.shipup.shipup_api", "tracker" ]
+                    args: [ "object" ]
+                sylius_resolve_deliver:
+                    on: [ "deliver" ]
+                    do: [ "@app.state_resolver.order_shipping", "resolve" ]
+                    args: [ "object.getOrder()" ]
+                sylius_invoice_creator:
+                    on: [ "ship", "deliver" ]
+                    do: [ "@sylius_invoicing_plugin.creator.invoice", "__invoke" ]
+                    args: [ "object.getOrder().getNumber()", "object.getOrder().getCheckoutCompletedAt()" ]
+                sylius_invoice_generator:
+                    on: [ "ship", "deliver" ]
+                    do: [ "@app.service.invoice_generator", "generate" ]
+                    args: [ "object.getOrder()", "event" ]
+    sylius_order:
+        callbacks:
+            after:
+                sylius_hold_inventory:
+                    disabled: true
+                sylius_mail_younited_cancel_order:
+                    on: [ "cancel" ]
+                    do: [ "@app.mail.younited", "cancelOrder" ]
+                    args: [ "object" ]
+                sylius_mail_cancel_order:
+                    on: [ "cancel" ]
+                    do: [ "@app.service.spidy.cancel", "cancel" ]
+                    args: [ "object" ]
+                sylius_increment_promotions_usages:
+                    disabled: true
+                setono_decrement_gift_card_amount:
+                    disabled: true
+                sylius_captain_metrics_send_order:
+                    on: [ "fulfill" ]
+                    do: [ "@app.captainmetrics.captainmetrics_api", "sendOrder" ]
+                    args: [ "object" ]
+    sylius_payment:
+        callbacks:
+            after:
+                sylius_invoicing_plugin_payment_complete_producer:
+                    disabled: true
+    sylius_order_shipping:
+        states:
+            delivered: ~
+        transitions:
+            deliver:
+                from: [ "shipped", "ready", "partially_shipped" ]
+                to: delivered
+        callbacks:
+            after:
+                sylius_influencer_delivered:
+                    on: [ "deliver" ]
+                    do: [ "@app.promotion.influencer.command", "checkDelivered" ]
+                    args: [ "object" ]
+                sylius_resolve_state:
+                    on: [ "ship", "deliver" ]
+                    do: [ "@app.state_resolver.order", "resolve" ]
+                    args: [ "object" ]

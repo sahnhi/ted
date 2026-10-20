@@ -1,0 +1,84 @@
+{% set filters = definition.enabledFilters %}
+<div class="sylius-filters__field">
+    {{ sylius_grid_render_filter(grid, filters['checkout_state']) }}
+</div>
+
+<div class="sylius-filters__field">
+    {{ sylius_grid_render_filter(grid, filters['number']) }}
+</div>
+
+<div class="sylius-filters__field">
+    {{ sylius_grid_render_filter(grid, filters['customer']) }}
+</div>
+
+<div class="sylius-filters__field">
+    {{ sylius_grid_render_filter(grid, filters['customer_phone']) }}
+</div>
+
+<div class="sylius-filters__field">
+    {{ sylius_grid_render_filter(grid, filters['channel']) }}
+</div>
+
+<div class="sylius-filters__field">
+    {{ sylius_grid_render_filter(grid, filters['customer_local']) }}
+</div>
+
+<div class="sylius-filters__field">
+    {{ sylius_grid_render_filter(grid, filters['state']) }}
+</div>
+
+<div class="sylius-filters__field">
+    {{ sylius_grid_render_filter(grid, filters['date']) }}
+</div>
+
+<div class="sylius-filters__field">
+    {{ sylius_grid_render_filter(grid, filters['total']) }}
+</div>
+
+<div class="sylius-filters__field">
+    {{ sylius_grid_render_filter(grid, filters['payment_state']) }}
+</div>
+
+<div class="sylius-filters__field">
+    {{ sylius_grid_render_filter(grid, filters['payment_method']) }}
+</div>
+
+<div class="sylius-filters__field">
+    {{ sylius_grid_render_filter(grid, filters['shipping_state']) }}
+</div>
+
+<div class="sylius-filters__field">
+    {{ sylius_grid_render_filter(grid, filters['shipping_date']) }}
+</div>
+
+<div class="sylius-filters__field">
+    {{ sylius_grid_render_filter(grid, filters['shipping_method']) }}
+</div>
+
+<div class="sylius-filters__field">
+    {{ sylius_grid_render_filter(grid, filters['shipping_department']) }}
+</div>
+
+<div class="sylius-filters__field">
+    {{ sylius_grid_render_filter(grid, filters['contains_product']) }}
+</div>
+
+<div class="sylius-filters__field">
+    {{ sylius_grid_render_filter(grid, filters['contains_variant']) }}
+</div>
+
+<div class="sylius-filters__field">
+    {{ sylius_grid_render_filter(grid, filters['promotion']) }}
+</div>
+
+<div class="sylius-filters__field">
+    {{ sylius_grid_render_filter(grid, filters['promotion_coupon']) }}
+</div>
+
+<div class="sylius-filters__field">
+    {{ sylius_grid_render_filter(grid, filters['order_reason']) }}
+</div>
+
+<div class="sylius-filters__field">
+    {{ sylius_grid_render_filter(grid, filters['fastmag']) }}
+</div>

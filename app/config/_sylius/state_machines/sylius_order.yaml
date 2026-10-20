@@ -1,0 +1,26 @@
+winzou_state_machine:
+    sylius_order:
+        callbacks:
+            after:
+                sylius_hold_inventory:
+                    disabled: true
+                sylius_mail_younited_cancel_order:
+                    on: [ "cancel" ]
+                    do: [ "@app.mail.younited", "cancelOrder" ]
+                    args: [ "object" ]
+                sylius_mail_cancel_order:
+                    on: [ "cancel" ]
+                    do: [ "@app.service.spidy.cancel", "cancel" ]
+                    args: [ "object" ]
+                sylius_increment_promotions_usages:
+                    disabled: true
+                setono_decrement_gift_card_amount:
+                    disabled: true
+                sylius_captain_metrics_send_order:
+                    on: [ "fulfill" ]
+                    do: [ "@app.captainmetrics.captainmetrics_api", "sendOrder" ]
+                    args: [ "object" ]
+                odoo_dispatch_cancel_order:
+                    on: [ "cancel" ]
+                    do: [ App\Api\Odoo\StateMachine\Event\OnCancel, __invoke ]
+                    args: [ "object" ]

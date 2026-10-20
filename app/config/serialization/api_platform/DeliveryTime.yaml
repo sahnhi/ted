@@ -1,0 +1,20 @@
+App\Calendar\ViewModels\DeliveryTime:
+    attributes:
+        place:
+            groups:
+                - shop:order:calendar:autonomous-return
+        providerName:
+            groups:
+                - shop:order:calendar:autonomous-return
+        dailyDelivery:
+            groups:
+                - shop:order:calendar:autonomous-return
+        start_time:
+            groups:
+                - shop:order:calendar:autonomous-return
+        end_time:
+            groups:
+                - shop:order:calendar:autonomous-return
+        shipping_message:
+            groups:
+                - shop:order:calendar:autonomous-return

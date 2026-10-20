@@ -1,0 +1,12 @@
+Sylius\Component\Customer\Model\Customer:
+    properties:
+        email:
+            -   NotBlank:
+                    message: sylius.customer.email.not_blank
+                    groups: [ app_customer ]
+            -   Length:
+                    max: 254
+                    maxMessage: sylius.customer.email.max
+                    groups: [ app_customer ]
+            -   App\Validator\Constraints\CustomerEmail:
+                    groups: [ app_customer ]

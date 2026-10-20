@@ -1,0 +1,15 @@
+sokeo_sylius_younitedpay:
+    ui:
+        api_key_public_prod: Public API Key (PRODUCTION)
+        api_key_private_prod: Private API Key (PRODUCTION)
+        api_key_public_sandbox: Public API Key (SANDBOX)
+        api_key_private_sandbox: Private API Key (SANDBOX)
+        younitedpay_gateway_label: Younitedpay
+        type: Type
+        payment_link: Payment link
+        redirect_order: Redirect order
+        sandbox: Sandbox
+        allow_multi_currency: Allow multi currency payments
+        amount_min: Min. amount (in cents)
+        amount_max: Max. amount (in cents, 0 = infinite)
+        monthly_payments: Available monthly payments (comma separated)

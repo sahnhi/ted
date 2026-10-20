@@ -1,0 +1,9 @@
+App\Doctrine\Entity\ShippingMethodCategoryClaimTranslation:
+    shipping_method_category_eco_claim_not_pushed_translation:
+        translatable: '@shipping_method_category_eco_claim_not_pushed'
+        content: 'This claim is enabled and NOT pushed'
+        locale: 'fr_FR'
+    shipping_method_category_eco_claim_pushed_translation:
+        translatable: '@shipping_method_category_eco_claim_pushed'
+        content: 'This claim is enabled and pushed'
+        locale: 'fr_FR'

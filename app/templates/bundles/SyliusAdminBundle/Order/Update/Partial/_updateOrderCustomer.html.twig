@@ -1,0 +1,17 @@
+{% form_theme form '@SyliusAdmin/Form/theme.html.twig' %}
+
+<div class="ui modal" id="updateCustomerOrder">
+    <i class="close icon"></i>
+    <div class="header">
+        {{ 'app.ui.update_customer_order'|trans }}
+    </div>
+    <div class="content">
+        {% include '@SyliusAdmin/Order/Update/_form_customer.html.twig' %}
+    </div>
+    <div class="actions">
+        <button type="submit" form="{{ form.vars.name }}" class="ui positive right labeled icon button">
+            {{ 'sylius.ui.save'|trans }}
+            <i class="checkmark icon"></i>
+        </button>
+    </div>
+</div>

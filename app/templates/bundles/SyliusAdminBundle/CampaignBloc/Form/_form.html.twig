@@ -1,0 +1,2 @@
+{% set menu = knp_menu_get('app.admin.bloc_form', [], {'bloc': campaign_bloc}) %}
+{{ knp_menu_render(menu, {'template': '@SyliusAdmin/Product/_menu.html.twig', 'form': form, 'product': campaign_bloc}) }}

@@ -1,0 +1,12 @@
+sylius_addressing:
+    resources:
+        address:
+            classes:
+                model: App\Doctrine\Entity\Sylius\Address
+        country:
+            classes:
+                model: App\Doctrine\Entity\Sylius\Country
+        zone:
+            classes:
+                model: App\Doctrine\Entity\Sylius\Zone
+                controller: App\Controller\Admin\ZoneController

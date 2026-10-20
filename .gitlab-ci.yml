@@ -1,0 +1,226 @@
+include:
+    - local: '/gitlab/templates.yml'
+    - local: '/gitlab/docker.yml'
+    - local: '/gitlab/install.yml'
+    - local: '/gitlab/swagger.yml'
+    - local: '/gitlab/check.yml'
+    - local: '/gitlab/image.yml'
+    - local: '/gitlab/database.yml'
+    - local: '/gitlab/terraform.yml'
+
+variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+    IMAGE_REPO: gcr.io/$GCLOUD_EXPLOITATION_PROJECT_ID/tediber-php
+    IMAGE_REPO_WORKERS: gcr.io/$GCLOUD_EXPLOITATION_PROJECT_ID/tediber-php-workers
+    GCLOUD_SDK_VERSION: "482.0.0"
+
+workflow:
+    rules:
+        - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+        - if: $CI_COMMIT_TAG
+        - if: $CI_COMMIT_REF_PROTECTED == "true"
+
+stages:
+    - docker
+    - install
+    - swagger
+    - check
+    - image
+    - deploy
+    - database
+    - terraform
+
+cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+        - app/vendor/
+        - app/node_modules
+        - app/public/assets
+        - app/public/build
+        - app/public/bundles
+    policy: pull
+
+##### STAGE DEPLOY #####
+
+.deploy_template:
+    image: google/cloud-sdk:$GCLOUD_SDK_VERSION
+    stage: deploy
+    when: manual
+    needs:
+        - build-images
+    variables:
+        IMAGE: $IMAGE_REPO:$CI_COMMIT_SHA
+        SERVICE_NAME: tediber
+        INGRESS: all
+        CPU_THROTTLING: 'false'
+        STARTUP_BOOST: 'true'
+        LIMIT_CPU: 4000m
+        LIMIT_MEMORY: 16Gi
+        MIN_SCALE: 1
+        MAX_SCALE: 1
+        FPM_PM_MAX_CHILDREN: 80
+        FPM_PM_MIN_SPARE_SERVERS: 8
+        FPM_PM_MAX_SPARE_SERVERS: 16
+        FPM_REQUEST_TERMINATE_TIMEOUT: 120
+        SENTRY_RELEASE: $CI_COMMIT_SHA
+    before_script:
+        - apt-get install gettext-base
+        - !reference [.load_gcloud_configuration]
+        - !reference [.load_environment_variables]
+        - gcloud config set project $GOOGLE_PROJECT_ID
+    script:
+        - echo "Deploying $CI_COMMIT_SHA version on $SERVICE_NAME for $CI_ENVIRONMENT_NAME env"
+        - envsubst < gcp/run/service.template.yaml > gcp/run/service.yaml
+        - gcloud run services replace gcp/run/service.yaml
+
+.deploy_worker:
+    extends: .deploy_template
+    variables:
+        IMAGE: $IMAGE_REPO_WORKERS:$CI_COMMIT_SHA
+        IMAGE_REPO: $IMAGE_REPO_WORKERS
+        SERVICE_NAME: tediber-workers
+        INGRESS: internal
+        STARTUP_BOOST: 'false'
+        MIN_SCALE: 1
+        MAX_SCALE: 1
+        FPM_PM_MAX_CHILDREN: 5
+        FPM_PM_START_SERVERS: 1
+        FPM_PM_MIN_SPARE_SERVERS: 1
+        FPM_PM_MAX_SPARE_SERVERS: 5
+    script:
+        # It allows us to seperate error sources (app or worker) on Sentry
+        - SENTRY_ENV=$SENTRY_ENV-workers
+        - echo "Deploying $CI_COMMIT_SHA version on $SERVICE_NAME for $CI_ENVIRONMENT_NAME env"
+        - envsubst < gcp/run/service.template.yaml > gcp/run/service.yaml
+        - gcloud run services replace gcp/run/service.yaml
+
+.add_tag_env:
+    after_script:
+        - gcloud container images add-tag --quiet $IMAGE $IMAGE_REPO:$CI_ENVIRONMENT_NAME
+
+dev:
+    extends:
+        - .deploy_template
+    environment: demo
+    variables:
+        SERVICE_NAME: $CI_COMMIT_REF_SLUG
+    except:
+        - tags
+        - master
+        - staging
+        - hotfix
+        - product
+        - develop
+    after_script:
+        - gcloud run services add-iam-policy-binding "$SERVICE_NAME" --region="europe-west1" --member="allUsers" --role="roles/run.invoker"
+
+dev-worker:
+    extends:
+        - .deploy_worker
+    environment: demo
+    variables:
+        SERVICE_NAME: $CI_COMMIT_REF_SLUG-workers
+    except:
+        - tags
+        - master
+        - staging
+        - hotfix
+        - product
+        - develop
+
+demo:
+    extends:
+        - .deploy_template
+        - .add_tag_env
+    environment: demo
+    only:
+        - develop
+
+demo-worker:
+    extends:
+        - .deploy_worker
+        - .add_tag_env
+    environment: demo
+    only:
+        - develop
+
+staging:
+    extends:
+        - .deploy_template
+        - .add_tag_env
+    environment: staging
+    variables:
+        FPM_PM_MAX_CHILDREN: 250
+        FPM_PM_MIN_SPARE_SERVERS: 50
+        FPM_PM_MAX_SPARE_SERVERS: 100
+    only:
+        - staging
+
+staging-worker:
+    extends:
+        - .deploy_worker
+        - .add_tag_env
+    environment: staging
+    only:
+        - staging
+
+hotfix:
+    extends:
+        - .deploy_template
+    environment: staging
+    variables:
+        SERVICE_NAME: hotfix
+    only:
+        - hotfix
+    after_script:
+        - gcloud run services add-iam-policy-binding "$SERVICE_NAME" --region="europe-west1" --member="allUsers" --role="roles/run.invoker"
+
+hotfix-worker:
+    extends:
+        - .deploy_worker
+    environment: staging
+    variables:
+        SERVICE_NAME: hotfix-workers
+    only:
+        - hotfix
+
+product:
+    extends:
+        - .deploy_template
+        - .add_tag_env
+    environment: product
+    only:
+        - product
+
+product-worker:
+    extends:
+        - .deploy_worker
+        - .add_tag_env
+    environment: product
+    only:
+        - product
+
+prod:
+    extends: .deploy_template
+    environment: prod
+    variables:
+        MIN_SCALE: 4
+        MAX_SCALE: 16
+        FPM_PM_MAX_CHILDREN: 250
+        FPM_PM_MIN_SPARE_SERVERS: 50
+        FPM_PM_MAX_SPARE_SERVERS: 100
+    only:
+        - tags
+    after_script:
+        - gcloud container images add-tag --quiet $IMAGE $IMAGE_REPO:$CI_COMMIT_TAG $IMAGE_REPO:latest
+
+prod-worker:
+    extends: .deploy_worker
+    environment: prod
+    variables:
+        MAX_SCALE: 5
+    only:
+        - tags
+    after_script:
+        - gcloud container images add-tag --quiet $IMAGE $IMAGE_REPO:$CI_COMMIT_TAG $IMAGE_REPO:latest

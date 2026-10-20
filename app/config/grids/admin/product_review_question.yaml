@@ -1,0 +1,81 @@
+sylius_grid:
+    grids:
+        sylius_admin_product_review_question:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\ProductReviewQuestion
+                    repository:
+                        method: findQuestionsByProductId
+                        arguments:
+                            productId: $id
+            fields:
+                question:
+                    type: string
+                    label: sylius.ui.question
+                    sortable: ~
+                position:
+                    type: string
+                    label: sylius.ui.position
+                enabled:
+                    type: twig
+                    label: sylius.ui.enabled
+                    sortable: ~
+                    options:
+                        template: "@SyliusUi/Grid/Field/enabled.html.twig"
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete
+
+        sylius_admin_product_review_question_list_product:
+            extends: sylius_admin_product
+            driver:
+                options:
+                    repository:
+                        method: listProductsWithQuestions
+                        arguments: [ "%locale%" ]
+            fields:
+                name:
+                    type: string
+                    label: sylius.ui.name
+                    sortable: translation.name
+                mainTaxon:
+                    type: twig
+                    enabled: false
+                code:
+                    type: string
+                    enabled: false
+                enabled:
+                    type: boolean
+                    enabled: false
+            actions:
+                main:
+                    create:
+                        type: links
+                        enabled: false
+                item:
+                    update:
+                        type: update
+                        enabled: false
+                    delete:
+                        type: delete
+                        enabled: false
+                    questions:
+                        type: show
+                        label: sylius.ui.product_list_questions
+                        options:
+                            link:
+                                icon: list
+                                route: sylius_admin_product_question_list
+                                parameters:
+                                    id: resource.id
+                subitem:
+                    variants:
+                        type: links
+                        enabled: false

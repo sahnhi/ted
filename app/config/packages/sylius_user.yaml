@@ -1,0 +1,9 @@
+sylius_user:
+    encoder: sha512
+    driver: doctrine/orm
+    resources:
+        admin:
+            user:
+                classes:
+                    controller: App\Controller\Admin\UserController
+                    model: Sylius\Component\Core\Model\AdminUser

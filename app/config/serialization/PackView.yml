@@ -1,0 +1,11 @@
+App\View\PackView:
+    exclusion_policy: ALL
+    properties:
+        code:
+            expose: true
+            type: string
+            groups: [ 'pack.show','pack.list' ]
+        variants:
+            expose: true
+            type: array<App\View\ProductVariantView>
+            groups: [ 'pack.show','pack.list' ]

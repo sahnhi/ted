@@ -1,0 +1,296 @@
+liveness_check:
+    path: /liveness-check
+    methods: [GET]
+    defaults:
+        _controller: App\Controller\LivenessCheckAction
+
+shop_api_odoo:
+    resource: "../src/Api/Odoo/Resources/config/routes/odoo.yaml"
+    prefix: /odoo
+
+sylius_admin:
+    resource: routes/sylius_admin.yaml
+
+sylius_admin_api:
+    resource: routes/sylius_admin_api.yaml
+
+sylius_shop:
+    resource: routes/sylius_shop.yaml
+
+sylius_shop_api:
+    resource: routes/sylius_shop_api.yaml
+    prefix: /shop-api/{channelCode}/{localeCode}
+
+_liip_imagine:
+    resource: routes/liip_imagine.yaml
+
+fos_js_routing:
+    resource: routes/fos_js_routing.yaml
+
+app_admin:
+    resource: "routes/admin/admin.yaml"
+    prefix: /admin
+
+sylius_admin_order_creation:
+    resource: "@SyliusAdminOrderCreationPlugin/Resources/config/app/routing.yml"
+
+setono_sylius_gift_card:
+    resource: "@SetonoSyliusGiftCardPlugin/Resources/config/routes.yaml"
+
+sylius_admin_ajax_variant_by_name_phrase:
+    path: /admin/ajax/variant/search
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.product_variant:indexAction
+        _format: json
+        _sylius:
+            serialization_groups: [Autocomplete]
+            permission: true
+            repository:
+                method: findByNamePart
+                arguments:
+                    phrase: $phrase
+                    locale: expr:service('sylius.context.locale').getLocaleCode()
+                    user: expr:service('security.token_storage').getToken().getUser()
+
+sylius_admin_ajax_variant_by_name_phrase_no_return:
+    path: /admin/ajax/variant_no_return/search
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.product_variant:indexAction
+        _format: json
+        _sylius:
+            serialization_groups: [Autocomplete]
+            permission: true
+            repository:
+                method: findByNamePartNoReturn
+                arguments:
+                    phrase: $phrase
+                    locale: expr:service('sylius.context.locale').getLocaleCode()
+                    user: expr:service('security.token_storage').getToken().getUser()
+
+sylius_admin_ajax_variant_by_name_phrase_and_channel:
+    path: /admin/ajax/variant/search/{$channelCode}
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.product_variant:indexAction
+        _format: json
+        _sylius:
+            serialization_groups: [Autocomplete]
+            permission: true
+            repository:
+                method: findByNamePartAndChannel
+                arguments:
+                    phrase: $phrase
+                    locale: expr:service('sylius.context.locale').getLocaleCode()
+                    user: expr:service('security.token_storage').getToken().getUser()
+                    channelCode: $channelCode
+
+sylius_admin_ajax_variant_by_code:
+    path: /admin/ajax/variant/code
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.product_variant:indexAction
+        _format: json
+        _sylius:
+            serialization_groups: [Autocomplete]
+            permission: true
+            repository:
+                method: findBy
+                arguments: [code: $code]
+
+sylius_admin_order_creation_customer_create:
+    path: /admin/orders/new/customer/{customerEmail}/{customerFirstName}/{customerLastName}/{channelCode}
+    methods: [GET]
+    options:
+        expose: true
+    defaults:
+        _controller: App\Controller\Admin\CustomerCreationAction
+
+sylius_admin_order_creation_bis:
+    path: /admin/orders/{id}/bis
+    methods: [GET]
+    options:
+        expose: true
+    defaults:
+        _controller: sylius.controller.order:createAction
+        _sylius:
+            event: admin_create
+            section: admin
+            permission: true
+            template: "@App/Admin/Order/create.html.twig"
+            form:
+                type: App\Form\Type\NewOrderType
+                options:
+                    constraints:
+                        order_type: bis
+                        order_parent_id: $id
+            factory:
+                method:
+                  [
+                      'expr:service("Sylius\\AdminOrderCreationPlugin\\Factory\\OrderFactory")',
+                      "createReorder",
+                  ]
+                arguments:
+                  ["expr:service('sylius.repository.order').find($id)", "bis"]
+
+sylius_admin_order_creation_order_preview:
+    path: /admin/orders/new/{customerId}/{channelCode}/preview
+    methods: [POST]
+    defaults:
+        _controller: App\Controller\Admin\OrderPreviewAction
+        _sylius:
+            form:
+                type: App\Form\Type\NewOrderType
+            factory:
+                method:
+                  [
+                      'expr:service("Sylius\\AdminOrderCreationPlugin\\Factory\\OrderFactory")',
+                      "createForCustomerAndChannel",
+                  ]
+                arguments: [$customerId, $channelCode]
+
+sylius_admin_order_creation_order_create:
+    path: /admin/orders/new/{customerId}/{channelCode}
+    methods: [GET]
+    options:
+        expose: true
+    defaults:
+        _controller: sylius.controller.order:createAction
+        _sylius:
+            event: admin_create
+            section: admin
+            permission: true
+            template: "@App/Admin/Order/create.html.twig"
+            form:
+                type: App\Form\Type\NewOrderType
+            factory:
+                method:
+                  [
+                      'expr:service("Sylius\\AdminOrderCreationPlugin\\Factory\\OrderFactory")',
+                      "createForCustomerAndChannel",
+                  ]
+                arguments: [$customerId, $channelCode]
+    requirements:
+        customerEmail: .+
+
+sylius_admin_order_creation_order_create_from_preview:
+    path: /admin/orders/new/{customerId}/{channelCode}/create-from-preview
+    methods: [POST]
+    options:
+        expose: true
+    defaults:
+        _controller: sylius.controller.order:createAction
+        _sylius:
+            event: admin_create
+            section: admin
+            permission: true
+            template: "@SyliusAdminOrderCreationPlugin/Order/preview.html.twig"
+            form:
+                type: App\Form\Type\NewOrderType
+            factory:
+                method:
+                  [
+                      'expr:service("Sylius\\AdminOrderCreationPlugin\\Factory\\OrderFactory")',
+                      "createForCustomerAndChannel",
+                  ]
+                arguments: [$customerId, $channelCode]
+
+sylius_payment_callback_dalenys:
+    path: /payment/callback/dalenys/{gatewayName}/{action}
+    methods: ["POST", "GET"]
+    defaults:
+        _controller: App\Controller\Payment\DalenysCallbackAction
+
+sylius_payment_callback_dalenys_webtpe:
+    path: /payment/callback/webtpe/{action}
+    defaults:
+        _controller: App\Controller\Payment\WebTPECallbackAction
+
+sylius_payment_adyen_notify:
+    path: /payment/callback/adyen/notify
+    methods: ["POST"]
+    defaults:
+        _controller: App\Controller\Payment\Adyen\NotifyController:doAction
+
+app_shop_partial_product_index_ordered_by_taxon_code:
+    path: /ordered/{code}
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.product:indexAction
+        _sylius:
+            template: $template
+            repository:
+                method: findOrderedByChannelAndTaxonCode
+                arguments:
+                    - "expr:service('sylius.context.channel').getChannel()"
+                    - "expr:service('sylius.context.locale').getLocaleCode()"
+                    - $code
+
+sylius_admin_product_return_generation:
+    path: /admin/product/{id}/generate/return
+    methods: [GET]
+    defaults:
+        _controller: App\Controller\Admin\ProductReturnGenerationAction
+
+sylius_admin_shipment_set_delivered:
+    path: /admin/shipment/{id}/deliver
+    methods: [GET]
+    defaults:
+        _controller: App\Controller\Admin\Action\DeliverAction
+
+sylius_younitedpay_plugin_webhooks:
+    resource: "@SokeoSyliusYounitedpayPlugin/Resources/config/webhooks_routing.yaml"
+
+webhook:
+    resource: routes/webhook.yaml
+    prefix: /webhook
+
+chronopost:
+    resource: routes/chronopost.yaml
+
+support_command:
+    resource: routes/support_command.yaml
+    prefix: /support
+
+channable_route_file:
+    resource: "../src/Channable/config/routes.yaml"
+
+app_admin_product_feed_file_importer:
+    resource: |
+        alias: app.product_feed_file_importer
+        section: admin
+        templates: "@SyliusAdmin\\Crud"
+        redirect: index
+        grid: app_admin_product_feed_file_importer
+        vars:
+            all:
+                subheader: app.ui.product_feed_file_importer
+            index:
+                icon: 'file image outline'
+    type: sylius.resource
+    prefix: /admin
+
+app_admin_product_feed_file_importer_form:
+    path: /admin/product-feed-file-importer/file-import-form
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+    defaults:
+        template: "@SyliusAdmin/ProductFeedFile/Form/ImportFile/import_file_form.html.twig"
+        maxAge: 86400
+        sharedMaxAge: 86400
+        private: true
+
+app_rtbs_infos:
+    resource: routes/admin/rtbs_infos.yaml
+
+campaign_route:
+    resource: routes/admin/campaign.yaml
+
+app_admin_export_accounting_data:
+    resource: routes/admin/export_accounting_data.yaml
+
+app_admin_product_cms_sizing_guide:
+    resource: routes/admin/product_cms_sizing_guide.yaml
+
+app_admin_satellite_page:
+    resource: routes/admin/satellite_page.yaml

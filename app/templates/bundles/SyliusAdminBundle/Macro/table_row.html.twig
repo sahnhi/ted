@@ -1,0 +1,44 @@
+{% extends '@SyliusUi/Macro/table.html.twig' %}
+
+{% macro row(grid, definition, row) %}
+    <tr class="item">
+    {% if definition.actionGroups.bulk is defined and definition.getEnabledActions('bulk')|length > 0 %}
+        <td><input class="bulk-select-checkbox" type="checkbox" value="{{ row.id }}" /></td>
+    {% endif %}
+    {% for field in definition.enabledFields|sort_by('position') %}
+        <td>{{ sylius_grid_render_field(grid, field, row) }}
+            {# Custom Code #}
+            {% if field.name == 'shippingState' and row.hasShipments is defined and row.hasShipments %}
+                {% for shipment in row.shipments %}
+                    <b>{{ shipment.method }}</b>
+                    <p>
+                    {% if shipment.endDeliverySlot is not null %}
+                        {{ shipment.endDeliverySlot|format_datetime }}
+                    {% else %}
+                        {{ 'app.ui.undefined'|trans }}
+                    {% endif %}
+                    </p>
+                {% endfor %}
+            {% endif %}
+            {# End Custom Code #}
+        </td>
+    {% endfor %}
+    {% if definition.actionGroups.item is defined and definition.getEnabledActions('item')|length > 0 %}
+        <td>
+            <div class="ui buttons">
+                {% for action in definition.getEnabledActions('item')|sort_by('position') %}
+                    {{ sylius_grid_render_action(grid, action, row) }}
+                {% endfor %}
+            </div>
+            {% if definition.actionGroups.subitem is defined and definition.getEnabledActions('subitem')|length > 0 %}
+            <div class="ui divider"></div>
+            <div class="ui buttons">
+                {% for action in definition.getEnabledActions('subitem')|sort_by('position') %}
+                    {{ sylius_grid_render_action(grid, action, row) }}
+                {% endfor %}
+            </div>
+            {% endif %}
+        </td>
+    {% endif %}
+    </tr>
+{% endmacro %}

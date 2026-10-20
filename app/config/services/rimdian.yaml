@@ -1,0 +1,18 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+    
+    App\Analytic\Client\RimdianHttpClient:
+        arguments:
+            $workspaceId: '%env(RIMDIAN_WORKSPACE_ID)%'
+            $email: '%env(RIMDIAN_LOGIN_EMAIL)%'
+            $password: '%env(RIMDIAN_PASSWORD)%'
+
+    app.analytic.entry_point.import_user:
+        class: App\Analytic\EntryPoint\ImportUser
+        public: true
+
+    app.analytic.entry_point.import_order:
+        class: App\Analytic\EntryPoint\ImportOrder
+        public: true

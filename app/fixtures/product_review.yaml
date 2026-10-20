@@ -1,0 +1,36 @@
+App\Doctrine\Entity\Sylius\ProductReview:
+    test_review_accepted_fr_FR:
+        locale: fr_FR
+        author: '@customer1'
+        status: !php/const Sylius\Component\Review\Model\ReviewInterface::STATUS_ACCEPTED
+        reviewSubject: '@mattress_product'
+        title: 'Comment est votre blanquette ?'
+        comment: 'La blanquette est bonne.'
+        rating: 5
+        
+    test_review_rejected_fr_FR:
+        locale: fr_FR
+        author: '@customer1'
+        status: !php/const Sylius\Component\Review\Model\ReviewInterface::STATUS_REJECTED
+        reviewSubject: '@mattress_product'
+        title: 'Shut up ! Kiss my ass !'
+        comment: 'D’accord, faisons comme ça, ravi de t’avoir revu l’ami.'
+        rating: 1
+        
+    test_empty_review_accepted_fr_FR:
+        locale: fr_FR
+        author: '@customer1'
+        status: !php/const Sylius\Component\Review\Model\ReviewInterface::STATUS_ACCEPTED
+        reviewSubject: '@mattress_product'
+        title: ''
+        comment: ''
+        rating: 2
+    
+    test_review_accepted_es_ES:
+        locale: es_ES
+        author: '@customer1'
+        status: !php/const Sylius\Component\Review\Model\ReviewInterface::STATUS_ACCEPTED
+        reviewSubject: '@mattress_product'
+        title: "On me dit le plus grand bien des harengs pommes à l'huile."
+        comment: 'Je vous en sers un ramequin, vous vous en ferez une idée.'
+        rating: 2

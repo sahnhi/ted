@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # Necessary for winzou_state_machine to work
+    App\Api\Odoo\StateMachine\Event\:
+        resource: '../../src/Api/Odoo/StateMachine/Event/*'
+        public: true
+
+    # Necessary for winzou_state_machine to work
+    App\Api\Odoo\StateMachine\Guard\:
+        resource: '../../src/Api/Odoo/StateMachine/Guard/*'
+        public: true

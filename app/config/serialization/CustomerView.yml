@@ -1,0 +1,17 @@
+App\View\CustomerView:
+    properties:
+        id:
+            expose: true
+            type: string
+        email:
+            expose: true
+            type: string
+        phoneNumber:
+            expose: true
+            type: string
+        locale:
+            expose: true
+            type: string
+        new:
+            expose: true
+            type: bool

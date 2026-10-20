@@ -1,0 +1,16 @@
+App\Doctrine\Entity\Campaigns\Bloc:
+    attributes:
+        id:
+            groups: [ 'shop:campaign:read' ]
+        name:
+            groups: [ 'shop:campaign:read' ]
+        description:
+            groups: [ 'shop:campaign:read' ]
+        variants:
+            groups: [ 'shop:campaign:read' ]
+        focus:
+            groups: [ 'shop:campaign:read' ]
+        buttonText:
+            groups: [ 'shop:campaign:read' ]
+        buttonLink:
+            groups: [ 'shop:campaign:read' ]

@@ -1,0 +1,156 @@
+sylius_grid:
+    grids:
+        app_admin_order_return_logistic:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\Sylius\Order
+                    repository:
+                        method: findOrderReturnForLogisticListQueryBuilder
+                        arguments:
+                            - 'expr:service("app.criteria_cleaner").clean()'
+            fields:
+                channel:
+                    type: string
+                    label: sylius.ui.country
+                    path: shippingAddress.countryCode
+                number:
+                    type: twig
+                    label: sylius.ui.number
+                    path: .
+                    options:
+                        template: 'SyliusAdminBundle:Order/Grid/Field:number.html.twig'
+                date:
+                    type: datetime
+                    label: sylius.ui.date
+                    path: checkoutCompletedAt
+                    sortable: checkoutCompletedAt
+                    options:
+                        format: d-m-Y H:i:s
+                customer:
+                    type: twig
+                    label: sylius.ui.customer
+                    path: customer
+                    options:
+                        template: 'SyliusAdminBundle:Order/Grid/Field:customer.html.twig'
+                savStatus:
+                    type: twig
+                    label: sylius.form.order_return_status.sav_status
+                    path: orderReturn
+                    options:
+                        template: "@SyliusAdmin/Grid/Field/OrderReturn/status.html.twig"
+                        vars:
+                            type: sav
+                warehouseStatus:
+                    type: twig
+                    label: sylius.form.order_return_status.warehouse_status
+                    path: orderReturn
+                    options:
+                        template: "@SyliusAdmin/Grid/Field/OrderReturn/status.html.twig"
+                        vars:
+                            type: warehouse
+                shippingState:
+                    type: twig
+                    label: sylius.ui.shipping_state
+                    path: .
+                    options:
+                        template: "@SyliusAdmin/Grid/Field/shippingState.html.twig"
+                        vars:
+                            labels: "@SyliusAdmin/Order/Label/ShippingState"
+                items:
+                    type: twig
+                    label: sylius.ui.items
+                    path: items
+                    options:
+                        template: "@SyliusAdmin/Grid/Field/order_items.html.twig"
+                destination:
+                    type: twig
+                    path: .
+                    options:
+                        template: "@SyliusAdmin/Grid/Field/OrderReturn/destination.html.twig"
+            actions:
+                item:
+                    addStatus:
+                        type: order_return_update
+                        label: sylius.form.order_return.create
+                        icon: 'edit'
+                        options:
+                            link:
+                                route: sylius_admin_order_return_create
+                                parameters:
+                                    id: resource.id
+                            class: orange
+                bulk:
+                    export:
+                        type: export
+                        label: Export CSV
+                        options:
+                            link:
+                                route: sylius_admin_order_return_logistic_export
+                                parameters:
+                                    id: $id
+                                    export: csv
+                                    criteria: "expr:service('request_stack').getCurrentRequest().get('criteria', [])"
+            filters:
+                number:
+                    type: string
+                    label: sylius.ui.number
+                customer:
+                    type: string
+                    label: sylius.ui.customer
+                    options:
+                        fields: [ customer.email, customer.firstName, customer.lastName ]
+                date:
+                    type: date
+                    label: sylius.ui.date
+                    options:
+                        field: checkoutCompletedAt
+                        inclusive_to: true
+                savStatus:
+                    type: admin_order_return_status
+                    label: sylius.ui.order_return.savStatus
+                    options:
+                        fields: [ orderReturn.savStatus ]
+                warehouseStatus:
+                    type: admin_order_return_status
+                    label: sylius.ui.order_return.warehouseStatus
+                    options:
+                        fields: [ orderReturn.warehouseStatus ]
+                shipping_date:
+                    type: date
+                    label: sylius.ui.shipping_date
+                    options:
+                        field: shipment.shippingDate
+                        inclusive_to: true
+                shipping_method:
+                    type: entity
+                    label: sylius.ui.shipping_method
+                    options:
+                        fields: [ method.id ]
+                    form_options:
+                        class: "%sylius.model.shipping_method.class%"
+                contains_variant:
+                    type: multiple_entity
+                    label: sylius.ui.contains_variant
+                    options:
+                        fields: [ variant.id ]
+                    form_options:
+                        needLocale: true
+                        method: "getForFilter"
+                        class: "%sylius.model.product_variant.class%"
+                        multiple: true
+                        choice_label: nameAndCode
+                        attr:
+                            class: "select2"
+                destination:
+                    type: admin_order_state
+                    form_options:
+                        state: !php/const App\Services\OrderReturn\EnumOrderReturnDestination::ALL_DESTINATION_TYPE
+
+    templates:
+        filter:
+            multiple_entity: "@SyliusUi/Grid/Filter/entity.html.twig"
+            admin_order_return_status: "@SyliusUi/Grid/Filter/entity.html.twig"
+            admin_order_state: '@SyliusAdmin/Grid/Filter/admin_order_state.html.twig'
+        action:
+            order_return_update: "@SyliusUi/Grid/Action/order_return_update.html.twig"

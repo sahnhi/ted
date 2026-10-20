@@ -1,0 +1,53 @@
+App\Doctrine\Entity\SatellitePages\SatellitePage:
+  attributes:
+    enabled: 
+      groups:
+        - shop:satellite-page:read
+    product:
+      groups:
+        - shop:satellite-page:read
+    translations:
+      groups:
+        - shop:satellite-page:read
+        - shop:product_variant:read
+    claims:
+      groups:
+        - shop:satellite-page:read
+    technicalInfos:
+      groups:
+        - shop:satellite-page:read
+    productVariantId:
+      groups:
+        - shop:satellite-page:read
+    productVariantCode:
+      groups:
+        - shop:satellite-page:read
+
+App\Doctrine\Entity\SatellitePages\SatellitePageTranslation:
+  attributes:
+    tag:
+      groups:
+        - shop:satellite-page:read
+        - shop:product_variant:read
+    mainPhrase:
+      groups:
+        - shop:satellite-page:read
+    focus:
+      groups:
+        - shop:satellite-page:read
+    satelliteUrl:
+      groups:
+        - shop:satellite-page:read
+        - shop:product_variant:read
+    qualityClaim:
+      groups:
+        - shop:satellite-page:read
+        - shop:product_variant:read
+    technicalClaim:
+      groups:
+        - shop:satellite-page:read
+        - shop:product_variant:read
+    name:
+      groups:
+        - shop:satellite-page:read
+        - shop:product_variant:read

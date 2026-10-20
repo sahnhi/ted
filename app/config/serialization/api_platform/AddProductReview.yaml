@@ -1,0 +1,12 @@
+App\Model\ProductReview\AddProductReview:
+    attributes:
+        firstName:
+            groups: ['shop:product_review:create']
+        lastName:
+            groups: ['shop:product_review:create']
+        answers:
+            groups: ['shop:product_review:create']
+        cartToken:
+            groups: ['shop:product_review:create']
+        birthDay:
+            groups: ['shop:product_review:create']

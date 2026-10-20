@@ -1,0 +1,19 @@
+App\Doctrine\Entity\Campaigns\Campaign:
+    attributes:
+        id:
+            groups: [ 'shop:campaign:read' ]
+        campaignName:
+            groups: [ 'shop:campaign:read' ]
+        campaignSlug:
+            groups: [ 'shop:campaign:read' ]
+        translations:
+            type: array<App\Doctrine\Entity\Campaigns\CampaignTranslations>
+            groups: [ 'shop:campaign:read' ]
+        campaignBlocDisplay:
+            groups: [ 'shop:campaign:read' ]
+        error:
+            groups: [ 'shop:campaign:read' ]
+        statusCode:
+            groups: [ 'shop:campaign:read' ]
+        redirectUrl:
+            groups: [ 'shop:campaign:read' ]

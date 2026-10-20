@@ -1,0 +1,9 @@
+App\Doctrine\Entity\Osteopath:
+    attributes:
+        name:
+            groups:
+                - admin:customer:read
+                - shop:customer:read
+        address:
+            groups:
+                - shop:address:read

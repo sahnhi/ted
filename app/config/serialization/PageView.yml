@@ -1,0 +1,27 @@
+App\View\PageView:
+    properties:
+        page:
+            expose: true
+            type: string
+            groups: [ 'product_review.list', 'category_review.show' ]
+        limit:
+            expose: true
+            type: string
+            groups: [ 'product_review.list', 'category_review.show' ]
+        pages:
+            expose: true
+            type: string
+            groups: [ 'product_review.list', 'category_review.show' ]
+        total:
+            expose: true
+            type: string
+            groups: [ 'product_review.list', 'category_review.show' ]
+        links:
+            expose: true
+            groups: [ 'product_review.list', 'category_review.show' ]
+        ratingPercentage:
+            expose: true
+            groups: [ 'product_review.list', 'category_review.show' ]
+        items:
+            expose: true
+            groups: [ 'product_review.list', 'category_review.show' ]

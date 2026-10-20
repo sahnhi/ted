@@ -1,0 +1,46 @@
+imports:
+    - { resource: "controllers/sylius.yaml" }
+    - { resource: "controllers/chronopost.yaml" }
+    - { resource: "controllers/rimdian.yaml" }
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        tags: [ 'controller.service_arguments' ]
+
+    App\Controller\Api\Cart\Sponsor\SponsorAction:
+        arguments:
+            $couponEligibilityChecker: '@sylius.promotion_coupon_eligibility_checker'
+
+    App\Controller\Api\Shipping\UrbantzAction:
+        arguments:
+            $urbantzTrackingUrl: '%urbantz_tracking_url%'
+
+    App\Controller\Api\Product\Review\Answer\AnswerV2Action:
+        arguments:
+            $productReviewFactory: '@sylius.factory.product_review'
+
+    App\Controller\Api\Sponsor\GiftAddAction:
+        arguments:
+            $token: '%drip_sylius_api_key%'
+
+    App\Controller\Admin\Action\BisCreationWithExchangeAction:
+        arguments:
+            $eventDispatcher: '@sylius.resource_controller.event_dispatcher'
+
+    App\Controller\Api\Drip\LingotAction:
+        arguments:
+            $token: '%drip_sylius_api_key%'
+
+    App\PaymentReport\Webhook\PaymentReportCreatedController:
+        arguments:
+            $authenticationKey: '%env(ADYEN_PAYMENT_REPORT_WEBHOOK_AUTHENTICATION_KEY)%'
+
+    App\Controller\Invoice\InvoiceController:
+        arguments:
+            $apiKey: '%env(SPIDY_DOWNLOAD_INVOICE_API_KEY)%'
+
+    App\Controller\MaintenanceController:
+        arguments:
+            $maintenance: '%env(MAINTENANCE)%'

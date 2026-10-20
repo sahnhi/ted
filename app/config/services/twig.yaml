@@ -1,0 +1,13 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Twig\AppExtension:
+        tags:
+            - { name: twig.extension, priority: 255 }
+
+    App\Twig\Extension\Shipping\ShippingMethodCategoryExtension:
+        tags:
+            - { name: twig.extension, priority: 255 }
+    

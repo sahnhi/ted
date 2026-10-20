@@ -1,0 +1,9 @@
+{% form_theme orderReasonForm  '@App/Reason/collection-problem-theme.html.twig' %}
+
+<div class="ui segment" id="reason-problem">
+    <h3 class="ui dividing header" id="shipping-state">{{ 'sylius.ui.trouble.label'|trans }}</h3>
+        {{ form_start(orderReasonForm, {'action': path('sylius_admin_order_show_custom', {'id': resource.id}), 'method': 'POST', 'attr': {'class': 'ui form'}}) }}
+        {{ form_row(orderReasonForm.orderReason, {"is_problem": true}) }}
+        <button class="ui labeled icon primary button reason-submit disabled" type="submit"><i class="save icon"></i>{{ 'app.form.order.reason.save'|trans }}</button>
+        {{ form_end(orderReasonForm) }}
+</div>

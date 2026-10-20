@@ -1,0 +1,8 @@
+{% import '@SyliusAdmin/Macro/breadcrumb.html.twig' as breadcrumb %}
+{% set breadcrumbs = [
+        { label: 'sylius.ui.administration'|trans, url: path('sylius_admin_dashboard') },
+        { label: 'app.ui.file_importer.file_importer_action'|trans, url: path('app_admin_channable_file_row_index', {'id': resource.channableFileLog.id}) },
+    ]
+%}
+{{ breadcrumb.crumble(breadcrumbs) }}
+

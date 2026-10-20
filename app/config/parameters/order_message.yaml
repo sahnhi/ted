@@ -1,0 +1,1050 @@
+parameters:
+    order_message:
+        ########################################################################################################################§
+        # for the following entries you can checkout the file "Catégorisation message d'alerte" dans le Google Drive
+        # https://docs.google.com/spreadsheets/d/1geSHdentf8_GaEjq3phi1hjpeCU9hi2MhwtXqIXrlhA/edit?gid=0#gid=0
+        #
+        # And then you will fine the title on the message column of the sheet and you will be able to get the reference
+        # of the case which will be treated below
+        ########################################################################################################################§
+        
+        ## storage bed frame too large
+        #    !php/const App\Processor\OrderMessage\Processors\StorageBedFrameTooLargeProcessor::ENTRY_NAME:
+        #      codes:
+        #        - storage-bed-frame
+        #      messages:
+        #        message: Vous avez choisi un sommier coffre, afin que la livraison se déroule dans les meilleures conditions, assurez-vous que les espaces de cage d'escalier et les angles de votre habitation permettent son passage.
+        #        type: alert
+        
+        # bundle available
+        !php/const App\Processor\OrderMessage\Processors\BundleAvailableProcessor::ENTRY_NAME:
+            codes:
+                bed_box_code:
+                    - storage-bed-frame
+                    - steel-bed-frame
+                    - wood-bed-frame
+                    - go-bed-frame
+                    - electric-bed-frame
+                    - bed-base
+                    - bed-frame
+                mattress_code:
+                    - mattress
+                    - hybrid-mattress
+                    - go-mattress
+            messages:
+                message: "Vous avez un matelas et un sommier dans votre panier, découvrez nos <a href='/literie/pack-literie'>pack de produit !</a>"
+                type: info
+        
+        # bundle bed available
+        #    !php/const App\Processor\OrderMessage\Processors\PackOnCartProcessor::ENTRY_NAME:
+        #      codes:
+        #        - mattress-pack
+        #        - steel-mattress-pack
+        #        - bundle-lit-double-synt
+        #        - bundle-lit-enfant
+        #        - bundle-lit-simple-synt
+        #      messages:
+        #        message: "Vous avez un pack lit dans votre panier, découvrez nos <a href='/literie/pack-literie'>pack de produit !</a>"
+        #        type: advantage
+        
+        # bed head and wood bed frame
+        !php/const App\Processor\OrderMessage\Processors\BedHeadAndWoodBedFrameProcessor::ENTRY_NAME:
+            codes:
+                wood_bed_frame_code:
+                    - wood-bed-frame
+                regular_bed_head_code:
+                    - bed-head
+                    - go-bed-head
+                wood_bed_head_code:
+                    - wood-bed-head
+            messages:
+                message: "Le sommier en bois est uniquement compatible avec la tête de lit en bois."
+                type: alert
+        
+        # wood bed head and other bed frame && wood bed head only
+        !php/const App\Processor\OrderMessage\Processors\WoodBedHeadAndOtherBedFrameProcessor::ENTRY_NAME:
+            codes:
+                wood_bed_frame_code:
+                    - wood-bed-frame
+                wood_bed_head_code:
+                    - wood-bed-head
+            messages:
+                message: "La tête de lit en bois est uniquement compatible avec le sommier en bois."
+                type: alert
+        
+        # bed frame too large
+        #    !php/const App\Processor\OrderMessage\Processors\BedFrameTooLargeProcessor::ENTRY_NAME:
+        #      codes:
+        #        - TEDSO140190
+        #        - TEDSO140200
+        #        - TEDSO160200
+        #
+        #        - TEDSOLAT140190_TEDSOLATPBOIS25
+        #        - TEDSOLAT140200_TEDSOLATPBOIS20
+        #        - TEDSOLAT140200_TEDSOLATPBOIS25
+        #        - TEDSOLAT160200_TEDSOLATPBOIS20
+        #        - TEDSOLAT160200_TEDSOLATPBOIS25
+        #        - TEDSO140200_TEDPBLEU20
+        #        - TEDSO140190_TEDPBLEU20
+        #        - TEDSO140200_TEDPBLEU15
+        #        - TEDSO140190_TEDPBLEU15
+        #        - TEDSO140200_TEDPBOIS20
+        #        - TEDSO140190_TEDPBOIS20
+        #        - TEDSO140200_TEDPBOIS15
+        #        - TEDSO140190_TEDPBOIS15
+        #
+        #        - TEDSBOISCMCL140200
+        #        - TEDSBOISCMCL140190
+        #        - TEDSBOISCMNO140190
+        #        - TEDSBOISCMNO140200
+        #        - TEDSBOISCMCL160200
+        #        - TEDSBOISCMNO160200
+        #        - TEDSBOISCMNO180200
+        #        - TEDSBOISCMCL180200
+        #        - TEDSBOISCMFO180200
+        #        
+        #      messages:
+        #        message: "Vous avez choisi un sommier monobloc, afin que la livraison se déroule dans les meilleures conditions, assurez-vous que les espaces de cage d'escalier et les angles de votre habitation permettent son passage. Si vous n'êtes pas sûr, vous pouvez choisir un sommier en bibloc"
+        #        type: alert
+        
+        # bundle bed frame too large
+        #    !php/const App\Processor\OrderMessage\Processors\BundleBedFrameTooLargeProcessor::ENTRY_NAME:
+        #      codes:
+        #        - BUNDLET1_BEIGE140200_SYNTH5070_BOIS20
+        #        - BUNDLET1_GRIS140190_BOIS20
+        #        - BUNDLET1_GRIS140200_BOIS20
+        #        - BUNDLET1_GRIS140200_BOIS15
+        #        - BUNDLET1_GRIS140190_BOIS15
+        #        - BUNDLET1_BEIGE140190_BOIS20
+        #        - BUNDLET1_BEIGE140200_BOIS20
+        #        - BUNDLET1_BEIGE140200_BOIS15
+        #        - BUNDLET1_BEIGE140190_BOIS15
+        #        - BUNDLET1_BLEU140190_BOIS20
+        #        - BUNDLET1_BLEU140200_BOIS20
+        #        - BUNDLET1_BLEU140200_BOIS15
+        #        - BUNDLET1_BLEU140190_BOIS15
+        #        - BUNDLET1_BEIGE140190_SYNTH5070_BOIS20
+        #        - BUNDLET1_BEIGE140190_SYNTH6060_BOIS15
+        #        - BUNDLET1_BEIGE140190_SYNTH6060_BOIS20
+        #        - BUNDLET1_BEIGE140200_SYNTH5070_BOIS15
+        #        - BUNDLET1_BEIGE140200_SYNTH5070_BOIS20
+        #        - BUNDLET1_BEIGE140200_SYNTH6060_BOIS15
+        #        - BUNDLET1_BEIGE140200_SYNTH6060_BOIS20
+        #        - BUNDLET1_BLEU140190_SYNTH5070_BOIS20
+        #        - BUNDLET1_BLEU140190_SYNTH5070_BOIS15
+        #        - BUNDLET1_BLEU140190_SYNTH6060_BOIS15
+        #        - BUNDLET1_BLEU140190_SYNTH6060_BOIS20
+        #        - BUNDLET1_BLEU140200_SYNTH5070_BOIS15
+        #        - BUNDLET1_BLEU140200_SYNTH5070_BOIS20
+        #        - BUNDLET1_BLEU140200_SYNTH6060_BOIS15
+        #        - BUNDLET1_BLEU140200_SYNTH6060_BOIS20
+        #        - BUNDLET1_GRIS140190_SYNTH5070_BOIS15
+        #        - BUNDLET1_GRIS140190_SYNTH5070_BOIS20
+        #        - BUNDLET1_GRIS140190_SYNTH6060_BOIS15
+        #        - BUNDLET1_GRIS140190_SYNTH6060_BOIS20
+        #        - BUNDLET1_GRIS140200_SYNTH5070_BOIS15
+        #        - BUNDLET1_GRIS140200_SYNTH5070_BOIS20
+        #        - BUNDLET1_GRIS140200_SYNTH6060_BOIS15
+        #        - BUNDLET1_GRIS140200_SYNTH6060_BOIS20
+        #        - BUNDLEH1_BEIGE140190_SYNTH5070_BOIS20
+        #        - BUNDLEH1_BEIGE140190_SYNTH5070_BOIS15
+        #        - BUNDLEH1_BEIGE140190_SYNTH6060_BOIS15
+        #        - BUNDLEH1_BEIGE140190_SYNTH6060_BOIS20
+        #        - BUNDLEH1_BEIGE140200_SYNTH5070_BOIS15
+        #        - BUNDLEH1_BEIGE140200_SYNTH5070_BOIS20
+        #        - BUNDLEH1_BEIGE140200_SYNTH6060_BOIS15
+        #        - BUNDLEH1_BEIGE140200_SYNTH6060_BOIS20
+        #        - BUNDLEH1_BLEU140190_SYNTH5070_BOIS15
+        #        - BUNDLEH1_BLEU140190_SYNTH5070_BOIS20
+        #        - BUNDLEH1_BLEU140190_SYNTH6060_BOIS15
+        #        - BUNDLEH1_BLEU140190_SYNTH6060_BOIS20
+        #        - BUNDLEH1_BLEU140200_SYNTH5070_BOIS15
+        #        - BUNDLEH1_BLEU140200_SYNTH5070_BOIS20
+        #        - BUNDLEH1_BLEU140200_SYNTH6060_BOIS15
+        #        - BUNDLEH1_BLEU140200_SYNTH6060_BOIS20
+        #        - BUNDLEH1_GRIS140190_SYNTH5070_BOIS15
+        #        - BUNDLEH1_GRIS140190_SYNTH5070_BOIS20
+        #        - BUNDLEH1_GRIS140190_SYNTH6060_BOIS15
+        #        - BUNDLEH1_GRIS140190_SYNTH6060_BOIS20
+        #        - BUNDLEH1_GRIS140190_SYNTH6060_BOIS20
+        #        - BUNDLEH1_GRIS140200_SYNTH5070_BOIS20
+        #        - BUNDLEH1_GRIS140200_SYNTH6060_BOIS15
+        #        - BUNDLEH1_GRIS140200_SYNTH6060_BOIS20
+        #        - BUNDLEH3_STANDARD140190_SYNTH5070_BOIS25
+        #        - BUNDLEH3_STANDARD140190_SYNTH5070_BOIS20
+        #        - BUNDLEH3_STANDARD140190_SYNTH6060_BOIS25
+        #        - BUNDLEH3_STANDARD140190_SYNTH6060_BOIS20
+        #        - BUNDLEH3_STANDARD140200_SYNTH5070_BOIS25
+        #        - BUNDLEH3_STANDARD140200_SYNTH5070_BOIS20
+        #        - BUNDLEH3_STANDARD140200_SYNTH6060_BOIS20
+        #        - BUNDLEH3_STANDARD140200_SYNTH6060_BOIS25
+        #        - BUNDLET3_STANDARD140190_SYNTH5070_BOIS25
+        #        - BUNDLET3_STANDARD140190_SYNTH5070_BOIS20
+        #        - BUNDLET3_STANDARD140190_SYNTH6060_BOIS25
+        #        - BUNDLET3_STANDARD140190_SYNTH6060_BOIS20
+        #        - BUNDLET3_STANDARD140200_SYNTH5070_BOIS25
+        #        - BUNDLET3_STANDARD140200_SYNTH5070_BOIS20
+        #        - BUNDLET3_STANDARD140200_SYNTH6060_BOIS25
+        #        - BUNDLET3_STANDARD140200_SYNTH6060_BOIS20
+        #
+        #      messages:
+        #        message: "Vous avez choisi un sommier monobloc, afin que la livraison se déroule dans les meilleures conditions, assurez-vous que les espaces de cage d'escalier et les angles de votre habitation permettent son passage. Si vous n'êtes pas sûr, vous pouvez choisir un sommier en bibloc"
+        #        type: alert
+        
+        # bundle combo lit monobloc
+        #    !php/const App\Processor\OrderMessage\Processors\BundleComboBedMonoblocProcessor::ENTRY_NAME:
+        #      codes:
+        #        - BUNDLE_LIT1_BEIGE140200_BOIS20
+        #        - BUNDLE_LIT1_GRIS140190_BOIS20
+        #        - BUNDLE_LIT1_GRIS140200_BOIS20
+        #        - BUNDLE_LIT1_GRIS140200_BOIS15
+        #        - BUNDLE_LIT1_GRIS140190_BOIS15
+        #        - BUNDLE_LIT1_BEIGE140190_BOIS20
+        #        - BUNDLE_LIT1_BEIGE140200_BOIS20
+        #        - BUNDLE_LIT1_BEIGE140200_BOIS15
+        #        - BUNDLE_LIT1_BEIGE140190_BOIS15
+        #        - BUNDLE_LIT1_BLEU140190_BOIS20
+        #        - BUNDLE_LIT1_BLEU140200_BOIS20
+        #        - BUNDLE_LIT1_BLEU140200_BOIS15
+        #        - BUNDLE_LIT1_BLEU140190_BOIS15
+        #      messages:
+        #        message: "Vous avez choisi un sommier monobloc, afin que la livraison se déroule dans les meilleures conditions, assurez-vous que les espaces de cage d'escalier et les angles de votre habitation permettent son passage. Si vous n'êtes pas sûr, vous pouvez choisir un sommier en bibloc"
+        #        type: alert
+        
+        # Bundle Combo Lit Coffre
+        #    !php/const App\Processor\OrderMessage\Processors\BundleComboBedStorageProcessor::ENTRY_NAME:
+        #      codes:
+        #        - BUNDLE_LIT2_BEIGE140190_STANDARD
+        #        - BUNDLE_LIT2_BEIGE140200_STANDARD
+        #        - BUNDLE_LIT2_BEIGE160200_STANDARD
+        #        - BUNDLE_LIT2_BEIGE180200_STANDARD
+        #        - BUNDLE_LIT2_BLEU140190_STANDARD
+        #        - BUNDLE_LIT2_BLEU140200_STANDARD
+        #        - BUNDLE_LIT2_BLEU160200_STANDARD
+        #        - BUNDLE_LIT2_BLEU180200_STANDARD
+        #        - BUNDLE_LIT2_GRIS140190_STANDARD
+        #        - BUNDLE_LIT2_GRIS140200_STANDARD
+        #        - BUNDLE_LIT2_GRIS160200_STANDARD
+        #        - BUNDLE_LIT2_GRIS180200_STANDARD
+        #        - BUNDLET2_BEIGE140190_SYNTH5070_STANDARD
+        #        - BUNDLET2_BEIGE140190_SYNTH6060_STANDARD
+        #        - BUNDLET2_BEIGE140200_SYNTH5070_STANDARD
+        #        - BUNDLET2_BEIGE140200_SYNTH6060_STANDARD
+        #        - BUNDLET2_BEIGE160200_SYNTH5070_STANDARD
+        #        - BUNDLET2_BEIGE160200_SYNTH6060_STANDARD
+        #        - BUNDLET2_BLEU140190_SYNTH5070_STANDARD
+        #        - BUNDLET2_BLEU140190_SYNTH6060_STANDARD
+        #        - BUNDLET2_BLEU140200_SYNTH5070_STANDARD
+        #        - BUNDLET2_BLEU140200_SYNTH6060_STANDARD
+        #        - BUNDLET2_GRIS140190_SYNTH5070_STANDARD
+        #        - BUNDLET2_GRIS140190_SYNTH6060_STANDARD
+        #        - BUNDLET2_GRIS140200_SYNTH5070_STANDARD
+        #        - BUNDLET2_GRIS140200_SYNTH6060_STANDARD
+        #        - BUNDLEH2_BEIGE140200_SYNTH6060_STANDARD
+        #        - BUNDLEH2_BEIGE140190_SYNTH5070_STANDARD
+        #        - BUNDLEH2_BEIGE140190_SYNTH6060_STANDARD
+        #        - BUNDLEH2_BEIGE140200_SYNTH5070_STANDARD
+        #        - BUNDLEH2_BLEU140190_SYNTH5070_STANDARD
+        #        - BUNDLEH2_BLEU140190_SYNTH6060_STANDARD
+        #        - BUNDLEH2_BLEU140200_SYNTH5070_STANDARD
+        #        - BUNDLEH2_BLEU140200_SYNTH6060_STANDARD
+        #        - BUNDLEH2_GRIS140190_SYNTH5070_STANDARD
+        #        - BUNDLEH2_GRIS140190_SYNTH6060_STANDARD
+        #        - BUNDLEH2_GRIS140200_SYNTH5070_STANDARD
+        #        - BUNDLEH2_GRIS140200_SYNTH6060_STANDARD
+        #      messages:
+        #        message: "Vous avez choisi un sommier coffre, afin que la livraison se déroule dans les meilleures conditions, assurez-vous que les espaces de cage d'escalier et les angles de votre habitation permettent son passage. Si vous n'êtes pas sûr, vous pouvez choisir un sommier en bibloc"
+        #        type: alert
+        
+        # Voluminous product on cart
+        !php/const App\Processor\OrderMessage\Processors\VoluminousProductOnCartProcessor::ENTRY_NAME:
+            codes:
+                product_codes:
+                    - storage-bed-frame
+                product_variant_codes:
+                    
+                    # Sommier, sommier latte, sommmier bois
+                    - TEDSO140190
+                    - TEDSO140200
+                    - TEDSO160200
+                    - TEDSOLAT140190_TEDSOLATPBOIS25
+                    - TEDSOLAT140200_TEDSOLATPBOIS20
+                    - TEDSOLAT140200_TEDSOLATPBOIS25
+                    - TEDSOLAT160200_TEDSOLATPBOIS20
+                    - TEDSOLAT160200_TEDSOLATPBOIS25
+                    - TEDSO140200_TEDPBLEU20
+                    - TEDSO140190_TEDPBLEU20
+                    - TEDSO140200_TEDPBLEU15
+                    - TEDSO140190_TEDPBLEU15
+                    - TEDSO140200_TEDPBOIS20
+                    - TEDSO140190_TEDPBOIS20
+                    - TEDSO140200_TEDPBOIS15
+                    - TEDSO140190_TEDPBOIS15
+                    - TEDSBOISCMCL140200
+                    - TEDSBOISCMCL140190
+                    - TEDSBOISCMNO140190
+                    - TEDSBOISCMNO140200
+                    - TEDSBOISCMCL160200
+                    - TEDSBOISCMNO160200
+                    - TEDSBOISCMNO180200
+                    - TEDSBOISCMCL180200
+                    - TEDSBOISCMFO180200
+                    
+                    # Sommier Boxspring:
+                    - GOS1B14VS140200
+                    - GOS1B14BA140200
+                    - GOS1B14BA160200
+                    - GOS1B14BA180200
+                    - GOS1B14BI140200
+                    - GOS1B14BI160200
+                    - GOS1B14BI180200
+                    - GOS1B14IC140200
+                    - GOS1B14IC160200
+                    - GOS1B14IC180200
+                    - GOS1B14VH140200
+                    - GOS1B14VH160200
+                    - GOS1B14VH180200
+                    - GOS1B14VS160200
+                    - GOS1B14VS180200
+                    - GOS1C14BA140200
+                    - GOS1C14BA180200
+                    - GOS1C14BA160200
+                    - GOS1C14BI140200
+                    - GOS1C14BI160200
+                    - GOS1C14BI180200
+                    - GOS1C14IC140200
+                    - GOS1C14IC180200
+                    - GOS1C14IC160200
+                    - GOS1C14VH140200
+                    - GOS1C14VH160200
+                    - GOS1C14VH180200
+                    - GOS1C14VS140200
+                    - GOS1C14VS160200
+                    - GOS1C14VS180200
+                    - GOS1R14BA160200
+                    - GOS1R14BA140200
+                    - GOS1R14BA180200
+                    - GOS1R14BI140200
+                    - GOS1R14BI180200
+                    - GOS1R14BI160200
+                    - GOS1R14IC140200
+                    - GOS1R14IC160200
+                    - GOS1R14IC180200
+                    - GOS1R14VH140200
+                    - GOS1R14VH180200
+                    - GOS1R14VH160200
+                    - GOS1R14VS140200
+                    - GOS1R14VS160200
+                    - GOS1R14VS180200
+                    - GOS2B7BA140200
+                    - GOS2B7BA160200
+                    - GOS2B7BA180200
+                    - GOS2B7BI140200
+                    - GOS2B7BI160200
+                    - GOS2B7IC140200
+                    - GOS2B7BI180200
+                    - GOS2B7IC160200
+                    - GOS2B7IC180200
+                    - GOS2B7VH140200
+                    - GOS2B7VH160200
+                    - GOS2B7VS140200
+                    - GOS2B7VH180200
+                    - GOS2B7VS160200
+                    - GOS2B7VS180200
+                    - GOS2C7BA140200
+                    - GOS2C7BA160200
+                    - GOS2C7BA180200
+                    - GOS2C7BI140200
+                    - GOS2C7BI180200
+                    - GOS2C7BI160200
+                    - GOS2C7IC140200
+                    - GOS2C7IC160200
+                    - GOS2C7IC180200
+                    - GOS2C7VH140200
+                    - GOS2C7VH160200
+                    - GOS2C7VH180200
+                    - GOS2C7VS140200
+                    - GOS2C7VS160200
+                    - GOS2C7VS180200
+                    
+                    # Pack Lit 2p
+                    - BUNDLET1_GRIS140190_BOIS20
+                    - BUNDLET1_GRIS140200_BOIS20
+                    - BUNDLET1_GRIS140200_BOIS15
+                    - BUNDLET1_GRIS140190_BOIS15
+                    - BUNDLET1_BEIGE140190_BOIS20
+                    - BUNDLET1_BEIGE140200_BOIS20
+                    - BUNDLET1_BEIGE140200_BOIS15
+                    - BUNDLET1_BEIGE140190_BOIS15
+                    - BUNDLET1_BLEU140190_BOIS20
+                    - BUNDLET1_BLEU140200_BOIS20
+                    - BUNDLET1_BLEU140200_BOIS15
+                    - BUNDLET1_BLEU140190_BOIS15
+                    - BUNDLET1_BEIGE140190_SYNTH5070_BOIS20
+                    - BUNDLET1_BEIGE140190_SYNTH6060_BOIS15
+                    - BUNDLET1_BEIGE140190_SYNTH6060_BOIS20
+                    - BUNDLET1_BEIGE140200_SYNTH5070_BOIS15
+                    - BUNDLET1_BEIGE140200_SYNTH6060_BOIS15
+                    - BUNDLET1_BEIGE140200_SYNTH6060_BOIS20
+                    - BUNDLET1_BLEU140190_SYNTH5070_BOIS20
+                    - BUNDLET1_BLEU140190_SYNTH5070_BOIS15
+                    - BUNDLET1_BLEU140190_SYNTH6060_BOIS15
+                    - BUNDLET1_BLEU140190_SYNTH6060_BOIS20
+                    - BUNDLET1_BLEU140200_SYNTH5070_BOIS15
+                    - BUNDLET1_BLEU140200_SYNTH5070_BOIS20
+                    - BUNDLET1_BLEU140200_SYNTH6060_BOIS15
+                    - BUNDLET1_BLEU140200_SYNTH6060_BOIS20
+                    - BUNDLET1_GRIS140190_SYNTH5070_BOIS15
+                    - BUNDLET1_GRIS140190_SYNTH5070_BOIS20
+                    - BUNDLET1_GRIS140190_SYNTH6060_BOIS15
+                    - BUNDLET1_GRIS140190_SYNTH6060_BOIS20
+                    - BUNDLET1_GRIS140200_SYNTH5070_BOIS15
+                    - BUNDLET1_GRIS140200_SYNTH5070_BOIS20
+                    - BUNDLET1_GRIS140200_SYNTH6060_BOIS15
+                    - BUNDLET1_GRIS140200_SYNTH6060_BOIS20
+                    - BUNDLEH1_BEIGE140190_SYNTH5070_BOIS20
+                    - BUNDLEH1_BEIGE140190_SYNTH5070_BOIS15
+                    - BUNDLEH1_BEIGE140190_SYNTH6060_BOIS15
+                    - BUNDLEH1_BEIGE140190_SYNTH6060_BOIS20
+                    - BUNDLEH1_BEIGE140200_SYNTH5070_BOIS15
+                    - BUNDLEH1_BEIGE140200_SYNTH5070_BOIS20
+                    - BUNDLEH1_BEIGE140200_SYNTH6060_BOIS15
+                    - BUNDLEH1_BEIGE140200_SYNTH6060_BOIS20
+                    - BUNDLEH1_BLEU140190_SYNTH5070_BOIS15
+                    - BUNDLEH1_BLEU140190_SYNTH5070_BOIS20
+                    - BUNDLEH1_BLEU140190_SYNTH6060_BOIS15
+                    - BUNDLEH1_BLEU140190_SYNTH6060_BOIS20
+                    - BUNDLEH1_BLEU140200_SYNTH5070_BOIS15
+                    - BUNDLEH1_BLEU140200_SYNTH5070_BOIS20
+                    - BUNDLEH1_BLEU140200_SYNTH6060_BOIS15
+                    - BUNDLEH1_BLEU140200_SYNTH6060_BOIS20
+                    - BUNDLEH1_GRIS140190_SYNTH5070_BOIS15
+                    - BUNDLEH1_GRIS140190_SYNTH5070_BOIS20
+                    - BUNDLEH1_GRIS140190_SYNTH6060_BOIS15
+                    - BUNDLEH1_GRIS140190_SYNTH6060_BOIS20
+                    - BUNDLEH1_GRIS140200_SYNTH5070_BOIS20
+                    - BUNDLEH1_GRIS140200_SYNTH6060_BOIS15
+                    - BUNDLEH1_GRIS140200_SYNTH6060_BOIS20
+                    - BUNDLEH3_STANDARD140190_SYNTH5070_BOIS25
+                    - BUNDLEH3_STANDARD140190_SYNTH5070_BOIS20
+                    - BUNDLEH3_STANDARD140190_SYNTH6060_BOIS25
+                    - BUNDLEH3_STANDARD140190_SYNTH6060_BOIS20
+                    - BUNDLEH3_STANDARD140200_SYNTH5070_BOIS25
+                    - BUNDLEH3_STANDARD140200_SYNTH5070_BOIS20
+                    - BUNDLEH3_STANDARD140200_SYNTH6060_BOIS20
+                    - BUNDLEH3_STANDARD140200_SYNTH6060_BOIS25
+                    - BUNDLET3_STANDARD140190_SYNTH5070_BOIS25
+                    - BUNDLET3_STANDARD140190_SYNTH5070_BOIS20
+                    - BUNDLET3_STANDARD140190_SYNTH6060_BOIS25
+                    - BUNDLET3_STANDARD140190_SYNTH6060_BOIS20
+                    - BUNDLET3_STANDARD140200_SYNTH5070_BOIS25
+                    - BUNDLET3_STANDARD140200_SYNTH5070_BOIS20
+                    - BUNDLET3_STANDARD140200_SYNTH6060_BOIS25
+                    - BUNDLET3_STANDARD140200_SYNTH6060_BOIS20
+                    - BUNDLET2_BEIGE140190_SYNTH5070_STANDARD
+                    - BUNDLET2_BEIGE140190_SYNTH6060_STANDARD
+                    - BUNDLET2_BEIGE140200_SYNTH5070_STANDARD
+                    - BUNDLET2_BEIGE140200_SYNTH6060_STANDARD
+                    - BUNDLET2_BEIGE160200_SYNTH5070_STANDARD
+                    - BUNDLET2_BEIGE160200_SYNTH6060_STANDARD
+                    - BUNDLET2_BLEU140190_SYNTH5070_STANDARD
+                    - BUNDLET2_BLEU140190_SYNTH6060_STANDARD
+                    - BUNDLET2_BLEU140200_SYNTH5070_STANDARD
+                    - BUNDLET2_BLEU140200_SYNTH6060_STANDARD
+                    - BUNDLET2_GRIS140190_SYNTH5070_STANDARD
+                    - BUNDLET2_GRIS140190_SYNTH6060_STANDARD
+                    - BUNDLET2_GRIS140200_SYNTH5070_STANDARD
+                    - BUNDLET2_GRIS140200_SYNTH6060_STANDARD
+                    - BUNDLEH2_BEIGE140200_SYNTH6060_STANDARD
+                    - BUNDLEH2_BEIGE140190_SYNTH5070_STANDARD
+                    - BUNDLEH2_BEIGE140190_SYNTH6060_STANDARD
+                    - BUNDLEH2_BEIGE140200_SYNTH5070_STANDARD
+                    - BUNDLEH2_BLEU140190_SYNTH5070_STANDARD
+                    - BUNDLEH2_BLEU140190_SYNTH6060_STANDARD
+                    - BUNDLEH2_BLEU140200_SYNTH5070_STANDARD
+                    - BUNDLEH2_BLEU140200_SYNTH6060_STANDARD
+                    - BUNDLEH2_GRIS140190_SYNTH5070_STANDARD
+                    - BUNDLEH2_GRIS140190_SYNTH6060_STANDARD
+                    - BUNDLEH2_GRIS140200_SYNTH5070_STANDARD
+                    - BUNDLEH2_GRIS140200_SYNTH6060_STANDARD
+                    - BUNDLET1_BEIGE140190_SYNTH5070_BOIS15
+                    - BUNDLET1_BEIGEBIB140190_SYNTH5070_BOIS20
+                    - BUNDLET1_BEIGEBIB140190_SYNTH5070_BOIS15
+                    - BUNDLET1_BEIGEBIB140190_SYNTH6060_BOIS15
+                    - BUNDLET1_BEIGEBIB140190_SYNTH6060_BOIS20
+                    - BUNDLET1_BEIGEBIB140200_SYNTH5070_BOIS20
+                    - BUNDLET1_BEIGEBIB140200_SYNTH5070_BOIS15
+                    - BUNDLET1_BEIGEBIB140200_SYNTH6060_BOIS15
+                    - BUNDLET1_BEIGEBIB140200_SYNTH6060_BOIS20
+                    - BUNDLET1_BLEUBIB140190_SYNTH5070_BOIS20
+                    - BUNDLET1_BLEUBIB140190_SYNTH5070_BOIS15
+                    - BUNDLET1_BLEUBIB140190_SYNTH6060_BOIS15
+                    - BUNDLET1_BLEUBIB140190_SYNTH6060_BOIS20
+                    - BUNDLET1_BLEUBIB140200_SYNTH5070_BOIS15
+                    - BUNDLET1_BLEUBIB140200_SYNTH5070_BOIS20
+                    - BUNDLET1_BLEUBIB140200_SYNTH6060_BOIS20
+                    - BUNDLEH1_BEIGEBIB140190_SYNTH5070_BOIS15
+                    - BUNDLEH1_BEIGEBIB140190_SYNTH5070_BOIS20
+                    - BUNDLEH1_BEIGEBIB140190_SYNTH6060_BOIS15
+                    - BUNDLEH1_BEIGEBIB140190_SYNTH6060_BOIS20
+                    - BUNDLEH1_BEIGEBIB140200_SYNTH5070_BOIS20
+                    - BUNDLEH1_BEIGEBIB140200_SYNTH5070_BOIS15
+                    - BUNDLEH1_BEIGEBIB140200_SYNTH6060_BOIS20
+                    - BUNDLEH1_BEIGEBIB140200_SYNTH6060_BOIS15
+                    - BUNDLEH1_BLEUBIB140190_SYNTH5070_BOIS15
+                    - BUNDLEH1_BLEUBIB140190_SYNTH5070_BOIS20
+                    - BUNDLEH1_BLEUBIB140190_SYNTH6060_BOIS15
+                    - BUNDLEH1_BLEUBIB140190_SYNTH6060_BOIS20
+                    - BUNDLEH1_BLEUBIB140200_SYNTH5070_BOIS15
+                    - BUNDLEH1_BLEUBIB140200_SYNTH5070_BOIS20
+                    - BUNDLEH1_BLEUBIB140200_SYNTH6060_BOIS15
+                    - BUNDLEH1_BLEUBIB140200_SYNTH6060_BOIS20
+                    - BUNDLEH1_GRIS140200_SYNTH5070_BOIS15
+                    - BUNDLEH1_GRISBIB140190_SYNTH5070_BOIS15
+                    - BUNDLEH1_GRISBIB140190_SYNTH5070_BOIS20
+                    - BUNDLEH1_GRISBIB140190_SYNTH6060_BOIS15
+                    - BUNDLEH1_GRISBIB140190_SYNTH6060_BOIS20
+                    - BUNDLEH1_GRISBIB140200_SYNTH5070_BOIS15
+                    - BUNDLEH1_GRISBIB140200_SYNTH5070_BOIS20
+                    - BUNDLEH1_GRISBIB140200_SYNTH6060_BOIS15
+                    - BUNDLEH1_GRISBIB140200_SYNTH6060_BOIS20
+                    - BUNDLET1_BEIGE160200_SYNTH5070_BOIS15
+                    - BUNDLET1_BEIGE160200_SYNTH5070_BOIS20
+                    - BUNDLET1_BEIGE160200_SYNTH6060_BOIS15
+                    - BUNDLET1_BEIGE160200_SYNTH6060_BOIS20
+                    - BUNDLET1_BLEU160200_SYNTH5070_BOIS15
+                    - BUNDLET1_BLEU160200_SYNTH5070_BOIS20
+                    - BUNDLET1_BLEU160200_SYNTH6060_BOIS15
+                    - BUNDLET1_BLEU160200_SYNTH6060_BOIS20
+                    - BUNDLET1_GRIS160200_SYNTH5070_BOIS15
+                    - BUNDLET1_GRIS160200_SYNTH5070_BOIS20
+                    - BUNDLET1_GRIS160200_SYNTH6060_BOIS15
+                    - BUNDLET1_GRIS160200_SYNTH6060_BOIS20
+                    - BUNDLET2_BLEU160200_SYNTH5070_STANDARD
+                    - BUNDLET2_BLEU160200_SYNTH6060_STANDARD
+                    - BUNDLET2_GRIS160200_SYNTH5070_STANDARD
+                    - BUNDLET2_GRIS160200_SYNTH6060_STANDARD
+                    - BUNDLEH1_BEIGE160200_SYNTH5070_BOIS15
+                    - BUNDLEH1_BEIGE160200_SYNTH5070_BOIS20
+                    - BUNDLEH1_BEIGE160200_SYNTH6060_BOIS20
+                    - BUNDLEH1_BEIGE160200_SYNTH6060_BOIS15
+                    - BUNDLEH1_BLEU160200_SYNTH5070_BOIS15
+                    - BUNDLEH1_BLEU160200_SYNTH5070_BOIS20
+                    - BUNDLEH1_BLEU160200_SYNTH6060_BOIS15
+                    - BUNDLEH1_BLEU160200_SYNTH6060_BOIS20
+                    - BUNDLEH1_GRIS160200_SYNTH5070_BOIS15
+                    - BUNDLEH1_GRIS160200_SYNTH5070_BOIS20
+                    - BUNDLEH1_GRIS160200_SYNTH6060_BOIS15
+                    - BUNDLEH1_GRIS160200_SYNTH6060_BOIS20
+                    - BUNDLEH2_GRIS160200_SYNTH5070_STANDARD
+                    - BUNDLEH3_STANDARD160200_SYNTH5070_BOIS20
+                    - BUNDLET3_STANDARD160200_SYNTH6060_BOIS25
+                    - BUNDLEH2_BEIGE160200_SYNTH5070_STANDARD
+                    - BUNDLEH2_BEIGE160200_SYNTH6060_STANDARD
+                    - BUNDLEH2_BLEU160200_SYNTH5070_STANDARD
+                    - BUNDLEH2_BLEU160200_SYNTH6060_STANDARD
+                    - BUNDLEH2_GRIS160200_SYNTH6060_STANDARD
+                    - BUNDLET1_BEIGE180200_SYNTH5070_BOIS15
+                    - BUNDLET1_BEIGE180200_SYNTH5070_BOIS20
+                    - BUNDLET1_BEIGE180200_SYNTH6060_BOIS20
+                    - BUNDLET1_BEIGE180200_SYNTH6060_BOIS15
+                    - BUNDLET1_BLEU180200_SYNTH5070_BOIS20
+                    - BUNDLET1_BLEU180200_SYNTH5070_BOIS15
+                    - BUNDLET1_BLEU180200_SYNTH6060_BOIS20
+                    - BUNDLET1_BLEU180200_SYNTH6060_BOIS15
+                    - BUNDLET1_GRIS180200_SYNTH5070_BOIS15
+                    - BUNDLET1_GRIS180200_SYNTH5070_BOIS20
+                    - BUNDLET1_GRIS180200_SYNTH6060_BOIS15
+                    - BUNDLET1_GRIS180200_SYNTH6060_BOIS20
+                    - BUNDLET2_BEIGE180200_SYNTH5070_STANDARD
+                    - BUNDLET2_BEIGE180200_SYNTH6060_STANDARD
+                    - BUNDLET2_BLEU180200_SYNTH5070_STANDARD
+                    - BUNDLET2_BLEU180200_SYNTH6060_STANDARD
+                    - BUNDLET2_GRIS180200_SYNTH5070_STANDARD
+                    - BUNDLET2_GRIS180200_SYNTH6060_STANDARD
+                    - BUNDLEH1_BEIGE180200_SYNTH5070_BOIS15
+                    - BUNDLEH1_BEIGE180200_SYNTH5070_BOIS20
+                    
+                    # Lit Tapissier :
+                    - BUNDLE_LIT1_BEIGE140200_BOIS20
+                    - BUNDLE_LIT1_GRIS140190_BOIS20
+                    - BUNDLE_LIT1_GRIS140200_BOIS20
+                    - BUNDLE_LIT1_GRIS140200_BOIS15
+                    - BUNDLE_LIT1_GRIS140190_BOIS15
+                    - BUNDLE_LIT1_BEIGE140190_BOIS20
+                    - BUNDLE_LIT1_BEIGE140200_BOIS15
+                    - BUNDLE_LIT1_BEIGE140190_BOIS15
+                    - BUNDLE_LIT1_BLEU140190_BOIS20
+                    - BUNDLE_LIT1_BLEU140200_BOIS20
+                    - BUNDLE_LIT1_BLEU140200_BOIS15
+                    - BUNDLE_LIT1_BLEU140190_BOIS15
+                    
+                    # Lit Coffre
+                    - BUNDLE_LIT2_BEIGE140190_STANDARD
+                    - BUNDLE_LIT2_BEIGE140200_STANDARD
+                    - BUNDLE_LIT2_BEIGE160200_STANDARD
+                    - BUNDLE_LIT2_BEIGE180200_STANDARD
+                    - BUNDLE_LIT2_BLEU140190_STANDARD
+                    - BUNDLE_LIT2_BLEU140200_STANDARD
+                    - BUNDLE_LIT2_BLEU160200_STANDARD
+                    - BUNDLE_LIT2_BLEU180200_STANDARD
+                    - BUNDLE_LIT2_GRIS140190_STANDARD
+                    - BUNDLE_LIT2_GRIS140200_STANDARD
+                    - BUNDLE_LIT2_GRIS160200_STANDARD
+                    - BUNDLE_LIT2_GRIS180200_STANDARD
+                    
+                    # Lit Grand Ours
+                    - BUNDLECC_140200_HAVANE_BOULE14
+                    - BUNDLECC_140200_SAHARA_BOULE14
+                    - BUNDLECC_140200_SAHARA_CARRE14
+                    - BUNDLECC_140200_SAHARA_CYLINDRE14
+                    - BUNDLECC_160200_SAHARA_BOULE14
+                    - BUNDLECC_160200_SAHARA_CARRE14
+                    - BUNDLECC_160200_SAHARA_CYLINDRE14
+                    - BUNDLECC_180200_SAHARA_BOULE14
+                    - BUNDLECC_180200_SAHARA_CARRE14
+                    - BUNDLECC_180200_SAHARA_CYLINDRE14
+                    - BUNDLECC_140200_HAVANE_CARRE14
+                    - BUNDLECC_140200_HAVANE_CYLINDRE14
+                    - BUNDLECC_160200_HAVANE_BOULE14
+                    - BUNDLECC_160200_HAVANE_CARRE14
+                    - BUNDLECC_160200_HAVANE_CYLINDRE14
+                    - BUNDLECC_180200_HAVANE_BOULE14
+                    - BUNDLECC_180200_HAVANE_CARRE14
+                    - BUNDLECC_180200_HAVANE_CYLINDRE14
+                    - BUNDLECC_140200_IVOIRE_BOULE14
+                    - BUNDLECC_140200_IVOIRE_CARRE14
+                    - BUNDLECC_140200_IVOIRE_CYLINDRE14
+                    - BUNDLECC_160200_IVOIRE_BOULE14
+                    - BUNDLECC_160200_IVOIRE_CARRE14
+                    - BUNDLECC_160200_IVOIRE_CYLINDRE14
+                    - BUNDLECC_180200_IVOIRE_BOULE14
+                    - BUNDLECC_180200_IVOIRE_CARRE14
+                    - BUNDLECC_180200_IVOIRE_CYLINDRE14
+                    - BUNDLECC_140200_ARDOISE_BOULE14
+                    - BUNDLECC_140200_ARDOISE_CARRE14
+                    - BUNDLECC_140200_ARDOISE_CYLINDRE14
+                    - BUNDLECC_160200_ARDOISE_BOULE14
+                    - BUNDLECC_160200_ARDOISE_CARRE14
+                    - BUNDLECC_160200_ARDOISE_CYLINDRE14
+                    - BUNDLECC_180200_ARDOISE_BOULE14
+                    - BUNDLECC_180200_ARDOISE_CARRE14
+                    - BUNDLECC_180200_ARDOISE_CYLINDRE14
+                    - BUNDLECC_140200_ICONIQUE_BOULE14
+                    - BUNDLECC_140200_ICONIQUE_CARRE14
+                    - BUNDLECC_140200_ICONIQUE_CYLINDRE14
+                    - BUNDLECC_160200_ICONIQUE_BOULE14
+                    - BUNDLECC_160200_ICONIQUE_CARRE14
+                    - BUNDLECC_160200_ICONIQUE_CYLINDRE14
+                    - BUNDLECC_180200_ICONIQUE_BOULE14
+                    - BUNDLECC_180200_ICONIQUE_CARRE14
+                    - BUNDLECC_180200_ICONIQUE_CYLINDRE14
+                    - BUNDLEAC_140200_SAHARA_BOULE7
+                    - BUNDLEAC_140200_SAHARA_CARR7
+                    - BUNDLEAC_160200_SAHARA_BOULE7
+                    - BUNDLEAC_160200_SAHARA_CARR7
+                    - BUNDLEAC_180200_SAHARA_BOULE7
+                    - BUNDLEAC_180200_SAHARA_CARR7
+                    - BUNDLEAC_140200_HAVANE_BOULE7
+                    - BUNDLEAC_140200_HAVANE_CARR7
+                    - BUNDLEAC_160200_HAVANE_BOULE7
+                    - BUNDLEAC_160200_HAVANE_CARR7
+                    - BUNDLEAC_180200_HAVANE_BOULE7
+                    - BUNDLEAC_180200_HAVANE_CARR7
+                    - BUNDLEAC_140200_IVOIRE_BOULE7
+                    - BUNDLEAC_140200_IVOIRE_CARR7
+                    - BUNDLEAC_160200_IVOIRE_BOULE7
+                    - BUNDLEAC_160200_IVOIRE_CARR7
+                    - BUNDLEAC_180200_IVOIRE_BOULE7
+                    - BUNDLEAC_180200_IVOIRE_CARR7
+                    - BUNDLEAC_140200_ARDOISE_BOULE7
+                    - BUNDLEAC_140200_ARDOISE_CARR7
+                    - BUNDLEAC_160200_ARDOISE_BOULE7
+                    - BUNDLEAC_160200_ARDOISE_CARR7
+                    - BUNDLEAC_180200_ARDOISE_BOULE7
+                    - BUNDLEAC_180200_ARDOISE_CARR7
+                    - BUNDLEAC_140200_ICONIQUE_BOULE7
+                    - BUNDLEAC_140200_ICONIQUE_CARR7
+                    - BUNDLEAC_160200_ICONIQUE_BOULE7
+                    - BUNDLEAC_160200_ICONIQUE_CARR7
+                    - BUNDLEAC_180200_ICONIQUE_BOULE7
+                    - BUNDLEAC_180200_ICONIQUE_CARR7
+                    
+                    # Pack Lit Grand Ours
+                    - BUNDLECC_MONOBLOC_140200_HAVANE_BOULE14
+                    - BUNDLECC_MONOBLOC_140200_SAHARA_CYLINDRE14
+                    - BUNDLECC_MONOBLOC_140200_SAHARA_CARRE14
+                    - BUNDLECC_MONOBLOC_160200_SAHARA_BOULE14
+                    - BUNDLECC_MONOBLOC_160200_SAHARA_CARRE14
+                    - BUNDLECC_MONOBLOC_160200_SAHARA_CYLINDRE14
+                    - BUNDLECC_MONOBLOC_180200_SAHARA_BOULE14
+                    - BUNDLECC_MONOBLOC_180200_SAHARA_CARRE14
+                    - BUNDLECC_MONOBLOC_180200_SAHARA_CYLINDRE14
+                    - BUNDLECC_MONOBLOC_140200_HAVANE_CARRE14
+                    - BUNDLECC_MONOBLOC_140200_SAHARA_BOULE14
+                    - BUNDLECC_MONOBLOC_140200_HAVANE_CYLINDRE14
+                    - BUNDLECC_MONOBLOC_160200_HAVANE_BOULE14
+                    - BUNDLECC_MONOBLOC_160200_HAVANE_CARRE14
+                    - BUNDLECC_MONOBLOC_160200_HAVANE_CYLINDRE14
+                    - BUNDLECC_MONOBLOC_180200_HAVANE_BOULE14
+                    - BUNDLECC_MONOBLOC_180200_HAVANE_CARRE14
+                    - BUNDLECC_MONOBLOC_180200_HAVANE_CYLINDRE14
+                    - BUNDLECC_MONOBLOC_140200_IVOIRE_BOULE14
+                    - BUNDLECC_MONOBLOC_140200_IVOIRE_CARRE14
+                    - BUNDLECC_MONOBLOC_140200_IVOIRE_CYLINDRE14
+                    - BUNDLECC_MONOBLOC_160200_IVOIRE_BOULE14
+                    - BUNDLECC_MONOBLOC_160200_IVOIRE_CARRE14
+                    - BUNDLECC_MONOBLOC_160200_IVOIRE_CYLINDRE14
+                    - BUNDLECC_MONOBLOC_180200_IVOIRE_BOULE14
+                    - BUNDLECC_MONOBLOC_180200_IVOIRE_CARRE14
+                    - BUNDLECC_MONOBLOC_180200_IVOIRE_CYLINDRE14
+                    - BUNDLECC_MONOBLOC_140200_ARDOISE_BOULE14
+                    - BUNDLECC_MONOBLOC_140200_ARDOISE_CARRE14
+                    - BUNDLECC_MONOBLOC_140200_ARDOISE_CYLINDRE14
+                    - BUNDLECC_MONOBLOC_160200_ARDOISE_BOULE14
+                    - BUNDLECC_MONOBLOC_160200_ARDOISE_CARRE14
+                    - BUNDLECC_MONOBLOC_160200_ARDOISE_CYLINDRE14
+                    - BUNDLECC_MONOBLOC_180200_ARDOISE_BOULE14
+                    - BUNDLECC_MONOBLOC_180200_ARDOISE_CARRE14
+                    - BUNDLECC_MONOBLOC_180200_ARDOISE_CYLINDRE14
+                    - BUNDLECC_BIBLOC_160200_HAVANE_CYLINDRE14
+                    - BUNDLECC_BIBLOC_180200_HAVANE_BOULE14
+                    - BUNDLECC_BIBLOC_180200_HAVANE_CARRE14
+                    - BUNDLECC_BIBLOC_180200_HAVANE_CYLINDRE14
+                    - BUNDLECC_BIBLOC_140200_IVOIRE_BOULE14
+                    - BUNDLECC_BIBLOC_140200_IVOIRE_CARRE14
+                    - BUNDLECC_BIBLOC_140200_IVOIRE_CYLINDRE14
+                    - BUNDLECC_BIBLOC_160200_IVOIRE_BOULE14
+                    - BUNDLECC_BIBLOC_160200_IVOIRE_CARRE14
+                    - BUNDLECC_BIBLOC_160200_IVOIRE_CYLINDRE14
+                    - BUNDLECC_BIBLOC_180200_IVOIRE_BOULE14
+                    - BUNDLECC_BIBLOC_180200_IVOIRE_CARRE14
+                    - BUNDLECC_BIBLOC_180200_IVOIRE_CYLINDRE14
+                    - BUNDLECC_BIBLOC_140200_ARDOISE_BOULE14
+                    - BUNDLECC_BIBLOC_140200_ARDOISE_CARRE14
+                    - BUNDLECC_BIBLOC_140200_ARDOISE_CYLINDRE14
+                    - BUNDLECC_BIBLOC_160200_ARDOISE_BOULE14
+                    - BUNDLECC_BIBLOC_160200_ARDOISE_CARRE14
+                    - BUNDLECC_BIBLOC_160200_ARDOISE_CYLINDRE14
+                    - BUNDLECC_BIBLOC_180200_ARDOISE_BOULE14
+                    - BUNDLECC_BIBLOC_180200_ARDOISE_CARRE14
+                    - BUNDLECC_BIBLOC_180200_ARDOISE_CYLINDRE14
+                    - BUNDLECC_MONOBLOC_140200_ICONIQUE_BOULE14
+                    - BUNDLECC_MONOBLOC_140200_ICONIQUE_CARRE14
+                    - BUNDLECC_MONOBLOC_140200_ICONIQUE_CYLINDRE14
+                    - BUNDLECC_MONOBLOC_160200_ICONIQUE_BOULE14
+                    - BUNDLECC_MONOBLOC_160200_ICONIQUE_CARRE14
+                    - BUNDLECC_MONOBLOC_160200_ICONIQUE_CYLINDRE14
+                    - BUNDLECC_MONOBLOC_180200_ICONIQUE_BOULE14
+                    - BUNDLECC_MONOBLOC_180200_ICONIQUE_CARRE14
+                    - BUNDLECC_MONOBLOC_180200_ICONIQUE_CYLINDRE14
+                    - BUNDLECC_BIBLOC_140200_ICONIQUE_BOULE14
+                    - BUNDLECC_BIBLOC_140200_ICONIQUE_CARRE14
+                    - BUNDLECC_BIBLOC_140200_ICONIQUE_CYLINDRE14
+                    - BUNDLECC_BIBLOC_160200_ICONIQUE_BOULE14
+                    - BUNDLECC_BIBLOC_160200_ICONIQUE_CARRE14
+                    - BUNDLECC_BIBLOC_160200_ICONIQUE_CYLINDRE14
+                    - BUNDLECC_BIBLOC_180200_ICONIQUE_BOULE14
+                    - BUNDLECC_BIBLOC_180200_ICONIQUE_CARRE14
+                    - BUNDLECC_BIBLOC_180200_ICONIQUE_CYLINDRE14
+                    - BUNDLEAC_BIBLOC_140200_SAHARA_BOULE7
+                    - BUNDLEAC_BIBLOC_140200_SAHARA_CARR7
+                    - BUNDLEAC_BIBLOC_160200_SAHARA_BOULE7
+                    - BUNDLEAC_BIBLOC_160200_SAHARA_CARR7
+                    - BUNDLEAC_BIBLOC_180200_SAHARA_BOULE7
+                    - BUNDLEAC_BIBLOC_180200_SAHARA_CARR7
+                    - BUNDLEAC_BIBLOC_140200_HAVANE_BOULE7
+                    - BUNDLEAC_BIBLOC_140200_HAVANE_CARR7
+                    - BUNDLEAC_BIBLOC_160200_HAVANE_BOULE7
+                    - BUNDLEAC_BIBLOC_160200_HAVANE_CARR7
+                    - BUNDLEAC_BIBLOC_180200_HAVANE_BOULE7
+                    - BUNDLEAC_BIBLOC_180200_HAVANE_CARR7
+                    - BUNDLEAC_BIBLOC_140200_IVOIRE_BOULE7
+                    - BUNDLEAC_BIBLOC_140200_IVOIRE_CARR7
+                    - BUNDLEAC_BIBLOC_160200_IVOIRE_BOULE7
+                    - BUNDLEAC_BIBLOC_160200_IVOIRE_CARR7
+                    - BUNDLEAC_BIBLOC_180200_IVOIRE_BOULE7
+                    - BUNDLEAC_BIBLOC_180200_IVOIRE_CARR7
+                    - BUNDLEAC_BIBLOC_140200_ARDOISE_BOULE7
+                    - BUNDLEAC_BIBLOC_140200_ARDOISE_CARR7
+                    - BUNDLEAC_BIBLOC_160200_ARDOISE_BOULE7
+                    - BUNDLEAC_BIBLOC_160200_ARDOISE_CARR7
+                    - BUNDLEAC_BIBLOC_180200_ARDOISE_BOULE7
+                    - BUNDLEAC_BIBLOC_180200_ARDOISE_CARR7
+                    - BUNDLEAC_BIBLOC_140200_ICONIQUE_BOULE7
+                    - BUNDLEAC_BIBLOC_140200_ICONIQUE_CARR7
+                    - BUNDLEAC_BIBLOC_160200_ICONIQUE_BOULE7
+                    - BUNDLEAC_BIBLOC_160200_ICONIQUE_CARR7
+                    - BUNDLEAC_BIBLOC_180200_ICONIQUE_BOULE7
+                    - BUNDLEAC_BIBLOC_180200_ICONIQUE_CARR7
+                    - BUNDLEAC_MONOBLOC_140200_SAHARA_BOULE7
+                    - BUNDLEAC_MONOBLOC_140200_SAHARA_CARR7
+                    - BUNDLEAC_MONOBLOC_160200_SAHARA_BOULE7
+                    - BUNDLEAC_MONOBLOC_160200_SAHARA_CARR7
+                    - BUNDLEAC_MONOBLOC_180200_SAHARA_BOULE7
+                    - BUNDLEAC_MONOBLOC_180200_SAHARA_CARR7
+                    - BUNDLEAC_MONOBLOC_140200_HAVANE_BOULE7
+                    - BUNDLEAC_MONOBLOC_140200_HAVANE_CARR7
+                    - BUNDLEAC_MONOBLOC_160200_HAVANE_BOULE7
+                    - BUNDLEAC_MONOBLOC_160200_HAVANE_CARR7
+                    - BUNDLEAC_MONOBLOC_180200_HAVANE_BOULE7
+                    - BUNDLEAC_MONOBLOC_180200_HAVANE_CARR7
+                    - BUNDLEAC_MONOBLOC_140200_IVOIRE_BOULE7
+                    - BUNDLEAC_MONOBLOC_140200_IVOIRE_CARR7
+                    - BUNDLEAC_MONOBLOC_160200_IVOIRE_BOULE7
+                    - BUNDLEAC_MONOBLOC_160200_IVOIRE_CARR7
+                    - BUNDLEAC_MONOBLOC_180200_IVOIRE_BOULE7
+                    - BUNDLEAC_MONOBLOC_180200_IVOIRE_CARR7
+                    - BUNDLEAC_MONOBLOC_140200_ARDOISE_BOULE7
+                    - BUNDLEAC_MONOBLOC_140200_ARDOISE_CARR7
+                    - BUNDLEAC_MONOBLOC_160200_ARDOISE_BOULE7
+                    - BUNDLEAC_MONOBLOC_160200_ARDOISE_CARR7
+                    - BUNDLEAC_MONOBLOC_180200_ARDOISE_BOULE7
+                    - BUNDLEAC_MONOBLOC_180200_ARDOISE_CARR7
+                    - BUNDLEAC_MONOBLOC_140200_ICONIQUE_BOULE7
+                    - BUNDLEAC_MONOBLOC_140200_ICONIQUE_CARR7
+                    - BUNDLEAC_MONOBLOC_160200_ICONIQUE_BOULE7
+                    - BUNDLEAC_MONOBLOC_160200_ICONIQUE_CARR7
+                    - BUNDLEAC_MONOBLOC_180200_ICONIQUE_BOULE7
+                    - BUNDLEAC_MONOBLOC_180200_ICONIQUE_CARR7
+
+                    - BUNDLEH1_BEIGE180200_SYNTH6060_BOIS15
+                    - BUNDLEH1_BEIGE180200_SYNTH6060_BOIS20
+                    - BUNDLEH1_BLEU180200_SYNTH5070_BOIS15
+                    - BUNDLEH1_BLEU180200_SYNTH5070_BOIS20
+                    - BUNDLEH1_BLEU180200_SYNTH6060_BOIS15
+                    - BUNDLEH1_BLEU180200_SYNTH6060_BOIS20
+                    - BUNDLEH1_GRIS180200_SYNTH5070_BOIS15
+                    - BUNDLEH1_GRIS180200_SYNTH5070_BOIS20
+                    - BUNDLEH1_GRIS180200_SYNTH6060_BOIS15
+                    - BUNDLEH1_GRIS180200_SYNTH6060_BOIS20
+                    - BUNDLEH2_BEIGE180200_SYNTH5070_STANDARD
+                    - BUNDLET1_BEIGE200200_SYNTH5070_BOIS20
+                    - BUNDLET1_BEIGE200200_SYNTH5070_BOIS15
+                    - BUNDLET1_BEIGE200200_SYNTH6060_BOIS20
+                    - BUNDLET1_BEIGE200200_SYNTH6060_BOIS15
+                    - BUNDLET1_BLEU200200_SYNTH5070_BOIS15
+                    - BUNDLET1_BLEU200200_SYNTH5070_BOIS20
+                    - BUNDLET1_BLEU200200_SYNTH6060_BOIS20
+                    - BUNDLET1_BLEU200200_SYNTH6060_BOIS15
+                    - BUNDLET1_GRIS200200_SYNTH5070_BOIS15
+                    - BUNDLET1_GRIS200200_SYNTH5070_BOIS20
+                    - BUNDLET1_GRIS200200_SYNTH6060_BOIS15
+                    - BUNDLET1_GRIS200200_SYNTH6060_BOIS20
+                    - BUNDLEH1_BEIGE200200_SYNTH5070_BOIS15
+                    - BUNDLEH1_BEIGE200200_SYNTH5070_BOIS20
+                    - BUNDLEH1_BEIGE200200_SYNTH6060_BOIS20
+                    - BUNDLEH1_BEIGE200200_SYNTH6060_BOIS15
+                    - BUNDLEH1_BLEU200200_SYNTH5070_BOIS15
+                    - BUNDLEH1_BLEU200200_SYNTH5070_BOIS20
+                    - BUNDLEH1_BLEU200200_SYNTH6060_BOIS15
+                    - BUNDLEH1_BLEU200200_SYNTH6060_BOIS20
+                    - BUNDLEH1_GRIS200200_SYNTH5070_BOIS15
+                    - BUNDLEH1_GRIS200200_SYNTH6060_BOIS15
+                    - BUNDLEH1_GRIS200200_SYNTH5070_BOIS20
+                    - BUNDLEH1_GRIS200200_SYNTH6060_BOIS20
+                    - TEDCP_CMCREM
+                    - TEDCP_CMROUI
+                    - TEDCP_CMGRIS
+                    - TEDCP_CMBLEU
+                    - TEDCPSTBOIS_CMCREM_TEDCPACBOIS
+                    - TEDCPSTBOIS_CMBLEU_TEDCPACBOIS
+                    - TEDCPSTNOIR_CMBLEU_TEDCPACNOIR
+                    - TEDCPSTBOIS_CMROUI_TEDCPACBOIS
+                    - TEDCPSTNOIR_CMROUI_TEDCPACNOIR
+                    - TEDCPSTBOIS_CMGRIS_TEDCPACBOIS
+                    - TEDCPSTNOIR_CMGRIS_TEDCPACNOIR
+                    - TEDCPSTNOIR_CMCREM_TEDCPACNOIR
+                    - TEDCPSTBOIS_CMNAVY_TEDCPACBOIS
+                    - TEDCPSTNOIR_CMNAVY_TEDCPACNOIR
+                    - TEDCPSTBOIS_CMVERT_TEDCPACBOIS
+                    - TEDCPSTNOIR_CMVERT_TEDCPACNOIR
+                    - TEDCPSTBOIS_CMGRIS_TEDCPCTBOIS_TEDCPTEXGRIS
+                    - TEDCPSTNOIR_CMGRIS_TEDCPCTNOIR_TEDCPTEXGRIS
+                    - TEDCPSTBOIS_CMROUI_TEDCPCTBOIS_TEDCPTEXROUIL
+                    - TEDCPSTNOIR_CMROUI_TEDCPCTNOIR_TEDCPTEXROUIL
+                    - TEDCPSTBOIS_CMCREM_TEDCPCTBOIS_TEDCPTEXCREM
+                    - TEDCPSTNOIR_CMCREM_TEDCPCTNOIR_TEDCPTEXCREM
+                    - TEDCPSTBOIS_CMVERT_TEDCPCTBOIS_TEDCPTEXVERT
+                    - TEDCPSTNOIR_CMVERT_TEDCPCTNOIR_TEDCPTEXVERT
+                    - TEDCPSTBOIS_CMNAVY_TEDCPCTBOIS_TEDCPTEXNAVY
+                    - TEDCPSTNOIR_CMNAVY_TEDCPCTNOIR_TEDCPTEXNAVY
+                    - TEDCPSTBOIS_CMBEIGE_TEDCPCTBOIS_TEDCPTEXBEIGE
+                    - TEDCPSTBOIS_CMBEIGE_TEDCPACBOIS
+                    - TEDCPSTBOIS_CMTERRA_TEDCPACBOIS
+                    - TEDCPSTBOIS_CMTERRA_TEDCPCTBOIS_TEDCPTEXTERRA
+                    - TEDCPSTNOIR_CMBEIGE_TEDCPCTNOIR_TEDCPTEXBEIGE
+                    - TEDCPSTNOIR_CMBEIGE_TEDCPACNOIR
+                    - TEDCPSTNOIR_CMTERRA_TEDCPACNOIR
+                    - TEDCPSTNOIR_CMTERRA_TEDCPCTNOIR_TEDCPTEXTERRA
+                    - TEDSOFADUOECRU_TEDSOFANGLEECRU_TEDPMODULRONDCL_TEDPSOFRONDCL
+                    - TEDSOFADUOBLEU_TEDSOFANGLEBLEU_TEDPMODULCARRFO_TEDPSOFCARREFO
+                    - TEDSOFADUOBLEU_TEDSOFANGLEBLEU_TEDPMODULCARRCL_TEDPSOFCARRECL
+                    - TEDSOFADUOBLEU_TEDSOFANGLEBLEU_TEDPMODULRONDCL_TEDPSOFRONDCL
+                    - TEDSOFADUOBLEU_TEDSOFANGLEBLEU_TEDPMODULRONDFO_TEDPSOFRONDFO
+                    - TEDSOFADUOECRU_TEDSOFANGLEECRU_TEDPMODULCARRCL_TEDPSOFCARRECL
+                    - TEDSOFADUOECRU_TEDSOFANGLEECRU_TEDPMODULCARRFO_TEDPSOFCARREFO
+                    - TEDSOFADUOECRU_TEDSOFANGLEECRU_TEDPMODULRONDFO_TEDPSOFRONDFO
+                    - TEDSOFADUOGRIS_TEDSOFANGLEGRIS_TEDPMODULCARRCL_TEDPSOFCARRECL
+                    - TEDSOFADUOGRIS_TEDSOFANGLEGRIS_TEDPMODULCARRFO_TEDPSOFCARREFO
+                    - TEDSOFADUOGRIS_TEDSOFANGLEGRIS_TEDPMODULRONDCL_TEDPSOFRONDCL
+                    - TEDSOFADUOGRIS_TEDSOFANGLEGRIS_TEDPMODULRONDFO_TEDPSOFRONDFO
+                    - TEDSOFADUOKAKI_TEDSOFANGLEKAKI_TEDPMODULCARRCL_TEDPSOFCARRECL
+                    - TEDSOFADUOKAKI_TEDSOFANGLEKAKI_TEDPMODULCARRFO_TEDPSOFCARREFO
+                    - TEDSOFADUOKAKI_TEDSOFANGLEKAKI_TEDPMODULRONDCL_TEDPSOFRONDCL
+                    - TEDSOFADUOKAKI_TEDSOFANGLEKAKI_TEDPMODULRONDFO_TEDPSOFRONDFO
+                    - TEDSOFADUOSAUG_TEDSOFANGLESAUG_TEDPMODULCARRCL_TEDPSOFCARRECL
+                    - TEDSOFADUOSAUG_TEDSOFANGLESAUG_TEDPMODULRONDCL_TEDPSOFRONDCL
+                    - TEDSOFADUOSAUG_TEDSOFANGLESAUG_TEDPMODULCARRFO_TEDPSOFCARREFO
+                    - TEDSOFADUOSAUG_TEDSOFANGLESAUG_TEDPMODULRONDFO_TEDPSOFRONDFO
+                    - TEDSOFADUOTERR_TEDSOFANGLETERR_TEDPMODULCARRCL_TEDPSOFCARRECL
+                    - TEDSOFADUOTERR_TEDSOFANGLETERR_TEDPMODULCARRFO_TEDPSOFCARREFO
+                    - TEDSOFADUOTERR_TEDSOFANGLETERR_TEDPMODULRONDCL_TEDPSOFRONDCL
+                    - TEDSOFADUOTERR_TEDSOFANGLETERR_TEDPMODULRONDFO_TEDPSOFRONDFO
+                    - TEDSOFATRIOBLEU_TEDSOFANGLEBLEU_TEDPMODULCARRCL_TEDPSOFCARRECL
+                    - TEDSOFATRIOBLEU_TEDSOFANGLEBLEU_TEDPMODULRONDCL_TEDPSOFRONDCL
+                    - TEDSOFATRIOBLEU_TEDSOFANGLEBLEU_TEDPMODULCARRFO_TEDPSOFCARREFO
+                    - TEDSOFATRIOBLEU_TEDSOFANGLEBLEU_TEDPMODULRONDFO_TEDPSOFRONDFO
+                    - TEDSOFATRIOECRU_TEDSOFANGLEECRU_TEDPMODULCARRCL_TEDPSOFCARRECL
+                    - TEDSOFATRIOECRU_TEDSOFANGLEECRU_TEDPMODULRONDCL_TEDPSOFRONDCL
+                    - TEDSOFATRIOECRU_TEDSOFANGLEECRU_TEDPMODULCARRFO_TEDPSOFCARREFO
+                    - TEDSOFATRIOECRU_TEDSOFANGLEECRU_TEDPMODULRONDFO_TEDPSOFRONDFO
+                    - TEDSOFATRIOGRIS_TEDSOFANGLEGRIS_TEDPMODULCARRCL_TEDPSOFCARRECL
+                    - TEDSOFATRIOGRIS_TEDSOFANGLEGRIS_TEDPMODULRONDCL_TEDPSOFRONDCL
+                    - TEDSOFATRIOGRIS_TEDSOFANGLEGRIS_TEDPMODULCARRFO_TEDPSOFCARREFO
+                    - TEDSOFATRIOKAKI_TEDSOFANGLEKAKI_TEDPMODULCARRCL_TEDPSOFCARRECL
+                    - TEDSOFATRIOGRIS_TEDSOFANGLEGRIS_TEDPMODULRONDFO_TEDPSOFRONDFO
+                    - TEDSOFATRIOKAKI_TEDSOFANGLEKAKI_TEDPMODULCARRFO_TEDPSOFCARREFO
+                    - TEDSOFATRIOKAKI_TEDSOFANGLEKAKI_TEDPMODULRONDCL_TEDPSOFRONDCL
+                    - TEDSOFATRIOSAUG_TEDSOFANGLESAUG_TEDPMODULCARRCL_TEDPSOFCARRECL
+                    - TEDSOFATRIOKAKI_TEDSOFANGLEKAKI_TEDPMODULRONDFO_TEDPSOFRONDFO
+                    - TEDSOFATRIOSAUG_TEDSOFANGLESAUG_TEDPMODULCARRFO_TEDPSOFCARREFO
+                    - TEDSOFATRIOSAUG_TEDSOFANGLESAUG_TEDPMODULRONDCL_TEDPSOFRONDCL
+                    - TEDSOFATRIOSAUG_TEDSOFANGLESAUG_TEDPMODULRONDFO_TEDPSOFRONDFO
+                    - TEDSOFATRIOTERR_TEDSOFANGLETERR_TEDPMODULCARRCL_TEDPSOFCARRECL
+                    - TEDSOFATRIOTERR_TEDSOFANGLETERR_TEDPMODULCARRFO_TEDPSOFCARREFO
+                    - TEDSOFATRIOTERR_TEDSOFANGLETERR_TEDPMODULRONDCL_TEDPSOFRONDCL
+                    - TEDSOFATRIOTERR_TEDSOFANGLETERR_TEDPMODULRONDFO_TEDPSOFRONDFO
+                    - TEDCP_DUO_TERRACOTTA_CLAIR_RONDCANAPEANGLE
+                    - TEDCP_DUO_TERRACOTTA_FONCE_RONDCANAPEANGLE
+                    - TEDCP_DUO_TERRACOTTA_CLAIR_CARRECANAPEANGLE
+                    - TEDCP_DUO_TERRACOTTA_FONCE_CARRECANAPEANGLE
+                    - TEDCP_DUO_KAKI_CLAIR_RONDCANAPEANGLE
+                    - TEDCP_DUO_KAKI_FONCE_RONDCANAPEANGLE
+                    - TEDCP_DUO_KAKI_CLAIR_CARRECANAPEANGLE
+                    - TEDCP_DUO_KAKI_FONCE_CARRECANAPEANGLE
+                    - TEDCP_DUO_VERT_CLAIR_RONDCANAPEANGLE
+                    - TEDCP_DUO_VERT_FONCE_RONDCANAPEANGLE
+                    - TEDCP_DUO_VERT_CLAIR_CARRECANAPEANGLE
+                    - TEDCP_DUO_VERT_FONCE_CARRECANAPEANGLE
+                    - TEDCP_DUO_GRIS_CLAIR_RONDCANAPEANGLE
+                    - TEDCP_DUO_GRIS_FONCE_RONDCANAPEANGLE
+                    - TEDCP_DUO_GRIS_CLAIR_CARRECANAPEANGLE
+                    - TEDCP_DUO_GRIS_FONCE_CARRECANAPEANGLE
+                    - TEDCP_DUO_BLEU_CLAIR_RONDCANAPEANGLE
+                    - TEDCP_DUO_BLEU_FONCE_RONDCANAPEANGLE
+                    - TEDCP_DUO_BLEU_CLAIR_CARRECANAPEANGLE
+                    - TEDCP_DUO_BLEU_FONCE_CARRECANAPEANGLE
+                    - TEDCP_DUO_ECRU_CLAIR_RONDCANAPEANGLE
+                    - TEDCP_DUO_ECRU_FONCE_RONDCANAPEANGLE
+                    - TEDCP_DUO_ECRU_CLAIR_CARRECANAPEANGLE
+                    - TEDCP_DUO_ECRU_FONCE_CARRECANAPEANGLE
+                    - TEDCP_TRIO_TERRACOTTA_CLAIR_RONDCANAPEANGLE
+                    - TEDCP_TRIO_TERRACOTTA_FONCE_RONDCANAPEANGLE
+                    - TEDCP_TRIO_TERRACOTTA_CLAIR_CARRECANAPEANGLE
+                    - TEDCP_TRIO_TERRACOTTA_FONCE_CARRECANAPEANGLE
+                    - TEDCP_TRIO_KAKI_CLAIR_RONDCANAPEANGLE
+                    - TEDCP_TRIO_KAKI_FONCE_RONDCANAPEANGLE
+                    - TEDCP_TRIO_KAKI_CLAIR_CARRECANAPEANGLE
+                    - TEDCP_TRIO_KAKI_FONCE_CARRECANAPEANGLE
+                    - TEDCP_TRIO_VERT_CLAIR_RONDCANAPEANGLE
+                    - TEDCP_TRIO_VERT_FONCE_RONDCANAPEANGLE
+                    - TEDCP_TRIO_VERT_CLAIR_CARRECANAPEANGLE
+                    - TEDCP_TRIO_VERT_FONCE_CARRECANAPEANGLE
+                    - TEDCP_TRIO_GRIS_CLAIR_RONDCANAPEANGLE
+                    - TEDCP_TRIO_GRIS_FONCE_RONDCANAPEANGLE
+                    - TEDCP_TRIO_GRIS_CLAIR_CARRECANAPEANGLE
+                    - TEDCP_TRIO_GRIS_FONCE_CARRECANAPEANGLE
+                    - TEDCP_TRIO_BLEU_CLAIR_RONDCANAPEANGLE
+                    - TEDCP_TRIO_BLEU_FONCE_RONDCANAPEANGLE
+                    - TEDCP_TRIO_BLEU_CLAIR_CARRECANAPEANGLE
+                    - TEDCP_TRIO_BLEU_FONCE_CARRECANAPEANGLE
+                    - TEDCP_TRIO_ECRU_CLAIR_RONDCANAPEANGLE
+                    - TEDCP_TRIO_ECRU_FONCE_RONDCANAPEANGLE
+                    - TEDCP_TRIO_ECRU_CLAIR_CARRECANAPEANGLE
+                    - TEDCP_TRIO_ECRU_FONCE_CARRECANAPEANGLE
+                    - TEDSOF2UNORCECR
+                    - TEDSOF2UNORCSAU
+                    - TEDSOF2DUOCCBLE
+                    - TEDSOF2DUOCCECR
+                    - TEDSOF2DUOCCGRI
+                    - TEDSOF2DUOCCKAK
+                    - TEDSOF2DUOCCSAU
+                    - TEDSOF2DUOCCTER
+                    - TEDSOF2DUOCFECR
+                    - TEDSOF2DUOCFBLE
+                    - TEDSOF2DUOCFGRI
+                    - TEDSOF2DUOCFKAK
+                    - TEDSOF2DUOCFSAU
+                    - TEDSOF2DUOCFTER
+                    - TEDSOF2DUORCBLE
+                    - TEDSOF2DUORCECR
+                    - TEDSOF2DUORCGRI
+                    - TEDSOF2DUORCKAK
+                    - TEDSOF2DUORCSAU
+                    - TEDSOF2DUORCTER
+                    - TEDSOF2DUORFBLE
+                    - TEDSOF2DUORFECR
+                    - TEDSOF2DUORFGRI
+                    - TEDSOF2DUORFKAK
+                    - TEDSOF2DUORFSAU
+                    - TEDSOF2DUORFTER
+                    - TEDSOF2TRIOCCBL
+                    - TEDSOF2TRIOCCEC
+                    - TEDSOF2TRIOCCKA
+                    - TEDSOF2TRIOCCGR
+                    - TEDSOF2TRIOCCSA
+                    - TEDSOF2TRIOCCTE
+                    - TEDSOF2TRIOCFEC
+                    - TEDSOF2TRIOCFBL
+                    - TEDSOF2TRIOCFKA
+                    - TEDSOF2TRIOCFGR
+                    - TEDSOF2TRIOCFTE
+                    - TEDSOF2TRIOCFSA
+                    - TEDSOF2TRIORCBL
+                    - TEDSOF2TRIORCEC
+                    - TEDSOF2TRIORCGR
+                    - TEDSOF2TRIORCKA
+                    - TEDSOF2TRIORCSA
+                    - TEDSOF2TRIORFBL
+                    - TEDSOF2TRIORCTE
+                    - TEDSOF2TRIORFEC
+                    - TEDSOF2TRIORFGR
+                    - TEDSOF2TRIORFSA
+                    - TEDSOF2TRIORFKA
+                    - TEDSOF2TRIORFTE
+                    - TEDSOF2UNOCCECR
+                    - TEDSOF2UNOCCBLE
+                    - TEDSOF2UNOCCGRI
+                    - TEDSOF2UNOCCKAK
+                    - TEDSOF2UNOCCTER
+                    - TEDSOF2UNOCCSAU
+                    - TEDSOF2UNOCFECR
+                    - TEDSOF2UNOCFBLE
+                    - TEDSOF2UNOCFGRI
+                    - TEDSOF2UNOCFKAK
+                    - TEDSOF2UNOCFSAU
+                    - TEDSOF2UNOCFTER
+                    - TEDSOF2UNORCBLE
+                    - TEDSOF2UNORCGRI
+                    - TEDSOF2UNORCKAK
+                    - TEDSOF2UNORCTER
+                    - TEDSOF2UNORFBLE
+                    - TEDSOF2UNORFECR
+                    - TEDSOF2UNORFGRI
+                    - TEDSOF2UNORFSAU
+                    - TEDSOF2UNORFKAK
+                    - TEDSOF2UNORFTER
+            messages:
+                message: "Votre panier contient un article volumineux : assurez-vous que l'accès à votre domicile (escaliers..) permet son passage lors de la livraison"
+                type: alert

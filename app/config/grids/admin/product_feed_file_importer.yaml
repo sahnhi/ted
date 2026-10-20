@@ -1,0 +1,37 @@
+sylius_grid:
+    templates:
+        action:
+            import_file: "@SyliusAdmin/ProductFeedFile/Grid/Action/import_file.html.twig"
+    grids:
+        app_admin_product_feed_file_importer:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\ProductFeedFileImporter
+            fields:
+                id:
+                    type: string
+                    label: sylius.ui.id
+                    enabled: false
+                filename:
+                    type: string
+                    label: sylius.ui.name
+                state:
+                    type: string
+                    label: sylius.ui.state
+                author:
+                    type: string
+                    label: sylius.ui.author
+                createdAt:
+                    type: datetime
+                    label: sylius.ui.created_at
+                    sortable: ~
+                    options:
+                        format: "d/m/Y H:i:s"
+            actions:
+                main:
+                    import_file:
+                        type: import_file
+            sorting:
+                createdAt: desc
+            limits: [10, 25, 50, 100]

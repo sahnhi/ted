@@ -1,0 +1,173 @@
+{% import "@SyliusAdmin/Common/Macro/money.html.twig" as money %}
+{% import '@SyliusUi/Macro/labels.html.twig' as label %}
+
+{% macro paymentDetails(payment) %}
+    {% if
+        payment.state == constant('Sylius\\Component\\Payment\\Model\\PaymentInterface::STATE_COMPLETED') or
+        payment.state == constant('Sylius\\Component\\Payment\\Model\\PaymentInterface::STATE_CANCELLED') or
+        payment.state == constant('Sylius\\Component\\Payment\\Model\\PaymentInterface::STATE_FAILED') or
+        payment.state == constant('Sylius\\Component\\Payment\\Model\\PaymentInterface::STATE_REFUNDED')
+    %}
+        <div class="item" style="margin-left: 30px; margin-bottom: 10px">
+            {% set iconClass = 'green check' %}
+            {% set errored = false %}
+            {% if
+                payment.state == constant('Sylius\\Component\\Payment\\Model\\PaymentInterface::STATE_CANCELLED') or
+                payment.state == constant('Sylius\\Component\\Payment\\Model\\PaymentInterface::STATE_FAILED')
+            %}
+                {% set iconClass = 'red close' %}
+                {% set errored = true %}
+            {% endif %}
+
+            <div class="content">
+                <div class="ui divider"></div>
+                <div class="header">
+                    <i class="large {{ iconClass }} icon"></i> {{ 'app.ui.payment_details_status'|trans }}
+                </div>
+                <div class="description">
+                    {% if payment.details.pspReference is defined %} {# Adyen Transaction ID #}
+                        <hr>
+                        <b>pspReference:</b>
+                        {% if payment.details.originalReference is defined %}
+                            {{ payment.details.originalReference }}<br>
+                        {% else %}
+                            {{ payment.details.pspReference }}<br>
+                        {% endif %}
+                        {% if payment.details.resultCode is defined %}
+                            <b>Reason:</b>
+                            {{ payment.details.resultCode }}
+                        {% endif %}
+                    {% elseif payment.details.sale.transaction.id is defined %} {# Braintree Transaction ID #}
+                        <hr>
+                        <b>{{ 'app.ui.payment_details_transaction_id'|trans }}:</b>
+                        {{ payment.details.sale.transaction.id }}
+                    {% elseif payment.details.TRANSACTIONID is defined %} {# Be2Bill Transaction ID #}
+                        <hr>
+                        {% if payment.details.SCHEDULEDATA is defined and payment.details.EXTRADATA|json_decode(true).refund_token is defined %}
+                            {% for key, scheduleData in payment.details.SCHEDULEDATA %}
+                                {% if scheduleData.TRANSACTIONID is not empty %}
+                                    {% set iconClassNtimes = 'green check' %}
+                                    {% set erroredNtimes = false %}
+                                    {% if scheduleData.EXECCODE is defined %}
+                                        {% if scheduleData.EXECCODE != constant('App\\Payum\\Dalenys\\Api::EXECCODE_SUCCESSFUL') %}
+                                            {% set iconClassNtimes = 'red close' %}
+                                            {% set erroredNtimes = true %}
+                                        {% endif %}
+                                    {% endif %}
+
+                                    <i class="large {{ iconClassNtimes }} icon"></i> <b>Paiement {{ key+1 }}</b><br>
+                                    <div style="margin-left: 30px">
+                                        <b>Montant</b> : {{ money.format(scheduleData.AMOUNT, payment.order.currencyCode) }}<br>
+                                        <b>ID</b> : {{ scheduleData.TRANSACTIONID }}<br>
+                                        {% if scheduleData.MESSAGE is defined %}
+                                            <b>Status</b> : <span {% if erroredNtimes %}style="color: #db2828"{% endif %}>{{ scheduleData.MESSAGE }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <hr>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <b>{{ 'app.ui.payment_details_transaction_id'|trans }}:</b>
+                            {{ payment.details.TRANSACTIONID }}
+                            <hr>
+                        {% endif %}
+                    {% elseif payment.details.codeBarre is defined %} {# Printemps Transaction ID #}
+                        <hr>
+                        <b>{{ 'app.ui.payment_details_bar_code'|trans }}:</b>
+                        {{ payment.details.codeBarre }}
+                    {% elseif payment.details.ContractReference is defined and payment.details.ContractReference is not null %} {# Younited Transation ID #}
+                        <hr>
+                        <b>{{ 'app.ui.payment_details_contract_reference'|trans }}:</b>
+                        {{ payment.details.ContractReference }}
+                    {% elseif payment.details.younitedpay is defined and payment.details.younitedpay.contractReference is defined and payment.details.younitedpay.contractReference is not null %} {# Younited v2 Transation ID #}
+                        <hr>
+                        <b>{{ 'app.ui.payment_details_contract_reference'|trans }}:</b>
+                        {{ payment.details.younitedpay.contractReference }}
+                    {% elseif payment.details.REFUND is defined %}
+                        <hr>
+                        <b>{{ 'app.ui.payment_details_refund_code'|trans }}:</b>
+                        {{ payment.details.REFUND }}<br />
+                        <b>{{ payment.createdAt|date("d/m/Y H:i:s") }}</b><br /><br />
+                        {% if payment.details.ADMIN_USER is defined %}
+                            <small>{{ 'app.ui.payment_details_refunded_by'|trans }} :<br>{{ payment.details.ADMIN_USER.firstName }} {{ payment.details.ADMIN_USER.lastName }} ({{ payment.details.ADMIN_USER.email }})</small>
+                        {% endif %}
+                    {% endif %}
+
+                    <div {% if errored %}style="color: #db2828"{% endif %}>
+                        {% if payment.details.message is defined %} {# Braintree Message #}
+                            {{ payment.details.message }}
+                        {% elseif payment.details.Details is defined %} {# Younited Message #}
+                            {{ payment.details.Details }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+<div class="item">
+    <div class="right floated content">
+        {% include '@SyliusAdmin/Common/Label/paymentState.html.twig' with {'data': payment.state} %}
+    </div>
+    <i class="large payment icon"></i>
+    <div class="content">
+        <div class="header">
+            {{ payment.method }}
+        </div>
+        <div class="description">
+            {{ money.format(payment.amount, payment.order.currencyCode) }}
+        </div>
+    </div>
+
+    {{ _self.paymentDetails(payment) }}
+
+    {# BEGIN CUSTOM CODE #}
+    {% if transactionsIdsForms[payment.id] is defined %}
+        <div class="ui segment">
+            {% set formTransaction = transactionsIdsForms[payment.id] %}
+            {{ form_start(formTransaction, {'action': path('sylius_admin_order_show_custom', {'id': resource.id}), 'attr': {'class': 'ui loadable form', 'novalidate': 'novalidate'}}) }}
+                <div class="ui fluid action input">
+                    {{ form_widget(formTransaction.transactionId, {'attr': {'placeholder': 'app.ui.transactionId'|trans ~ '...'}}) }}
+                    <button type="submit" class="ui labeled icon teal button"><i class="share icon"></i> {{ 'app.ui.validate'|trans }}</button>
+                </div>
+                {{ form_row(formTransaction._token) }}
+            {{ form_end(form, {'render_rest': false}) }}
+        </div>
+    {% endif %}
+    {% if sm_can(payment, 'complete', 'sylius_payment') %}
+        {% set disabled = false %}
+        {% if payment.method.code in constant('App\\Services\\Admin\\OrderService::PAYMENT_METHODS_NEED_TRANSACTIONID') and
+            (payment.details['TRANSACTIONID'] is not defined or payment.details['TRANSACTIONID'] in ['', null]) %}
+            {% set disabled = true %}
+        {% endif %}
+        <div class="ui segment">
+            <form action="{{ path('sylius_admin_order_payment_complete', {'orderId': order.id, 'id': payment.id}) }}" method="post" novalidate>
+                <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token(payment.id) }}" />
+                <button {% if disabled %} disabled {% endif %} type="submit" class="ui icon labeled tiny blue fluid loadable button"><i class="check icon"></i> {{ 'sylius.ui.complete'|trans }}</button>
+            </form>
+        </div>
+        {% if payment.details['payment-link'] is defined %}
+            <div class="ui segment">
+                <a href="{{ payment.details['payment-link'] }}">
+                    <button type="submit" id="payment-link" class="ui icon labeled tiny yellow fluid loadable button">
+                        <i class="money icon"></i> {{ 'sylius.ui.pay'|trans }}
+                    </button>
+                </a>
+            </div>
+        {% endif %}
+    {% endif %}
+    {# END CUSTOM CODE #}
+    {% if is_granted(constant('App\\Model\\Role::ROLE_ADMIN')) %}
+        {% if sm_can(payment, 'refund', 'sylius_payment') and refundForm is defined and refundForm == false %}
+            <div class="ui segment">
+                <form action="{{ path('sylius_admin_order_payment_refund', {'orderId': order.id, 'id': payment.id}) }}" method="post" novalidate>
+                    <input type="hidden" name="_method" value="PUT">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token(payment.id) }}" />
+                    <button type="submit" class="ui icon labeled tiny yellow fluid loadable button"><i class="reply all icon"></i> {{ 'sylius.ui.refund'|trans }}</button>
+                </form>
+            </div>
+        {% endif %}
+    {% endif %}
+</div>

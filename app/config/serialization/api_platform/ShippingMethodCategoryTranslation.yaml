@@ -1,0 +1,12 @@
+App\Doctrine\Entity\ShippingMethodCategoryTranslation:
+    attributes:
+        name:
+            groups:
+                - shop:shipping-method-category:read
+                - shop:cart:read
+        description:
+            groups:
+                - shop:shipping-method-category:read
+        claims:
+            groups:
+                - shop:shipping-method-category:read

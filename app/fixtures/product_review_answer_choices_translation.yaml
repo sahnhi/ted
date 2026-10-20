@@ -1,0 +1,6 @@
+App\Doctrine\Entity\ProductReviewAnswerChoicesTranslation:
+    product_review_answer_choice_back_problem_translation:
+        translatable: '@product_review_answer_choice_back_problem'
+        name: 'Mal de dos au réveil'
+        locale: 'fr_FR'
+

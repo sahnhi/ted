@@ -1,0 +1,61 @@
+imports:
+    - { resource: "@SyliusCoreBundle/Resources/config/app/config.yml" }
+    - { resource: "@SyliusAdminBundle/Resources/config/app/config.yml" }
+    - { resource: "@SyliusAdminApiBundle/Resources/config/app/config.yml" }
+    - { resource: "@SyliusShopBundle/Resources/config/app/config.yml" }
+    - { resource: "@SetonoSyliusGiftCardPlugin/Resources/config/app/config.yaml" }
+    - { resource: "@SokeoSyliusYounitedpayPlugin/Resources/config/config.yml" }
+    - { resource: "@SyliusApiBundle/Resources/config/app/config.yaml" }
+
+parameters:
+    sylius_core.public_dir: '%kernel.project_dir%/public'
+    non_eu_zone_code: 'ZHUE'
+    french_vat_code: 'TVAFR'
+    export_rules:
+        variant_1: '2016T1'
+        variant_2: '2016T2'
+    sylius.shop_api.included_attributes: [ ]
+
+sylius_api:
+    enabled: true
+
+sylius_resource:
+    resources:
+        app.product_review_answer_choices:
+            classes:
+                model: App\Doctrine\Entity\ProductReviewAnswerChoices
+                repository: App\Doctrine\Repository\ProductReviewAnswerChoicesRepository
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\ProductReviewAnswerChoicesTranslation
+
+        app.shipping_method_category:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ShippingMethodCategory
+                form: App\Form\Type\ShippingMethod\ShippingMethodCategoryType
+                repository: App\Doctrine\Repository\ShippingMethodCategoryRepository
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\ShippingMethodCategoryTranslation
+                    form: App\Form\Type\ShippingMethod\ShippingMethodCategoryTranslationType
+        
+        app.shipping_method_category_service:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ShippingMethodCategoryService
+                form: App\Form\Type\ShippingMethod\ShippingMethodCategoryServiceType
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\ShippingMethodCategoryServiceTranslation
+                    form: App\Form\Type\ShippingMethod\ShippingMethodCategoryServiceTranslationType
+        
+        app.shipping_method_category_claim:
+            driver: doctrine/orm
+            classes:
+                model: App\Doctrine\Entity\ShippingMethodCategoryClaim
+                form: App\Form\Type\ShippingMethod\ShippingMethodCategoryClaimType
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\ShippingMethodCategoryClaimTranslation
+                    form: App\Form\Type\ShippingMethod\ShippingMethodCategoryClaimTranslationType

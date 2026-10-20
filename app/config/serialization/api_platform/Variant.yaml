@@ -1,0 +1,8 @@
+App\Doctrine\Entity\Campaigns\Bloc\Variant:
+  attributes:
+    variant: 
+      groups: [ 'shop:campaign:read' ]
+    position:
+      groups: [ 'shop:campaign:read']
+    satellitePageUrl:
+      groups: [ 'shop:campaign:read']

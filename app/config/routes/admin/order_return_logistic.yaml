@@ -1,0 +1,26 @@
+app_admin_order_return_logistic:
+    resource: |
+        alias: app.order_return_logistic
+        section: admin
+        templates: SyliusAdminBundle:Crud
+        redirect: index
+        grid: app_admin_order_return_logistic
+        vars:
+            all:
+                subheader: sylius.form.order_return.information
+                templates:
+                    form: "@App/OrderReturn/_form.html.twig"
+            index:
+                icon: 'file image outline'
+    type: sylius.resource
+    
+sylius_admin_order_return_logistic_export:
+    path: /order-returns-logistic/export/{export}
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.order:indexAction
+        _sylius:
+            section: admin
+            permission: true
+            template: "SyliusAdminBundle:Crud:index.html.twig"
+            grid: app_admin_order_return_logistic

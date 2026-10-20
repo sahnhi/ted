@@ -1,0 +1,85 @@
+services:
+    app.order_number_resolver.packing.esa:
+        class: App\Resolver\Order\PackingOrderNumberResolver
+        arguments:
+            $pattern: 'ESA'
+        tags:
+            - { name: app.order_number_resolver, priority: 40 }
+
+    app.order_number_resolver.packing.olvo:
+        class: App\Resolver\Order\PackingOrderNumberResolver
+        arguments:
+            $pattern: 'OLV'
+        tags:
+            - { name: app.order_number_resolver, priority: 35 }
+    
+    app.order_number_resolver.packing.btq:
+        class: App\Resolver\Order\PackingOrderNumberResolver
+        arguments:
+            $pattern: 'BTQ'
+        tags:
+            - { name: app.order_number_resolver, priority: 30 }
+
+    app.order_number_resolver.packing.ste:
+        class: App\Resolver\Order\PackingOrderNumberResolver
+        arguments:
+            $pattern: 'STE'
+        tags:
+            - { name: app.order_number_resolver, priority: 25 }
+
+    app.order_number_resolver.packing.ted_bur:
+        class: App\Resolver\Order\PackingOrderNumberResolver
+        arguments:
+            $pattern: 'TEDBUR'
+        tags:
+            - { name: app.order_number_resolver, priority: 21 }
+
+    app.order_number_resolver.packing.ted_lyon:
+        class: App\Resolver\Order\PackingOrderNumberResolver
+        arguments:
+            $pattern: 'TEDLYON'
+        tags:
+            - { name: app.order_number_resolver, priority: 20 }
+
+    app.order_number_resolver.packing.ted:
+        class: App\Resolver\Order\PackingOrderNumberResolver
+        arguments:
+            $pattern: 'TED'
+        tags:
+            - { name: app.order_number_resolver, priority: 10 }
+                
+    app.order_number_resolver.packing.default:
+        class: App\Resolver\Order\DefaultPackingOrderNumberResolver
+        tags:
+            - { name: app.order_number_resolver, priority: 0 }
+                
+    App\Resolver\Order\CompositeOrderNumberResolver:
+        arguments:
+            $resolvers: !tagged_iterator app.order_number_resolver
+
+    App\Resolver\Order\OrderNumberResolverInterface:
+        alias: App\Resolver\Order\CompositeOrderNumberResolver
+
+    App\Resolver\Shipping\ShippingMethodCategoryBasedShippingMethodsResolver:
+        arguments:
+            $provider: '@App\Provider\Shipping\ShippingMethodCategoryProvider'
+            $eligibleShippingMethodProvider: '@App\Provider\Shipping\EligibleShippingMethodProvider'
+            $zoneMatcher: '@sylius.zone_matcher'
+            $serviceRulesService: '@App\Services\Calendar\ServiceRulesService'
+            $shippingMethodRepository: '@sylius.repository.shipping_method'
+            $shippingMethodEligibilityChecker: '@sylius.shipping_method_eligibility_checker'
+            
+        tags:
+            - { 
+                name: sylius.shipping_method_resolver,
+                type: 'shipping_method_category_based',
+                label: "app.shipping_methods_resolver.shipping_method_category_based",
+                priority: 99
+            }
+
+    App\Resolver\Shipping\ShippingMethodCategoryBasedDefaultShippingMethodsResolver:
+        decorates: 'sylius.shipping_method_resolver.default'
+        arguments:
+            $decoratedDefaultShippingMethodResolver: '@App\Resolver\Shipping\ShippingMethodCategoryBasedDefaultShippingMethodsResolver.inner'
+            $shippingMethodCategoryBasedShippingMethodsResolver: '@App\Resolver\Shipping\ShippingMethodCategoryBasedShippingMethodsResolver'
+            $tokenStorage: '@security.token_storage'

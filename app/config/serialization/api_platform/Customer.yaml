@@ -1,0 +1,12 @@
+App\Doctrine\Entity\Sylius\Customer:
+    attributes:
+        firstName:
+            groups: [ 'admin:product_review:read' ]
+        lastName:
+            groups: [ 'admin:product_review:read' ]
+        birthday:
+            groups: [ 'admin:product_review:read' ]
+        familiarities:
+            groups:
+                - admin:customer:read
+                - shop:customer:read

@@ -1,0 +1,15 @@
+{% if data is not null %}
+    {% if data.savStatus is not null and options.vars.type == 'sav' %}
+        <p><a href="{{ path('sylius_admin_order_return_update', {'id': data.id}) }}" class="header">
+            {{ data.savStatus }}
+        </a></p>
+        {% set parentPayment = data.order.parentNumber|getParentOrder()|getLastCompletedPayment() %}
+        {% if parentPayment.details.AMOUNTS is defined %}
+            <p>{{ parentPayment.details.AMOUNTS|keys|last|format_datetime }}</p>
+        {% endif %}
+    {% elseif data.warehouseStatus is not null and options.vars.type == 'warehouse' %}
+        <a href="{{ path('sylius_admin_order_return_update', {'id': data.id}) }}" class="header">
+            {{ data.warehouseStatus }}
+        </a>
+    {% endif %}
+{% endif %}

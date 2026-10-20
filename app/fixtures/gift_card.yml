@@ -1,0 +1,10 @@
+App\Doctrine\Entity\Sylius\GiftCard:
+    git_card_unused:
+        orderItemUnit: '@cart_with_mattress_order_item_unit'
+        customer: '@customer1'
+        channel: '@web_channel'
+        code: 'C55DF89E8898B2EF7BE3'
+        enabled: 1
+        amount: 1000
+        currencyCode: 'EUR'
+        message: 'All your base are belong to us'

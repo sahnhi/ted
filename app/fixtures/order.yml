@@ -1,0 +1,156 @@
+App\Doctrine\Entity\Sylius\Order:
+    empty_order_cart:
+        channel: '@web_channel'
+        state: 'cart'
+        checkout_completed_at: '<(new \DateTime("2022-12-20 16:25:01"))>'
+        items_total: 75000
+        total: 75000
+        currency_code: 'EUR'
+        locale_code: 'fr_FR'
+        checkout_state: 'cart'
+        payment_state: 'cart'
+        shipping_state: 'cart'
+        shipping_address: '@address1'
+        billing_address: '@address1'
+        token_value: '5811cf75-84a3-4673-9cc3-00755d1b72ad'
+        created_at: '<(new \DateTime("2022-12-20 16:23:19"))>'
+        updated_at: '<(new \DateTime("2022-12-20 16:25:01"))>'
+        customer: '@customer1'
+
+    empty_order_cart_with_coupon:
+        channel: '@web_channel'
+        state: 'cart'
+        checkout_completed_at: '<(new \DateTime("2022-12-20 16:25:01"))>'
+        items_total: 75000
+        total: 75000
+        currency_code: 'EUR'
+        locale_code: 'fr_FR'
+        checkout_state: 'cart'
+        payment_state: 'cart'
+        shipping_state: 'cart'
+        token_value: '042f6288-1e61-48f9-aedc-3452463d0731'
+        promotion_coupon: '@coupon_promotion_1'
+        created_at: '<(new \DateTime("2022-12-20 16:23:19"))>'
+        updated_at: '<(new \DateTime("2022-12-20 16:25:01"))>'
+
+    completed_order_cart:
+        channel: '@web_channel'
+        state: 'new'
+        checkout_completed_at: '<(new \DateTime("2022-12-20 16:25:01"))>'
+        items_total: 75000
+        total: 75000
+        currency_code: 'EUR'
+        locale_code: 'fr_FR'
+        checkout_state: 'completed'
+        payment_state: 'awaiting_payment'
+        shipping_state: 'ready'
+        token_value: '042f6288-1e61-48f9-aedc-3452463d0732'
+        promotion_coupon: '@coupon_promotion_1'
+        created_at: '<(new \DateTime("2022-12-20 16:23:19"))>'
+        updated_at: '<(new \DateTime("2022-12-20 16:25:01"))>'
+        payments: ['@payment_1']
+        customer: '@customer1'
+
+    order_with_mattress:
+        channel: '@web_channel'
+        state: 'fulfilled'
+        checkout_completed_at: '<(new \DateTime("2022-12-20 16:25:01"))>'
+        items_total: 75000
+        total: 75000
+        currency_code: 'EUR'
+        locale_code: 'fr_FR'
+        checkout_state: 'completed'
+        payment_state: 'awaiting_payment'
+        shipping_state: 'ready'
+        token_value: '5811cf75-84a3-4673-9cc3-69755d1b72ab'
+        created_at: '<(new \DateTime("2022-12-20 16:23:19"))>'
+        updated_at: '<(new \DateTime("2022-12-20 16:25:01"))>'
+    
+    empty_cart:
+        channel: '@web_channel'
+        state: 'cart'
+        checkout_completed_at: '<(new \DateTime("2022-12-20 16:25:01"))>'
+        items_total: 0
+        total: 0
+        currency_code: 'EUR'
+        locale_code: 'fr_FR'
+        checkout_state: 'cart'
+        payment_state: 'cart'
+        shipping_state: 'cart'
+        token_value: '5811cf75-84a3-4673-9cc3-00755d1b72as'
+        created_at: '<(new \DateTime("2022-12-20 16:23:19"))>'
+        updated_at: '<(new \DateTime("2022-12-20 16:25:01"))>'
+        customer: '@customer1'
+
+    fulfilled_order:
+        number: '00001'
+        channel: '@web_channel'
+        state: 'fulfilled'
+        checkout_completed_at: '<(new \DateTime("2022-12-20 16:25:01"))>'
+        items_total: 75000
+        total: 75000
+        currency_code: 'EUR'
+        locale_code: 'fr_FR'
+        checkout_state: 'completed'
+        payment_state: 'paid'
+        shipping_state: 'ready'
+        token_value: '042f6288-1e61-48f9-aedc-3452463d0742'
+        promotion_coupon: '@coupon_promotion_1'
+        created_at: '<(new \DateTime("2022-12-20 16:23:19"))>'
+        updated_at: '<(new \DateTime("2022-12-20 16:25:01"))>'
+        customer: '@customer1'
+
+    fulfilled_order_with_nps:
+        channel: '@web_channel'
+        state: 'fulfilled'
+        checkout_completed_at: '<(new \DateTime("2022-12-20 16:25:01"))>'
+        items_total: 75000
+        total: 75000
+        currency_code: 'EUR'
+        locale_code: 'fr_FR'
+        checkout_state: 'completed'
+        payment_state: 'paid'
+        shipping_state: 'ready'
+        token_value: '042f6288-1e61-48f9-aedc-3452463d0799'
+        created_at: '<(new \DateTime("2022-12-20 16:23:19"))>'
+        updated_at: '<(new \DateTime("2022-12-20 16:25:01"))>'
+        NPS: 5
+
+    cart_with_mattress:
+        channel: '@web_channel'
+        state: 'cart'
+        checkout_completed_at: '<(new \DateTime("2022-12-20 16:25:01"))>'
+        currency_code: 'EUR'
+        locale_code: 'fr_FR'
+        checkout_state: 'cart'
+        payment_state: 'cart'
+        shipping_state: 'cart'
+        shipping_address: '@valid_shipping_address_1'
+        billing_address: '@valid_shipping_address_1'
+        token_value: '5811cf75-84a3-4673-9cc3-69755d1b72aa'
+        created_at: '<(new \DateTime("2022-12-20 16:23:19"))>'
+        updated_at: '<(new \DateTime("2022-12-20 16:25:01"))>'
+        customer: '@customer1'
+        __calls:
+            - addItem: ['@cart_with_mattress_order_item']
+            - addShipment: ['@cart_with_mattress_order_item_unit_shipment']
+
+    cart_addressed_with_mattress:
+        channel: '@web_channel'
+        state: 'cart'
+        checkout_completed_at: '<(new \DateTime("2022-12-20 16:25:01"))>'
+        items_total: 75000
+        total: 75000
+        currency_code: 'EUR'
+        locale_code: 'fr_FR'
+        checkout_state: 'addressed'
+        payment_state: 'cart'
+        shipping_state: 'cart'
+        shipping_address: '@valid_shipping_address_2'
+        billing_address: '@valid_shipping_address_2'
+        token_value: '5811cf75-84a3-4673-9cc3-69755d1b72ad'
+        created_at: '<(new \DateTime("2022-12-20 16:23:19"))>'
+        updated_at: '<(new \DateTime("2022-12-20 16:25:01"))>'
+        __calls:
+            - addItem: ['@cart_addressed_with_mattress_order_item']
+            - addShipment: ['@cart_addressed_with_mattress_item_unit_shipment']

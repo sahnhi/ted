@@ -1,0 +1,14 @@
+sylius_grid:
+    templates:
+        action:
+            zoneTest: "@App/Admin/Grid/Action/zoneTest.html.twig"
+    grids:
+        sylius_admin_zone:
+            actions:
+                main:
+                    test:
+                        label: Test
+                        type: zoneTest
+                        options:
+                            link:
+                                route: app_admin_zone_test

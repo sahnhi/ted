@@ -1,0 +1,35 @@
+sylius_admin_out_of_stock:
+    resource: |
+        alias: sylius.order_outofstock
+        section: admin
+        templates: SyliusAdminBundle:Crud
+        redirect: update
+        grid: sylius_admin_out_of_stock
+        vars:
+            all:
+                subheader: sylius.ui.order_outofstocks_information
+                templates:
+                    form: "@App/OrderOutOfStock/_form.html.twig"
+            index:
+                icon: 'file image outline'
+    type: sylius.resource
+
+sylius_admin_order_outofstock_export:
+    path: /order-outofstocks/export/{export}
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.order:indexAction
+        _sylius:
+            section: admin
+            permission: true
+            template: "SyliusAdminBundle:Crud:index.html.twig"
+            grid: sylius_admin_out_of_stock
+
+sylius_admin_order_outofstock_bulk_edit:
+    path: /order-outofstocks/list/bulk/edit/{field}
+    methods: [ POST ]
+    defaults:
+        _controller: sylius.controller.order_outofstock:bulkEditAction
+        _sylius:
+            section: admin
+            permission: true

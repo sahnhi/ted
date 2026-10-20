@@ -1,0 +1,6 @@
+App\Doctrine\Entity\Sylius\ProductOptionValue:
+    mattress_size_value:
+        option: '@mattress_size'
+        code: 'TED140190'
+        enabled: 1
+        position: 9

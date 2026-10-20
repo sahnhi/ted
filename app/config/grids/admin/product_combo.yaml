@@ -1,0 +1,52 @@
+sylius_grid:
+    grids:
+        sylius_admin_product_combo:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\ProductCombo
+            fields:
+                productVariant:
+                    type: string
+                    label: sylius.ui.product_variant
+                    path: productVariant.nameAndCode
+                productVariantLogistic:
+                    type: string
+                    label: sylius.ui.product_variant_logistic
+                    path: productVariantLogistic.nameAndCode
+                quantity:
+                    type: string
+                    label: sylius.ui.quantity
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete
+            filters:
+                contains_variant:
+                    type: entity
+                    label: sylius.ui.contains_variant
+                    options:
+                        fields: [ productVariant.id ]
+                    form_options:
+                        class: "%sylius.model.product_variant.class%"
+                        choice_label: nameAndCode
+                        attr:
+                            class: "select2"
+                contains_variant_logistic:
+                    type: entity
+                    label: sylius.ui.contains_variant_logistic
+                    options:
+                        fields: [ productVariantLogistic.id ]
+                    form_options:
+                        class: "%sylius.model.product_variant.class%"
+                        choice_label: nameAndCode
+                        attr:
+                            class: "select2"
+                quantity:
+                    type: string
+                    label: sylius.ui.quantity

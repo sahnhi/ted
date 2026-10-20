@@ -1,0 +1,18 @@
+App\Doctrine\Entity\Sylius\Order:
+    properties:
+        NPS:
+            - NotBlank:
+                  message: sylius.product.name.not_blank
+                  groups: [app_order_nps_review]
+            - Range:
+                  min: 0
+                  max: 10
+                  notInRangeMessage: NPS rating has to be between {{ min }} and {{ max }}
+                  groups: [app_order_nps_review]
+            - Expression:
+                  expression: "this.getState() == 'fulfilled'"
+                  message: "Order has to be fulfilled to get an NPS review"
+                  groups: [app_order_nps_review]
+    constraints:
+        - App\Validator\OrderNPSReview:
+              groups: [app_order_nps_review]

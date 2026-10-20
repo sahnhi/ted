@@ -1,0 +1,7 @@
+App\View\ProductVariantListView:
+    exclusion_policy: ALL
+    properties:
+        items:
+            expose: true
+            type: array<App\View\ProductVariantView>
+            groups: [ 'product_variant.list' ]

@@ -1,0 +1,10 @@
+App\Doctrine\Entity\Sylius\PaymentMethod: 
+    adyen_cb_payment_method:
+        gateway_config: '@adyen_cb_gateway_config'
+        code: 'adyen_cb'
+        enabled: true
+        position: 1
+        channels: ['@web_channel', '@boutique_channel']
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+        

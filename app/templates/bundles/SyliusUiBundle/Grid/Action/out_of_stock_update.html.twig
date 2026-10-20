@@ -1,0 +1,14 @@
+{% import '@SyliusUi/Macro/buttons.html.twig' as buttons %}
+
+{% if data.orderOutOfStock is not null %}
+    {% set path = options.link.url|default(path(options.link.route, options.link.parameters|default({'id': data.orderOutOfStock.id}))) %}
+
+    {% set visible = options.link.visible is defined ? options.link.visible : true %}
+    {% set invisible = options.link.invisible is defined ? options.link.invisible : false %}
+
+    {% set class = options.class is defined ? options.class : '' %}
+
+    {% if visible and invisible == false %}
+        {{ buttons.default(path, action.label, null, action.icon, class) }}
+    {% endif %}
+{% endif %}

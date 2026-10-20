@@ -1,0 +1,120 @@
+sylius_ui:
+    events:
+        sylius.admin.product_review.index.header:
+            blocks:
+                _headerReviews:
+                    template: "@App/ProductReview/_headerReviews.html.twig"
+
+        app.admin.admin_parameter.update:
+            blocks:
+                header:
+                    enabled: false
+
+        sylius.admin.layout.javascripts:
+            blocks:
+                custom_js:
+                    template: "@App/Admin/Javascripts/layout.html.twig"
+                    priority: 5
+
+        app.admin.bundles.generate.header:
+            blocks:
+                header:
+                    template: "@SyliusAdmin/Crud/Update/_header.html.twig"
+                    priority: 20
+                steps:
+                    template: "@App/Admin/Bundle/Common/_steps.html.twig"
+                    priority: 10
+
+        app.admin.bundles.generate.footer:
+            blocks:
+                actions:
+                    template: "@App/Admin/Bundle/Common/_actions.html.twig"
+
+        app.admin.bundles.generate.options:
+            blocks:
+                content:
+                    template: "@App/Admin/Bundle/Content/_options.html.twig"
+
+        app.admin.bundles.generate.preview:
+            blocks:
+                content:
+                    template: "@App/Admin/Bundle/Content/_preview.html.twig"
+
+        app.admin.bundles.generate.naming:
+            blocks:
+                content:
+                    template: "@App/Admin/Bundle/Content/_naming.html.twig"
+
+        app.admin.bundles.generate.products:
+            blocks:
+                reminder:
+                    template: "@App/Admin/Bundle/Common/_options.html.twig"
+                    priority: 20
+                content:
+                    template: "@App/Admin/Bundle/Content/_products.html.twig"
+                    priority: 10
+
+        app.admin.bundles.generate.variants:
+            blocks:
+                content:
+                    template: "@App/Admin/Bundle/Content/_variants.html.twig"
+                    priority: 10
+
+        app.admin.bundles.generate.javascripts:
+            blocks:
+                options:
+                    template: "@App/Admin/Bundle/Javascript/_options.html.twig"
+                    priority: 30
+
+                preview:
+                    template: "@App/Admin/Bundle/Javascript/_preview.html.twig"
+                    priority: 20
+
+                naming:
+                    template: "@App/Admin/Bundle/Javascript/_naming.html.twig"
+                    priority: 10
+
+                variants:
+                    template: "@App/Admin/Bundle/Javascript/_variants.html.twig"
+                    priority: 0
+        app.admin.product_feed_file.file_importer_form:
+            blocks:
+                before_header_legacy:
+                    template: "@SyliusUi/Block/_legacySonataEvent.html.twig"
+                    priority: 35
+                    context:
+                        event: app.admin.product_feed_file.importer_form.before_header
+                header:
+                    template: "@SyliusAdmin/ProductFeedFile/Form/ImportFile/_headerWidget.html.twig"
+                    priority: 30
+                breadcrumb:
+                    template: "@SyliusAdmin/ProductFeedFile/Form/ImportFile/_breadcrumb.html.twig"
+                    priority: 20
+                after_breadcrumb_legacy:
+                    template: "@SyliusUi/Block/_legacySonataEvent.html.twig"
+                    priority: 35
+                    context:
+                        event: app.admin.channable.row.after_breadcrumb
+                content:
+                    template: "@SyliusAdmin/ProductFeedFile/Form/ImportFile/_import_file_form.html.twig"
+                    priority: 5
+                after_content_legacy:
+                    template: "@SyliusUi/Block/_legacySonataEvent.html.twig"
+                    priority: 5
+                    context:
+                        event: app.admin.channable.row.after_content
+        sylius.admin.product_cms.tab_associations:
+            blocks:
+                csm_form:
+                    template: "@SyliusAdmin/Product/Tab/CMS/_cms_form.html.twig"
+                    priority: 10
+                claims_form:
+                    template: "@SyliusAdmin/Product/Tab/CMS/_claims_form.html.twig"
+                    priority: 10
+        
+        sylius.shop.product.show.content:
+            blocks:
+                tabs:
+                    enabled: false
+                associations:
+                    enabled: false

@@ -1,0 +1,471 @@
+parameters:
+    app.form.type.shipping_method_category.validation_groups: [sylius]
+    app.form.type.shipping_method_category_translation.validation_groups:
+        [sylius]
+    app.form.type.shipping_method_category_service.validation_groups: [sylius]
+    app.form.type.shipping_method_category_claim.validation_groups: [sylius]
+    app.form.type.shipping_method_category_service_translation.validation_groups:
+        [sylius]
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    ## Payment form types
+    app.form.type.gateway_configuration.paga_mas_tarde:
+        class: App\Form\Type\Payment\PagaMasTardeGatewayConfigurationType
+        tags:
+            - { name: form.type }
+            - {
+                  name: sylius.gateway_configuration_type,
+                  type: paga_mas_tarde,
+                  label: app.payum_gateway_factory.paga_mas_tarde_checkout,
+              }
+
+    app.form.type.gateway_configuration.braintree:
+        class: App\Form\Type\Payment\BraintreeGatewayConfigurationType
+        tags:
+            - { name: form.type }
+            - {
+                  name: sylius.gateway_configuration_type,
+                  type: braintree,
+                  label: app.payum_gateway_factory.braintree_checkout,
+              }
+
+    app.form.type.gateway_configuration.leetchi:
+        class: App\Form\Type\Payment\LeetchiGatewayConfigurationType
+        tags:
+            - { name: form.type }
+            - {
+                  name: sylius.gateway_configuration_type,
+                  type: leetchi,
+                  label: app.payum_gateway_factory.leetchi_checkout,
+              }
+
+    app.form.type.gateway_configuration.be2bill_direct:
+        class: App\Form\Type\Payment\Be2BillDirectGatewayConfigurationType
+        tags:
+            - { name: form.type }
+            - {
+                  name: sylius.gateway_configuration_type,
+                  type: be2bill_direct,
+                  label: app.payum_gateway_factory.be2bill_direct,
+              }
+
+    app.form.type.gateway_configuration.dalenys_3times:
+        class: App\Form\Type\Payment\Be2BillDirectGatewayConfigurationType
+        tags:
+            - { name: form.type }
+            - {
+                  name: sylius.gateway_configuration_type,
+                  type: dalenys_3times,
+                  label: app.payum_gateway_factory.dalenys_3times,
+              }
+
+    app.form.type.gateway_configuration.printemps:
+        class: App\Form\Type\Payment\PrintempsGatewayConfigurationType
+        tags:
+            - { name: form.type }
+            - {
+                  name: sylius.gateway_configuration_type,
+                  type: printemps,
+                  label: app.payum_gateway_factory.printemps,
+              }
+
+    app.form.type.gateway_configuration.dalenys_webtpe:
+        class: App\Form\Type\Payment\Be2BillDirectGatewayConfigurationType
+        tags:
+            - { name: form.type }
+            - {
+                  name: sylius.gateway_configuration_type,
+                  type: dalenys_webtpe,
+                  label: app.payum_gateway_factory.dalenys_webtpe,
+              }
+
+    app.form.type.gateway_configuration.adyen:
+        class: App\Form\Type\Payment\AdyenGatewayConfigurationType
+        tags:
+            - { name: form.type }
+            - {
+                  name: sylius.gateway_configuration_type,
+                  type: adyen,
+                  label: app.payum_gateway_factory.adyen,
+              }
+
+    app.form.type.gateway_configuration.younited:
+        class: App\Form\Type\Payment\YounitedGatewayConfigurationType
+        public: true
+        tags:
+            - { name: form.type }
+            - {
+                  name: sylius.gateway_configuration_type,
+                  type: younited,
+                  label: app.payum_gateway_factory.younited,
+              }
+
+    ## Generic form types
+    App\Form\Type\NewOrderType:
+        tags:
+            - { name: "form.type" }
+        arguments:
+            $validationGroups: "%sylius.form.type.order.validation_groups%"
+
+    App\Form\Type\NewRefundType:
+        tags:
+            - { name: "form.type" }
+        arguments:
+            $validationGroups: "%sylius.form.type.order.validation_groups%"
+
+    App\Form\Type\ShipmentType:
+        tags:
+            - { name: "form.type" }
+        arguments:
+            $validationGroups: "%sylius.form.type.shipment.validation_groups%"
+
+    App\Form\Type\OrderItemType:
+        tags:
+            - { name: "form.type" }
+        arguments:
+            $dataMapper: "@sylius.form.data_mapper.order_item_quantity"
+            $validationGroups: "%sylius.form.type.order.validation_groups%"
+
+    App\Form\Type\Order\BisExchangeOrderItemType:
+        tags:
+            - { name: "form.type" }
+        arguments:
+            $dataMapper: "@sylius.form.data_mapper.order_item_quantity"
+            $validationGroups: "%sylius.form.type.order.validation_groups%"
+
+    App\Form\Type\Order\OrderUpdateCustomerType:
+        arguments:
+            $validationGroups: "%app.form.type.order_update_customer.validation_groups%"
+        tags:
+            - { name: form.type }
+
+    App\Form\Type\BundleAssociationType:
+        tags:
+            - { name: "form.type" }
+        arguments:
+            $validationGroups: "%sylius.form.type.product_variant.validation_groups%"
+
+    App\Form\Type\Promotion\Configuration\RefuseTaxonConfigurationType:
+        arguments:
+            $taxonsToCodesTransformer: "@sylius.form.type.data_transformer.taxons_to_codes"
+        tags:
+            - { name: form.type }
+
+    ## Form Extension
+    ## Only needed because of this test Unit/Controller/Admin/Action/BisCreationWithExchangeActionTest.php
+    ## Find a way to remove that
+    App\Form\Extension\ShippingMethodTranslationExtension:
+        tags:
+            - {
+                  name: form.type_extension,
+                  extended_type: Sylius\Bundle\ShippingBundle\Form\Type\ShippingMethodTranslationType,
+              }
+
+    app.form.type.data_transformer.variants_to_codes:
+        class: App\Form\DataTransformer\CodeAwareToCodesTransformer
+        arguments:
+            $repository: "@sylius.repository.product_variant"
+
+    App\Form\Type\Rule\ContainsVariantConfigurationType:
+        arguments:
+            $variantsToCodesTransformer: "@app.form.type.data_transformer.variants_to_codes"
+
+    App\Form\Type\Promotion\Action\GiftProductVariantConfigurationType:
+        arguments:
+            $variantsToCodesTransformer: "@app.form.type.data_transformer.variants_to_codes"
+
+    app.form.type.data_transformer.taxon_to_code:
+        class: App\Form\DataTransformer\CodeAwareToCodeTransformer
+        arguments:
+            $repository: '@sylius.repository.taxon'
+                  
+    App\Form\Type\Rule\Shipping\TaxonCodeConfigurationType:
+        arguments:
+            $taxonToCodeTransformer: '@app.form.type.data_transformer.taxon_to_code'
+
+    App\Form\Type\Campaigns\CampaignType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.campaign.class%", ["sylius"]]
+
+    App\Form\Type\Campaigns\CampaignTranslationsType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.campaign_translation.class%", ["sylius"]]
+
+    App\Form\Type\Campaigns\Bloc\FocusType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.bloc_focus.class%", ["sylius"]]
+
+    App\Form\Type\Campaigns\Bloc\VariantsType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.bloc_variants.class%", ["sylius"]]
+
+    App\Form\Type\Campaigns\BlocType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.campaign_bloc.class%", ["sylius"]]
+
+    App\Form\Type\Campaigns\Bloc\CampaignBlocDisplayType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.campaign_bloc_display.class%", ["sylius"]]
+
+    App\Form\Type\ExportAccountingDataType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.export_accounting_data.class%", ["sylius"]]
+
+    App\Form\Type\ShippingMethod\ShippingMethodCategoryType:
+        arguments:
+            $dataClass: "%app.model.shipping_method_category.class%"
+            $validationGroups: "%app.form.type.shipping_method_category.validation_groups%"
+        tags:
+            - { name: form.type }
+
+    App\Form\Type\ShippingMethod\ShippingMethodCategoryTranslationType:
+        arguments:
+            $dataClass: "%app.model.shipping_method_category_translation.class%"
+            $validationGroups: "%app.form.type.shipping_method_category_translation.validation_groups%"
+        tags:
+            - { name: form.type }
+
+    App\Form\Type\ShippingMethod\ShippingMethodCategoryServiceType:
+        arguments:
+            $dataClass: "%app.model.shipping_method_category_service.class%"
+            $validationGroups: "%app.form.type.shipping_method_category_service.validation_groups%"
+        tags:
+            - { name: form.type }
+
+    App\Form\Type\ShippingMethod\ShippingMethodCategoryServiceTranslationType:
+        arguments:
+            $dataClass: "%app.model.shipping_method_category_service_translation.class%"
+            $validationGroups: "%app.form.type.shipping_method_category_service_translation.validation_groups%"
+        tags:
+            - { name: form.type }
+
+    App\Form\Type\ShippingMethod\ShippingMethodCategoryClaimType:
+        arguments:
+            $dataClass: "%app.model.shipping_method_category_claim.class%"
+            $validationGroups: "%app.form.type.shipping_method_category_claim.validation_groups%"
+        tags:
+            - { name: form.type }
+
+    App\Form\Type\ShippingMethod\ShippingMethodCategoryClaimTranslationType:
+        arguments:
+            $dataClass: "%app.model.shipping_method_category_claim_translation.class%"
+            $validationGroups: "%app.form.type.shipping_method_category_claim.validation_groups%"
+        tags:
+            - { name: form.type }
+
+    App\Form\Type\ProductCMSTagsType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.product_cms_tags.class%", ["sylius"]]
+
+    App\Form\Type\ProductCMSTagsTranslationType:
+        tags:
+            - { name: form.type }
+        arguments:
+            ["%app.model.product_cms_tags_translation.class%", ["sylius"]]
+
+    App\Form\Type\ProductCMS\ProductCMSClaimsType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.product_cms_claims.class%", ["sylius"]]
+
+    App\Form\Type\ProductCMS\ProductCMSClaimsTranslationType:
+        tags:
+            - { name: form.type }
+        arguments:
+            ["%app.model.product_cms_claims_translation.class%", ["sylius"]]
+
+    App\Form\Type\RtbInfosType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.rtb_infos.class%", ["sylius"]]
+
+    App\Form\Type\RtbInfosTranslationType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.rtb_infos_translation.class%", ["sylius"]]
+
+    App\Form\Type\ProductCMSType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.product_cms.class%", ["sylius"]]
+
+    App\Form\Type\ProductCMSTranslationType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.product_cms_translation.class%", ["sylius"]]
+
+    App\Form\Type\ProductCMSTechnicalInfosType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.product_cms_technical_infos.class%", ["sylius"]]
+
+    App\Form\Type\ProductCMSTechnicalInfosTranslationsType:
+        tags:
+            - { name: form.type }
+        arguments:
+            [
+                "%app.model.product_cms_technical_infos_translation.class%",
+                ["sylius"],
+            ]
+
+    App\Form\Type\ProductCMSTechnicalDetailsType:
+        tags:
+            - { name: form.type }
+        arguments:
+            ["%app.model.product_cms_technical_details.class%", ["sylius"]]
+
+    App\Form\Type\ProductCMSTechnicalDetailsTranslationsType:
+        tags:
+            - { name: form.type }
+        arguments:
+            [
+                "%app.model.product_cms_technical_details_translation.class%",
+                ["sylius"],
+            ]
+
+    App\Form\Type\ProductCMSFocusType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.product_cms_focus.class%", ["sylius"]]
+
+    App\Form\Type\ProductCMSFocusTranslationsType:
+        tags:
+            - { name: form.type }
+        arguments:
+            ["%app.model.product_cms_focus_translation.class%", ["sylius"]]
+
+    App\Form\Type\ProductCMSFocusDetailsType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.product_cms_focus_details.class%", ["sylius"]]
+
+    App\Form\Type\ProductCMSFocusDetailsTranslationsType:
+        tags:
+            - { name: form.type }
+        arguments:
+            [
+                "%app.model.product_cms_focus_details_translation.class%",
+                ["sylius"],
+            ]
+    App\Form\Type\ShippingCategoryTranslationType:
+        arguments:
+            $validationGroups: "%sylius.form.type.shipping_category.validation_groups%"
+        tags:
+            - { name: form.type }
+
+    App\Form\Type\ProductCMS\ProductCMSFaqType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.product_cms_faq.class%", ["sylius"]]
+
+    App\Form\Type\ProductCMS\ProductCMSFaqTranslationType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.product_cms_faq_translation.class%", ["sylius"]]
+
+    App\Form\Type\ProductCMS\ProductCMSFaqQuestionType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.product_cms_faq_question.class%", ["sylius"]]
+
+    App\Form\Type\ProductCMS\ProductCMSFaqQuestionTranslationType:
+        tags:
+            - { name: form.type }
+        arguments:
+            [
+                "%app.model.product_cms_faq_question_translation.class%",
+                ["sylius"],
+            ]
+
+    App\Form\Type\ProductCMS\ProductCMSSizingGuideType:
+        tags:
+            - { name: form.type }
+        arguments:
+            $dataClass: "%app.model.product_cms_sizing_guide.class%"
+            $validationGroups: 
+                - sylius
+
+    App\Form\Type\ProductCMS\ProductCMSSizingGuideTranslationType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.product_cms_sizing_guide_translation.class%", ["sylius"]]
+
+    App\Form\Type\ProductCMS\ProductCMSSizingGuideItemType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.product_cms_sizing_guide_item.class%", ["sylius"]]
+
+    App\Form\Type\ProductCMS\ProductCMSSizingGuideItemTranslationType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.product_cms_sizing_guide_item_translation.class%", ["sylius"]]
+    
+    App\Form\Type\SatellitePages\SatellitePageType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.satellite_page.class%", ["sylius"]]
+
+    App\Form\Type\SatellitePages\SatellitePageTranslationType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.satellite_page_translation.class%", ["sylius"]]
+
+    App\Form\Type\SatellitePages\ClaimType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.satellite_page_claim.class%", ["sylius"]]
+
+    App\Form\Type\SatellitePages\ClaimTranslationType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.satellite_page_claim_translation.class%", ["sylius"]]
+    
+    App\Form\Type\SatellitePages\TechnicalDetailType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.satellite_page_technical_details.class%", ["sylius"]]
+
+    App\Form\Type\SatellitePages\TechnicalDetailTranslationType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.satellite_page_technical_details_translation.class%", ["sylius"]]
+
+    App\Form\Type\SatellitePages\TechnicalInfoType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.satellite_page_technical_info.class%", ["sylius"]]
+
+    App\Form\Type\SatellitePages\TechnicalInfoTranslationType:
+        tags:
+            - { name: form.type }
+        arguments: ["%app.model.satellite_page_technical_info_translation.class%", ["sylius"]]
+    
+    app.form.type.data_transformer.promotions_to_codes:
+        class: App\Form\DataTransformer\CodeAwareToCodesTransformer
+        arguments:
+            $repository: "@sylius.repository.promotion"
+    
+    App\Form\Type\Promotion\Action\ApplyHighestPriorityConfigurationType:
+        arguments:
+            $promotionsToCodesTransformer: '@app.form.type.data_transformer.promotions_to_codes'
+    
+    app.form.type.data_transformer.shipping_method_category_to_code:
+        class: App\Form\DataTransformer\CodeAwareToCodeTransformer
+        arguments:
+            $repository: "@app.repository.shipping_method_category"
+    
+    App\Form\Type\Rule\ShipmentHasTheShippingMethodCategoryConfigurationType:
+        arguments:
+            $shippingMethodCategoryToCodeTransformer: '@app.form.type.data_transformer.shipping_method_category_to_code'

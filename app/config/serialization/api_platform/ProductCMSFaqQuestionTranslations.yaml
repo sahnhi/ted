@@ -1,0 +1,8 @@
+App\Doctrine\Entity\ProductCMSFaqQuestionTranslations:
+    attributes:
+        question:
+            groups:
+                - shop:product:read
+        answer:
+            groups:
+                - shop:product:read

@@ -1,0 +1,83 @@
+parameters:
+    database_driver: "%env(MYSQL_DRIVER)%"
+    database_host: "%env(MYSQL_HOST)%"
+    database_port: "%env(MYSQL_PORT)%"
+    database_name: "%env(MYSQL_DATABASE)%"
+    database_user: "%env(MYSQL_USER)%"
+    database_password: "%env(MYSQL_PASSWORD)%"
+    database_socket: "%env(MYSQL_SOCKET)%"
+    database_version: "%env(MYSQL_VERSION)%"
+
+    database_driver_fastmag: "%env(MYSQL_DRIVER_FASTMAG)%"
+    database_host_fastmag: "%env(MYSQL_HOST_FASTMAG)%"
+    database_port_fastmag: "%env(MYSQL_PORT_FASTMAG)%"
+    database_name_fastmag: "%env(MYSQL_DATABASE_FASTMAG)%"
+    database_user_fastmag: "%env(MYSQL_USER_FASTMAG)%"
+    database_password_fastmag: "%env(MYSQL_PASSWORD_FASTMAG)%"
+
+    env(MYSQL_DRIVER): ""
+    env(MYSQL_HOST): ""
+    env(MYSQL_PORT): ""
+    env(MYSQL_DATABASE): ""
+    env(MYSQL_USER): ""
+    env(MYSQL_PASSWORD): ""
+    env(MYSQL_SOCKET): ""
+
+    env(MYSQL_DRIVER_FASTMAG): ""
+    env(MYSQL_HOST_FASTMAG): ""
+    env(MYSQL_PORT_FASTMAG): ""
+    env(MYSQL_DATABASE_FASTMAG): ""
+    env(MYSQL_USER_FASTMAG): ""
+    env(MYSQL_PASSWORD_FASTMAG): ""
+
+doctrine:
+    dbal:
+        types:
+            ordered_array:
+                class: App\Doctrine\DBAL\Types\OrderedArrayType
+        default_connection: default
+        connections:
+            default:
+                driver: "%database_driver%"
+                host: "%database_host%"
+                port: "%database_port%"
+                dbname: "%database_name%"
+                user: "%database_user%"
+                password: "%database_password%"
+                unix_socket: "%database_socket%"
+                server_version: "%database_version%"
+                charset: UTF8
+            fastmag:
+                driver: "%database_driver_fastmag%"
+                host: "%database_host_fastmag%"
+                port: "%database_port_fastmag%"
+                dbname: "%database_name_fastmag%"
+                user: "%database_user_fastmag%"
+                password: "%database_password_fastmag%"
+                server_version: "%database_version%"
+                charset: UTF8
+    orm:
+        default_entity_manager: default
+        entity_managers:
+            default:
+                dql:
+                    string_functions:
+                        DATE_FORMAT: DoctrineExtensions\Query\Mysql\DateFormat
+                        DATE_DIFF: DoctrineExtensions\Query\Mysql\DateDiff
+                connection: default
+                auto_mapping: true
+                mappings:
+                    App:
+                        is_bundle: false
+                        type: attribute
+                        dir: "%kernel.project_dir%/src/Doctrine/Entity"
+                        prefix: 'App\Doctrine\Entity'
+                        alias: App
+                    Sylius:
+                        is_bundle: false
+                        type: attribute
+                        dir: "%kernel.project_dir%/src/Doctrine/Entity/Sylius"
+                        prefix: 'App\Doctrine\Entity\Sylius'
+                        alias: Sylius
+            fastmag:
+                connection: fastmag

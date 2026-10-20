@@ -1,0 +1,13 @@
+sylius_admin_zip_code:
+    resource: |
+        alias: sylius.zip_code
+        section: admin
+        templates: SyliusAdminBundle:Crud
+        redirect: update
+        grid: sylius_admin_zip_code
+        vars:
+            all:
+                subheader: sylius.ui.zip_code_information
+            index:
+                icon: 'file image outline'
+    type: sylius.resource

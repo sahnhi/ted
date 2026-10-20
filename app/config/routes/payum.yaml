@@ -1,0 +1,2 @@
+payum_refund:
+    resource: "@PayumBundle/Resources/config/routing/refund.xml"

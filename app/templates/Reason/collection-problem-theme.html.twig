@@ -1,0 +1,95 @@
+{% extends '@SyliusUi/Form/theme.html.twig' %}
+
+{% block collection_widget -%}
+    {% from '@SyliusResource/Macros/notification.html.twig' import error %}
+    {% import _self as self %}
+    {% set attr = attr|merge({'class': attr.class|default ~ ' controls collection-widget'}) %}
+
+    {% spaceless %}
+    <table class="ui celled very compact small eight column table" data-form-type="collection" {{ block('widget_container_attributes') }}
+            {% if prototype is defined and allow_add %}
+                data-prototype='{{ self.collection_item(prototype, allow_delete, button_delete_label, '__name__', false)|e }}'
+            {%- endif -%}
+    >
+        <thead>
+            <tr>
+                <th>{{ 'sylius.ui.trouble_motif'|trans }}</th>
+                <th>{{ 'sylius.ui.trouble_variant'|trans }}</th>
+                <th>{{ 'sylius.ui.trouble_quantity'|trans }}</th>
+                <th>{{ 'sylius.ui.trouble_commercial_offer'|trans }}</th>
+                <th>{{ 'sylius.ui.trouble_comment'|trans }}</th>
+                <th>{{ 'sylius.ui.trouble_created_at'|trans }}</th>
+                <th>{{ 'sylius.ui.trouble_created_by'|trans }}</th>
+                <th>{{ 'sylius.ui.actions'|trans }}</th>
+            </tr>
+        </thead>
+        {{ error(form.vars.errors) }}
+
+        {% if prototypes|default is iterable %}
+            {% for key, subPrototype in prototypes %}
+                <input type="hidden" data-form-prototype="{{ key }}" value="{{ self.collection_item(subPrototype, allow_delete, button_delete_label, '__name__', true)|e }}" />
+            {% endfor %}
+        {% endif %}
+
+        <tbody data-form-collection="list">
+            {% for child in form %}
+                {{ self.collection_item(child, allow_delete, button_delete_label, loop.index0, true, is_problem) }}
+            {% endfor %}
+        </tbody>
+        <tfoot>
+           <tr>
+               <th colspan="8">
+                   {% if prototype is defined and allow_add %}
+                       <a href="#" class="ui green button right floated menu lock-reason">
+                           <i class="icon lock"></i>
+                       </a>
+                       <a href="#" class="ui labeled primary icon button right floated menu add-reason disabled" data-form-collection="add">
+                           <i class="plus square outline icon"></i>
+                           {{ button_add_label|trans }}
+                       </a>
+                   {% endif %}
+               </th>
+           </tr>
+        </tfoot>
+    </table>
+    {% endspaceless %}
+{%- endblock collection_widget %}
+
+{% macro collection_item(form, allow_delete, button_delete_label, index, disabled, is_problem) %}
+    {% spaceless %}
+        {% set orderReason = form.vars.value %}
+
+        {% if orderReason != null %}
+            {% set isProblemValue = (orderReason.isProblem == true) ? 1 : 0 %}
+        {% else %}
+            {% set isProblemValue = form.isProblem.vars.attr.isProblem %}
+        {% endif %}
+
+        {% if orderReason and is_problem != orderReason.isProblem %}
+            <input type="hidden" id="{{ form.reason.vars.id }}" name="{{ form.reason.vars.full_name }}" value="{% if orderReason.reason %}{{ orderReason.reason.id }}{% endif %}" />
+            <input type="hidden" id="{{ form.variant.vars.id }}" name="{{ form.variant.vars.full_name }}" value="{% if orderReason.variant %}{{ orderReason.variant.id }}{% endif %}" />
+            <input type="hidden" id="{{ form.quantity.vars.id }}" name="{{ form.quantity.vars.full_name }}" value="{{ orderReason.quantity }}" />
+            <input type="hidden" id="{{ form.commercialOffer.vars.id }}" name="{{ form.commercialOffer.vars.full_name }}" value="{% if orderReason.commercialOffer %}{{ orderReason.commercialOffer.id }}{% endif %}" />
+            <input type="hidden" id="{{ form.comment.vars.id }}" name="{{ form.comment.vars.full_name }}" value="{{ orderReason.comment }}" />
+            <input type="hidden" id="{{ form.isProblem.vars.id }}" name="{{ form.isProblem.vars.full_name }}" value="{{ isProblemValue }}" />
+        {% else %}
+            <tr data-form-collection="item" data-form-collection-index="{{ index }}">
+                <td>{{ form_widget(form.reason, {'attr': {'class': 'ui dropdown reason_motif', 'disabled': disabled}}) }}</td>
+                <td>{{ form_widget(form.variant, {'attr': {'class': 'ui dropdown reason_variant', 'disabled': disabled}}) }}</td>
+                <td>{{ form_widget(form.quantity, {'attr': {'disabled': disabled}}) }}</td>
+                <td>{{ form_widget(form.commercialOffer, {'attr': {'class': 'ui dropdown', 'disabled': disabled }}) }}</td>
+                <td>{{ form_widget(form.comment, {'attr': {'rows': '2', 'disabled': disabled}}) }}</td>
+                <td>{{ orderReason is not null ? orderReason.createdAt|localizeddate : ''}}</td>
+                <td>{{ orderReason is not null ? orderReason.createdBy.username : '' }}</td>
+                <td>
+                    {% if allow_delete %}
+                        <a href="#" data-form-collection="delete" class="ui red small button icon delete-reason {% if disabled %}disabled{% endif %}">
+                            <i class="times circle icon"></i>
+                        </a>
+                    {% endif %}
+                </td>
+                {{ form_widget(form.isProblem, {'value': isProblemValue}) }}
+            </tr>
+        {% endif %}
+    {% endspaceless %}
+{% endmacro %}

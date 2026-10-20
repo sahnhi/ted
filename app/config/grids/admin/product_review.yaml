@@ -1,0 +1,107 @@
+sylius_grid:
+    grids:
+        sylius_admin_product_review:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: "%sylius.model.product_review.class%"
+                    repository:
+                        method: createListQueryBuilder
+            fields:
+                shippingMethod:
+                    type: string
+                    label: sylius.ui.shippingMethod
+                    sortable: ~
+                order:
+                    type: string
+                    label: sylius.ui.order
+                    sortable: ~
+                locale:
+                    type: string
+                    label: sylius.ui.locale
+                    sortable: ~
+            filters:
+                remercie:
+                    type: admin_product_review_remercie
+                rating:
+                    type: admin_product_review
+                    form_options:
+                        state:
+                            '5/5': 5
+                            '4/5': 4
+                            '3/5': 3
+                            '2/5': 2
+                            '1/5': 1
+                status:
+                    type: admin_product_review
+                    form_options:
+                        state:
+                            sylius.ui.new: new
+                            sylius.ui.accepted: accepted
+                            sylius.ui.rejected: rejected
+                reviewSubject:
+                    type: entity
+                    label: sylius.ui.product
+                    form_options:
+                        class: "%sylius.model.product.class%"
+                locale:
+                    type: admin_product_review_locale
+                order:
+                    type: string
+                    label: sylius.ui.order
+                    options:
+                        fields: [ command.number ]
+            actions:
+                main:
+                    create:
+                        type: create
+                        options:
+                            link:
+                                route: sylius_admin_product_review_create
+                item:
+                    remercie:
+                        position: 1
+                        type: remercie
+                        label: sylius.ui.product_review.remercie
+                        icon: 'thumbs up outline'
+                        options:
+                            link:
+                                route: sylius_admin_product_review_remercie
+                                visible: resource.status
+                                invisible: resource.remercie
+                                parameters:
+                                    id: resource.id
+                    translate:
+                        type: create
+                        label: sylius.ui.translate
+                        icon: checkmark
+                        options:
+                            link:
+                                route: sylius_admin_product_review_translate
+                                parameters:
+                                    id: resource.id
+                            class: green
+                            graph: sylius_product_review
+                bulk:
+                    delete:
+                        type: delete
+                        position: 100
+                    export:
+                        type: export
+                        label: Export CSV
+                        position: 200
+                        options:
+                            link:
+                                route: sylius_admin_product_review_export
+                                parameters:
+                                    export: csv
+                                    criteria: "expr:service('request_stack').getCurrentRequest().get('criteria', [])"
+    templates:
+        action:
+            remercie: "@SyliusUi/Grid/Action/remercie.html.twig"
+        bulk_action:
+            export: "@SyliusAdmin/Grid/Bulk/export.html.twig"
+        filter:
+            admin_product_review_remercie: '@SyliusAdmin/Grid/Filter/admin_product_review_remercie.html.twig'
+            admin_product_review: '@SyliusAdmin/Grid/Filter/admin_product_review.html.twig'
+            admin_product_review_locale: '@SyliusAdmin/Grid/Filter/admin_product_review.html.twig'

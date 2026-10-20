@@ -1,0 +1,6 @@
+App\Doctrine\Entity\Sylius\Address:
+    properties:
+        phoneNumber:
+            -   NotBlank:
+                    message: sylius.address.phone_number.not_blank
+                    groups: [ sylius_shipping_address_update, sylius ]

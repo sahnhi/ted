@@ -1,0 +1,46 @@
+{% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
+
+{{ form_errors(form) }}
+{{ form_row(form.order) }}
+{{ form_row(form.savStatus) }}
+{{ form_row(form.warehouseStatus) }}
+{% if resource.order and resource.order.notes %}
+<div class="field">
+    <label>
+        {{ 'sylius.form.order_return.notes_sav'|trans }}
+    </label>
+    <textarea disabled="disabled">{{ resource.order.notes }}</textarea>
+</div>
+{% endif %}
+{{ form_row(form.notes) }}
+{{ form_row(form.items) }}
+{{ form_row(form.variants) }}
+
+{% if resource.order and resource.order.orderReason %}
+<div class="ui segment" id="reason">
+    <h3 class="ui dividing header" id="shipping-state">{{ 'sylius.ui.trouble.reason'|trans }}</h3>
+    <table class="ui celled very compact small eight column table">
+        <tr>
+            <th>
+                {{ 'sylius.ui.order_return.reason'|trans }}
+            </th>
+            <th>
+                {{ 'sylius.ui.order_return.product'|trans }}
+            </th>
+        </tr>
+    {% for orderReason in resource.order.orderReason %}
+        <tr>
+            <td>
+                {{ orderReason.reason }}
+            </td>
+            <td>
+                {{ orderReason.variant.code }}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+</div>
+{% endif %}
+{% if resource.history is not null %}
+    {% include '@App/OrderReturn/history.html.twig' with {'history':resource.history} %}
+{% endif %}

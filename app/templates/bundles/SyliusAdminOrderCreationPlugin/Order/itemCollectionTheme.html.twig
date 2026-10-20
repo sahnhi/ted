@@ -1,0 +1,39 @@
+{% extends '@SyliusAdmin/Form/theme.html.twig' %}
+
+{% block _sylius_admin_order_creation_new_order_items_entry_widget %}
+    {% spaceless %}
+        {% set channel_code = app.request.attributes.get('channelCode') %}
+        {%  if channel_code is null and app.request.attributes.get('_sylius').form.options is defined %}
+            {% set channel_code = app.request.attributes.get('_sylius').form.options.constraints.order_type %}
+        {% endif %}
+        {{ form_row(form.quantity, {'attr': {'class' : 'item-quantity'}}) }}
+        {{ form_row(form.variant, {
+            'remote_url': path('sylius_admin_ajax_variant_by_name_phrase_and_channel', {'channelCode': channel_code}),
+            'remote_criteria_type': 'contains',
+            'remote_criteria_name': 'phrase',
+            'load_edit_url': path('sylius_admin_ajax_variant_by_code')
+        }) }}
+        {% if form.wrap is defined %}
+            {{ form_row(form.wrap) }}
+        {% endif %}
+    {% endspaceless %}
+{% endblock %}
+
+{% block _sylius_admin_order_creation_new_order_bisItems_entry_widget %}
+    {% spaceless %}
+        {% set channel_code = app.request.attributes.get('channelCode') %}
+        {%  if channel_code is null and app.request.attributes.get('_sylius').form.options is defined %}
+            {% set channel_code = app.request.attributes.get('_sylius').form.options.constraints.order_type %}
+        {% endif %}
+        {{ form_row(form.quantity, {'attr': {'class' : 'item-quantity'}}) }}
+        {{ form_row(form.variant, {
+            'remote_url': path('sylius_admin_ajax_variant_by_name_phrase_no_return', {'channelCode': channel_code}),
+            'remote_criteria_type': 'contains',
+            'remote_criteria_name': 'phrase',
+            'load_edit_url': path('sylius_admin_ajax_variant_by_code')
+        }) }}
+        {% if form.wrap is defined %}
+            {{ form_row(form.wrap) }}
+        {% endif %}
+    {% endspaceless %}
+{% endblock %}

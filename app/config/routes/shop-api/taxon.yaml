@@ -1,0 +1,23 @@
+shop_api_product_taxon_list:
+    path: /taxons
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Api\Product\ListTaxonAction
+
+shop_api_taxon_list:
+    path: /taxon
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Api\Taxon\ListAction
+
+shop_api_taxon_review_show:
+    path: /taxon/{taxonSlug}/reviews
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Api\Taxon\Review\ShowAction
+
+shop_api_category_show:
+    path: /category/{taxonSlug}
+    methods: [ GET ]
+    defaults:
+        _controller: App\Controller\Api\Category\ShowAction

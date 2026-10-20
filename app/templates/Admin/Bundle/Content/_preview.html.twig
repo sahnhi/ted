@@ -1,0 +1,57 @@
+{% if form.combinations | length > 0 %}
+
+    <div class="ui warning message">
+        {{ 'app.ui.bundle_association.labels.message_already_exists' | trans | raw }}
+    </div>
+
+    <div class="ui error message">
+        {{ 'app.ui.bundle_association.labels.message_deleted' | trans | raw }}
+    </div>
+
+    {{ form_start(form, {'attr': {'id': form.vars.name, 'autocomplete': 'off'}}) }}
+
+    <table class="ui celled selectable definition table loading" id="bundle-generation-preview">
+        <thead>
+        <tr>
+            <th tabulator-formatter="html" tabulator-maxWidth="100px"></th>
+            <th>state</th>
+            {% for option in resource.options %}
+                <th
+                    tabulator-formatter="html"
+                    tabulator-headerFilter="input"
+                >{{ option.productOption.name }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+            {% for child in form.combinations %}
+                {% set combination = child.vars.data %}
+                <tr>
+                    <td class="collapsing">
+                        <div class="ui fitted slider checkbox">
+                            {{ form_widget(child.willBeGenerated, {'attr': {'class': 'option-combination-toggler'}}) }}
+                        </div>
+                    </td>
+
+                    <td><input type="hidden" class="combination-state" value="{{ combination.alreadyExists ? 1 : 0 }}" /></td>
+
+                    {% for option in resource.options %}
+                        <td><div class="ui {{ options_colors[option.productOption.code] }} horizontal label">{{ combination.valueForOption(option.productOption).value }}</div></td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div style="float: left"><button type="button" id="preview-select-all" class="ui button blue">{{ 'app.ui.bundle_association.labels.check_all' | trans }}</button> </div>
+    <div style="float: left"><button type="button" id="preview-unselect-all" class="ui button">{{ 'app.ui.bundle_association.labels.uncheck_all' | trans }}</button> </div>
+
+    <div style="display: none">
+        {{ form_rest(form) }}
+    </div>
+
+    {{ form_end(form) }}
+{% else %}
+    {% include '@App/Admin/Bundle/Content/_error.html.twig' with {'message': 'app.ui.bundle_association.errors.cant_generate_options_combinations'} %}
+{% endif %}
+

@@ -1,0 +1,31 @@
+sylius_grid:
+    grids:
+        sylius_admin_store:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\Store
+            fields:
+                name:
+                    type: string
+                    label: sylius.ui.name
+                    sortable: translation.name
+                company:
+                    type: string
+                    label: sylius.ui.company
+                terminalId:
+                    type: string
+                    label: sylius.ui.terminalId
+                channel:
+                    type: string
+                    label: sylius.ui.channel
+                    path: channel.name
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete

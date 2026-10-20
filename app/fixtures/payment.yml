@@ -1,0 +1,21 @@
+Sylius\Component\Core\Model\Payment:
+    payment_1:
+        method: '@adyen_cb_payment_method'
+        state: 'new'
+        amount: 75000
+        currency_code: 'EUR'
+        details:
+            order:
+                id: 1441332
+                localeCode: "fr_FR"
+                channelCode: "default"
+                countryCode: "FR"
+            amount:
+                value: 89800
+                currency: "EUR"
+            customer:
+                id: 400500
+                email: "jc@vandame.fr"
+                lastName: "Jc"
+                firstName: "Vandame"
+            extraData: '{"captureToken":"F37ZwbrTU1-wzG8Pr09Ubn4JEq8Iyu6b57mpn-BuKgM"}'

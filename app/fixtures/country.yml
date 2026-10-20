@@ -1,0 +1,5 @@
+App\Doctrine\Entity\Sylius\Country:
+    france:
+        code: FR
+        enabled: true
+        paid_return: false

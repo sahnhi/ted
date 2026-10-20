@@ -1,0 +1,6 @@
+parameters:
+    sylius.form.type.product_variant.validation_groups: [ app_channel_pricing, app_product_variant ]
+    sylius.form.type.customer_guest.validation_groups: [ app_customer ]
+    sylius.form.type.zone.validation_groups: [ app_zone ]
+    setono_sylius_gift_card.form.type.gift_card.validation_groups: [ app_gift_card ]
+    app.form.type.order_update_customer.validation_groups: [ app_order_update_customer ]

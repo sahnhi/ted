@@ -1,0 +1,7 @@
+{% if data == constant('App\\Doctrine\\Entity\\Reason::TYPE_PRODUCT_SUPPORT') %}
+    {{'sylius.ui.sav'|trans}}
+{% elseif data == constant('App\\Doctrine\\Entity\\Reason::TYPE_COMMERCIAL_OFFER') %}
+    {{'sylius.ui.trouble_commercial_offer'|trans}}
+{% else %}
+    -
+{% endif %}

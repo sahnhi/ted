@@ -1,0 +1,13 @@
+App\Doctrine\Entity\ProductCMSSizingGuideItem:
+    attributes:
+      translations:
+        groups: [ 'shop:read:sizing_guide' ]
+
+App\Doctrine\Entity\ProductCMSSizingGuideItemTranslation:
+    attributes:
+      title:
+        groups: [ 'shop:read:sizing_guide' ]
+      description:
+        groups: [ 'shop:read:sizing_guide' ]
+      imagePath:
+        groups: [ 'shop:read:sizing_guide' ]

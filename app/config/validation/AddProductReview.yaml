@@ -1,0 +1,38 @@
+App\Model\ProductReview\AddProductReview:
+    properties:
+        rating:
+            -   NotBlank:
+                    message: sylius.review.rating.not_blank
+                    groups: [ sylius ]
+            -   Range:
+                    min: 1
+                    max: 5
+                    minMessage: sylius.review.rating.range
+                    maxMessage: sylius.review.rating.range
+                    groups: [ sylius ]
+        title:
+            -   NotBlank:
+                    message: sylius.review.title.not_blank
+                    groups: [ sylius ]
+            -   Length:
+                    min: 2
+                    max: 255
+                    minMessage: sylius.review.title.min_length
+                    maxMessage: sylius.review.title.min_length
+                    groups: [ sylius ]
+        comment:
+            -   NotBlank:
+                    message: sylius.review.comment.not_blank
+                    groups: [ sylius ]
+        email:
+            -   NotBlank:
+                    message: sylius.review.author.not_blank
+                    groups: [ sylius ]
+            -   Sylius\Bundle\ApiBundle\Validator\Constraints\UniqueReviewerEmail:
+                    groups: [ sylius ]
+            -   Email:
+                    groups: [ sylius ]
+        cartToken:
+            -   NotBlank:
+                    message: app.review.cart_token.not_blank
+                    groups: [ sylius ]

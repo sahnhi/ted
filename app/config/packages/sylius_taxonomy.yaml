@@ -1,0 +1,5 @@
+sylius_taxonomy:
+    resources:
+        taxon:
+            classes:
+                repository: App\Doctrine\Repository\Sylius\TaxonRepository

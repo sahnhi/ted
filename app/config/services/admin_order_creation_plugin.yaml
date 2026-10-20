@@ -1,0 +1,15 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+    
+    Sylius\AdminOrderCreationPlugin\EventListener\PaymentLinkCreationListener: ~
+      #tags:
+      #    - { name: 'kernel.event_listener', event: 'sylius.order.post_admin_create', method: 'setPaymentLink' }
+      #arguments:
+    #    - '@Sylius\AdminOrderCreationPlugin\Provider\PaymentTokenProvider'
+    #    - '@sylius.manager.order'
+    #    - '@Sylius\AdminOrderCreationPlugin\Sender\OrderPaymentLinkSender'
+
+    Sylius\AdminOrderCreationPlugin\Provider\CustomerProvider:
+        class: App\Provider\CustomerProvider

@@ -1,0 +1,8 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Api\Odoo\Factory\DeliveryDateFactory:
+        arguments:
+            $timeInterval: "%temporary_php_time_fix%"

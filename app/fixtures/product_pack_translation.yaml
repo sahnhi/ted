@@ -1,0 +1,5 @@
+App\Doctrine\Entity\PackTranslation:
+    example_pack_translation:
+        translatable: '@example_pack'
+        name: 'example pack'
+        locale: 'fr_FR'

@@ -1,0 +1,13 @@
+{% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
+{% from '@SyliusAdmin/Product/Tab/CMS/_macro_form.html.twig' import translationFormForms %}
+
+<h4 class="ui dividing header">{{ 'app.form.product.cms.sub_title_hx'|trans }}</h4>
+<div class='ui segment'>
+    {{ translationForm(form.productCMS.translations) }}
+</div>
+
+<h4 class="ui dividing header">Tags</h4>
+<div class='ui segment'>
+    {{ translationForm(form.productCMSTags.translations) }}
+</div>
+{{ form_row(form.rtbInfos) }}

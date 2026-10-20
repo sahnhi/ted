@@ -1,0 +1,114 @@
+App\View\PackView:
+    attributes:
+        code:
+            groups: [ 'pack.show' ]
+        variants:
+            groups: [ 'pack.show' ]
+
+App\View\ProductListView:
+    attributes:
+        items:
+            groups: [ 'product.list' ]
+
+App\View\ProductView:
+    attributes:
+        code:
+            groups: [ 'product.list', 'product.show', 'product_review_question.list' ]
+        name:
+            groups: [ 'product.list', 'product.show', 'product_review_question.list' ]
+        slug:
+            groups: [ 'product.list', 'product.show', 'product_review_question.list' ]
+        averageRating:
+            groups: [ 'product.list' ]
+        numberOfRating:
+            groups: [ 'product.list' ]
+        joinStoryLink:
+            groups: [ 'product.list', 'product.show' ]
+        options:
+            groups: [ 'product.show' ]
+        variants:
+            groups: [ 'product.show' ]
+        relatedProducts:
+            groups: [ 'product.show' ]
+
+App\View\ProductOptionView:
+    attributes:
+        code:
+            groups: [ 'product.show' ]
+        name:
+            groups: [ 'product.show' ]
+        values:
+            groups: [ 'product.show' ]
+
+App\View\ProductOptionValueView:
+    attributes:
+        code:
+            groups: [ 'product.show', 'product_variant.list' ]
+        value:
+            groups: [ 'product.show', 'product_variant.list' ]
+        help:
+            groups: [ 'product.show', 'product_variant.list' ]
+        description:
+            groups: [ 'product.show', 'product_variant.list' ]
+        optgroup:
+            groups: [ 'product.show', 'product_variant.list' ]
+
+App\View\ProductVariantListView:
+    attributes:
+        items:
+            groups: [ 'product_variant.list' ]
+
+App\View\ProductVariantView:
+    attributes:
+        code:
+            groups: [ 'product.show', 'product_variant.list', 'pack.show' ]
+        name:
+            groups: [ 'product.show', 'product_variant.list', 'pack.show' ]
+        price:
+            groups: [ 'product.show', 'product_variant.list', 'pack.show' ]
+        ecotax:
+            groups: [ 'product.show', 'product_variant.list', 'pack.show' ]
+        optionValues:
+            groups: [ 'product_variant.list', 'pack.show' ]
+        optionCodes:
+            groups: [ 'product_variant.list', 'pack.show' ]
+        optionTranslated:
+            groups: [ 'product_variant.list', 'pack.show' ]
+        joinStoryLink:
+            groups: [ 'product_variant.list' ]
+
+
+Sylius\Component\Addressing\Model\Country:
+    attributes:
+        code:
+            groups: [ 'country.list' ]
+        name:
+            groups: [ 'country.list' ]
+        paidReturn:
+            groups: [ 'country.list' ]
+
+App\View\FamiliarityListView:
+    attributes:
+        items:
+            groups: [ 'familiarity.list' ]
+
+App\View\RelatedProductView:
+    attributes:
+        code:
+            groups: [ 'product.show' ]
+        name:
+            groups: [ 'product.show' ]
+        slug:
+            groups: [ 'product.show' ]
+        lowerPrice:
+            groups: [ 'product.show' ]
+        description:
+            groups: [ 'product.show' ]
+        shortDescription:
+            groups: [ 'product.show' ]
+        gtin:
+            groups: [ 'product.show' ]
+        averageRating:
+            groups: [ 'product.show' ]
+        images:
+            groups: [ 'product.show' ]

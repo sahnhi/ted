@@ -1,0 +1,8 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        tags: [ 'controller.service_arguments' ]
+    
+    App\Api\ChronoPost\Controller\:
+        resource: '%kernel.project_dir%/src/Api/ChronoPost/Controller/'

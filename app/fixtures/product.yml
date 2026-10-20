@@ -1,0 +1,135 @@
+App\Doctrine\Entity\Sylius\Product:
+    mattress_product:
+        main_taxon: '@mattress_taxon'
+        code: 'mattress'
+        enabled: true
+        variant_selection_method: 'match'
+        average_rating: '4.5698267471287'
+        weighting: 1
+        gift_card: 0
+        review_requested: 1
+        currentLocale: 'fr_FR'
+        translations: ['@mattress_product_translation_fr']
+        channels: ['@web_channel', '@boutique_channel']
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+      
+    bed_frame_product:
+        main_taxon: '@bed_frame_taxon'
+        code: 'bed-frame'
+        enabled: true
+        variant_selection_method: 'match'
+        average_rating: '4.5698267471287'
+        weighting: 1
+        gift_card: 0
+        review_requested: 1
+        currentLocale: 'fr_FR'
+        translations: [ '@bed_frame_product_translation_fr' ]
+        channels: [ '@web_channel' ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'    
+      
+    couette_product:
+        main_taxon: '@couette_taxon'
+        code: 'couette'
+        enabled: true
+        variant_selection_method: 'match'
+        average_rating: '4.5698267471287'
+        weighting: 1
+        gift_card: 0
+        review_requested: 1
+        currentLocale: 'fr_FR'
+        translations: [ '@couette_product_translation_fr' ]
+        channels: [ '@web_channel' ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'    
+      
+    oreiller_product:
+        main_taxon: '@oreiller_taxon'
+        code: 'oreiller'
+        enabled: true
+        variant_selection_method: 'match'
+        average_rating: '4.5698267471287'
+        weighting: 1
+        gift_card: 0
+        review_requested: 1
+        currentLocale: 'fr_FR'
+        translations: [ '@oreiller_product_translation_fr' ]
+        channels: [ '@web_channel' ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'    
+
+    pack_lit:
+        main_taxon: '@bundle'
+        code: 'bundle-lit-adult'
+        enabled: true
+        variant_selection_method: 'match'
+        average_rating: '4.5698267471287'
+        weighting: 1
+        gift_card: 0
+        review_requested: 1
+        currentLocale: 'fr_FR'
+        translations: [ '@bundle_lit_adult_product_translation_fr' ]
+        channels: [ '@web_channel' ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'    
+        
+    pack_couette:
+        main_taxon: '@bundle'
+        code: 'bundle-couette-oreillers'
+        enabled: true
+        variant_selection_method: 'match'
+        average_rating: '4.5698267471287'
+        weighting: 1
+        gift_card: 0
+        review_requested: 1
+        currentLocale: 'fr_FR'
+        translations: [ '@bundle_couette_oreillers_product_translation_fr' ]
+        channels: [ '@web_channel' ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'    
+    
+    discounted_product:
+        main_taxon: '@mattress_taxon'
+        code: 'discounted_product'
+        enabled: true
+        variant_selection_method: 'match'
+        average_rating: '4.5698267471287'
+        weighting: 1
+        gift_card: 0
+        review_requested: 1
+        currentLocale: 'fr_FR'
+        translations: [ '@discounted_product_translation_fr' ]
+        channels: [ '@web_channel', '@boutique_channel' ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'
+
+    product_assembly:
+        main_taxon: '@mattress_taxon'
+        code: 'assembly'
+        enabled: true
+        variant_selection_method: 'match'
+        average_rating: '4.5698267471287'
+        weighting: 1
+        gift_card: 0
+        review_requested: 1
+        currentLocale: 'fr_FR'
+        translations: [ '@product_assembly_translation' ]
+        channels: [ '@web_channel' ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'    
+
+    product_recuperation:
+        main_taxon: '@mattress_taxon'
+        code: 'recuperation'
+        enabled: true
+        variant_selection_method: 'match'
+        average_rating: '4.5698267471287'
+        weighting: 1
+        gift_card: 0
+        review_requested: 1
+        currentLocale: 'fr_FR'
+        translations: [ '@product_recuperation_translation' ]
+        channels: [ '@web_channel' ]
+        created_at: '<date_create()>'
+        updated_at: '<date_create()>'    

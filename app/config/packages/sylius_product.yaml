@@ -1,0 +1,27 @@
+sylius_product:
+    resources:
+        product:
+            classes:
+                repository: App\Doctrine\Repository\Sylius\ProductRepository
+                model: App\Doctrine\Entity\Sylius\Product
+                controller: App\Controller\Product\ProductController
+
+        product_variant:
+            classes:
+                repository: App\Doctrine\Repository\Sylius\ProductVariantRepository
+                model: App\Doctrine\Entity\Sylius\ProductVariant
+                controller: App\Controller\Admin\ProductVariantController
+
+        product_option:
+            classes:
+                model: App\Doctrine\Entity\Sylius\ProductOption
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\Sylius\ProductOptionTranslation
+
+        product_option_value:
+            classes:
+                model: App\Doctrine\Entity\Sylius\ProductOptionValue
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\Sylius\ProductOptionValueTranslation

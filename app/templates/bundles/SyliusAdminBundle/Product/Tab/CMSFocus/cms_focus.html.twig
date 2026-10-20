@@ -1,0 +1,14 @@
+{% from '@SyliusAdmin/Product/Tab/CMSTechnicalInfos/_macro_form.html.twig' import translationFormForms %}
+{% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
+{% import '@SyliusUi/Macro/flags.html.twig' as flags %}
+
+<div class="ui tab" data-tab='cms-focus'>
+    <div class='ui segments'>
+        <h4 class="ui dividing header">Focus</h4>
+        <div class='ui segment'>
+            {{ translationForm(form.productCMSFocus.translations) }}
+            {{ translationFormForms(form.productCMSFocus.productCMSFocusDetails)}}
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,14 @@
+sylius_order:
+    resources:
+        order:
+            classes:
+                controller: App\Controller\Admin\OrderController
+                repository: App\Doctrine\Repository\Sylius\OrderRepository
+                model: App\Doctrine\Entity\Sylius\Order
+        order_item:
+            classes:
+                model: App\Doctrine\Entity\Sylius\OrderItem
+                repository: App\Doctrine\Repository\Sylius\OrderItemRepository
+        order_item_unit:
+            classes:
+                model: App\Doctrine\Entity\Sylius\OrderItemUnit

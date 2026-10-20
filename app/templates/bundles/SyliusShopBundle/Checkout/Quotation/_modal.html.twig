@@ -1,0 +1,62 @@
+{% form_theme quotationForm '@SyliusUi/Form/theme.html.twig' %}
+
+<div id="quotation-modal" class="ui modal">
+    <i class="close icon"></i>
+    <div class="header">
+        <h4 class="ui horizontal divider header">
+            <i class="pencil alternate icon"></i>
+            {{ 'sylius.ui.quotation.title'|trans }}
+        </h4>
+    </div>
+    <div class="content">
+        {{ form_start(quotationForm, {'action': path('sylius_shop_quotation'), 'attr': {'class': 'ui form', 'id': quotationForm.vars.id}}) }}
+            {{ form_row(quotationForm.store) }}
+
+            {{ form_row(quotationForm.seller) }}
+
+            {{ form_row(quotationForm.email) }}
+
+            {{ form_row(quotationForm.phoneNumber) }}
+
+            {{ form_row(quotationForm.lastName) }}
+
+            {{ form_row(quotationForm.firstName) }}
+
+            {{ form_row(quotationForm.address) }}
+        {{ form_end(quotationForm) }}
+    </div>
+    <div class="actions">
+        <button class="ui button primary" type="submit" form="{{ quotationForm.vars.id }}">{{ 'sylius.ui.quotation.button'|trans }}</button>
+    </div>
+</div>
+{% include '@SyliusUi/_javascripts.html.twig' with {'path': 'assets/admin/js/app.js'} %}
+
+<script>
+    $('.display-quotation').on('click', function (e) {
+        e.preventDefault();
+    });
+
+    $('#quotation-modal')
+        .modal('attach events', '.display-quotation', 'show',
+            {
+                'centered': false,
+            }
+        );
+
+    $('#quotation_address_countryCode').change(function (e) {
+        e.stopImmediatePropagation();
+    });
+
+    jQuery('#quotation_store').on('change', function(event) {
+        jQuery('#quotation_seller optgroup').each(function(index, el) {
+            if (jQuery('#quotation_store').val() === "" || el.getAttribute('label') === jQuery('#quotation_store option:selected').html() || el.getAttribute('label') === 'Autres') {
+                if( ($(this).parent().is('span')) ) $(this).unwrap();
+            } else {
+                if( !($(this).parent().is('span')) ) {
+                    $(this).wrap('<span>');
+                    $(this).parent().addClass('d-hide');
+                }
+            }
+        });
+    });
+</script>

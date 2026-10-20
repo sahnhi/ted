@@ -1,0 +1,26 @@
+app_admin_ask_review_template:
+    resource: |
+        alias: app.ask_review_template
+        section: admin
+        templates: "@SyliusAdmin\\Crud"
+        redirect: update
+        grid: app_admin_ask_review_template
+        except: [ 'index' ]
+    type: sylius.resource
+
+app_admin_ask_review_template_index:
+    path: /ask-review-templates/
+    methods: [ GET ]
+    defaults:
+        _controller: app.controller.ask_review_template:indexAction
+        _sylius:
+            section: admin
+            grid: app_admin_ask_review_template
+            template: "@App/Admin/AskReviewTemplate/index.html.twig"
+            permission: false
+            vars:
+                admin_parameter: "expr:service('app.repository.admin_parameter').getByKey('days_delay_review')"
+                index:
+                    route:
+                        name: app_admin_ask_review_template_index
+    

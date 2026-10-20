@@ -1,0 +1,16 @@
+sylius_shipping:
+    resources:
+        shipment:
+            classes:
+                model: App\Doctrine\Entity\Sylius\Shipment
+                repository: App\Doctrine\Repository\Sylius\ShipmentRepository
+        shipping_method:
+            classes:
+                model: App\Doctrine\Entity\Sylius\ShippingMethod
+                repository: App\Doctrine\Repository\Sylius\ShippingMethodRepository
+            translation:
+                classes:
+                    model: App\Doctrine\Entity\Sylius\ShippingMethodTranslation
+        shipping_category:
+            classes:
+                model: App\Doctrine\Entity\Sylius\ShippingCategory

@@ -1,0 +1,10 @@
+App\Doctrine\Entity\ProductCMSTagsTranslation:
+    attributes:
+        primaryTag:
+            groups:
+                - shop:product:read
+                - shop:product:menu-read
+        secondaryTag:
+            groups:
+                - shop:product:read
+                - shop:product:menu-read

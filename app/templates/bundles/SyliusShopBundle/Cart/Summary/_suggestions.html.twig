@@ -1,0 +1,4 @@
+<h4 class="ui horizontal section divider header">{{ 'sylius.ui.you_may_also_like'|trans }}</h4>
+{# BEGIN CUSTOM TEMPLATE #}
+{{ render(url('app_shop_partial_product_index_ordered_by_taxon_code', {'code': getChannel().code, 'template': '@SyliusShop/Product/_horizontalList.html.twig'})) }}
+{# END CUSTOM TEMPLATE #}

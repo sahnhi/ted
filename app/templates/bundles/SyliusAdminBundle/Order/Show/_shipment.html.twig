@@ -1,0 +1,108 @@
+{% import '@SyliusUi/Macro/labels.html.twig' as label %}
+
+<div class="item">
+    <div class="right floated content">
+        {{ label.default(('sylius.ui.'~shipment.state)|trans) }}
+    </div>
+    <i class="large truck icon"></i>
+    <div class="content">
+        <div class="header">
+            {{ shipment.method }}
+        </div>
+        <div class="description">
+            <i class="globe icon"></i>{{ shipment.method.zone }}
+        </div>
+    </div>
+    {% if shipment.warehouse is not null %}
+        <br /><i class="large warehouse icon"></i>
+        <div class="content">
+            <div class="header">
+                {{ 'sylius.ui.warehouse.title' | trans }}
+            </div>
+            <div class="description">
+                {{ shipment.warehouse.name }}
+            </div>
+        </div>
+    {% endif %}
+    {% if sm_can(shipment, 'ship', 'sylius_shipment') %}
+        {{ render(path('sylius_admin_partial_shipment_ship', {'orderId': order.id, 'id': shipment.id})) }}
+    {% endif %}
+    {% if shipment.tracking is not empty %}
+        <div class="ui segment">
+            <span class="ui top attached icon label"><i class="plane icon"></i> {{ 'sylius.ui.tracking_code'|trans|upper }}</span>
+            <p>{{ shipment.tracking }}</p>
+        </div>
+    {% endif %}
+    <i class="large calendar icon"></i>
+    <div class="content">
+        <div class="header">
+            {{ 'app.ui.delivery_slots'|trans }}
+        </div>
+        <div>
+            {{ 'app.ui.start_delivery_slot'|trans }}
+            {% if shipment.startDeliverySlot is not null %}
+                {{ shipment.startDeliverySlot|format_datetime }}
+            {% else %}
+                {{ 'app.ui.undefined'|trans }}
+            {% endif %}
+        </div>
+        <div>
+            {{ 'app.ui.end_delivery_slot'|trans }}
+            {% if shipment.endDeliverySlot is not null %}
+                {{ shipment.endDeliverySlot|format_datetime }}
+            {% else %}
+                {{ 'app.ui.undefined'|trans }}
+            {% endif %}
+        </div>
+
+        {# CUSTOM CODE #}
+        {% if shipment.shippingDate is not null %}
+        <div>
+            {{ 'sylius.ui.shipping.label'|trans }} :
+            {{ shipment.shippingDate|format_date }}
+        </div>
+        {% endif %}
+        {# END CUSTOM CODE #}
+    </div>
+
+    {# CUSTOM CODE #}
+    {% set younited = false %}
+    {% for payment in shipment.order.payments %}
+        {% if payment.method is not null and 'younited' == payment.method.code %}
+            {% set younited = true %}
+        {% endif %}
+    {% endfor %}
+
+    {% if shipment.id is not null %}
+        {% if (order.channel.code != 'return' and shipment.state == constant('App\\Component\\Core\\OrderShippingStates::STATE_SHIPPED')) or
+            (order.channel.code == 'return' and shipment.state in [constant('App\\Component\\Core\\OrderShippingStates::STATE_SHIPPED'), constant('App\\Component\\Core\\OrderShippingStates::STATE_READY')]) or
+            (not order.isYounitedActivated and order.channel.code != 'bis' and order.channel.code != 'return' and younited and shipment.state == constant('App\\Component\\Core\\OrderShippingStates::STATE_CANCELLED')) %}
+            {% set color = order.channel.code == 'return' ? 'purple' : 'brown' %}
+            {% set markAs = order.channel.code == 'return' ? 'sylius.ui.mark_as_collected' : 'sylius.ui.mark_as_delivered' %}
+
+            {% if younited and shipment.state == constant('App\\Component\\Core\\OrderShippingStates::STATE_CANCELLED') %}
+                {% set markAs = 'sylius.ui.younited.activate' %}
+            {% endif %}
+
+            <div style="margin-top : 15px;">
+                <a href="{{ path('sylius_admin_shipment_set_delivered', {'id' : shipment.id}) }}" class="ui icon labeled tiny {{ color }} fluid loadable button"><i class="icon check circle"></i> {{ markAs | trans }}</a>
+            </div>
+        {% endif %}
+
+        {% if shipment.proofOfDelivery is not null %}
+            <div style="margin-top : 15px;">
+                <a style="text-decoration: none;" href="{{ shipment.proofOfDelivery }}" target="_blank"">
+                    <button id="getPod" class="ui labeled icon fluid button" data-link="{{ shipment.proofOfDelivery }}">
+                        <i class="file alternate outline icon"></i>
+                        {{ 'sylius.ui.shipping.see_pod'|trans }}
+                    </button>
+                </a>
+            </div>
+        {% endif %}
+
+        {% if disabledInputs == false %}
+            {{ render(path('app_admin_partial_shipment_delivery_date_form', {'orderId': order.id, 'id': shipment.id})) }}
+        {% endif %}
+    {% endif%}
+    {# END CUSTOM CODE #}
+</div>

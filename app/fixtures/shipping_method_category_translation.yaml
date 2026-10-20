@@ -1,0 +1,17 @@
+App\Doctrine\Entity\ShippingMethodCategoryTranslation:
+    shipping_method_category_eco_translation:
+        translatable: '@shipping_method_category_eco'
+        name: 'Livraison Economique'
+        description: 'Bien et pas cher!'
+        claims: 'Un acheté, un offert!'
+        locale: 'fr_FR'
+    shipping_method_category_comfort_translation:
+        translatable: '@shipping_method_category_comfort'
+        name: 'Livraison Confort'
+        description: 'Une super livraison confort!'
+        locale: 'fr_FR'
+    shipping_method_category_premium_translation:
+        translatable: '@shipping_method_category_premium'
+        name: 'Livraison Premium'
+        description: 'Une livraison premium, cool!'
+        locale: 'fr_FR'

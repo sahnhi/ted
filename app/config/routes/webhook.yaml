@@ -1,0 +1,11 @@
+adyen_payment_report_notification:
+    path: /adyen/payment/report/created
+    methods: [ POST ]
+    defaults:
+        _controller: App\PaymentReport\Webhook\PaymentReportCreatedController
+
+shipup_chronorelais_shipping_notification:
+    path: /shipup/shipping/notification
+    methods: [ POST ]
+    defaults:
+        _controller: App\Api\ChronoPost\Controller\GetNotification

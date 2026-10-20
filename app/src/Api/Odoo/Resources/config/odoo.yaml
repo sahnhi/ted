@@ -1,0 +1,11 @@
+parameters:
+    sylius_odoo_api_url: '%env(SYLIUS_ODOO_API_URL)%'
+    sylius_odoo_api_key: '%env(SYLIUS_ODOO_API_KEY)%'
+    odoo_api_key: '%env(ODOO_API_KEY)%'
+    odoo_api_url: '%env(ODOO_API_URL)%'
+    temporary_php_time_fix: '%env(TEMPORARY_PHP_TIME_FIX)%'
+
+imports:
+    - { resource: "controller.yaml"}
+    - { resource: "factory.yaml" }
+    - { resource: "services.yaml" }

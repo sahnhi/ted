@@ -1,0 +1,119 @@
+sylius_admin_pack:
+    resource: "pack.yaml"
+
+sylius_admin_familiarity:
+    resource: "familiarity.yaml"
+
+sylius_admin_product_review_question:
+    resource: "product_review_question.yaml"
+
+app_export_index:
+    resource: "export.yaml"
+
+sylius_admin_product_review:
+    resource: "product_review.yaml"
+
+sylius_admin_customer:
+    resource: "customer.yaml"
+
+sylius_admin_product_variant:
+    resource: "product_variant.yaml"
+
+sylius_admin_product_option_value_locale_default:
+    resource: "product_option_value_locale_default.yaml"
+
+sylius_admin_order:
+    resource: "order.yaml"
+
+sylius_admin_seller:
+    resource: "seller.yaml"
+
+sylius_admin_store:
+    resource: "store.yaml"
+
+sylius_admin_commission:
+    resource: "commission.yaml"
+
+sylius_admin_reason:
+    resource: "reason.yaml"
+
+sylius_admin_reason_group:
+    resource: "reason_group.yaml"
+
+sylius_admin_coupon:
+    resource: "coupon.yaml"
+    prefix: /coupons
+
+sylius_admin_warehouse:
+    resource: "warehouse.yaml"
+
+sylius_admin_service_rules:
+    resource: "service_rules.yaml"
+
+sylius_admin_zip_code:
+    resource: "zip_code.yaml"
+
+sylius_admin_exceptional_schedule:
+    resource: "exceptional_schedule.yaml"
+
+sylius_admin_order_store:
+    resource: "order_store.yaml"
+
+sylius_admin_out_of_stock:
+    resource: "out_of_stock.yaml"
+
+sylius_admin_gift_card:
+    resource: "gift_card.yaml"
+
+sylius_admin_ecotax:
+    resource: "ecotax.yaml"
+
+sylius_admin_product_review_answer_choices:
+    resource: "product_review_answer_choices.yaml"
+
+sylius_admin_product_combo:
+    resource: "product_combo.yaml"
+
+sylius_admin_order_return_status:
+    resource: "order_return_status.yaml"
+
+app_admin_order_return:
+    resource: "order_return.yaml"
+
+app_admin_order_return_logistic:
+    resource: "order_return_logistic.yaml"
+
+app_admin_quality:
+    resource: "quality.yaml"
+
+app_admin_ask_review:
+    resource: "ask_review_template.yaml"
+
+app_admin_admin_parameter:
+    resource: "admin_parameter.yaml"
+
+app_admin_bundles:
+    resource: "bundles.yaml"
+
+# Needed because of that : https://github.com/Sylius/Sylius/issues/9364
+sylius_admin_ajax_product_index:
+    path: /admin/ajax/products/
+    methods: [GET]
+    defaults:
+        _controller: App\Controller\Product\ProductController::searchProduct
+        _format: json
+
+app_shipping_method_category:
+    resource: "shipping_method_category.yaml"
+
+app_admin_product_feed_file:
+    resource: "product_feed_file.yaml"
+    
+app_admin_promotion_category:
+    resource: "promotion_category.yaml"
+
+app_shipping_method_group:
+    resource: "shipping_method_group.yaml"
+
+sylius_zone:
+    resource: "zone.yaml"

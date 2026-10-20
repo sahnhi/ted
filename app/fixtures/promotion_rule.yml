@@ -1,0 +1,35 @@
+Sylius\Component\Promotion\Model\PromotionRule:
+    promotion_rule_pack_lit:
+        type: 'contains_product'
+        promotion: '@pack_promotion_pack_lit'
+        configuration:
+            'taxons': ['bundle']
+            'product_code': 'bundle-lit-adult'
+    
+    promotion_rule_pack_couette:
+        type: 'contains_product'
+        promotion: '@pack_promotion_pack_couette'
+        configuration:
+            'taxons': ['bundle']
+            'product_code': 'bundle-couette-oreillers'
+
+    blackfriday_5_percent_amount_rule:
+        type: 'item_total'
+        promotion: '@blackfriday_5_percent'
+        configuration:
+            default: 
+                amount: 10000 # 100€
+
+    blackfriday_10_percent_amount_rule:
+        type: 'item_total'
+        promotion: '@blackfriday_10_percent'
+        configuration:
+            default: 
+                amount: 15000 # 150€
+
+    blackfriday_15_percent_amount_rule:
+        type: 'item_total'
+        promotion: '@blackfriday_15_percent'
+        configuration:
+            default: 
+                amount: 20000 # 200€

@@ -1,0 +1,74 @@
+App\View\AddressTransmissionView:
+    properties:
+        firstName:
+            expose: true
+            groups: [ 'olvo' ]
+        lastName:
+            expose: true
+            groups: [ 'olvo' ]
+        countryCode:
+            expose: true
+            serialized_name: 'country'
+            groups: [ 'eDeliv','vir' ]
+        city:
+            expose: true
+            groups: [ 'eDeliv','olvo','vir' ]
+        postcode:
+            expose: true
+            serialized_name: 'zip'
+            groups: [ 'eDeliv','olvo','vir' ]
+        street:
+            expose: true
+            groups: [ 'eDeliv' ]
+        phoneNumber:
+            expose: true
+            type: string
+            serialized_name: 'phone'
+            groups: [ 'eDeliv','olvo','vir' ]
+    virtual_properties:
+        getSocialReason:
+            name: 'getSocialReason'
+            serialized_name: 'Raison sociale'
+            type: string
+            groups: [ 'spidy', 'pickup' ]
+        getAddress1:
+            name: 'getAddress1'
+            serialized_name: 'Adresse 1'
+            type: string
+            groups: [ 'spidy','olvo','vir' ]
+        getAddress2:
+            name: 'getAddress2'
+            serialized_name: 'Adresse 2'
+            type: string
+            groups: [ 'spidy','olvo','vir' ]
+        getVille:
+            name: 'Ville'
+            serialized_name: 'Ville'
+            type: string
+            groups: [ 'spidy' ]
+        getCodePostal:
+            name: 'Code postal'
+            serialized_name: 'Code postal'
+            type: string
+            groups: [ 'spidy' ]
+        getCodePays:
+            name: 'getCodePays'
+            serialized_name: 'Code pays'
+            type: string
+            groups: [ 'spidy','pickup' ]
+        getDetails:
+            name: 'Adresse 3'
+            serialized_name: 'Adresse 3'
+            type: string
+            groups: [ 'spidy','olvo', 'vir' ]
+        getTelPortable:
+            name: 'Tel portable'
+            serialized_name: 'Tel portable'
+            type: string
+            groups: [ 'spidy' ]
+        getPerson:
+            name: 'person'
+            serialized_name: 'person'
+            type: string
+            groups: [ 'eDeliv','vir' ]
+

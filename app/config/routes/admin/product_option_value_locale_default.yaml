@@ -1,0 +1,14 @@
+sylius_admin_product_option_value_locale_default:
+    resource: |
+        alias: sylius.product_option_value_locale_default
+        section: admin
+        templates: SyliusAdminBundle:Crud
+        redirect: update
+        grid: sylius_admin_product_option_value_locale_default_list
+        vars:
+            all:
+                templates:
+                    form: "@SyliusAdmin/ProductOptionValueLocale/_form.html.twig"
+            index:
+                icon: aregarder
+    type: sylius.resource

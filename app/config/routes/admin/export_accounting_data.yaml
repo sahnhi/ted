@@ -1,0 +1,20 @@
+app_admin_export_accounting_data:
+  resource: |
+    alias: app.export_accounting_data
+    section: admin
+    templates: "@SyliusAdmin\\Crud"
+    redirect: index
+    grid: app_admin_export_accounting_data
+    vars: 
+      all:
+        header: "Export Accounting Data"
+        subheader: "Export Accounting Data"
+        templates:
+          form: "@SyliusAdmin/ExportAccountingData/_form.html.twig"
+  type: sylius.resource
+  prefix: /admin
+
+app_admin_export_accounting_data_download:
+  path: /admin/export-accounting-data/download/{id}
+  controller: App\Controller\Admin\ExportAccountingDataController::downloadAction
+  methods: [GET]

@@ -1,0 +1,26 @@
+winzou_state_machine:
+    sylius_order_shipping:
+        states:
+            delivered: ~
+        transitions:
+            deliver:
+                from: [ "shipped", "ready", "partially_shipped" ]
+                to: delivered
+        callbacks:
+            after:
+                sylius_influencer_delivered:
+                    on: [ "deliver" ]
+                    do: [ "@app.promotion.influencer.command", "checkDelivered" ]
+                    args: [ "object" ]
+                sylius_resolve_state:
+                    on: [ "ship", "deliver" ]
+                    do: [ "@app.state_resolver.order", "resolve" ]
+                    args: [ "object" ]
+                odoo_order_ship:
+                    on: [ "ship" ]
+                    do: [ App\Api\Odoo\StateMachine\Event\OnShip, __invoke ]
+                    args: [ "object" ]
+                odoo_order_deliver:
+                    on: [ "deliver" ]
+                    do: [ App\Api\Odoo\StateMachine\Event\OnDeliver, __invoke ]
+                    args: [ "object" ]

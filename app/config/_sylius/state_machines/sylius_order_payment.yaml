@@ -1,0 +1,71 @@
+winzou_state_machine:
+    sylius_order_payment:
+        callbacks:
+            before:
+                sylius_b2b_promotion:
+                    on: [ "pay" ]
+                    do: [ "@app.bi.promotion.btob", "check" ]
+                    args: [ "object" ]
+            after:
+                sylius_order_paid:
+                    on: [ "pay" ]
+                    do: [ "@sylius.inventory.order_inventory_operator", "hold" ]
+                    args: [ "object" ]
+                sylius_erp_sync:
+                    on: [ "pay" ]
+                    do: [ "@app.erp.forward", "postComplete" ]
+                    args: [ "object" ]
+                sylius_order_item_logistic:
+                    on: [ "pay" ]
+                    do: [ "@app.action.order_item_logistic", "process" ]
+                    args: [ "object" ]
+                sylius_drip_send_order:
+                    on: [ "pay" ]
+                    do: [ "@app.drip.drip_api", "sendOrder" ]
+                    args: [ "object" ]
+                    priority: 100
+                sylius_captain_metrics_send_order:
+                    on: [ "pay" ]
+                    do: [ "@app.captainmetrics.captainmetrics_api", "sendOrder" ]
+                    args: [ "object" ]
+                sylius_partial_payment_alert:
+                    on: [ "partially_pay" ]
+                    do: [ "@app.mail.swiftmailer.partial_payment_alert", "__invoke" ]
+                    args: [ "object" ]
+                sylius_order_outofstock_planned:
+                    on: [ "pay" ]
+                    do: [ "@app.erp.forward", "orderPlanned" ]
+                    args: [ "object" ]
+                sylius_drip_synch_filleul_to_parrain:
+                    on: [ "pay" ]
+                    do: [ "@app.service.sponsor.sync_filleul_to_parrain_drip", "__invoke" ]
+                    args: [ "object" ]
+                sylius_influencer_command:
+                    on: [ "pay" ]
+                    do: [ "@app.promotion.influencer.command", "checkPromotion" ]
+                    args: [ "object" ]
+                app_shipup_new_order:
+                    on: [ "pay" ]
+                    do: [ "@app.shipup.shipup_api", "order" ]
+                    args: [ "object" ]
+                sylius_invoice_creator:
+                    on: [ "pay" ]
+                    do: [ "@sylius_invoicing_plugin.creator.invoice", "__invoke" ]
+                    args: [ "object.getNumber()", "object.getCheckoutCompletedAt()" ]
+                sylius_carrier_invoice_creator:
+                    on: [ "pay" ]
+                    do: [ "@sylius_invoicing_plugin.creator.invoice", "handleCarrierInvoice" ]
+                    args: [ "object", "object.getCheckoutCompletedAt()" ]
+                sylius_invoice_generator:
+                    on: [ "pay" ]
+                    do: [ "@app.service.invoice_generator", "generate" ]
+                    args: [ "object", "event" ]
+                send_to_doo:
+                    on: [ "pay" ]
+                    do: [ App\Api\Odoo\StateMachine\Event\OnPay, __invoke ]
+                    args: [ "object", "event" ]
+                    priority: 50
+                odoo_order_confirm_return:
+                    on: [ "refund" ]
+                    do: [ App\Api\Odoo\StateMachine\Event\OnDeliver, __invoke ]
+                    args: [ "object" ]

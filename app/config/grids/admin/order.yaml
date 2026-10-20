@@ -1,0 +1,193 @@
+sylius_grid:
+    grids:
+        sylius_admin_order:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: "%sylius.model.order.class%"
+                    repository:
+                        method: createOrderList
+                        arguments:
+                            - 'expr:service("app.criteria_cleaner").clean()'
+            sorting:
+                date: desc
+            fields:
+                channel:
+                    type: twig
+                    label: sylius.ui.channel
+                    sortable: channel.code
+                    path: .
+                    options:
+                        template: "@SyliusAdmin/Order/Grid/Field/store_channel.html.twig"
+                currencyCode:
+                    type: string
+                    enabled: false
+                shippingState:
+                    path: .
+                    type: twig
+                    label: sylius.ui.shipping_state
+                    sortable: ~
+                    options:
+                        template: "@SyliusAdmin/Order/Grid/Field/shippingState.html.twig"
+                        vars:
+                            labels: "@SyliusAdmin/Order/Label/ShippingState"
+            #                items:
+            #                    type: twig
+            #                    label: sylius.ui.items
+            #                    options:
+            #                        template: "@SyliusAdmin/Grid/Field/order_items.html.twig"
+            actions:
+                item:
+                    show:
+                        enabled: false
+                    reorder:
+                        type: default
+                        label: sylius_admin_order_creation.ui.reorder
+                        icon: 'cart plus'
+                        options:
+                            link:
+                                route: sylius_admin_order_creation_bis
+                                parameters:
+                                    id: resource.id
+                            class: orange
+                bulk:
+                    export:
+                        type: export
+                        label: Export CSV
+                        options:
+                            link:
+                                route: sylius_admin_order_index
+                                parameters:
+                                    criteria: "expr:service('request_stack').getCurrentRequest().get('criteria', [])"
+                                    export: csv
+            filters:
+                number:
+                    type: string
+                    label: sylius.ui.number
+                    form_options:
+                        first_type: contains
+                customer:
+                    type: string
+                    label: sylius.ui.customer
+                    options:
+                        fields: [ customer.email, customer.firstName, customer.lastName ]
+                    form_options:
+                        first_type: contains
+                customer_local:
+                    type: entity
+                    label: sylius.ui.customer_locale
+                    options:
+                        fields: [ localeCode ]
+                    form_options:
+                        class: "%sylius.model.locale.class%"
+                        choice_value: code
+                state:
+                    type: admin_order_state
+                    form_options:
+                        state:
+                            sylius.ui.new: new
+                            sylius.ui.fulfilled: fulfilled
+                            sylius.ui.cancelled: cancelled
+                payment_state:
+                    type: admin_order_state
+                    form_options:
+                        state:
+                            sylius.ui.awaiting_payment: awaiting_payment
+                            sylius.ui.paid: paid
+                            sylius.ui.cancelled: cancelled
+                            sylius.ui.refunded: refunded
+                checkout_state:
+                    type: admin_order_state
+                    form_options:
+                        state:
+                            sylius.ui.checkout_state_selected_payment: payment_selected
+                payment_method:
+                    type: entity
+                    label: sylius.ui.payment_method
+                    options:
+                        fields: [ payments.method.id ]
+                    form_options:
+                        class: "%sylius.model.payment_method.class%"
+                shipping_state:
+                    type: admin_order_state
+                    form_options:
+                        state:
+                            sylius.ui.ready: ready
+                            sylius.ui.cancelled: cancelled
+                            sylius.ui.shipped: shipped
+                            sylius.ui.delivered_collected: delivered
+                shipping_date:
+                    type: date
+                    label: sylius.ui.delivery_date
+                    options:
+                        field: shipment.startDeliverySlot
+                        inclusive_to: true
+                shipping_method:
+                    type: entity
+                    label: sylius.ui.shipping_method
+                    options:
+                        fields: [ method.id ]
+                    form_options:
+                        class: "%sylius.model.shipping_method.class%"
+                shipping_department:
+                    type: string
+                    label: sylius.ui.shipping_department
+                    options:
+                        fields: [ address.postcode ]
+                    form_options:
+                        type: starts_with
+                contains_product:
+                    type: entity_custom
+                    label: sylius.ui.contains_product
+                    options:
+                        fields: [ product.id ]
+                    form_options:
+                        needLocale: true
+                        class: "%sylius.model.product.class%"
+                        method: "getForFilter"
+                        attr:
+                            class: "select2"
+                contains_variant:
+                    type: product_variant_autocomplete_custom
+                    label: sylius.ui.contains_variant
+                    options:
+                        fields: [ variant.id ]
+                    form_options:
+                        choice_name: descriptor
+                        choice_value: id
+                        resource: sylius.product_variant
+                promotion:
+                    type: string
+                    label: sylius.ui.promotion
+                    options:
+                        fields: [ promotion.code ]
+                promotion_coupon:
+                    type: string
+                    label: sylius.ui.promotion_coupon
+                    options:
+                        fields: [ promotionCoupon.code ]
+                order_reason:
+                    type: entity
+                    label: sylius.ui.order_reason
+                    options:
+                        fields: [ orderReason.reason ]
+                    form_options:
+                        class: "%sylius.model.reason.class%"
+                        attr:
+                            class: "select2"
+                customer_phone:
+                    type: string
+                    label: sylius.ui.customer_phone
+                    options:
+                        fields: [ customer.phoneNumber ]
+                fastmag:
+                    type: string
+                    label: sylius.ui.fastmag_id
+                    options:
+                        fields: [ fastmag.fastmagId ]
+    templates:
+        filter:
+            admin_order_state: '@SyliusAdmin/Grid/Filter/admin_order_state.html.twig'
+            entity_custom: "@SyliusUi/Grid/Filter/entity.html.twig"
+            product_variant_autocomplete_custom: "@SyliusUi/Grid/Filter/entity.html.twig"
+            product_autocomplete: "@SyliusUi/Grid/Filter/entity.html.twig"

@@ -1,0 +1,43 @@
+parameters:
+    secret: '%env(SECRET)%'
+
+framework:
+    secret: '%secret%'
+    form: true
+    csrf_protection: true
+    validation:
+        enable_annotations: true
+        mapping:
+            paths: [ '%kernel.project_dir%/config/validation/' ]
+    templating: { engines: [ 'twig' ] }
+    trusted_hosts: ~
+    session:
+        handler_id: "snc_redis.session.handler"
+        cookie_secure: auto
+        cookie_samesite: lax
+    serializer:
+        enabled: true
+        mapping:
+            paths:
+                - '%kernel.project_dir%/config/serialization/'
+    php_errors:
+        log: true
+        
+    http_client:
+        scoped_clients:
+            olvo.client:
+                base_uri: '%env(OLVO_API_URL)%'
+                headers:
+                    X-User-Email: '%env(OLVO_API_EMAIL)%'
+                    X-User-Token: '%env(OLVO_API_TOKEN)%'
+            odoo.client:
+                base_uri: '%env(ODOO_API_URL)%'
+                headers:
+                    Accept: 'application/json'
+                    API-KEY: '%env(ODOO_API_KEY)%'
+                    Content-Type: 'application/json'
+            drip.client:
+                base_uri: 'https://api.getdrip.com'
+                auth_basic: '%drip_api_key%:'
+    translator:
+        fallbacks: ['en']

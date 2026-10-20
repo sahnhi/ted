@@ -1,0 +1,7 @@
+sylius_admin:
+    resource: "@SyliusAdminBundle/Resources/config/routing.yml"
+    prefix: /admin
+
+sylius_admin_partial:
+    resource: "admin/partial.yaml"
+    prefix: /admin/_partial

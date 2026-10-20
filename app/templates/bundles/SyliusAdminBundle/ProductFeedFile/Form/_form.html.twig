@@ -1,0 +1,48 @@
+{% from '@SyliusAdmin/Macro/translationForm.html.twig' import translationForm %}
+
+{{ form_errors(form) }}
+<div class='ui segment'>
+    <h4 class='ui dividing header'>{{ 'sylius.ui.product_variant'|trans }}</h4>
+    {{ form_row(form.productVariant) }}
+    <h4 class='ui dividing header'>{{ 'app.form.product_feed_file.google_id_title'|trans }}</h4>
+    {{ form_row (form.googleId) }}
+</div>
+{{ translationForm(form.translations) }}
+<div class='ui segment'>
+    <h4 class='ui dividing header'>{{ 'app.form.product_feed_file.main_image'|trans }}</h4>
+    <div class='two fields'>
+        <div class='field'>
+            {{ form_widget(form.mainImage) }}
+        </div>
+        <div class='field'>
+            <img src='{% if form.vars.value['mainImage'] is defined %}{{ form.vars.value.mainImage}} {% endif %}' class='ui small image'/>
+        </div>
+    </div>
+</div>
+<div class='ui segment'>
+    <h4 class='ui dividing header'>{{ 'app.form.product_feed_file.additional_images'|trans }}</h4>
+        {% if form.additionalImages|length > 0 %}
+            {% for image in form.additionalImages %}
+                <div class='two fields'>
+                    <div class='field'>
+                        {{ form_widget(image) }}
+                    </div>
+                    <div class='field'>
+                        <img src='{{ image.vars.value.url}}' class='ui small image'/>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class='two fields'>
+                <div class='field'>
+                    {{ form_widget(form.additionalImages) }}
+                </div>
+                <div class='field'>
+                    <img src='' class='ui small image'/>
+                </div>
+            </div>
+        {% endif %}
+</div>
+<div class='ui segment'>
+    {{ form_row(form.enabled) }}
+</div>

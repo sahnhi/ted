@@ -1,0 +1,56 @@
+{% extends 'SyliusAdminBundle::layout.html.twig' %}
+
+{% form_theme form '@SyliusUi/Form/theme.html.twig' %}
+{%  if orderReasonForm is defined %}
+    {% form_theme orderReasonForm '@SyliusUi/Form/theme.html.twig' %}
+{%  endif %}
+
+{% block title %}{{ 'sylius.ui.order'|trans ~' #'~ order.number }} {{ parent() }}{% endblock %}
+
+{% set customer = order.customer %}
+
+{% block content %}
+    {{ sonata_block_render_event('sylius.admin.order.update.before_header', {'resource': resource}) }}
+
+    <div class="ui stackable two column grid">
+        <div class="twelve wide column">
+            {% include '@SyliusAdmin/Order/Show/_header.html.twig' %}
+        </div>
+        <div class="four wide right aligned column">
+            {% include '@SyliusAdmin/Order/Update/_actions.html.twig' %}
+        </div>
+    </div>
+
+    {{ sonata_block_render_event('sylius.admin.order.update.after_header', {'resource': resource}) }}
+
+    {% include '@SyliusAdmin/Order/Update/_breadcrumb.html.twig' %}
+
+    {{ sonata_block_render_event('sylius.admin.order.update.after_breadcrumb', {'resource': resource}) }}
+
+    <div class="ui segment">
+        {{ form_start(form, {'attr': {'class': 'ui loadable form', 'novalidate': 'novalidate'}}) }}
+
+        <div class="ui styled fluid accordion">
+            <div class="title active">
+                <i class="dropdown icon"></i> {{ 'sylius.ui.order_reason'|trans }}
+            </div>
+
+            <div class="content active">
+                {% for children in form.orderReason.children %}
+                    {% if children.vars.value.id is null %}
+                        {{ form_widget(children) }}
+                    {% else %}
+                        <div style="display: none">
+                            {{ form_widget(children) }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% include '@SyliusUi/Form/Buttons/_create.html.twig' with {'paths': {'cancel': path('sylius_admin_order_index')}} %}
+
+    {{ form_row(form._token) }}
+    {{ form_end(form, {'render_rest': false}) }}
+{% endblock %}

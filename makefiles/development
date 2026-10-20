@@ -1,0 +1,19 @@
+##
+## ----- Development -----
+##
+
+.PHONY: watch
+watch: node_modules ## Build javascript / scss and watch changes
+	@$(NPM_CMD) run watch
+
+.PHONY: logs
+logs: ## Log chosen container $(CTN). Eg : make logs CTN=php
+	@$(DOCKER_CMD) logs -f $(CTN)
+
+.PHONY: bash
+bash: ## Open a bash for chosen container $(CTN). Eg : make bash CTN=php
+	@$(DOCKER_COMPOSE_CMD) exec $(CTN) sh
+
+.PHONY: exec
+exec: ## Execute your command on chosen container $(CTN). Eg : make exec CTN=php CMD="composer install"
+	@$(DOCKER_COMPOSE_CMD) exec $(CTN) $(CMD)

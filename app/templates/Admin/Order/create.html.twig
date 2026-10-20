@@ -1,0 +1,463 @@
+{% extends 'SyliusAdminBundle::layout.html.twig' %}
+
+{% block title %}{{ 'sylius.ui.new_order'|trans }} {{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/assets/datepicker/css/datepicker.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% form_theme form '@SyliusAdminOrderCreationPlugin/Order/itemCollectionTheme.html.twig' %}
+
+{% if order is defined %}
+    {% set customer_id = order.customer.id %}
+    {% if form.returnType is defined %}
+        {% set channel_code = 'return' %}
+    {% else %}
+        {% set channel_code = order.channel.code %}
+    {% endif %}
+{% else %}
+    {% set customer_id = app.request.attributes.get('customerId') %}
+    {% set channel_code = app.request.attributes.get('channelCode') %}
+{% endif %}
+
+{% block content %}
+    <div class="ui stackable two column grid">
+        <div class="column">
+            <h1 class="ui header">
+                <i class="circular plus icon"></i>
+                <div class="content">{{ 'sylius.ui.new_order'|trans }}</div>
+            </h1>
+            {% include '@SyliusAdminOrderCreationPlugin/Order/Create/_breadcrumb.html.twig' %}
+        </div>
+    </div>
+    {% if configuration.parameters.get('form')['options']['attr']['returnType'] is defined and configuration.parameters.get('form')['options']['attr']['returnType'] == 'refund' %}
+        {% include '@App/Admin/Order/form_refund.html.twig' with {
+            'action': path('sylius_admin_order_creation_order_create_from_preview_refund', {'customerId': customer_id, 'channelCode': channel_code})
+        } %}
+    {% elseif configuration.parameters.get('form')['options']['attr']['returnType'] is defined and configuration.parameters.get('form')['options']['attr']['returnType'] in ['sender', 'warehouse'] %}
+        {% include '@App/Admin/Order/form_sender.html.twig' with {
+            'action': path('sylius_admin_order_creation_order_create_from_preview_'~configuration.parameters.get('form')['options']['attr']['returnType'], {'customerId': customer_id, 'channelCode': channel_code})
+        } %}
+    {% elseif configuration.parameters.get('form')['options']['attr']['returnType'] is defined and configuration.parameters.get('form')['options']['attr']['returnType'] == 'exchange' %}
+        {% include '@App/Admin/Order/form_exchange.html.twig' with {
+            'action': path('sylius_admin_order_creation_order_preview', {'customerId': customer_id, 'channelCode': channel_code})
+        } %}
+    {% else %}
+        {% include '@App/Admin/Order/form.html.twig' with {
+            'action': path('sylius_admin_order_creation_order_preview', {'customerId': customer_id, 'channelCode': channel_code})
+        } %}
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+    <script src="{{ asset('assets/datepicker/js/datepicker.js') }}"></script>
+    <script src="{{ asset('assets/datepicker/js/datepicker.fr.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('input[name$="[wrap]"]').on('change', function(e) {
+                let parentDiv = $(this).closest('[data-form-collection]');
+                let variant = $(parentDiv).find('input[name$="[variant]"]');
+                if (!this.checked && !variant.val().startsWith('R')) {
+                    variant.val('R' + variant.val());
+                } else if (this.checked && variant.val().startsWith('R')) {
+                    variant.val(variant.val().slice(1, variant.val().length));
+                }
+            });
+            $('#sylius_admin_order_creation_new_order_shipments [data-form-collection="add"]').on('click', function(e) {
+                if (!canShippingMethodBeProvided()) {
+                    e.stopPropagation();
+                    return;
+                }
+                loadAvailableShippingMethods();
+            });
+
+            $('#shipmentsAndPaymentsTab').on('click', function(e) {
+                if (canShippingMethodBeProvided()) {
+                    $('#shipmentsAndPayments').find('.invalid-data-message').hide();
+                } else {
+                    $('#shipmentsAndPayments').find('.invalid-data-message').show();
+                }
+
+                if ($('#shipmentsAndPayments select').length != 0) { //disable here if we want to keep previous transporter
+                    loadAvailableShippingMethods();
+                }
+            });
+
+            $('[data-form-collection="item"] .sylius-autocomplete.dropdown').each(function() {
+                $(this).dropdown('set text', $(this).find('input[type="hidden"]').val());
+            });
+
+            jQuery('#sylius_admin_order_creation_new_order_outOfStockToggler').on('change', function(){
+                loadAvailableShippingMethods();
+            });
+
+            jQuery('#sylius_admin_order_creation_new_order_parentState').on('change', function(){
+                if ('solved' === $(this).val()) {
+                    $('#out-of-stock-toggler').hide();
+                    $('#out-of-stock-status').show();
+                    $('#out-of-stock-status').find('select option').prop('selected', true);
+                } else {
+                    $('#out-of-stock-toggler').show();
+                    $('#out-of-stock-status').hide();
+                    $('#out-of-stock-status').find('select option').prop('selected', false);
+                }
+            });
+
+            /**
+             * Selects a time slot in the calendar
+             */
+            jQuery('#calendar-component #providers').on('click', '.slot:not(.disabled)', function(event) {
+                event.preventDefault();
+                removeSelected('#providers');
+                $(this).addClass('selected');
+
+                var provider = $(this).attr('data-provider');
+                var place = $(this).attr('data-place');
+                var start = $(this).attr('data-start');
+                var end = $(this).attr('data-end');
+                var date = jQuery('#delivery-date').val();
+
+                var dateString = getIsoDate(date)
+
+                var startHour = parseInt(start.split(':')[0])
+                var startMinute = parseInt(start.split(':')[1])
+                var endHour = parseInt(end.split(':')[0])
+                var endMinute = parseInt(end.split(':')[1])
+
+                jQuery('select[data-shipment="true"]').first().val(provider);
+                jQuery('input[data-shipment-id="true"]').first().val(place);
+                jQuery('div[data-start-slot="true"] input[type="date"]').first().val(dateString);
+                jQuery('div[data-start-slot="true"] select[id*="hour"]').first().val(startHour);
+                jQuery('div[data-start-slot="true"] select[id*="minute"]').val(startMinute);
+                jQuery('div[data-end-slot="true"] input[type="date"]').first().val(dateString);
+                jQuery('div[data-end-slot="true"] select[id*="hour"]').first().val(endHour);
+                jQuery('div[data-end-slot="true"] select[id*="minute"]').first().val(endMinute);
+            });
+
+            function loadAvailableShippingMethods($shipmentNumber) {
+                if (!canShippingMethodBeProvided()) {
+                    return;
+                }
+
+                let form = $('form');
+                form.addClass('loading');
+                setVariantProductReturn('input[id*="_items_"][name$="[variant]"]');
+                let formCalendar = form.clone();
+                let url = '/shop-api/{{ channel_code }}/fr/erp/calendar';
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        date: new Date().toISOString().split('T')[0],
+                        limit: 40,
+                        products: getProducts(formCalendar),
+                        countryCode: jQuery('#sylius_admin_order_creation_new_order_shippingAddress_countryCode').val(),
+                        postalCode: jQuery('#sylius_admin_order_creation_new_order_shippingAddress_postcode').val(),
+                        channelCode: '{{ channel_code }}',
+                        calendar: 0
+                    },
+                    dataType: "json",
+                    accept: "application/json",
+                    success: function(data) {
+                        let lastShipment = $('#sylius_admin_order_creation_new_order_shipments [data-shipment="true"]');
+                        let selectBody = '';
+
+                        $.each(data, function(key, value) {
+                            $.each(value, function(key, value){
+                                selectBody += '<option value="'+value+'">'+value+'</option>';
+                            });
+                        });
+
+                        loadRelays(data, {
+                            countryCode: $('#sylius_admin_order_creation_new_order_shippingAddress_countryCode').val(),
+                            zipCode: $('#sylius_admin_order_creation_new_order_shippingAddress_postcode').val(),
+                            city: $('#sylius_admin_order_creation_new_order_shippingAddress_city').val(),
+                            address: $('#sylius_admin_order_creation_new_order_shippingAddress_street').val(),
+                            products: getProducts($('form')),
+                        });
+
+                        lastShipment.html(selectBody);
+
+                        try {
+                            initDatepicker(new Date().toISOString().split('T')[0], formCalendar)
+                            jQuery('#calendar-component').fadeIn();
+                        } catch(e) {
+                            // statements
+                            console.log(e);
+                        } finally {
+                            form.removeClass('loading');
+                        }
+                    },
+                    error: function (data){
+                        alert(data.responseJSON.message);
+                        form.removeClass('loading');
+                    }
+                });
+
+                function setVariantProductReturn(selector) {
+                    $(selector).each(function() {
+                        let wrap = $(this).closest('.field').next('.field').find('input');
+                        if (!wrap.is(":checked") && wrap.length) {
+                            if (!$(this).val().startsWith('R')) {
+                                $(this).val('R'+$(this).val());
+                            }
+                        }
+                    });
+                }
+            }
+
+            function canShippingMethodBeProvided() {
+                return $('#sylius_admin_order_creation_new_order_items [data-form-collection="item"]').length > 0 && $('#sylius_admin_order_creation_new_order_shippingAddress_countryCode').val() !== '';
+            }
+
+            /**
+             * Formats the product list for baloo
+             */
+            function getProducts (formCalendar) {
+                var products = [];
+                $(formCalendar).find('#sylius_admin_order_creation_new_order_items div[data-form-collection="item"]').each(function(index, el) {
+                    var quantity = jQuery(el).children('.field').children('.item-quantity').val()
+                    var code = jQuery(el).children('.field').children('.sylius-autocomplete').children('.autocomplete').val()
+                    var product = {
+                        'code': code,
+                        'quantity': quantity
+                    }
+
+                    products.push(product);
+                });
+                return products;
+            }
+
+            /**
+             * Sends a request to the backend
+             * Inits the calendar plugin
+             * Fills the date with relevant data
+             *
+             * @param  {String} iso formated date, the first day to request
+             *
+             */
+            function initDatepicker (requestDate, formCalendar) {
+                resetCalendar();
+
+                var url = '/shop-api/{{ channel_code }}/fr/erp/calendar';
+                if ($('#sylius_admin_order_creation_new_order_outOfStockToggler').is(':checked')) {
+                    url = url + '?without_stock=1'
+                }
+
+                jQuery("#calendar-component").fadeIn('normal', function() {
+                    jQuery('#calendar-loading').fadeIn();
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data: {
+                            date: requestDate,
+                            limit: 40,
+                            products: getProducts(formCalendar),
+                            countryCode: jQuery('#sylius_admin_order_creation_new_order_shippingAddress_countryCode').val(),
+                            postalCode: jQuery('#sylius_admin_order_creation_new_order_shippingAddress_postcode').val(),
+                            channelCode: '{{ channel_code }}'
+                        }
+                    })
+                        .done(function(results) {
+                            if(results && !('error' in results)) {
+                                let month = requestDate.split('-')[1];
+                                let splited = Object.keys(results)[0].split('-');
+                                let firstmonth = splited[1];
+
+                                if (firstmonth !== month) {
+                                    initDatepicker(splited[0]+'-'+firstmonth+'-01', formCalendar);
+                                    return;
+                                }
+
+                                //Datepicker plugin initialization
+                                $('#delivery-date').datepicker({
+                                    minDate: new Date(requestDate),
+                                    disableNavWhenOutOfRange: false,
+                                    inline: true,
+                                    autoClose: false,
+                                    toggleSelected: false,
+                                    onSelect: function (formattedDate, date, inst) {
+                                        var selectedDate = getIsoDate(date)
+                                        jQuery('#delivery-date').val(date);
+                                        if((selectedDate in results)) {
+                                            var vals = Object.keys(results[selectedDate]['times']).map(function(key) {
+                                                return results[selectedDate]['times'][key];
+                                            });
+                                            buildSlots(vals);
+                                        }
+                                    },
+                                    onRenderCell: function (date, cellType) {
+                                        if (cellType == 'day') {
+                                            var dayClass = 'slots';
+                                            var currentDate = getIsoDate(date);
+                                            var isDisabled = true;
+                                            if((currentDate in results)) {
+                                                isDisabled = false;
+                                                var slots = results[currentDate]['times'];
+                                                var length = (Array.isArray(slots)) ? slots.length : Object.keys(slots).length
+                                                var first = (Array.isArray(slots)) ? slots[0] : slots[Object.keys(slots)[0]]
+                                                dayClass += (length && first.dailyDelivery) ? ' long' : ' short';
+                                            }
+                                            if(date > new Date()) dayClass += ' future';
+                                            return {
+                                                classes: dayClass,
+                                                disabled: isDisabled
+                                            }
+                                        }
+                                    },
+                                    onChangeMonth: function (month, year) {
+                                        var newDate = new Date()
+                                        newDate.setFullYear(year, month, 1)
+                                        initDatepicker(getIsoDate(newDate), formCalendar)
+                                    }
+                                });
+                                jQuery('#calendar-loading').fadeOut();
+
+                                var myDatepicker = $('#delivery-date').datepicker().data('datepicker');
+                                myDatepicker.selectDate(new Date(requestDate));
+
+                                if (Object.keys(results).length) {
+                                    let firstDate = results[Object.keys(results)[0]];
+                                    let firstTime = firstDate.times[Object.keys(firstDate.times)[0]];
+
+                                    if (firstTime.providerName === 'POSTE') {
+                                        $('#calendar-component').hide();
+                                        let date = Object.keys(results)[0].split('-');
+                                        $('div[data-date="'+ parseInt(date[2]) +'"][data-month="'+ (parseInt(date['1']) -1) +'"][data-year="'+ date[0] +'"]').trigger('click');
+                                        $('.slot').first().trigger('click');
+                                    } else {
+                                        $('#calendar-component').show();
+                                    }
+                                }
+
+                            } else if(!jQuery('#sylius_admin_order_creation_new_order_shippingAddress_postcode').val() || !jQuery('#sylius_admin_order_creation_new_order_shippingAddress_countryCode').val()) {
+                                jQuery('#calendar-loading').fadeOut();
+                                jQuery('#providers').fadeOut();
+                                jQuery('#calendar-component #error .found-error').toggleClass('d-hide');
+                                jQuery('#calendar-component #error').toggleClass('d-hide');
+                            } else {
+                                jQuery('#calendar-loading').fadeOut();
+                                jQuery('#providers').fadeOut();
+                                jQuery('#calendar-component #error .empty-error').toggleClass('d-hide');
+                                jQuery('#calendar-component #error').toggleClass('d-hide');
+                            }
+                        }).fail(function(data) {
+                        console.log(data);
+
+                        let messages = {
+                            'product_disabled': '{{ 'sylius.ui.calendar_errors.product_disabled' | trans }}',
+                            'no_zone': '{{ 'sylius.ui.calendar_errors.no_zone' | trans }}',
+                            'no_providers': '{{ 'sylius.ui.calendar_errors.no_providers' | trans }}'
+                        };
+
+                        jQuery('#calendar-loading').fadeOut();
+                        jQuery('#providers').fadeOut();
+                        jQuery('#calendar-component #error').fadeIn();
+                        jQuery('#calendar-component #error .text-error').html(messages[data.responseJSON.message]);
+                        jQuery('#calendar-component #error').toggleClass('d-hide');
+                    });
+                });
+            }
+
+            /**
+             * Returns the iso formated date
+             * without timezone considerations
+             *
+             * @param  Date date
+             *
+             * @return String
+             */
+            function getIsoDate(date) {
+                if (date instanceof Date) {
+                    var month = date.getMonth();
+                    if(month < 9) {
+                        month = '0' + (month + 1);
+                    } else {
+                        month++;
+                    }
+                    var day = date.getDate();
+                    if(day < 10) {
+                        day = '0' + day;
+                    }
+                    return date.getFullYear() + '-' + month.toString() + '-' + day.toString();
+                }
+            }
+
+            /**
+             * Resets the calendar component
+             */
+            function resetCalendar () {
+                var myDatepicker = $('#delivery-date').datepicker().data('datepicker');
+                myDatepicker.destroy();
+                jQuery('#providers').fadeIn();
+                jQuery('#calendar-component #error').fadeOut();
+                jQuery('#calendar-component .text-error').html('');
+                jQuery('#calendar-component #days').html('');
+                jQuery('#calendar-component #providers').html('');
+            }
+
+            /**
+             * Builds DOM structure for the calendar providers
+             *
+             * @param  {object} Provider to build
+             */
+            function buildSlots (slots) {
+                jQuery('#providers').html('');
+                var row = '<div class="sixteen wide column d-flex flex-column slots my-5">';
+                if (slots.length) {
+                    for (var i = 0; i < slots.length; i++) {
+                        row += buildSlot(slots[i]);
+                    }
+                    if(slots.length === 1) {
+                        row += '<span class="text-error">'+jQuery('#providers').attr('data-only-slot')+'</span>';
+                    }
+                } else {
+                    row += buildEmpty();
+                }
+                row += '</div>';
+                jQuery('#providers').append(row);
+            }
+
+            /**
+             * Builds DOM structure for the calendar provider slots
+             *
+             * @param  {object} Slot to build
+             */
+            function buildSlot (slot) {
+                var startTime = parseInt(slot.start_time.substring(0, 2));
+                var endTime = parseInt(slot.end_time.substring(0, 2));
+                var slotClass = '';
+                if(startTime < 13) slotClass = 'morning';
+                if(endTime > 13) slotClass = 'afternoon';
+                var html = '<div class="sixteen wide column '+ slotClass +'"><div class="slot text-center d-flex flex-row" data-start="' + slot.start_time + '" data-end="' + slot.end_time + '" data-provider="' + slot.providerName + '" data-place="' + slot.place + '"><span>' + slot.start_time + '</span><span> - </span><span>' + slot.end_time + '</span></div></div>';
+                return html;
+            }
+
+            /**
+             * Builds DOM structure for the calendar provider empty slots
+             *
+             */
+            function buildEmpty () {
+                var html = '<br>Il n’y a malheureusement pas de créneaux disponibles pour cette journéee. <br><br> Pourquoi ne pas tenter votre chance avec le jour suivant ?';
+                return html;
+            }
+
+            /**
+             * Utility function to remove 'selected' class
+             *
+             * @param  {string} CSS selector of the parent container
+             */
+            function removeSelected(target) {
+                var selected = document.querySelectorAll(target+" *");
+                for(var k= 0; k < selected.length ; k++){
+                    selected[k].classList.remove('selected');
+                }
+            }
+        });
+    </script>
+{% endblock %}

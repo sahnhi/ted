@@ -1,0 +1,9 @@
+parameters:
+    carriers:
+        dpd:
+            login: EXA
+            access_key: deecd7bc81b71fcc0e292b53e826c48f
+            base_url: http://mypudo.pickup-services.com/mypudo/mypudo.asmx/GetPudoList
+            days_to_add: 2
+            enabled: 1
+            shipping_method_code: DPWR

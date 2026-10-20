@@ -1,0 +1,27 @@
+app_admin_admin_parameter:
+    resource: |
+        alias: app.admin_parameter
+        section: admin
+        templates: "@SyliusAdmin\\Crud"
+        redirect: update
+    type: sylius.resource
+
+app_admin_admin_parameter_update_days_delay_review:
+    path: /admin-parameter/{id}/edit-days-delay-review
+    methods: [ GET, PUT, PATCH ]
+    defaults:
+        _controller: app.controller.admin_parameter:updateAction
+        _sylius:
+            section: admin
+            template: "@App/Admin/AdminParameter/update.html.twig"
+            redirect:
+                route: app_admin_ask_review_template_index
+            form:
+                type: App\Form\Type\DaysDelayReviewType
+            vars:
+                update:
+                    route:
+                        name: app_admin_admin_parameter_update_days_delay_review
+                index:
+                    route:
+                        name: app_admin_ask_review_template_index

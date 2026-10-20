@@ -1,0 +1,21 @@
+App\Doctrine\Entity\BundleAssociation:
+    bundle_association_pack_lit_1:
+        bundle: '@pack_lit_variant'
+        prices: ['@bundle_price_pack_lit']
+        quantity: 1
+        variant: '@bed_frame_product_variant_1'
+    bundle_association_pack_lit_2:
+        bundle: '@pack_lit_variant'
+        prices: ['@bundle_price_pack_lit']
+        quantity: 1
+        variant: '@mattress_product_variant_160_200'
+    bundle_association_pack_couette_1:
+        bundle: '@pack_couette_variant'
+        prices: ['@bundle_price_pack_couette']
+        quantity: 1
+        variant: '@couette_product_variant_1' 
+    bundle_association_pack_couette_2:
+        bundle: '@pack_couette_variant'
+        prices: ['@bundle_price_pack_couette']
+        quantity: 1
+        variant: '@oreiller_product_variant_1'

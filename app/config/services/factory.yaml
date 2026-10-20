@@ -1,0 +1,45 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Factory\OrderFactory:
+        decorates: Sylius\AdminOrderCreationPlugin\Factory\OrderFactory
+        arguments:
+            $appReorderProcessor: '@app.reorder_processing'
+            $pluginReorderProcessor: '@Sylius\AdminOrderCreationPlugin\ReorderProcessing\CompositeReorderProcessor'
+            $tokenAssigner: '@sylius.unique_id_based_order_token_assigner'
+            $shipmentFactory: '@sylius.factory.shipment'
+            $orderItemFactory: '@sylius.factory.order_item'
+        public: false
+
+    app.factory.promotion:
+        class: App\Factory\PromotionFactory
+        decorates: sylius.factory.promotion
+        arguments:
+            $decoratedFactory: '@app.factory.promotion.inner'
+        public: false
+    
+    App\Factory\PromotionFactory: '@app.factory.promotion'
+
+    App\Factory\PromotionRuleFactory:
+        decorates: sylius.factory.promotion_rule
+        public: false
+
+    App\Factory\PromotionActionFactory:
+        decorates: sylius.factory.promotion_action
+
+    App\Factory\GiftCard\GiftCardFactory:
+        decorates: setono_sylius_gift_card.custom_factory.gift_card
+        public: false
+    
+    app.factory.quality:
+        class: App\Factory\QualityFactory
+    
+    App\Services\BI\Factory\ProductBiFactory:
+        public: false
+
+    App\Factory\ShipmentFactory:
+        decorates: 'sylius.factory.shipment'
+        arguments:
+            $decoratedShipmentFactory: '@App\Factory\ShipmentFactory.inner'

@@ -1,0 +1,54 @@
+Sylius\Component\Core\Model\ProductTranslation:
+    mattress_product_translation_fr:
+        translatable: '@mattress_product'
+        name: 'matelas'
+        slug: 'mattress'
+        locale: 'fr_FR'
+        
+    bed_frame_product_translation_fr:
+        translatable: '@bed_frame_product'
+        name: 'Le sommier'
+        slug: 'sommier'
+        locale: 'fr_FR' 
+
+    bundle_couette_oreillers_product_translation_fr:
+        translatable: '@pack_couette'
+        name: 'Le pack couette'
+        slug: 'pack-couette'
+        locale: 'fr_FR'
+
+    bundle_lit_adult_product_translation_fr:
+        translatable: '@pack_lit'
+        name: 'Le pack lit adulte'
+        slug: 'pack-lit-adulte'
+        locale: 'fr_FR'
+    
+    oreiller_product_translation_fr:
+        translatable: '@oreiller_product'
+        name: 'oreiller'
+        slug: 'oreiller'
+        locale: 'fr_FR'
+    
+    couette_product_translation_fr:
+        translatable: '@couette_product'
+        name: 'couette'
+        slug: 'couette'
+        locale: 'fr_FR'    
+    
+    product_assembly_translation:
+        translatable: '@product_assembly'
+        name: 'Assemblage'
+        slug: 'assembly'
+        locale: 'fr_FR' 
+    
+    product_recuperation_translation:
+        translatable: '@product_recuperation'
+        name: 'Récupération'
+        slug: 'recuperation'
+        locale: 'fr_FR' 
+    
+    discounted_product_translation_fr:
+        translatable: '@discounted_product'
+        name: 'Produit en promotion'
+        slug: 'discounter-product'
+        locale: 'fr_FR'

@@ -1,0 +1,11 @@
+{{ form_start(form, {'attr': {'action': path('app_admin_order_update_customer', {'id': resource.id}), 'class': 'ui form loadable', 'id': form.vars.name, 'novalidate': 'novalidate'}}) }}
+    <input type="hidden" name="_method" value="PUT">
+    <p>{{ 'app.ui.select_customer_by_email'|trans }} :</p>
+    {% set emailData = order.customer.email %}
+    {% if form.updatedEmail.vars.data is not null %}
+        {% set emailData = form.updatedEmail.vars.data %}
+    {% endif %}
+
+    {{ form_row(form.updatedEmail, {'value': emailData}) }}
+    {{ form_row(form._token)}}
+{{ form_end(form, {'render_rest': false}) }}

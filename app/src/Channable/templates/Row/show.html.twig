@@ -1,0 +1,8 @@
+{% extends '@SyliusAdmin/layout.html.twig' %}
+
+{% import '@SyliusUi/Macro/headers.html.twig' as headers %}
+{% block title %}{{ 'app.ui.file_importer.page_title'|trans }} {% endblock %}
+
+{% block content %}
+    {{ sylius_template_event('sylius.admin.channable.row', _context) }}
+{% endblock %}

@@ -1,0 +1,149 @@
+{% extends 'SyliusAdminBundle::layout.html.twig' %}
+
+{% form_theme form '@SyliusUi/Form/theme.html.twig' %}
+{%  if orderReasonForm is defined %}
+    {% form_theme orderReasonForm '@SyliusUi/Form/theme.html.twig' %}
+{%  endif %}
+
+{% block title %}{{ 'sylius.ui.order'|trans ~' #'~ order.number }} {{ parent() }}{% endblock %}
+
+{% set customer = order.customer %}
+
+{% block content %}
+    {{ sonata_block_render_event('sylius.admin.order.show.before_header', {'resource': resource}) }}
+
+    {% include 'Admin/Order/Partial/_contents-header.html.twig' %}
+
+    {{ sonata_block_render_event('sylius.admin.order.show.after_header', {'resource': resource}) }}
+
+    {% include '@SyliusAdmin/Order/Show/_breadcrumb.html.twig' %}
+
+    {{ sonata_block_render_event('sylius.admin.order.show.after_breadcrumb', {'resource': resource}) }}
+
+    {% include 'Admin/Order/Partial/_contents.html.twig' %}
+
+    {{ sonata_block_render_event('sylius.admin.order.show.after_content', {'resource': resource}) }}
+{% endblock %}
+
+{% block javascripts %}
+    {% include '@SyliusUi/_javascripts.html.twig' with {'path': 'assets/admin/js/app.js'} %}
+
+    {{ sonata_block_render_event('sylius.admin.layout.javascripts') }}
+
+    {# BEGIN CUSTOM: Custom code for reason module, alert for a problem #}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script>
+        const body = $('body');
+        body.on('change', '.reason_motif' ,function () {
+            const select = this;
+            const reason = select.value;
+
+            $.ajax({
+                type: "GET",
+                url: Routing.generate(
+                    'sylius_admin_reason_placeholder',
+                    {'id': reason},
+                ),
+                success: function (data) {
+                    const child = $(select).parent().parent().children();
+                    const textarea = $(child[4]).children('textarea');
+                    $(textarea).attr('placeholder', '');
+                    if (data.placeholder != null) {
+                        $(textarea).attr('placeholder', data.placeholder);
+                        $(textarea).prop('required', true);
+                    } else {
+                        $(textarea).prop('required', false);
+                    }
+
+                    const product = $(child[1]).children('select');
+                    if (data.productRule === 1 || data.productRule === 2) {
+                        //@todo Populate product form based on productRuleValue
+                        $(product).prop('required', true);
+                    } else {
+                        $(product).prop('required', false);
+                    }
+                }
+            });
+        });
+
+        body.on('change', '.reason_variant', function () {
+            const selectProduct = this;
+            const child = $(selectProduct).parent().parent().children();
+            const quantityInput = $(child[2]).children('input');
+
+            if (selectProduct.value === '') {
+                $(quantityInput).attr('disabled', true);
+                $(quantityInput).val(null);
+            } else {
+                $(quantityInput).attr('disabled', false).prop('required', true);
+            }
+
+            $(quantityInput).attr({
+                'max': $(selectProduct).find(':selected').data('variant-quantity'),
+                'min': 0
+            });
+        });
+
+        $('.lock-reason').click(function (e) {
+            e.preventDefault();
+            $(this).toggleClass('green').toggleClass('red');
+            $(this).children('i').toggleClass('lock').toggleClass('unlock');
+
+            const parentForm = $(this).closest('form');
+            const addButton = $(parentForm).find('.add-reason');
+            $(addButton).toggleClass('disabled');
+
+            const submitButton = $(parentForm).find('.reason-submit');
+            $(submitButton).toggleClass('disabled');
+
+            setDisabled(parentForm);
+        });
+
+         setDisabled = function (parentForm) {
+             const input = $(parentForm).find('input');
+             $(input).each(function() {
+                 if ($(this).is(":visible")) {
+                     if ($(this).attr('disabled')) {
+                         $(this).removeAttr('disabled');
+                     } else {
+                         $(this).attr('disabled', 'disabled');
+                     }
+                 }
+             });
+
+             const textarea = $(parentForm).find('textarea');
+             $(textarea).each(function() {
+                 if ($(this).attr('disabled')) {
+                     $(this).removeAttr('disabled');
+                     $(this).prop('required', false);
+                 } else {
+                     $(this).attr('disabled', 'disabled');
+                 }
+             });
+
+             const select = $(parentForm).find('select');
+             $(select).each(function() {
+                 if ($(this).attr('disabled')) {
+                     $(this).removeAttr('disabled');
+                 } else {
+                     $(this).attr('disabled', 'disabled');
+                 }
+             });
+
+             const deleteButton = $(parentForm).find('.delete-reason');
+             $(deleteButton).toggleClass('disabled');
+         };
+
+        $(document).ready(function(){
+            $('.logistic-toggler').each(function(){
+               $(this).click(function(){
+                   $('.logistic-row[data-id="'+$(this).data('id')+'"]').toggle();
+                   $(this).find('.logistic-label-hide').toggle();
+                   $(this).find('.logistic-label-show').toggle();
+               });
+            });
+        });
+    </script>
+    {# END CUSTOM #}
+{% endblock %}

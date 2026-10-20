@@ -1,0 +1,11 @@
+shop_api_payment_capture_token:
+    path: /capture
+    methods: [ GET ]
+    defaults:
+        _controller: PayumBundle:Capture:doSessionToken
+
+shop_api_payment_capture_do:
+    path: /capture/{token}
+    methods: [ GET ]
+    defaults:
+        _controller: PayumBundle:Capture:do

@@ -1,0 +1,13 @@
+<div class='ui segment variant_sort' id='variant_{{variant.id}}'>
+    <h4 class='ui dividing header'>{{ variant.variant.name }}</h4>
+    <div class='ui two column stackable grid'>
+       <div class='column'>
+            <label for='variant_satellite_url_{{variant.id}}'>Page Satellite URL</label>
+            <input id='variant_satellite_url_{{ variant.id}}' type='text' value='{{ variant.satellitePageUrl }}' data-action='campaign_satellite_changed' data-id='{{ variant.id }}' data-campaign='{{ variant.campaign.id }}' data-variant='{{ variant.variant.id}}' />
+        </div>
+        <div class='column'>
+            <label for='variant_position_{{variant.id}}'>Position</label>
+            <input for='variant_position_{{variant.id}}' type='text' value='{{ 1 }}' />
+        </div>
+    </div>
+</div>

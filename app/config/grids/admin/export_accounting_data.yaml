@@ -1,0 +1,48 @@
+sylius_grid:
+    templates:
+        action: 
+            download: "@SyliusAdmin/ExportAccountingData/grid_download_button.html.twig"
+    grids:
+        app_admin_export_accounting_data:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: App\Doctrine\Entity\ExportAccountingData
+            fields:
+                id:
+                    type: string
+                    sortable: ~ 
+                scope:
+                    type: string
+                    label: app.ui.export_accounting_data.scope
+                startDate:
+                    type: datetime
+                    label: sylius.ui.start_date
+                    options:
+                        format: 'd/m/Y'
+                endDate:
+                    type: datetime
+                    label: sylius.ui.end_date
+                    options:
+                        format: 'd/m/Y'
+                status:
+                    type: string
+                    label: sylius.ui.status
+            sorting:
+                id: desc
+            actions:
+                main:
+                    create:
+                        type: create
+                item:
+                    download:
+                        type: download
+                        label: app.ui.export_accounting_data.download
+                        options:
+                            link:
+                                url: app_admin_export_accounting_data_download
+                                parameters: 
+                                    id: resource.id 
+                            state: resource.status
+                
+
